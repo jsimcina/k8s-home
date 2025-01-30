@@ -5,8 +5,7 @@ kind: CiliumLoadBalancerIPPool
 metadata:
   name: pool
 spec:
-  allowFirstLastIPs: "Yes"
+  allowFirstLastIPs: "No"
   blocks:
     - # Controller VIP: 10.12.0.254
-      start: 10.12.0.100
-      stop: 10.12.0.200
+      cidr: "10.12.0.0/24"
