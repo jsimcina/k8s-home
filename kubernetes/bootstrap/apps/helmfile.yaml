@@ -18,26 +18,19 @@ repositories:
     url: https://charts.jetstack.io
 
 releases:
-  - name: kube-prometheus-stack-crds
-    namespace: monitoring
-    chart: oci://ghcr.io/prometheus-community/charts/prometheus-operator-crds
-    version: 17.0.2
-
   - name: cilium
     namespace: kube-system
     chart: cilium/cilium
     version: 1.16.6
     values:
-      - ../apps/kube-system/cilium/app/helm-values.yaml
-    needs:
-      - monitoring/kube-prometheus-stack-crds
+      - ../../apps/kube-system/cilium/app/helm-values.yaml
 
   - name: coredns
     namespace: kube-system
     chart: coredns/coredns
     version: 1.38.1
     values:
-      - ../apps/kube-system/coredns/app/helm-values.yaml
+      - ../../apps/kube-system/coredns/app/helm-values.yaml
     needs:
       - kube-system/cilium
 
@@ -46,7 +39,7 @@ releases:
     chart: jetstack/cert-manager
     version: v1.16.3
     values:
-      - ../apps/cert-manager/cert-manager/app/helm-values.yaml
+      - ../../apps/cert-manager/cert-manager/app/helm-values.yaml
     needs:
       - kube-system/coredns
 
@@ -55,27 +48,16 @@ releases:
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
     version: 0.13.0
     values:
-      - ../apps/external-secrets/external-secrets/app/helm-values.yaml
+      - ../../apps/external-secrets/external-secrets/app/helm-values.yaml
     needs:
       - cert-manager/cert-manager
-
-  - name: wipe-rook
-    namespace: kube-system
-    chart: oci://ghcr.io/bjw-s/helm/app-template
-    version: 3.6.1
-    values:
-      - ./templates/wipe-rook.yaml.gotmpl
-    needs:
-      - external-secrets/external-secrets
 
   - name: flux-operator
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.13.0
     values:
-      - ../apps/flux-system/flux-operator/app/helm-values.yaml
-    needs:
-      - kube-system/wipe-rook
+      - ../../apps/flux-system/flux-operator/app/helm-values.yaml
 
   - name: flux-instance
     namespace: flux-system
@@ -83,6 +65,6 @@ releases:
     version: 0.13.0
     wait: false
     values:
-      - ../apps/flux-system/flux-operator/instance/helm-values.yaml
+      - ../../apps/flux-system/flux-operator/instance/helm-values.yaml
     needs:
       - flux-system/flux-operator

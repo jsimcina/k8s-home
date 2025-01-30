@@ -12,9 +12,10 @@ instance:
     - notification-controller
   sync:
     kind: GitRepository
-    url: https://github.com/jsimcina/k8s-home
+    url: ssh://github.com/jsimcina/k8s-home.git
     ref: refs/heads/main
     path: kubernetes/flux/cluster
+    pullSecret: github-deploy-key
   commonMetadata:
     labels:
       app.kubernetes.io/name: flux
