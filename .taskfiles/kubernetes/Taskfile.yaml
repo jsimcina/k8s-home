@@ -17,6 +17,23 @@ tasks:
       - kubectl browse-pvc --version
       - which kubectl
 
+  resources:
+    desc: Gather common resources in your cluster, useful when asking for support
+    cmds:
+      - for: { var: resource }
+        cmd: kubectl get {{.ITEM}} {{.CLI_ARGS | default "-A"}}
+    vars:
+      resource: >-
+        nodes
+        gitrepositories
+        kustomizations
+        helmrepositories
+        helmreleases
+        certificates
+        certificaterequests
+        ingresses
+        pods
+
   node-shell:
     desc: Open a shell to a node [NODE=required]
     interactive: true
