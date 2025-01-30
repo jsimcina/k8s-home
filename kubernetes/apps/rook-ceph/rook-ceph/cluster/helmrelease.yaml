@@ -26,8 +26,8 @@ spec:
   dependsOn:
     - name: rook-ceph-operator
       namespace: rook-ceph
-#    - name: snapshot-controller
-#      namespace: volsync-system
+    - name: snapshot-controller
+      namespace: volsync-system
   values:
     monitoring:
       enabled: true
@@ -56,6 +56,8 @@ spec:
         urlPrefix: /
         ssl: false
         #prometheusEndpoint: http://prometheus-operated.monitoring.svc.cluster.local:9090
+      mon:
+        count: 1
       mgr:
         modules:
           - name: insights
