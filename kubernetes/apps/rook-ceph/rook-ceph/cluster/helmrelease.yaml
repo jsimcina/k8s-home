@@ -71,7 +71,7 @@ spec:
         connections:
           requireMsgr2: true
       storage:
-        useAllNodes: true
+        useAllNodes: false
         useAllDevices: false
         nodes:
           - name: k8s-home-01
