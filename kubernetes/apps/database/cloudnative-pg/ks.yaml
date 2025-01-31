@@ -41,6 +41,7 @@ spec:
   #  - ../../../../flux/components/gatus/guarded
   dependsOn:
     - name: cloudnative-pg
+      namespace: database
   path: ./kubernetes/apps/database/cloudnative-pg/cluster
   prune: true
   sourceRef:
