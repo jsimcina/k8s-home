@@ -1,0 +1,5 @@
+---
+mqtt:
+  broker: mqtt.jonandlinz.com
+  username: !secret mqtt_user
+  password: !secret mqtt_password

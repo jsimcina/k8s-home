@@ -1,0 +1,110 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: esphome
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controllers:
+      esphome:
+        annotations:
+          secret.reloader.stakater.com/reload: esphome-secrets
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "network",
+                "ips": ["10.21.5.11/16"],
+                "mac": "00:02:b3:df:ed:1b"
+              }]
+          nodeSelector:
+            multus: "active"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/esphome/esphome
+              tag: 2024.12.4
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 5m
+                memory: 512M
+              limits:
+                memory: 4096M
+
+    service:
+      app:
+        controller: esphome
+        ports:
+          http:
+            port: 6052
+
+    ingress:
+      app:
+        className: "internal"
+        hosts:
+          - host: &host esphome.jonandlinz.io
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      config:
+        existingClaim: esphome
+        advancedMounts:
+          esphome:
+            app:
+              - path: /config
+      secrets:
+        type: secret
+        name: esphome-secrets
+        globalMounts:
+          - path: /config/secrets.yaml
+            subPath: secrets.yaml
+      esphome-cache:
+        type: emptyDir
+        globalMounts:
+          - path: /config/.esphome
+      esphome-basefiles:
+        enabled: true
+        type: configMap
+        name: esphome-basefiles
+        advancedMounts:
+          esphome:
+            app:
+              - path: /config/.base-wifi.yaml
+                subPath: .base-wifi.yaml
+                readOnly: true
+              - path: /config/.base-mqtt.yaml
+                subPath: .base-mqtt.yaml
+                readOnly: true
+              - path: /config/.wyzeoutlet-common.txt
+                subPath: .wyzeoutlet-common.txt
+                readOnly: true
+              - path: /config/.ikea-vindriktning-common.yaml
+                subPath: .ikea-vindriktning-common.yaml
+                readOnly: true

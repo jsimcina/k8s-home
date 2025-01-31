@@ -1,0 +1,33 @@
+esphome:
+  name: $devicename
+  friendly_name: $friendlyname
+
+
+esp8266:
+  board: d1_mini
+
+
+# Enable logging
+logger:
+  baud_rate: 0
+
+
+# Enable Home Assistant API
+api:
+    encryption:
+        key: $encryptionkey
+
+ota:
+  platform: esphome
+  #password: $ota_password
+
+captive_portal:
+
+uart:
+  rx_pin: D2
+  baud_rate: 9600
+
+sensor:
+  - platform: pm1006
+    pm_2_5:
+      name: "Particulate Matter 2.5µm Concentration"

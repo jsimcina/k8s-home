@@ -1,0 +1,167 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: home-assistant
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+
+  values:
+    controllers:
+      home-assistant:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/jsimcina/postgres17-init
+              tag: 17.2
+            envFrom: &envFrom
+              - secretRef:
+                  name: home-assistant-secret
+          # initContainers:
+        #   init-config:
+        #     image:
+        #       repository: ghcr.io/jsimcina/home-assistant
+        #       tag: 2024.9.0@sha256:b8abcba5149718b9f69ac48239792ebc265c30d7f90128197430693a9db806bc
+        #     command: ["/bin/sh", "-c"]
+        #     args:
+        #       - >-
+        #           sleep 10m;
+        #           mkdir -p /config/.config || :;
+        #           cp -rn /configfiles/qbittorrent/* /config/qBittorrent;
+        #           cp -rn /configfiles/qbitrr/config.toml /config/.config/config.toml;
+        #           chmod -R 0700 /config 2>/dev/null || :;
+        #           echo "Done";
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "network",
+                "ips": ["10.21.1.5/16"],
+                "mac": "00:02:b3:af:42:1f"
+              }]
+          nodeSelector:
+            multus: "active"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/home-assistant
+              tag: 2025.1.4
+            env:
+              TZ: ${TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: home-assistant-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 47m
+                memory: 2Gi
+              limits:
+                memory: 4Gi
+          code-server:
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.96.4@sha256:f93810f7f6636b3af3b1a750faf612349cddb89fbb6d28d69123a214fc75ee9e
+            args: [
+              "--auth", "none",
+              "--user-data-dir", "/config/.vscode",
+              "--extensions-dir", "/config/.vscode",
+              "--port", "12321",
+              "/config"
+            ]
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
+    service:
+      app:
+        controller: home-assistant
+        ports:
+          http:
+            port: 8123
+          code-server:
+            port: 12321
+
+    ingress:
+      app:
+        annotations:
+          external-dns.alpha.kubernetes.io/target: internal.jonandlinz.io
+        enabled: true
+        className: "internal"
+        hosts:
+          - host: &host hass.jonandlinz.io
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+      code-server:
+        className: internal
+        hosts:
+          - host: hasscode.jonandlinz.io
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: code-server
+
+    persistence:
+      config:
+        existingClaim: home-assistant
+        globalMounts:
+          - path: /config
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
+      tts:
+        type: emptyDir
+        globalMounts:
+          - path: /config/tts
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
