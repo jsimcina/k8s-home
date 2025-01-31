@@ -39,7 +39,10 @@ machine:
           hardwareAddr: 58:47:ca:77:f1:f8
         ignore: true
   install:
-    disk: /dev/nvme0n1
+    diskSelector:
+      serial: 24013122000778
+      wwid: eui.6479a78afac005e2
+      type: nvme
     extraKernelArgs:
       # Meteor Lake CPU / iGPU
       - i915.enable_guc=3
