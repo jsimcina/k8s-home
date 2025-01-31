@@ -8,5 +8,5 @@ resources:
   - ./loadbalancer.yaml
   - ./prometheusrules.yaml
   - ./scheduledbackup.yaml
-  - ./gatus.yaml
+#  - ./gatus.yaml
 
