@@ -1,0 +1,155 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: scrypted
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controllers:
+      scrypted:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        labels:
+          nfsMount: "true"
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "network",
+                "ips": ["10.21.1.6/16"],
+                "mac": "00:02:b3:39:c4:2a"
+              }]
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: hwtranscoding
+                    operator: In
+                    values:
+                    - "true"
+                  - key: multus
+                    operator: In
+                    values:
+                    - "active"
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                    - plex
+                topologyKey: kubernetes.io/hostname
+                namespaces:
+                  - media
+        containers:
+          app:
+            image:
+              repository: ghcr.io/koush/scrypted
+              tag: latest@sha256:ce7f760fc796624cece01561817805767b33846e8c9b2f1a70df21ede2bd9583
+            #probes:
+              #liveness:
+                #enabled: true
+              #readiness:
+                #enabled: true
+              #startup:
+                #enabled: true
+                #spec:
+                  #failureThreshold: 30
+                  #periodSeconds: 5
+            env:
+              SCRYPTED_DOCKER_AVAHI: true
+            resources:
+              requests:
+                cpu: 136m
+                memory: 4Gi
+                gpu.intel.com/i915: 1
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 16Gi
+            securityContext:
+              privileged: true
+
+    service:
+      app:
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: 10.10.1.6
+        controller: scrypted
+        ports:
+          http:
+            port: 11080
+          rebroadcast:
+            port: 33669
+          rebroadcastp1s:
+            port: 34213
+          forwardport:
+            port: 8443
+          homekitport:
+            port: 10405
+
+    ingress:
+      app:
+        className: "internal"
+        annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+        hosts:
+          - host: &host scrypted.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      config:
+        existingClaim: scrypted
+        advancedMounts:
+          scrypted:
+            app:
+              - path: /server/volume
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache
+      cache-npm:
+        type: emptyDir
+        globalMounts:
+          - path: /.npm
+      dev-bus-usb:
+        type: hostPath
+        hostPath: /dev/bus/usb
+        hostPathType: Directory
+      sys-bus-usb:
+        type: hostPath
+        hostPath: /sys/bus/usb
+        hostPathType: Directory
+      recs:
+        type: nfs
+        server: unraid.jonandlinz.com
+        path: /mnt/user/NVR
+        globalMounts:
+          - path: /NVR
+      fastrecs:
+        type: nfs
+        server: unraid.jonandlinz.com
+        path: /mnt/user/NVRCache
+        globalMounts:
+          - path: /NVRCache

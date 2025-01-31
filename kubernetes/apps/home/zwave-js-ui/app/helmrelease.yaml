@@ -1,0 +1,129 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app zwave-js-ui
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 4
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 4
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  values:
+    controllers:
+      zwave-js-ui:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/zwave-js/zwave-js-ui
+              tag: 9.29.1@sha256:801005b4afe9407e5bfbd0ca16b97cbfb96d2661f34ba179971b2476adcad252
+            env:
+              TZ: ${TIMEZONE}
+              PORT: &port 80
+              STORE_DIR: /usr/src/app/store
+              BACKUPS_DIR: /configfiles/backups
+              ZWAVEJS_EXTERNAL_CONFIG: /usr/src/app/store/.config-db
+              TRUST_PROXY: true
+            envFrom:
+              - secretRef:
+                  name: zwave-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        controller: zwave-js-ui
+        ports:
+          http:
+            port: *port
+          websocket:
+            port: 3000
+    # requires https://github.com/kvaster/zwavejs-prom
+    serviceMonitor:
+      app:
+        serviceName: zwave-js-ui
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
+    ingress:
+      app:
+        className: internal
+        annotations:
+          #nginx.ingress.kubernetes.io/rewrite-target: /$2
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+          nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+          nginx.ingress.kubernetes.io/websocket-services: "zwave-ui-js"
+          nginx.org/websocket-services: "zwave-ui-js"
+          # nginx.ingress.kubernetes.io/auth-url: |-
+          #   http://ak-outpost-forward-proxy.security.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          # nginx.ingress.kubernetes.io/auth-signin: |-
+          #   https://zwave.${SECRET_DOMAIN}/outpost.goauthentik.io/start?rd=$escaped_request_uri
+          # nginx.ingress.kubernetes.io/auth-response-headers: |-
+          #   Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+          # nginx.ingress.kubernetes.io/auth-snippet: |
+          #   proxy_set_header X-Forwarded-Host $http_host;
+        hosts:
+          - host: &host "zwave.jonandlinz.net"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config:
+        existingClaim: zwave-js-ui
+        globalMounts:
+          - path: /usr/src/app/store
+      tmp:
+        type: emptyDir
