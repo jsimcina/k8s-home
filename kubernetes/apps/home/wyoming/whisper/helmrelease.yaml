@@ -39,7 +39,7 @@ spec:
               - --language
               - en
             env:
-              TZ: ${TIMEZONE}
+              TZ: America/Chicago
     service:
       app:
         controller: *app

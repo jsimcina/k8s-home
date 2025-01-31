@@ -37,7 +37,7 @@ spec:
               - --voice
               - en_US-libritts_r-medium
             env:
-              TZ: ${TIMEZONE}
+              TZ: America/Chicago
     service:
       app:
         controller: *app
