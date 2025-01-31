@@ -74,7 +74,7 @@ spec:
         useAllNodes: false
         useAllDevices: false
         nodes:
-          - name: k8s-home-01
+          - name: home-node-01
             deviceFilter: nvme1n1
         config:
           osdsPerDevice: "1"
