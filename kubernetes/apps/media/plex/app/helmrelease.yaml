@@ -76,7 +76,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [44]
+        supplementalGroups: [44, 10000]
         seccompProfile: { type: Runtimemedia }
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
