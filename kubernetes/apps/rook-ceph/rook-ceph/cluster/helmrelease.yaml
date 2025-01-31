@@ -76,6 +76,8 @@ spec:
         nodes:
           - name: home-node-01
             deviceFilter: nvme1n1
+          - name: home-node-02
+            deviceFilter: nvme1n1
         config:
           osdsPerDevice: "1"
     cephBlockPools:

@@ -29,11 +29,13 @@ tasks:
     requires:
       vars: [IP]
     preconditions:
-      - talosctl --nodes {{.IP}} get machineconfig
+      #- talosctl --nodes {{.IP}} get machineconfig
       - test -f {{.BOOTSTRAP_DIR}}/.cluster.env
       - test -f {{.BOOTSTRAP_DIR}}/talos/{{.IP}}.sops.yaml.j2
       - test -f {{.CLUSTER_DIR}}/talosconfig
       - which minijinja-cli sops talosctl
+
+
 
   upgrade-node:
     desc: Upgrade Talos on a single node [IP=required]
