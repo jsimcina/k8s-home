@@ -15,6 +15,6 @@ spec:
             email: jsimcina@gmail.com
             apiTokenSecretRef:
               name: cloudflare-issuer-secret
-              key: CLOUDFLARE_TOKEN
+              key: CLOUDFLARE_DNS_TOKEN
         selector:
           dnsZones: ["jonandlinz.io"]
