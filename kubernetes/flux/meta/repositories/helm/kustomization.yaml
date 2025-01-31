@@ -7,6 +7,7 @@ resources:
   - ./backube.yaml
   - ./bjw-s.yaml
   - ./cilium.yaml
+  - ./cloudnative-pg/ks.yaml
   - ./controlplaneio.yaml
   - ./coredns.yaml
   - ./csi-driver-nfs.yaml
