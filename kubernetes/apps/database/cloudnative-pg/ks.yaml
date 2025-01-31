@@ -10,8 +10,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../flux/components/gatus/guarded
+  #components:
+  #  - ../../../../flux/components/gatus/guarded
   dependsOn:
     - name: onepassword-store
       namespace: external-secrets
@@ -37,8 +37,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../flux/components/gatus/guarded
+  #components:
+  #  - ../../../../flux/components/gatus/guarded
   dependsOn:
     - name: cloudnative-pg
   path: ./kubernetes/apps/database/cloudnative-pg/cluster
