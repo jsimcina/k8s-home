@@ -1,0 +1,217 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app qbittorrent
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: &namespace vpn
+
+  values:
+    defaultPodOptions:
+      labels:
+        setGateway: "false"
+    controllers:
+      qbittorrent:
+        annotations:
+          configmap.reloader.stakater.com/reload: qbittorrent-scripts
+          secret.reloader.stakater.com/reload: qbittorrent-secret
+          reloader.stakater.com/auto: "true"
+        labels:
+          nfsMount: "true"
+        pod:
+          securityContext:
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+        # initContainers:
+        #   init-config:
+        #     image:
+        #       repository: ghcr.io/onedr0p/qbittorrent
+        #       tag: 4.6.4@sha256:cb8a7df4e63bf410834af7846b6d5eee4f10748d03819ee7218015c5b0332a29
+        #     command: ["/bin/sh", "-c"]
+        #     args:
+        #       - >-
+        #           mkdir -p /config/qBittorrent 2>/dev/null || :;
+        #           mkdir -p /config/.config || :;
+        #           cp -rn /configfiles/qbittorrent/* /config/qBittorrent;
+        #           cp -rn /configfiles/qbitrr/config.toml /config/.config/config.toml;
+        #           chmod -R 0700 /config 2>/dev/null || :;
+        #           echo "Done";
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jsimcina/qbittorrent
+              tag: 5.0.3@sha256:84e65c5b46ece5b8f4c0f0484f2794441d039abbdc884817025f0b563268910a
+            env:
+              TZ: $(TIMEZONE)
+              QBITTORRENT__PORT: &port 80
+              QBT_Preferences__WebUI__AlternativeUIEnabled: false
+              QBT_Preferences__WebUI__LocalHostAuth: false
+              QBT_BitTorrent__Session__Interface: tun0
+              QBT_BitTorrent__Session__InterfaceName: tun0
+            probes:
+              liveness: &probes
+                enabled: false
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              fsGroupChangePolicy: OnRootMismatch
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 8Gi
+          # dnsdist:
+          #   image:
+          #     repository: docker.io/powerdns/dnsdist-19
+          #     tag: 1.9.6
+          gluetun:
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.40@sha256:2b42bfa046757145a5155acece417b65b4443c8033fb88661a8e9dcf7fda5a00
+            env:
+              VPN_INTERFACE: tun0
+              TZ: America/Chicago
+              LOG_LEVEL: "debug"
+              HEALTH_VPN_DURATION_INITIAL: "30s"
+              DOT: "off"
+              #DOT_PROVIDERS: cloudflare
+              FIREWALL_INPUT_PORTS: *port
+              FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/16,10.69.0.0/16,10.10.0.0/16
+            envFrom:
+              - secretRef:
+                  name: gluetun-secret
+            securityContext:
+              privileged: true
+              allowPrivilegeEscalation: true
+              capabilities:
+                add:
+                  - NET_ADMIN
+
+          port-forward:
+            image:
+              repository: ghcr.io/jsimcina/gluetun-qb-port-sync
+              tag: rolling@sha256:0c95d65eacf6cd7fccdcc0e55bb9df38ca561b9fd4d37402fc51910c3812d8ee
+            env:
+              GLUETUN_CONTROL_SERVER_HOST: localhost
+              GLUETUN_CONTROL_SERVER_PORT: 8000
+              MAM_ID_PATH: /media/torrents/mam_id/mam.txt
+              QBITTORRENT_HOST: localhost
+              QBITTORRENT_WEBUI_PORT: *port
+              CRON_ENABLED: true
+              CRON_SCHEDULE: "*/5 * * * *"
+              LOG_TIMESTAMP: false
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+          # qbportforwarder:
+          #   image:
+          #     repository: ghcr.io/jsimcina/qbittorrent-port-forward-gluetun-server
+          #     tag: 4.3.2@sha256:19d502be1c6e835afe1c6ba3bb2e284e336b34f2d8e5440f25d70cd1be321aba
+          #   env:
+          #     TZ: America/Chicago
+          #     QBT_ADDR: http://127.0.0.1
+          #     GTN_ADDR: http://127.0.0.1:8000
+          #     MAM_ID_PATH: /media/torrents/mam_id/mam.txt
+          #   envFrom:
+          #     - secretRef:
+          #         name: qbittorrent-secret
+    service:
+      app:
+        controller: qbittorrent
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      app:
+        className: "internal"
+        annotations:
+          external-dns.alpha.kubernetes.io/target: internal.jonandlinz.io
+        hosts:
+          - host: &hostName qb.jonandlinz.io
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *hostName
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: qbittorrent
+      media:
+        type: nfs
+        server: "unraid.jonandlinz.com"
+        path: /mnt/user/media_server/torrents
+        globalMounts:
+          - path: /media/torrents
+      empty-config:
+        type: emptyDir
+        advancedMounts:
+          qbittorrent:
+            port-forward:
+              - path: /config
+      glutetun-config:
+         type: configMap
+         name: gluetun-auth
+         advancedMounts:
+           qbittorrent:
+             gluetun:
+               - path: /gluetun/auth/config.toml
+                 subPath: config.toml
+      # configfiles:
+      #   type: nfs
+      #   server: "unraid.jonandlinz.com"
+      #   path: /mnt/user/kubedata/pod-config-files
+        #advancedMounts:
+        #  *app :
+        #    init-config:
+        #      - path: /configfiles
+        #        subPath: *app
+      # dnsdist-config:
+      #   enabled: true
+      #   type: configMap
+      #   name: qbittorrent-dnsdist
+      #   advancedMounts:
+      #     qbittorrent:
+      #       dnsdist:
+      #         - path: /etc/dnsdist/dnsdist.conf
+      #           subPath: dnsdist.conf
+      #           readOnly: true

@@ -1,0 +1,89 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: qbittorrent
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: qbittorrent
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Ingress controller
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: network
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: ingress-nginx
+              app.kubernetes.io/instance: ingress-nginx-internal
+      ports:
+        - port: &port 80
+          protocol: TCP
+
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: vpn
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: home
+      ports:
+        - port: *port
+          protocol: TCP
+        - port: 8080
+          protocol: TCP
+
+  egress:
+    # kube-dns
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: pod-gateway
+          podSelector:
+            matchLabels:
+              k8s-app: dnsdist
+      ports:
+        - port: 53
+          protocol: UDP
+
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: vpn
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: home
+      ports:
+        - port: *port
+          protocol: TCP
+        - port: 8080
+          protocol: TCP
+    # Internet
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/8
+              - 172.16.0.0/12
+              - 192.168.0.0/16

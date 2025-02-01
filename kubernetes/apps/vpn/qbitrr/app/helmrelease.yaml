@@ -1,0 +1,55 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app qbitrr
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: &namespace vpn
+
+  values:
+    controllers:
+      qbitrr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        labels:
+          nfsMount: "true"
+        containers:
+          app:
+            image:
+              repository: feramance/qbitrr
+              tag: v4.10.10@sha256:32e011672a7fe1aefa575c909cf5c728116a99e1721d52d5957c1477ad8e3065
+            env:
+              TZ: America/Chicago
+        pod:
+          labels:
+            setGateway: "true"
+
+    persistence:
+      config:
+        type: emptyDir
+        globalMounts:
+          - path: /config
+      config-file:
+        type: configMap
+        name: qbitrr-configmap
+        advancedMounts:
+          qbitrr:
+            app:
+              - path: /config/.config/config.toml
+                subPath: config.toml
+      media:
+        type: nfs
+        server: "unraid.jonandlinz.com"
+        path: /mnt/user/media_server/torrents
+        globalMounts:
+          - path: /media/torrents
