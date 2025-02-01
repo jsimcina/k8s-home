@@ -1,0 +1,120 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.0.1/charts/library/common/values.schema.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app paperless-ngx
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: cloudnative-pg
+      namespace: database
+    - name: external-secrets
+      namespace: external-secrets
+  values:
+    controllers:
+      paperless-ngx:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        labels:
+          nfsMount: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/jsimcina/postgres17-init
+              tag: 17.2
+            envFrom: &envFrom
+              - secretRef:
+                  name: paperlessngx-secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/paperless-ngx/paperless-ngx
+              tag: 2.14.6@sha256:471a276d09a13b6933f4435fa7e57d9236eb255246d9cdd8e81da0d5a873a18a
+            env:
+              PAPERLESS_TIME_ZONE: ${TIMEZONE}
+              PAPERLESS_URL: https://paperless.jonandlinz.net
+              PAPERLESS_PORT: 8000
+              PAPERLESS_WEBSERVER_WORKERS: 2
+              PAPERLESS_TASK_WORKERS: 2
+              PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: "false"
+              PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
+              #Paperless storage locations
+              PAPERLESS_CONSUMPTION_DIR: /docs/consume
+              PAPERLESS_DATA_DIR: /docs/data
+              PAPERLESS_MEDIA_ROOT: /docs/media
+              PAPERLESS_TRASH_DIR: /docs/trash
+              PAPERLESS_LOGGING_DIR: /docs/logs
+              PAPERLESS_EXPORT_DIR: /docs/export
+              PAPERLESS_FILENAME_FORMAT_REMOVE_NONE: true
+              PAPERLESS_CONSUMER_POLLING: 60
+              PAPERLESS_CONSUMER_DELETE_DUPLICATES: true
+              PAPERLESS_CONSUMER_RECURSIVE: true
+              PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: true
+              #OCR Config
+              PAPERLESS_OCR_LANGUAGE: eng
+              PAPERLESS_OCR_LANGUAGES: eng
+            envFrom: *envFrom
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+    service:
+      app:
+        controller: paperless-ngx
+        ports:
+          http:
+            port: 8000
+    ingress:
+      app:
+        className: internal
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Home
+          gethomepage.dev/name: Paperless
+          gethomepage.dev/icon: paperless.png
+          gethomepage.dev/description: Document OCR Software
+          gethomepage.dev/widget.type: paperlessngx
+          gethomepage.dev/widget.url: http://paperless-ngx.docs.svc.cluster.local:8000
+          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_PAPERLESS_TOKEN}}` }}"
+        hosts:
+          - host: &host paperless.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      data:
+        existingClaim: paperless-ngx
+        advancedMounts:
+          paperless-ngx:
+            app:
+              - path: /data/local
+
+      docs:
+        type: nfs
+        server: "unraid.jonandlinz.com"
+        path: /mnt/user/docs
+        globalMounts:
+          - path: /docs
