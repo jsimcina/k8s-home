@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ser2net
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      ser2net:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jippi/docker-ser2net
+              tag: 4.6.3@sha256:c811097c5efaef04f7ba93e9c77a5d87d7296e6193066df451d37cb9b9251bf2
+            securityContext:
+              privileged: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      nodeSelector:
+        ser2net: "true"
+    service:
+      app:
+        controller: ser2net
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: 10.12.0.101
+        ports:
+          zigbee:
+            port: 6638
+          zwave:
+            port: 6639
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: ser2net-config
+        globalMounts:
+          - path: /etc/ser2net/ser2net.yaml
+            subPath: ser2net.conf
+            readOnly: true

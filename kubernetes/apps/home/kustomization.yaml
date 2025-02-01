@@ -8,6 +8,7 @@ resources:
   - ./esphome/ks.yaml
   - ./home-assistant/ks.yaml
   - ./scrypted/ks.yaml
+  - ./ser2net/ks.yaml
   - ./wyoming/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave-js-ui/ks.yaml
