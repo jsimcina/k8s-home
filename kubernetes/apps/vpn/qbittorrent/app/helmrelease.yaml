@@ -154,18 +154,14 @@ spec:
       config:
         enabled: true
         existingClaim: qbittorrent
+        globalMounts:
+          - path: /config
       media:
         type: nfs
         server: "unraid.jonandlinz.com"
         path: /mnt/user/media_server/torrents
         globalMounts:
           - path: /media/torrents
-      empty-config:
-        type: emptyDir
-        advancedMounts:
-          qbittorrent:
-            port-forward:
-              - path: /config
       glutetun-config:
          type: configMap
          name: gluetun-auth
