@@ -14,13 +14,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: cloudnative-pg
-      namespace: database
-    - name: external-secrets
-      namespace: external-secrets
   values:
     controllers:
       paperless-ngx:
@@ -43,7 +36,7 @@ spec:
               tag: 2.14.6@sha256:471a276d09a13b6933f4435fa7e57d9236eb255246d9cdd8e81da0d5a873a18a
             env:
               PAPERLESS_TIME_ZONE: ${TIMEZONE}
-              PAPERLESS_URL: https://paperless.jonandlinz.net
+              PAPERLESS_URL: https://paperless.jonandlinz.io
               PAPERLESS_PORT: 8000
               PAPERLESS_WEBSERVER_WORKERS: 2
               PAPERLESS_TASK_WORKERS: 2
@@ -84,25 +77,13 @@ spec:
     ingress:
       app:
         className: internal
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Home
-          gethomepage.dev/name: Paperless
-          gethomepage.dev/icon: paperless.png
-          gethomepage.dev/description: Document OCR Software
-          gethomepage.dev/widget.type: paperlessngx
-          gethomepage.dev/widget.url: http://paperless-ngx.docs.svc.cluster.local:8000
-          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_PAPERLESS_TOKEN}}` }}"
         hosts:
-          - host: &host paperless.${SECRET_DOMAIN}
+          - host: &host paperless.jonandlinz.io
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
 
     persistence:
       data:

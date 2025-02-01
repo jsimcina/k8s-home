@@ -30,6 +30,6 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 500Mi
+      VOLSYNC_CAPACITY: 5Gi
       GATUS_PATH: /accounts/login/?next=/accounts/login
       GATUS_SUBDOMAIN: paperless
