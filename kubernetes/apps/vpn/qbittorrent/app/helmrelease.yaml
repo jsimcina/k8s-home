@@ -87,10 +87,6 @@ spec:
                 cpu: 100m
               limits:
                 memory: 8Gi
-          # dnsdist:
-          #   image:
-          #     repository: docker.io/powerdns/dnsdist-19
-          #     tag: 1.9.6
           gluetun:
             image:
               repository: ghcr.io/qdm12/gluetun
@@ -103,7 +99,7 @@ spec:
               DOT: "off"
               #DOT_PROVIDERS: cloudflare
               FIREWALL_INPUT_PORTS: *port
-              FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/16,10.69.0.0/16,10.10.0.0/16
+              FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/16,10.69.0.0/16,10.10.0.0/16,10.12.0.0/16
             envFrom:
               - secretRef:
                   name: gluetun-secret
@@ -136,19 +132,6 @@ spec:
               capabilities:
                 drop:
                   - ALL
-
-          # qbportforwarder:
-          #   image:
-          #     repository: ghcr.io/jsimcina/qbittorrent-port-forward-gluetun-server
-          #     tag: 4.3.2@sha256:19d502be1c6e835afe1c6ba3bb2e284e336b34f2d8e5440f25d70cd1be321aba
-          #   env:
-          #     TZ: America/Chicago
-          #     QBT_ADDR: http://127.0.0.1
-          #     GTN_ADDR: http://127.0.0.1:8000
-          #     MAM_ID_PATH: /media/torrents/mam_id/mam.txt
-          #   envFrom:
-          #     - secretRef:
-          #         name: qbittorrent-secret
     service:
       app:
         controller: qbittorrent
@@ -159,8 +142,6 @@ spec:
     ingress:
       app:
         className: "internal"
-        annotations:
-          external-dns.alpha.kubernetes.io/target: internal.jonandlinz.io
         hosts:
           - host: &hostName qb.jonandlinz.io
             paths:
@@ -168,9 +149,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *hostName
 
     persistence:
       config:
@@ -196,22 +174,3 @@ spec:
              gluetun:
                - path: /gluetun/auth/config.toml
                  subPath: config.toml
-      # configfiles:
-      #   type: nfs
-      #   server: "unraid.jonandlinz.com"
-      #   path: /mnt/user/kubedata/pod-config-files
-        #advancedMounts:
-        #  *app :
-        #    init-config:
-        #      - path: /configfiles
-        #        subPath: *app
-      # dnsdist-config:
-      #   enabled: true
-      #   type: configMap
-      #   name: qbittorrent-dnsdist
-      #   advancedMounts:
-      #     qbittorrent:
-      #       dnsdist:
-      #         - path: /etc/dnsdist/dnsdist.conf
-      #           subPath: dnsdist.conf
-      #           readOnly: true
