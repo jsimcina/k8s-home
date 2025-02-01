@@ -7,7 +7,7 @@ resources:
     - ./actual/ks.yaml
     - ./bambu-connect/ks.yaml
     - ./echo-server/ks.yaml
-    - ./paperless-ngx/ks.yaml
+    #- ./paperless-ngx/ks.yaml
 components:
   - ../../flux/components/alerts
   - ../../flux/components/namespace
