@@ -1,0 +1,103 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: music-assistant
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controllers:
+      music-assistant:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        labels:
+          nfsMount: "true"
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "network",
+                "ips": ["10.21.11.1/16"],
+                "mac": "00:02:b3:7d:03:eb"
+              }]
+          nodeSelector:
+            multus: "active"
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/music-assistant/server
+              tag: 2.3.6@sha256:7c43aadfaf9109feab4c514648124701bf6b70410932ffcbf0c9daa7bdfbc2b2
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 47m
+                memory: 512Mi
+              limits:
+                memory: 1024Mi
+
+    service:
+      app:
+        controller: music-assistant
+        ports:
+          http:
+            port: 8095
+          stream:
+            port: 8098
+
+    ingress:
+      app:
+        className: "internal"
+        hosts:
+          - host: &hostName music-assistant.jonandlinz.io
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      data:
+        existingClaim: music-assistant
+        advancedMounts:
+          music-assistant:
+            app:
+              - path: /data
+      music:
+        type: nfs
+        server: unraid.jonandlinz.com
+        path: /mnt/user/media_server/media/music
+        globalMounts:
+          - path: /music
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache
+
