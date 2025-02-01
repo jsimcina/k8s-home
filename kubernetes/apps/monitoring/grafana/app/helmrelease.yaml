@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: grafana
-      version: 8.8.6
+      version: 8.8.5
       sourceRef:
         kind: HelmRepository
         name: grafana
@@ -23,6 +23,12 @@ spec:
       strategy: rollback
       retries: 3
   values:
+    extraInitContainers:
+      - name: 01-init-db
+        image: ghcr.io/jsimcina/postgres17-init:17.2
+        envFrom:
+          - secretRef:
+              name: &secret grafana-secret
     deploymentStrategy:
       type: Recreate
     admin:
@@ -33,16 +39,37 @@ spec:
       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
       GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
       GF_SERVER_ROOT_URL: https://grafana.jonandlinz.io
+    envFromSecrets:
+      - name: *secret
     grafana.ini:
+      auth:
+        signout_redirect_url: https://auth.jonandlinz.io/application/o/grafana/end-session/
+        oauth_auto_login: false
+        oauth_allow_insecure_email_lookup: true
+      auth.anonymous:
+        enabled: true
+        org_name: Main Org.
+        org_role: Viewer
+        hide_version: true
+      auth.generic_oauth:
+        name: authentik
+        enabled: true
+        icon: signin
+        scopes: openid email profile groups
+        empty_scopes: false
+        auth_url: https://auth.jonandlinz.io/application/o/authorize/
+        token_url: https://auth.jonandlinz.io/application/o/token/
+        api_url: https://auth.jonandlinz.io/application/o/userinfo/
+        login_attribute_path: preferred_username
+        groups_attribute_path: groups
+        # Optionally map user groups to Grafana roles
+      auth.generic_oauth.group_mapping:
+        org_id: 1
+        role_attribute_path: contains(groups[*], 'Administrators') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'
       analytics:
         check_for_updates: false
         check_for_plugin_updates: false
         reporting_enabled: false
-      auth.anonymous:
-        enabled: true
-        org_id: 1
-        org_name: Main Org.
-        org_role: Viewer
       news:
         news_feed_enabled: false
     datasources:
