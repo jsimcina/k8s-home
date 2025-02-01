@@ -110,13 +110,15 @@ spec:
     persistence:
       config:
         existingClaim: plex
+        # TODO: If setting up Plex for the first time, you'll want to add the globalMounts section
         globalMounts:
           - path: /config/Library/Application Support/Plex Media Server
-      config-cache:
+      # Separate PVC for cache to avoid backing up cache files
+      cache:
         existingClaim: plex-cache
         globalMounts:
           - path: /config/Library/Application Support/Plex Media Server/Cache
-      config-logs:
+      logs:
         type: emptyDir
         globalMounts:
           - path: /config/Library/Application Support/Plex Media Server/Logs
