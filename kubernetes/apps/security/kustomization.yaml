@@ -6,5 +6,6 @@ namespace: security
 resources:
   - ./authentik/ks.yaml
 components:
-  - ../../../meta/components/alerts
-  - ../../../meta/components/namespace
+  - ../../flux/components/alerts
+  - ../../flux/components/namespace
+  - ../../flux/components/sops
