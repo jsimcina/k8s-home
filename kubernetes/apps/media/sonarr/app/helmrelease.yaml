@@ -30,11 +30,21 @@ spec:
       sonarr:
         annotations:
           reloader.stakater.com/auto: "true"
+        labels:
+          nfsMount: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/jsimcina/postgres17-init
+              tag: 17.2
+            envFrom: &envFrom
+              - secretRef:
+                  name: sonarr-secret
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/sonarr-develop
-              tag: 4.0.12.2892@sha256:656492266c4f59b1e702277e8c25c7727e48f8fc21443c823afa4333e6d5549c
+              repository: ghcr.io/onedr0p/sonarr
+              tag: 4.0.12@sha256:55c6878a5367fc2398d15c9a16a70653f5e5f42c9fe9b708a038f2781fb0360f
             env:
               SONARR__APP__INSTANCENAME: Sonarr
               SONARR__APP__THEME: dark
@@ -43,8 +53,7 @@ spec:
               SONARR__LOG__DBENABLED: "False"
               SONARR__LOG__LEVEL: info
               SONARR__SERVER__PORT: &port 80
-              SONARR__UPDATE__BRANCH: develop
-              TZ: America/New_York
+              TZ: America/Chicago
             envFrom:
               - secretRef:
                   name: sonarr-secret
@@ -70,14 +79,14 @@ spec:
                 cpu: 100m
               limits:
                 memory: 4Gi
-    mediaPodOptions:
+    defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: Runtimemedia }
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: sonarr
@@ -104,7 +113,6 @@ spec:
       scripts:
         type: configMap
         name: sonarr-configmap
-        mediaMode: 0775
         globalMounts:
           - path: /scripts/codec-tagger.sh
             subPath: codec-tagger.sh
@@ -117,8 +125,8 @@ spec:
             readOnly: true
       media:
         type: nfs
-        server: expanse.internal
-        path: /mnt/eros/Media
+        server: unraid.jonandlinz.com
+        path: /mnt/user/media_server
         globalMounts:
           - path: /media
       tmp:

@@ -8,8 +8,8 @@ resources:
   - ./jellyseerr/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
-  #- ./sonarr/ks.yaml
-  #- ./unpackerr/ks.yaml
+  - ./sonarr/ks.yaml
+  - ./unpackerr/ks.yaml
 components:
   - ../../flux/components/alerts
   - ../../flux/components/namespace

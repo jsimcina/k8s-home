@@ -27,21 +27,39 @@ spec:
       unpackerr:
         annotations:
           reloader.stakater.com/auto: "true"
+        labels:
+          nfsMount: "true"
         containers:
           app:
             image:
               repository: ghcr.io/unpackerr/unpackerr
               tag: 0.14.5@sha256:dc72256942ce50d1c8a1aeb5aa85b6ae2680a36eefd2182129d8d210fce78044
             env:
-              TZ: America/New_York
+              TZ: America/Chicago
               UN_WEBSERVER_METRICS: true
               UN_WEBSERVER_LISTEN_ADDR: 0.0.0.0:80
               UN_WEBSERVER_LOG_FILE: /logs/webserver.log
               UN_ACTIVITY: true
               UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local
-              UN_SONARR_0_PATHS_0: /media/Downloads/qbittorrent/complete/sonarr
+              UN_SONARR_0_PATHS_0: /media/torrents/
+              UN_SONARR_0_PATHS_1: /media/usenet/completed/
+              UN_SONARR_0_PROTOCOLS: torrent,usenet
+              UN_SONARR_0_TIMEOUT: 10s
+              UN_SONARR_0_DELETE_ORIG: true
+              UN_SONARR_0_DELETE_DELAY: 5m
               UN_RADARR_0_URL: http://radarr.media.svc.cluster.local
-              UN_RADARR_0_PATHS_0: /media/Downloads/qbittorrent/complete/radarr
+              UN_RADARR_0_PATHS_0: /media/torrents/
+              UN_RADARR_0_PATHS_1: /media/usenet/completed/
+              UN_RADARR_0_PROTOCOLS: torrent,usenet
+              UN_RADARR_0_TIMEOUT: 10s
+              UN_RADARR_0_DELETE_ORIG: true
+              UN_RADARR_0_DELETE_DELAY: 5m
+              UN_WEBHOOK_0_URL: https://notifiarr.com/api/v1/notification/unpackerr/ff4b108c-2866-4028-b045-e35eafb4050e
+              UN_WEBHOOK_0_NAME: Notifiarr
+              UN_WEBHOOK_0_NICKNAME: Unpackerr
+              UN_WEBHOOK_0_SILENT: false
+              UN_WEBHOOK_0_IGNORE_SSL: false
+              UN_WEBHOOK_0_EVENTS_0:
             envFrom:
               - secretRef:
                   name: unpackerr-secret
@@ -59,14 +77,14 @@ spec:
                 cpu: 10m
               limits:
                 memory: 8Gi
-    mediaPodOptions:
+    defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: Runtimemedia }
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: unpackerr
@@ -87,8 +105,7 @@ spec:
         type: emptyDir
       media:
         type: nfs
-        server: expanse.internal
-        path: /mnt/eros/Media
+        server: "unraid.jonandlinz.com"
+        path: /mnt/user/media_server
         globalMounts:
-          - path: /media/Downloads/qbittorrent
-            subPath: Downloads/qbittorrent
+          - path: /media
