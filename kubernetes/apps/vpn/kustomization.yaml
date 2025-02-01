@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: vpn
 resources:
   - ./flaresolverr/ks.yaml
-#  - ./snapshot-controller/ks.yaml
+  - ./prowlarr/ks.yaml
   - ./sabnzbd/ks.yaml
 components:
   - ../../flux/components/alerts

@@ -37,8 +37,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/jsimcina/prowlarr
-              tag: rolling@sha256:7a67ce50e22e9a53ec30af6f58bc50dec487ec9f55af20ca944b42794d01ceed
+              repository: ghcr.io/onedr0p/prowlarr
+              tag: 1.30@sha256:7234ae8ca5b14153baddf42257cc2ddc928695ce604d11a9616b635eca0e43e7
             env:
               PROWLARR__APP__INSTANCENAME: Prowlarr
               PROWLARR__APP__THEME: dark
@@ -91,8 +91,6 @@ spec:
             port: *port
     ingress:
       app:
-        # annotations:
-        #   external-dns.alpha.kubernetes.io/target: internal.jonandlinz.io
         className: internal
         hosts:
           - host: &host "{{ .Release.Name }}.jonandlinz.io"
