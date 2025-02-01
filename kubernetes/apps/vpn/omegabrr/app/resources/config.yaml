@@ -13,11 +13,11 @@ clients:
       host: http://radarr.media.svc.cluster.local
       apikey: ${RADARR_API_KEY}
       filters: [1]
-    - name: lidarr
-      type: lidarr
-      host: http://lidarr.media.svc.cluster.local
-      apikey: ${LIDARR_API_KEY}
-      filters: [4]
+    # - name: lidarr
+    #   type: lidarr
+    #   host: http://lidarr.media.svc.cluster.local
+    #   apikey: ${LIDARR_API_KEY}
+    #   filters: [4]
     - name: sonarr
       type: sonarr
       host: http://sonarr.media.svc.cluster.local
