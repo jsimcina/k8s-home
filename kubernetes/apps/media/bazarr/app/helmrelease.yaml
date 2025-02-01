@@ -131,7 +131,6 @@ spec:
       scripts:
         type: configMap
         name: bazarr-scripts
-        mediaMode: 0775
         globalMounts:
           - path: /scripts/subcleaner.sh
             subPath: subcleaner.sh
