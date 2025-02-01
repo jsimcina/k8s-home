@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jsimcina/prowlarr
-              tag: rolling@sha256:7a67ce50e22e9a53ec30af6f58bc50dec487ec9f55af20ca944b42794d01ceed
+              tag: rolling@sha256:0c010f8cb02f1a69ce3e3ff03590234b7d662e6fe35399a9b90f6dc4212eb57a
             env:
               PROWLARR__APP__INSTANCENAME: Prowlarr
               PROWLARR__APP__THEME: dark
