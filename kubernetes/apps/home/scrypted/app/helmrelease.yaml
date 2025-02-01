@@ -88,7 +88,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: 10.10.1.6
+          io.cilium/lb-ipam-ips: 10.12.0.106
         controller: scrypted
         ports:
           http:
@@ -105,10 +105,8 @@ spec:
     ingress:
       app:
         className: "internal"
-        annotations:
-          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
         hosts:
-          - host: &host scrypted.${SECRET_DOMAIN}
+          - host: &host scrypted.jonandlinz.io
             paths:
               - path: /
                 service:
