@@ -30,11 +30,21 @@ spec:
       radarr:
         annotations:
           reloader.stakater.com/auto: "true"
+        labels:
+          nfsMount: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/jsimcina/postgres17-init
+              tag: 17.2
+            envFrom: &envFrom
+              - secretRef:
+                  name: radarr-secret
         containers:
           app:
             image:
               repository: ghcr.io/onedr0p/radarr-develop
-              tag: 5.18.1.9612@sha256:f19b5e8f22e1b807a563d50ebef0b47aca1a2d61cea63599c2c4ca85425a2320
+              tag: 5.17.2.9580@sha256:32d0e8d46f5619069d88445936670ffbca5a3aab7ed2e94e77a834ed85df81bb
             env:
               RADARR__APP__INSTANCENAME: Radarr
               RADARR__APP__THEME: dark
@@ -44,7 +54,7 @@ spec:
               RADARR__LOG__LEVEL: info
               RADARR__SERVER__PORT: &port 80
               RADARR__UPDATE__BRANCH: develop
-              TZ: America/New_York
+              TZ: America/Chicago
             envFrom:
               - secretRef:
                   name: radarr-secret
@@ -70,14 +80,14 @@ spec:
                 cpu: 100m
               limits:
                 memory: 4Gi
-    mediaPodOptions:
+    defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: Runtimemedia }
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: radarr
@@ -104,15 +114,14 @@ spec:
       scripts:
         type: configMap
         name: radarr-configmap
-        mediaMode: 0775
         globalMounts:
           - path: /scripts/pushover-notifier.sh
             subPath: pushover-notifier.sh
             readOnly: true
       media:
         type: nfs
-        server: expanse.internal
-        path: /mnt/eros/Media
+        server: unraid.jonandlinz.com
+        path: /mnt/user/media_server
         globalMounts:
           - path: /media
       tmp:
