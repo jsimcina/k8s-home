@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: docker.io/octoeverywhere/octoeverywhere
-              tag: latest@sha256:bbb01bda68e8d1946885191999e4e6fc3b1b5913efd218f34935ddcbf161a394
+              tag: latest@sha256:b9b7974e6ab4701dcd7e64a493811882398c1512afb197171d74f267973e7b3f
             env:
               TZ: ${TIMEZONE}
               PRINTER_IP: "10.21.20.6"
