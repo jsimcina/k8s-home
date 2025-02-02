@@ -50,7 +50,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jsimcina/qbittorrent
-              tag: 5.0.3@sha256:84e65c5b46ece5b8f4c0f0484f2794441d039abbdc884817025f0b563268910a
+              tag: 5.0.3@sha256:cd001436da651213e23546d183c23091ed791326a7172e5cdfecd16ffc66322d
             env:
               TZ: $(TIMEZONE)
               QBITTORRENT__PORT: &port 80
