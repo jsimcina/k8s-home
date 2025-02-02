@@ -93,7 +93,7 @@ spec:
         globalMounts:
           - path: /data
       #certificates:
-        enabled: true
+        #enabled: true
         #existingClaim: matter-server-certificates
         #globalMounts:
           #- path: /usr/local/lib/python3.11/site-packages/credentials/development/paa-root-certs
