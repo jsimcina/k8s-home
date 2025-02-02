@@ -51,10 +51,10 @@ spec:
               pullPolicy: IfNotPresent
             env:
               TZ: "America/Chicago"
-               MATTER_SERVER__INSTANCE_NAME: Matter-Server
-               MATTER_SERVER__PORT: &port 5580
-               MATTER_SERVER__APPLICATION_URL: &host-cluster "matter-server.jonandlinz.io"
-               MATTER_SERVER__LOG_LEVEL: info
+              MATTER_SERVER__INSTANCE_NAME: Matter-Server
+              MATTER_SERVER__PORT: &port 5580
+              MATTER_SERVER__APPLICATION_URL: &host-cluster "matter-server.jonandlinz.io"
+              MATTER_SERVER__LOG_LEVEL: info
             probes:
               liveness:
                 enabled: false
