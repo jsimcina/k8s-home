@@ -76,6 +76,10 @@ spec:
             deviceFilter: nvme1n1
           - name: home-node-02
             deviceFilter: nvme1n1
+          - name: home-node-03
+            deviceFilter: nvme1n1
+          - name: home-node-04
+            deviceFilter: nvme0n1
           - name: home-node-05
             deviceFilter: nvme0n1
         config:
