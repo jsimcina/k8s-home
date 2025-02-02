@@ -92,6 +92,12 @@ spec:
         existingClaim: matter-server
         globalMounts:
           - path: /data
+      media:
+        type: nfs
+        server: unraid.jonandlinz.com
+        path: /mnt/user/kubedata
+        globalMounts:
+          - path: /kubedata
       #certificates:
         #enabled: true
         #existingClaim: matter-server-certificates
