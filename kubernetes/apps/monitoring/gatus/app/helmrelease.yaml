@@ -31,6 +31,13 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/jsimcina/postgres17-init
+              tag: 17.2
+            envFrom: &envFrom
+              - secretRef:
+                  name: gatus-secret
           init-config:
             image:
               repository: ghcr.io/kiwigrid/k8s-sidecar
@@ -54,13 +61,11 @@ spec:
               repository: ghcr.io/twin/gatus
               tag: v5.15.0@sha256:45686324db605e57dfa8b0931d8d57fe06298f52685f06aa9654a1f710d461bb
             env:
-              TZ: America/New_York
+              TZ: America/Chicago
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
               WEB_PORT: &port 80
-            envFrom:
-              - secretRef:
-                  name: gatus-secret
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true
@@ -112,7 +117,7 @@ spec:
       name: gatus
     persistence:
       config:
-        existingClaim: gatus
+        type: emptyDir
       config-file:
         type: configMap
         name: gatus-configmap
