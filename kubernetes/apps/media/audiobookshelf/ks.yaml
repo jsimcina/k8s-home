@@ -16,7 +16,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   components:
-    - ../../../../flux/components/gatus/guarded
+    - ../../../../flux/components/gatus/external
     - ../../../../flux/components/volsync
   path: ./kubernetes/apps/media/audiobookshelf/app
   sourceRef:
