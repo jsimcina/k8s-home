@@ -43,8 +43,17 @@ localRedirectPolicy: true
 operator:
   replicas: 2
   rollOutPods: true
-dashboards:
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  dashboards:
+    enabled: true
+prometheus:
   enabled: true
+  serviceMonitor:
+    enabled: true
+    trustCRDsExist: true
 rollOutCiliumPods: true
 routingMode: native
 securityContext:

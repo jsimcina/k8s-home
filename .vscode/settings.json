@@ -56,7 +56,7 @@
       "kubernetes": "./kubernetes/**/*.yaml"
     },
     "sops.configPath": "./.sops.yaml",
-    "sops.creationEnabled": true,
+    "sops.creationEnabled": false,
     "sops.binPath": "sops",
     "sops.enabled": true
 }
