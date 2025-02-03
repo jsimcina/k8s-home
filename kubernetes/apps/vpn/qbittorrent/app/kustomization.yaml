@@ -7,8 +7,16 @@ resources:
   - ./gluetunsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
+  - name: qbittorrent-loki-rules
+    files:
+      - qbittorrent.yaml=./resources/lokirule.yaml
+    options:
+      labels:
+        loki_rule: "true"
   - name: gluetun-auth
     files:
       - ./config/auth/config.toml
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
