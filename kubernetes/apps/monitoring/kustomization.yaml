@@ -6,7 +6,10 @@ namespace: monitoring
 resources:
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
+  - ./kromgo/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
+  - ./loki/ks.yaml
+  - ./promtail/ks.yaml
   - ./smartctl-exporter/ks.yaml
   - ./unpoller/ks.yaml
 components:
