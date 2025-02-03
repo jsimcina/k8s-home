@@ -10,7 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../flux/components/gatus/guarded
     - ../../../../flux/components/volsync
   interval: 10m
   path: "./kubernetes/apps/home/scrypted/app"
