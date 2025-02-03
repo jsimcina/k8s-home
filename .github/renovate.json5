@@ -9,7 +9,7 @@
     ":semanticCommits",
     ":separatePatchReleases",
     ":skipStatusChecks",
-    ":timezone(America/New_York)",
+    ":timezone(America/Chicago)",
     "github>jsimcina/k8s-home//.github/renovate/autoMerge.json5",
     "github>jsimcina/k8s-home//.github/renovate/customManagers.json5",
     "github>jsimcina/k8s-home//.github/renovate/grafanaDashboards.json5",
@@ -17,6 +17,9 @@
     "github>jsimcina/k8s-home//.github/renovate/labels.json5",
     "github>jsimcina/k8s-home//.github/renovate/packageRules.json5",
     "github>jsimcina/k8s-home//.github/renovate/semanticCommits.json5"
+  ],
+  "gitIgnoredAuthors": [
+     "29139614+renovate[bot]@users.noreply.github.com"    
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
