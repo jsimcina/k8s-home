@@ -12,6 +12,7 @@ resources:
   #- ./promtail/ks.yaml
   - ./smartctl-exporter/ks.yaml
   - ./tautulli/ks.yaml
+  - ./vmlogs/ks.yaml
   - ./unpoller/ks.yaml
 components:
   - ../../flux/components/alerts
