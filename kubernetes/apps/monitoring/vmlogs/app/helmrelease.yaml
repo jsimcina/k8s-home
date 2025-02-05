@@ -31,21 +31,6 @@ spec:
         accessModes:
           - ReadWriteOnce
 
-      ingress:
-        enabled: true
-        ingressClassName: "internal"
-        hosts:
-          - name: vmlogs.jonandlinz.io
-            path: /
-            port: 9428
-
-      service:
-        enabled: true
-        annotations:
-          io.cilium/lb-ipam-ips: "10.12.0.103"
-        type: ClusterIP
-        servicePort: 9428
-
       serviceMonitor:
         enabled: true
 
@@ -53,13 +38,6 @@ spec:
         allowPrivilegeEscalation: false
         readOnlyRootFilesystem: true
         capabilities: { drop: ["ALL"] }
-
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        seccompProfile: { type: RuntimeDefault }
 
       statefulSet:
         enabled: true
@@ -69,3 +47,27 @@ spec:
           annotations: {}
           labels: {}
           servicePort: 9428
+
+      ingress:
+        enabled: true
+        ingressClassName: "internal"
+        hosts:
+          - name: vmlogs.jonandlinz.io
+            path: /
+            port: 9428
+
+    service:
+      enabled: true
+      annotations:
+        io.cilium/lb-ipam-ips: "10.12.0.103"
+      type: ClusterIP
+      servicePort: 9428
+
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
+
