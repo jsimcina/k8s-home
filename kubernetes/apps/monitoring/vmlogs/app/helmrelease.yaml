@@ -41,6 +41,9 @@ spec:
 
       service:
         enabled: true
+        annotations:
+          io.cilium/lb-ipam-ips: "10.12.0.103"
+        type: LoadBalancer
 
       serviceMonitor:
         enabled: true
