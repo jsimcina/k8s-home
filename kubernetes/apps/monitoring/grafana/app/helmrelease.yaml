@@ -91,6 +91,10 @@ spec:
             url: http://loki-headless.monitoring.svc.cluster.local:3100
             jsonData:
               maxLines: 250
+          - name: VictoriaLogs
+            type: victoriametrics-logs-datasource
+            access: proxy
+            url: http://vm-logs-victoria-logs-single-server.monitoring.svc.cluster.local:9428
           - name: Alertmanager
             type: alertmanager
             uid: alertmanager
