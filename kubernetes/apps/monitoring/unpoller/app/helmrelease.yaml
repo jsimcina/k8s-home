@@ -37,6 +37,8 @@ spec:
               TZ: America/Chicago
               UP_UNIFI_DEFAULT_ROLE: home-ops
               UP_UNIFI_DEFAULT_URL: https://ui.jonandlinz.com
+              UP_DISABLE: false
+              UP_LOKI_URL: http://loki-headless.monitoring.svc.cluster.local:3100
               UP_PROMETHEUS_HTTP_LISTEN: 0.0.0.0:80
               UP_INFLUXDB_DISABLE: true
             envFrom:
