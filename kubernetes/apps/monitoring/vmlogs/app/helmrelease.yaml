@@ -44,8 +44,10 @@ spec:
         podManagementPolicy: OrderedReady
         service:
           enabled: true
-          annotations: {}
+          annotations:
+            io.cilium/lb-ipam-ips: "10.12.0.103"
           labels: {}
+          type: ClusterIP
           servicePort: 9428
 
       ingress:
@@ -55,14 +57,6 @@ spec:
           - name: vmlogs.jonandlinz.io
             path: /
             port: 9428
-
-    service:
-      enabled: true
-      annotations:
-        io.cilium/lb-ipam-ips: "10.12.0.103"
-      type: ClusterIP
-      servicePort: 9428
-
 
     defaultPodOptions:
       securityContext:
