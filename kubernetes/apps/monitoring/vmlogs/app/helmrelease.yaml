@@ -32,24 +32,20 @@ spec:
           - ReadWriteOnce
 
       ingress:
-        server:
-          className: "internal"
-          hosts:
-            - host: &host vmlogs.jonandlinz.io
-              paths:
-                - path: /
-                  service:
-                    identifier: server
-                    port: http
+        enabled: true
+        ingressClassName: "internal"
+        hosts:
+          - name: vmlogs.jonandlinz.io
+            path: /
+            port: 9428
+
       service:
-        server:
-          type: LoadBalancer
-          annotations:
-            io.cilium/lb-ipam-ips: 10.12.0.103
-          controller: vmlogs
-          ports:
-            http:
-              port: 9428
+        enabled: true
+        externalIPs: ["10.12.0.103"]
+        loadBalancerIP: ""
+        loadBalancerSourceRanges: []
+        servicePort: 9428
+        type: ClusterIP
 
       serviceMonitor:
         enabled: true
