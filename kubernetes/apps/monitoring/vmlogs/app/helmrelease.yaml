@@ -1,0 +1,70 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vm-logs
+  namespace: monitoring
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: victoria-logs-single
+      # renovate: registryUrl=https://victoriametrics.github.io/helm-charts chart=victoria-logs-single
+      version: 0.8.14
+      sourceRef:
+        kind: HelmRepository
+        name: victoriametrics
+        namespace: flux-system
+  values:
+    server:
+      enabled: true
+      extraArgs:
+        envflag.enable: "true"
+        envflag.prefix: VM_
+        loggerFormat: json
+
+      persistence:
+        enabled: true
+        storageClass: ceph-block
+        existingClaim: vmlogs
+        size: 50Gi
+        accessModes:
+          - ReadWriteOnce
+
+      ingress:
+        enabled: true
+        ingressClassName: "internal"
+        hosts:
+          - name: vmlogs.jonandlinz.io
+            path: /
+            port: 9428
+
+      service:
+        enabled: true
+        loadBalancerIP: "10.12.0.103"
+        servicePort: 9428
+        type: ClusterIP
+
+      serviceMonitor:
+        enabled: true
+
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities: { drop: ["ALL"] }
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
+
+      statefulSet:
+        enabled: true
+        podManagementPolicy: OrderedReady
+        service:
+          enabled: true
+          annotations: {}
+          labels: {}
+          servicePort: 9428
