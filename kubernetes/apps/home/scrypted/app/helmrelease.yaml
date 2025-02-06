@@ -60,7 +60,7 @@ spec:
           app:
             image:
               repository: ghcr.io/koush/scrypted
-              tag: latest@sha256:89722ad61a9c507e985e4ba903992d4c95c2b543f98fb1522dc2d5df0b1df568
+              tag: latest@sha256:602d001ee8c1e31a22f4addb700e24d8133a8d7efef3493d6249a2e241f22b04
             #probes:
               #liveness:
                 #enabled: true
