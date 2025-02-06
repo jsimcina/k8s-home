@@ -39,11 +39,11 @@ spec:
 
       service:
         enabled: true
-        externalIPs: []
-        loadBalancerIP: "10.12.0.103"
+        externalIPs: ["10.12.0.103"]
+        loadBalancerIP: ""
         loadBalancerSourceRanges: []
         servicePort: 9428
-        type: LoadBalancer
+        type: ClusterIP
 
       statefulSet:
         enabled: true
