@@ -41,14 +41,6 @@ spec:
       serviceMonitor:
         enabled: true
 
-      service:
-        enabled: true
-        externalIPs: ["10.12.0.103"]
-        loadBalancerIP: ""
-        loadBalancerSourceRanges: []
-        servicePort: 9428
-        type: ClusterIP
-
       statefulSet:
         enabled: true
         podManagementPolicy: OrderedReady

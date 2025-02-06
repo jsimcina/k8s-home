@@ -26,6 +26,6 @@ spec:
     config:
       clients:
         #- url: http://loki-headless.monitoring.svc.cluster.local:3100/loki/api/v1/push
-        - url: http://vm-logs-victoria-logs-single-server.monitoring.svc.cluster.local:9428/insert/loki/api/v1/push
+        - url: http://victoria-logs-ingest.monitoring.svc.cluster.local:9428/insert/loki/api/v1/push
     serviceMonitor:
       enabled: true
