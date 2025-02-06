@@ -25,6 +25,9 @@ spec:
         envflag.enable: "true"
         envflag.prefix: VM_
         loggerFormat: json
+        syslog.listenAddr.udp: 514
+        syslog.listenAddr.tcp: 514
+        syslog.timezone: "America/Chicago"
 
       persistence:
         enabled: true
