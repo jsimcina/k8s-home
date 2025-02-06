@@ -3,7 +3,6 @@ apiVersion: v1
 metadata:
   name: victoria-logs-ingest
 spec:
-  clusterIP: __PATCH__
   ipFamilies:
     - IPv4
   externalIPs: ["10.12.0.103"]
@@ -23,8 +22,6 @@ spec:
       port: 514
       targetPort: 514
   internalTrafficPolicy: Cluster
-  clusterIPs:
-    - __PATCH__
   type: ClusterIP
   ipFamilyPolicy: SingleStack
   sessionAffinity: None
