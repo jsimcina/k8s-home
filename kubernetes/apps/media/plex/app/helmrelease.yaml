@@ -99,7 +99,7 @@ spec:
               proxy_pass              http://plex.media.svc.cluster.local:32400;
               proxy_http_version      1.1;
             }
-        className: external
+        className: external-notunnel
         hosts:
           - host: "watch.jonandlinz.io"
             paths:

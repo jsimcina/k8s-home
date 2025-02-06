@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: network
 resources:
   - ./external/ks.yaml
+  - ./external-notunnel/ks.yaml
   - ./internal/ks.yaml
 components:
   - ../../flux/components/alerts
