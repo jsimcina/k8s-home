@@ -16,6 +16,9 @@ spec:
         name: victoriametrics
         namespace: flux-system
   values:
+    global:
+      cluster:
+        dnsDomain: cluster.local
     server:
       enabled: true
       extraArgs:
@@ -37,7 +40,7 @@ spec:
       service:
         enabled: true
         externalIPs: []
-        loadBalancerIP: ""
+        loadBalancerIP: "10.12.0.103"
         loadBalancerSourceRanges: []
         servicePort: 9428
         type: ClusterIP
