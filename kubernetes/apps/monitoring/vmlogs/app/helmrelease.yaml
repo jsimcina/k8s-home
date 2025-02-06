@@ -34,21 +34,27 @@ spec:
       serviceMonitor:
         enabled: true
 
-      securityContext:
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
-        capabilities: { drop: ["ALL"] }
+      service:
+        enabled: true
+        externalIPs: []
+        loadBalancerIP: ""
+        loadBalancerSourceRanges: []
+        servicePort: 9428
+        type: ClusterIP
 
       statefulSet:
         enabled: true
         podManagementPolicy: OrderedReady
         service:
           enabled: true
-          annotations:
-            io.cilium/lb-ipam-ips: "10.12.0.103"
+          annotations: {}
           labels: {}
-          type: ClusterIP
           servicePort: 9428
+
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities: { drop: ["ALL"] }
 
       ingress:
         enabled: true
