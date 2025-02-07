@@ -10,6 +10,7 @@ resources:
   - ./kube-prometheus-stack/ks.yaml
   - ./loki/ks.yaml
   - ./promtail/ks.yaml
+  - ./silence-operator/ks.yaml
   - ./smartctl-exporter/ks.yaml
   - ./tautulli/ks.yaml
   - ./vmlogs/ks.yaml
