@@ -86,13 +86,6 @@ spec:
             access: proxy
             url: http://prometheus-operated.monitoring.svc.cluster.local:9090
             isDefault: true
-          - name: Loki
-            type: loki
-            uid: loki
-            access: proxy
-            url: http://loki-headless.monitoring.svc.cluster.local:3100
-            jsonData:
-              maxLines: 250
           - name: VictoriaLogs
             type: victoriametrics-logs-datasource
             access: proxy
@@ -252,6 +245,10 @@ spec:
           revision: 1
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
+        victorialogs:
+          gnetId: 21550
+          revision: 1
+          datasource: VictoriaLogs
         volsync:
           # renovate: depName="VolSync Dashboard"
           gnetId: 21356
