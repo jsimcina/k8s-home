@@ -12,11 +12,11 @@ spec:
     receiver: pushover
     repeatInterval: 12h
     routes:
-      - receiver: "null"
-        matchers:
-          - name: alertname
-            value: InfoInhibitor
-            matchType: =
+#      - receiver: "null"
+#        matchers:
+#          - name: alertname
+#            value: InfoInhibitor
+#            matchType: =
 #      - receiver: heartbeat
 #        groupInterval: 5m
 #        groupWait: 0s
@@ -78,7 +78,7 @@ spec:
             {{ .CommonLabels.alertname }}
           ttl: 86400s
           token:
-            name: *secret
+            name: &secret alertmanager-secret
             key: ALERTMANAGER_PUSHOVER_TOKEN
           userKey:
             name: *secret
