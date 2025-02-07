@@ -36,9 +36,8 @@ kind: ScrapeConfig
 metadata:
   name: &name pikvm
 spec:
-  staticConfigs:
-    - targets:
-        - https://pikvm.jonandlinz.io
+  httpSDConfigs:
+    - url: https://pikvm.jonandlinz.io
   metricsPath: /api/export/prometheus/metrics
   relabelings:
     - action: replace
