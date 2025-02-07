@@ -38,7 +38,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - pikvm.jonandlinz.io
+        - https://pikvm.jonandlinz.io
   metricsPath: /api/export/prometheus/metrics
   relabelings:
     - action: replace
