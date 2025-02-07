@@ -67,20 +67,20 @@ spec:
       - apiVersion: monitoring.giantswarm.io/v1alpha1
         kind: Silence
         metadata:
-          name: unraid-cephwarnings
+          name: nonclusternode-cephwarnings
           namespace: monitoring
         spec:
           matchers:
             - name: alertname
-              value: ^Ceph
+              value: "^Ceph.+"
               isRegex: true
             - name: instance
-              value: unraid.jonandlinz.com:9100
-              isRegex: false
+              value: "^.*.jonandlinz.com.*"
+              isRegex: true
       - apiVersion: monitoring.giantswarm.io/v1alpha1
         kind: Silence
         metadata:
-          name: unraid-nodebondingdegraded
+          name: nonclusternode-nodebondingdegraded
           namespace: monitoring
         spec:
           matchers:
@@ -88,31 +88,5 @@ spec:
               value: NodeBondingDegraded
               isRegex: false
             - name: instance
-              value: unraid.jonandlinz.com:9100
-              isRegex: false
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: pikvm-cephwarnings
-          namespace: monitoring
-        spec:
-          matchers:
-            - name: alertname
-              value: ^Ceph
+              value: "^.*.jonandlinz.com.*"
               isRegex: true
-            - name: instance
-              value: pikvm.jonandlinz.com:9100
-              isRegex: false
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: pikvm-nodebondingdegraded
-          namespace: monitoring
-        spec:
-          matchers:
-            - name: alertname
-              value: NodeBondingDegraded
-              isRegex: false
-            - name: instance
-              value: unraid.jonandlinz.com:9100
-              isRegex: false
