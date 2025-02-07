@@ -34,7 +34,7 @@ spec:
       config:
         alertmanager:
           service:
-            address: http://kube-prometheus-stack-alertmanage.monitoring.svc.cluster.local:9093
+            address: http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
     rbac:
       create: true
     extraDeploy:
