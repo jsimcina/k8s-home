@@ -248,7 +248,14 @@ spec:
         victorialogs:
           gnetId: 21550
           revision: 1
-          datasource: VictoriaLogs
+          datasource:
+            - { name: DS_LOGS, value: VictoriaLogs }
+            - { name: DS_METRICS, value: Prometheus }
+        victorialogsmetrics:
+          gnetId: 22084
+          revision: 3
+          datasource: Prometheus
+
         volsync:
           # renovate: depName="VolSync Dashboard"
           gnetId: 21356
