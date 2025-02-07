@@ -41,12 +41,12 @@ spec:
           value: warning
           matchType: =
   receivers:
-    - name: "null"
+#    - name: "null"
     #- name: heartbeat
-      webhookConfigs:
-        - urlSecret:
-            name: &secret alertmanager-secret
-            key: ALERTMANAGER_HEARTBEAT_URL
+#      webhookConfigs:
+#        - urlSecret:
+#            name: &secret alertmanager-secret
+#            key: ALERTMANAGER_HEARTBEAT_URL
     - name: pushover
       pushoverConfigs:
         - html: true
