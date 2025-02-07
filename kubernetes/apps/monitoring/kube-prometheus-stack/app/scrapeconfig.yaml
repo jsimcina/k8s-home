@@ -37,7 +37,8 @@ metadata:
   name: &name pikvm
 spec:
   httpSDConfigs:
-    - url: https://pikvm.jonandlinz.io/api/export/prometheus/metrics
+    - url: https://pikvm.jonandlinz.com
+  metricsPath: /api/export/prometheus/metrics
   relabelings:
     - action: replace
       targetLabel: job
