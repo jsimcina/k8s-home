@@ -93,8 +93,6 @@ spec:
         replicaCount: 1
         shardCount: 2
         scrapeInterval: 30s
-        externalLabels:
-          cluster: main
         resources:
           requests:
             cpu: 50m
@@ -102,13 +100,6 @@ spec:
           limits:
             cpu: 400m
             memory: 512Mi
-        topologySpreadConstraints:
-          - maxSkew: 1
-            topologyKey: kubernetes.io/hostname
-            whenUnsatisfiable: DoNotSchedule
-            labelSelector:
-              matchLabels:
-                app.kubernetes.io/name: vmagent
         additionalScrapeConfigs:
           name: vm-additional-scrape-configs
           key: prometheus-additional.yaml
