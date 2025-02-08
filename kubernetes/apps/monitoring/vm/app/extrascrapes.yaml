@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: vm-additional-scrape-configs
+stringData:
+  prometheus-additional.yaml: |
+    - job_name: node-exporter
+      scrape_timeout: 10s
+      honor_timestamps: true
+      static_configs:
+      - targets:
+        - unraid.jonandlinz.com:9100
+    - job_name: "hass"
+      scrape_interval: 60s
+      metrics_path: /api/prometheus
+      bearer_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI4ZTc5MGNhOTdhYWM0ZGQyOWIyYzYwY2ZkOGVhNmFiYyIsImlhdCI6MTcxOTQ5OTAyMiwiZXhwIjoyMDM0ODU5MDIyfQ.7dXElTpBE2h5-Yu7eDAzeOSsy_zq3T7duIEEW1VCuwg"
+      scheme: http
+      static_configs:
+        - targets:
+          - http://home-assistant.home.svc.cluster.local:8123
+    - job_name: homeassistant
+      metric_relabel_configs:
+      - source_labels: [__name__]
+        regex: 'homeassistant_(.*)'
+        replacement: hass_$1
+        target_label: __name__
+    - job_name: controld
+      scrape_interval: 60s
+      metrics_path: /metrics
+      scheme: http
+      static_configs:
+        - targets:
+          - http://10.0.0.1:9100

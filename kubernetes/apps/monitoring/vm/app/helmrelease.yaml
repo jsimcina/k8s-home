@@ -55,6 +55,8 @@ spec:
     vmalert:
       enabled: true
       spec:
+        externalLabels:
+          cluster: &clustername "k8s-home"
         replicaCount: 2
         resources:
           requests:
@@ -84,6 +86,8 @@ spec:
     vmagent:
       enabled: true
       spec:
+        externalLabels:
+          cluster: *clustername
         extraArgs:
           promscrape.maxScrapeSize: "33554432" # 32MiB
           promscrape.streamParse: "true"
