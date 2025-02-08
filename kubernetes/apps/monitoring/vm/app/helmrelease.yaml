@@ -16,7 +16,9 @@ spec:
         name: victoriametrics
         namespace: flux-system
   values:
-  # VM Operator deployment
+    fullnameOverride: vmetrics
+
+    # VM Operator deployment
     victoria-metrics-operator:
       enabled: true
       operator:
