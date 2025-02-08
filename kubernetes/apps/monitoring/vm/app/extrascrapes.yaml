@@ -57,9 +57,10 @@ spec:
       replacement: *name
   scheme: http
   bearerTokenSecret:
-    secretKeyRef:
-      name: vmetrics-secret
-      key: HASS_BEARER_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: vmetrics-secret
+        key: HASS_BEARER_TOKEN
 ---
 apiVersion:	operator.victoriametrics.com/v1beta1
 kind: VMScrapeConfig
