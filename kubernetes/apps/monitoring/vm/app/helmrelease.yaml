@@ -104,9 +104,7 @@ spec:
           limits:
             cpu: 400m
             memory: 512Mi
-        additionalScrapeConfigs:
-          name: vm-additional-scrape-configs
-          key: prometheus-additional.yaml
+        selectAllByDefault: true
       ingress:
         enabled: true
         ingressClassName: internal
