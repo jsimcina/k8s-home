@@ -56,7 +56,10 @@ spec:
       targetLabel: job
       replacement: *name
   scheme: http
-  bearerToken: ${HASS_BEARER_TOKEN}
+  bearerTokenSecret:
+    secretKeyRef:
+      name: vmetrics-secret
+      key: HASS_BEARER_TOKEN
 ---
 apiVersion:	operator.victoriametrics.com/v1beta1
 kind: VMScrapeConfig
