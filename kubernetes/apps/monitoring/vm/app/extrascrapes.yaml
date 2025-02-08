@@ -8,7 +8,7 @@ spec:
     - targets:
         - unraid.jonandlinz.com:9100
         - 10.0.20.1:9100
-  metricsPath: /metrics
+  path: /metrics
   relabelConfigs:
     - action: replace
       targetLabel: job
@@ -22,7 +22,7 @@ spec:
   staticConfigs:
     - targets:
         - pikvm.jonandlinz.com
-  metricsPath: /api/export/prometheus/metrics
+  path: /api/export/prometheus/metrics
   relabelConfigs:
     - action: replace
       targetLabel: job
@@ -36,7 +36,7 @@ spec:
   staticConfigs:
     - targets:
         - 10.21.0.10
-  metricsPath: /metrics
+  path: /metrics
   relabelConfigs:
     - action: replace
       targetLabel: job
