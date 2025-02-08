@@ -6,7 +6,9 @@ metadata:
   name: victoria-metrics
 spec:
   interval: 30m
-    chart: victoria-metrics-k8s-stack
+  chart:
+    spec:
+      chart: victoria-metrics-k8s-stack
       # renovate: registryUrl=https://victoriametrics.github.io/helm-charts chart=victoria-metrics-k8s-stack
       version: 0.36.0
       sourceRef:
@@ -14,7 +16,7 @@ spec:
         name: victoriametrics
         namespace: flux-system
   values:
-    # VM Operator deployment
+  # VM Operator deployment
     victoria-metrics-operator:
       enabled: true
       operator:
