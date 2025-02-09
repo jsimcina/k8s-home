@@ -37,7 +37,7 @@ spec:
           dedup.minScrapeInterval: 30s
           maxLabelsPerTimeseries: "90"
           search.minStalenessInterval: 5m
-          vmalert.proxyURL: http://vmalert-victoria-metrics.monitoring.svc.cluster.local:8080
+          vmalert.proxyURL: http://vmalert-vmetrics.monitoring.svc.cluster.local:8080
         retentionPeriod: 1y
         storage:
           storageClassName: "ceph-block"
