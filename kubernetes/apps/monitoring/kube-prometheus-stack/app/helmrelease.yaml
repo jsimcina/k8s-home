@@ -67,7 +67,7 @@ spec:
       enabled: false
     kubeProxy:
       enabled: false
-    kubelet:
+    kubeletService:
       enabled: false
     prometheus:
       enabled: false
