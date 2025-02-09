@@ -21,7 +21,6 @@ route:
       continue: true
 
 inhibit_rules:
-  equal: ["alertname", "namespace"]
   - source_matchers:
       - severity = "critical"
     target_matchers:
