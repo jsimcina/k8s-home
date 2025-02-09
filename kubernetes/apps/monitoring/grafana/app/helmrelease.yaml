@@ -194,9 +194,6 @@ spec:
           gnetId: 11454
           revision: 14
           datasource: VictoriaMetrics
-        miniflux:
-          url: https://raw.githubusercontent.com/miniflux/v2/main/contrib/grafana/dashboard.json
-          datasource: VictoriaMetrics
         nginx:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
           datasource: VictoriaMetrics
@@ -257,7 +254,6 @@ spec:
           gnetId: 10229
           revision: 37
           datasource: VictoriaMetrics
-
         volsync:
           # renovate: depName="VolSync Dashboard"
           gnetId: 21356
@@ -265,11 +261,6 @@ spec:
           datasource:
             - { name: DS_PROMETHEUS, value: VictoriaMetrics }
             - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
-        zfs:
-          # renovate: depName="ZFS"
-          gnetId: 7845
-          revision: 4
-          datasource: VictoriaMetrics
     sidecar:
       dashboards:
         enabled: true
