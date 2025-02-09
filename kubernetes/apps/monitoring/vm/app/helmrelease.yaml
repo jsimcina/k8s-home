@@ -39,6 +39,13 @@ spec:
           search.minStalenessInterval: 5m
           vmalert.proxyURL: http://vmalert-vmetrics.monitoring.svc.cluster.local:8080
         retentionPeriod: 1y
+        resources:
+          requests:
+            cpu: 50m
+            memory: 1Gi
+          limits:
+            cpu: 500m
+            memory: 2500Mi
         storage:
           storageClassName: "ceph-block"
           existingClaim: vm
