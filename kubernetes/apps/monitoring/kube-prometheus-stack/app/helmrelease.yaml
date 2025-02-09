@@ -38,20 +38,21 @@ spec:
     nodeExporter:
       enabled: false
     kubeApiServer:
-      enabled: false
+      serviceMonitor:
+        selector:
+          k8s-app: kube-apiserver
     kubeScheduler:
-      enabled: false
-    kubeControllerManager:
-      enabled: false
+      service:
+        selector:
+          k8s-app: kube-scheduler
+    kubeControllerManager: &kubeControllerManager
+      service:
+        selector:
+          k8s-app: kube-controller-manager
     kubeEtcd:
-      enabled: false
-    kubeProxy:
-      enabled: false
-    kubeletService:
+      <<: *kubeControllerManager    kubeProxy:
       enabled: false
     prometheus:
-      enabled: false
-    coreDns:
       enabled: false
     prometheus-node-exporter:
       enabled: false
