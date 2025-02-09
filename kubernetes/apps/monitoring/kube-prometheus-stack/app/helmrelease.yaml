@@ -35,6 +35,7 @@ spec:
 
     alertmanager:
       enabled: false
+
       # ingress:
       #   enabled: true
       #   ingressClassName: internal
@@ -53,6 +54,9 @@ spec:
       #         resources:
       #           requests:
       #             storage: 1Gi
+    nodeExporter:
+      enabled: false
+
     kubeApiServer:
       serviceMonitor:
         selector:
