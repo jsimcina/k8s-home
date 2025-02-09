@@ -32,9 +32,7 @@ receivers:
   - name: "null"
   - name: heartbeat
     webhook_configs:
-      - urlSecret:
-          name: &secret alertmanager-secret
-          key: ALERTMANAGER_HEARTBEAT_URL
+      - url_file: "/etc/secrets/healthchecks.io"
   - name: pushover
     pushover_configs:
       - html: true

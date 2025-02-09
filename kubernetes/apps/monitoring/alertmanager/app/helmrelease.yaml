@@ -21,7 +21,6 @@ spec:
   values:
     controllers:
       alertmanager:
-        alertmanagerConfigSelector: alertmanager
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
