@@ -247,5 +247,5 @@ spec:
     # i.e. if you dont have kubeapisever setup & enabled, disable
     #   the kubeApiserver rules below
     defaultRules:
-      create: false
+      create: true
       runbookUrl: https://runbooks.prometheus-operator.dev/runbooks
