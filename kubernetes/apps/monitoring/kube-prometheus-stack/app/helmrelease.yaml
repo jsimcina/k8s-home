@@ -35,28 +35,8 @@ spec:
 
     alertmanager:
       enabled: false
-
-      # ingress:
-      #   enabled: true
-      #   ingressClassName: internal
-      #   hosts: ["alertmanager.jonandlinz.io"]
-      #   pathType: Prefix
-      # alertmanagerSpec:
-      #   alertmanagerConfiguration:
-      #     name: alertmanager
-      #     global:
-      #       resolveTimeout: 5m
-      #   externalUrl: https://alertmanager.jonandlinz.io
-      #   storage:
-      #     volumeClaimTemplate:
-      #       spec:
-      #         storageClassName: ceph-block
-      #         resources:
-      #           requests:
-      #             storage: 1Gi
     nodeExporter:
       enabled: false
-
     kubeApiServer:
       enabled: false
     kubeScheduler:
@@ -73,56 +53,12 @@ spec:
       enabled: false
     coreDns:
       enabled: false
-      # ingress:
-      #   enabled: true
-      #   ingressClassName: internal
-      #   hosts: ["prometheus.jonandlinz.io"]
-      #   pathType: Prefix
-      # prometheusSpec:
-      #   podMonitorSelectorNilUsesHelmValues: false
-      #   probeSelectorNilUsesHelmValues: false
-      #   ruleSelectorNilUsesHelmValues: false
-      #   scrapeConfigSelectorNilUsesHelmValues: false
-      #   serviceMonitorSelectorNilUsesHelmValues: false
-      #   enableAdminAPI: true
-      #   walCompression: true
-      #   enableFeatures:
-      #     - memory-snapshot-on-shutdown
-      #   retention: 14d
-      #   retentionSize: 50GB
-      #   resources:
-      #     requests:
-      #       cpu: 100m
-      #     limits:
-      #       memory: 2000Mi
-      #   storageSpec:
-      #     volumeClaimTemplate:
-      #       spec:
-      #         storageClassName: ceph-block
-      #         resources:
-      #           requests:
-      #             storage: 50Gi
     prometheus-node-exporter:
       enabled: false
     kubeStateMetrics:
       enabled: false
-
     kube-state-metrics:
       enabled: false
-      # fullnameOverride: kube-state-metrics
-      # metricLabelsAllowlist:
-      #   - pods=[*]
-      #   - deployments=[*]
-      #   - persistentvolumeclaims=[*]
-      # prometheus:
-      #   monitor:
-      #     enabled: true
-      #     relabelings:
-      #       - action: replace
-      #         regex: (.*)
-      #         replacement: $1
-      #         sourceLabels: ["__meta_kubernetes_pod_node_name"]
-      #         targetLabel: kubernetes_node
     grafana:
       enabled: false
       forceDeployDashboards: false
@@ -145,15 +81,5 @@ spec:
                 annotations:
                   summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
                 expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
-                labels:
-                  severity: critical
-      zfs-rules:
-        groups:
-          - name: zfs
-            rules:
-              - alert: ZfsUnexpectedPoolState
-                annotations:
-                  summary: ZFS pool {{$labels.zpool}} on {{$labels.instance}} is in a unexpected state {{$labels.state}}
-                expr: node_zfs_zpool_state{state!="online"} > 0
                 labels:
                   severity: critical
