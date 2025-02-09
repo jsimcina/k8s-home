@@ -153,7 +153,9 @@ spec:
           - targetLabel: "job"
             replacement: "kubelet"
     kubeApiServer:
-      enabled: false
+      serviceMonitor:
+        selector:
+          k8s-app: kube-apiserver
     kubeProxy:
       enabled: false
     kubeEtcd:
