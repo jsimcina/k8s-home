@@ -50,7 +50,8 @@ spec:
         selector:
           k8s-app: kube-controller-manager
     kubeEtcd:
-      <<: *kubeControllerManager    kubeProxy:
+      <<: *kubeControllerManager
+    kubeProxy:
       enabled: false
     prometheus:
       enabled: false
