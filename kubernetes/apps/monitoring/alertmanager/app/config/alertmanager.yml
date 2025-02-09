@@ -1,0 +1,70 @@
+---
+route:
+  group_by: ["alertname", "job"]
+  group_wait: 1m
+  group_interval: 10m
+  repeat_interval: 12h
+  receiver: "pushover"
+  routes:
+    - receiver: "null"
+      matchers:
+        - alertname = "InfoInhibitor"
+    - receiver: heartbeat
+      group_interval: 5m
+      group_wait: 0s
+      repeat_interval: 5m
+      matchers:
+        - alertname = "WatchDog"
+    - receiver: pushover
+      matchers:
+        - severity = "critical"
+      continue: true
+
+inhibit_rules:
+  equal: ["alertname", "namespace"]
+  - source_matchers:
+      - severity = "critical"
+    target_matchers:
+      - severity = "warning"
+    equal: ["alertname", "namespace"]
+
+receivers:
+  - name: "null"
+  - name: heartbeat
+    webhook_configs:
+      - urlSecret:
+          name: &secret alertmanager-secret
+          key: ALERTMANAGER_HEARTBEAT_URL
+  - name: pushover
+    pushover_configs:
+      - html: true
+        message: |-
+          {{- range .Alerts }}
+            {{- if ne .Annotations.description "" }}
+              {{ .Annotations.description }}
+            {{- else if ne .Annotations.summary "" }}
+              {{ .Annotations.summary }}
+            {{- else if ne .Annotations.message "" }}
+              {{ .Annotations.message }}
+            {{- else }}
+              Alert description not available
+            {{- end }}
+            {{- if gt (len .Labels.SortedPairs) 0 }}
+              <small>
+                {{- range .Labels.SortedPairs }}
+                  <b>{{ .Name }}:</b> {{ .Value }}
+                {{- end }}
+              </small>
+            {{- end }}
+          {{- end }}
+        priority: |-
+          {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
+        sendResolved: true
+        sound: gamelan
+        title: >-
+          [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]
+          {{ .CommonLabels.alertname }}
+        ttl: 86400s
+        token_file: /etc/secrets/pushover_api_token
+        user_key_file: /etc/secrets/pushover_api_userkey
+        urlTitle: View in Alertmanager

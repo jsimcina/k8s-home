@@ -77,3 +77,15 @@ spec:
                 service:
                   identifier: app
                   port: http
+
+    persistence:
+      config:
+        type: configMap
+        name: alertmanager
+        globalMounts:
+          - path: /etc/alertmanager
+      secrets:
+        type: secret
+        name: alertmanager-secret
+        globalMounts:
+          - path: /etc/secrets
