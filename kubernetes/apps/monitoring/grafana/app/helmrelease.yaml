@@ -253,6 +253,10 @@ spec:
           gnetId: 22084
           revision: 3
           datasource: VictoriaMetrics
+        victoriasinglenode:
+          gnetId: 10229
+          revision: 37
+          datasource: VictoriaMetrics
 
         volsync:
           # renovate: depName="VolSync Dashboard"
