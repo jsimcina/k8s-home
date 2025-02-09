@@ -6,3 +6,7 @@ resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
   - ./extrascrapes.yaml
+  - ../../../../flux/components/volsync/pvc.yaml
+  - ../../../../flux/components/volsync/local/externalsecret.yaml
+  - ../../../../flux/components/volsync/local/replicationsource.yaml
+  - ../../../../flux/components/volsync/local/replicationdestination.yaml

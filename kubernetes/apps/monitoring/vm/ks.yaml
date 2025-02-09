@@ -10,8 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   interval: 30m
-  components:
-    - ../../../../flux/components/volsync
   path: ./kubernetes/apps/monitoring/vm/app
   prune: true
   sourceRef:
