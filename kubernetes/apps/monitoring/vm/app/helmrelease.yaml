@@ -124,47 +124,7 @@ spec:
 
     # Scrape configs
     kubelet:
-      enabled: true
-      vmScrapes:
-        cadvisor:
-          enabled: true
-          spec:
-            path: /metrics/cadvisor
-        probes:
-          enabled: true
-          spec:
-            path: /metrics/probes
-        resources:
-          enabled: true
-          spec:
-            path: /metrics/resource
-      spec:
-        interval: 30s
-        # drop high cardinality label and useless metrics for cadvisor and kubelet
-        metricRelabelConfigs:
-          - action: labeldrop
-            regex: (uid|pod_uid|id)
-          - action: labeldrop
-            regex: (name)
-          - action: drop
-            source_labels: [__name__]
-            regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
-          - action: drop
-            source_labels: [__name__]
-            regex: (container_tasks_state|container_memory_failures_total)
-          - action: drop
-            source_labels: [__name__]
-            regex: (container_blkio_device_usage_total)
-          - action: drop
-            source_labels: [__name__]
-            regex: (prober_probe_duration_seconds_bucket)
-        relabelConfigs:
-          - action: labelmap
-            regex: __meta_kubernetes_node_label_(.+)
-          - sourceLabels: [__metrics_path__]
-            targetLabel: metrics_path
-          - targetLabel: "job"
-            replacement: "kubelet"
+      enabled: false
 
     kubeApiServer:
       serviceMonitor:
