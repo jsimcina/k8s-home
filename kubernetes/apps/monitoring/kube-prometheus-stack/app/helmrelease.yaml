@@ -110,7 +110,7 @@ spec:
       enabled: false
 
     kube-state-metrics:
-      # enabled: false
+      enabled: false
       # fullnameOverride: kube-state-metrics
       # metricLabelsAllowlist:
       #   - pods=[*]
