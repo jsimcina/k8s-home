@@ -61,12 +61,10 @@ spec:
       enabled: false
     kubeScheduler:
       enabled: false
-    kubeControllerManager: &kubeControllerManager
-      service:
-        selector:
-          k8s-app: kube-controller-manager
+    kubeControllerManager:
+      enabled: false
     kubeEtcd:
-      <<: *kubeControllerManager # etcd runs on control plane nodes
+      enabled: false
     kubeProxy:
       enabled: false
     prometheus:
