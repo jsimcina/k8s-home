@@ -160,7 +160,6 @@ spec:
       enabled: false
     kubeEtcd:
       enabled: true
-      endpoints: []
       service:
         enabled: true
         port: 2381
@@ -181,10 +180,18 @@ spec:
                 insecureSkipVerify: true
                 caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
                 serverName: kubernetes
+    coreDns:
+      enabled: true
+      service:
+        enabled: true
+        port: 9153
+        targetPort: 9153
+        selector:
+          k8s-app: kube-dns
+      vmScrape: *vmscrapemetricstoken
 
     kubeControllerManager:
       enabled: true
-      endpoints: []
       service:
         enabled: true
         port: 10257

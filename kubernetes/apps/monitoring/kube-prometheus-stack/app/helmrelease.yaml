@@ -71,6 +71,8 @@ spec:
       enabled: false
     prometheus:
       enabled: false
+    coreDns:
+      enabled: false
       # ingress:
       #   enabled: true
       #   ingressClassName: internal
