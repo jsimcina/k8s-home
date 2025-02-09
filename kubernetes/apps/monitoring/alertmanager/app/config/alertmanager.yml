@@ -56,7 +56,7 @@ receivers:
           {{- end }}
         priority: |-
           {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
-        sendResolved: true
+        send_resolved: true
         sound: gamelan
         title: >-
           [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]
@@ -64,4 +64,4 @@ receivers:
         ttl: 86400s
         token_file: /etc/secrets/pushover_api_token
         user_key_file: /etc/secrets/pushover_api_userkey
-        urlTitle: View in Alertmanager
+        url_title: View in Alertmanager
