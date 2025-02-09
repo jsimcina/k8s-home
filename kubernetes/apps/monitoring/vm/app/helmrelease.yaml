@@ -42,7 +42,7 @@ spec:
         storage:
           storageClassName: "ceph-block"
           existingClaim: vm
-          size: "100Gi"
+          size: "500Gi"
           accessModes:
             - ReadWriteOnce
       ingress:

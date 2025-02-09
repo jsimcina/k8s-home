@@ -23,4 +23,4 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CLAIM: vm
-      VOLSYNC_CAPACITY: 100Gi
+      VOLSYNC_CAPACITY: 500Gi
