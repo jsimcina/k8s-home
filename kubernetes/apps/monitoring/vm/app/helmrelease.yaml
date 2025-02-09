@@ -125,6 +125,19 @@ spec:
     # Scrape configs
     kubelet:
       enabled: true
+      vmScrapes:
+        cadvisor:
+          enabled: true
+          spec:
+            path: /metrics/cadvisor
+        probes:
+          enabled: true
+          spec:
+            path: /metrics/probes
+        resources:
+          enabled: true
+          spec:
+            path: /metrics/resource
       spec:
         interval: 30s
         # drop high cardinality label and useless metrics for cadvisor and kubelet
@@ -152,6 +165,7 @@ spec:
             targetLabel: metrics_path
           - targetLabel: "job"
             replacement: "kubelet"
+
     kubeApiServer:
       serviceMonitor:
         selector:
