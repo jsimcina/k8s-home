@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: alertmanager
+  name: &app alertmanager
 spec:
   interval: 30m
   chart:
@@ -61,10 +61,20 @@ spec:
 
     service:
       app:
-        controller: alertmanager
+        controller: *app
         ports:
           http:
             port: 9093
+
+    serviceMonitor:
+      app:
+        serviceName: *app
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
 
     ingress:
       app:
