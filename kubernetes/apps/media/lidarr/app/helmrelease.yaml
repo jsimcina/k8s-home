@@ -46,7 +46,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jsimcina/lidarr
-              tag: 2.8.2.4493@sha256:f6b1ab101a630919e02979f02ecacf22ce3cd88f2f894c1aa0b75b6205441f95
+              tag: 2.9.6.4552@sha256:68e15995de16ec8429afa21c4b0476b0600e475670addafa428fdedb0c427a92
             env:
               LIDARR__AUTHENTICATION_METHOD: External
               LIDARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
