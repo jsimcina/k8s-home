@@ -122,9 +122,36 @@ spec:
     monzoTemplate:
       enabled: false
 
+    defaultRules:
+      create: true
+      runbookUrl: https://runbooks.prometheus-operator.dev/runbooks
+      rules:
+        etcd: false
+        general: true
+        k8s: true
+        kubeApiserver: true
+        kubeApiserverAvailability: true
+        kubeApiserverBurnrate: true
+        kubeApiserverHistogram: true
+        kubeApiserverSlos: true
+        kubelet: true
+        kubePrometheusGeneral: true
+        kubePrometheusNodeRecording: true
+        kubernetesApps: true
+        kubernetesResources: true
+        kubernetesStorage: true
+        kubernetesSystem: true
+        kubeScheduler: false
+        kubeStateMetrics: true
+        network: true
+        node: true
+        vmagent: true
+        vmsingle: false
+        vmhealth: true
+        alertmanager: true
+
     # Scrape configs
     kubelet:
-      enabled: true
       vmScrape:
         spec:
           # drop high cardinality label and useless metrics for cadvisor and kubelet
@@ -167,19 +194,6 @@ spec:
             sourceLabels: [__name__]
             regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
 
-    kubeApiServer:
-      enabled: false
-    kubeProxy:
-      enabled: false
-    kubeEtcd:
-      enabled: false
-    coreDns:
-      enabled: false
-
-    kubeControllerManager:
-      enabled: false
-    kubeScheduler:
-      enabled: false
     # Enable deployment of kube-state-metrics
     kube-state-metrics:
       enabled: false
@@ -196,11 +210,3 @@ spec:
     # Enable deployment of alertmanager
     alertmanager:
       enabled: false
-
-    # Prepared sets of default rules
-    # Adjust to what scraping functions you have enabled
-    # i.e. if you dont have kubeapisever setup & enabled, disable
-    #   the kubeApiserver rules below
-    defaultRules:
-      create: false
-      runbookUrl: https://runbooks.prometheus-operator.dev/runbooks
