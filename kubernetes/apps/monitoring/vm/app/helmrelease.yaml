@@ -195,7 +195,6 @@ spec:
             regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
     kubeControllerManager:
       enabled: true
-      endpoints: []
       service:
         enabled: true
         port: 10257
@@ -218,7 +217,6 @@ spec:
                 serverName: kubernetes
     kubeScheduler:
       enabled: true
-      endpoints: []
       service:
         enabled: true
         port: 10259
