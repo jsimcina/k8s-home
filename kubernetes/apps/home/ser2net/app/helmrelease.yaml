@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jippi/docker-ser2net
-              tag: 4.6.3@sha256:c811097c5efaef04f7ba93e9c77a5d87d7296e6193066df451d37cb9b9251bf2
+              tag: 4.6.4@sha256:28759f8e6dfa14335bf4764552e9aedf1741443e7dd71af9fff51ef638848ac7
             securityContext:
               privileged: true
             resources:
