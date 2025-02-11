@@ -37,8 +37,8 @@ endpoints:
       - "[STATUS] == 404"
     alerts:
       - type: pushover
-  - name: healthchecks.io_heartbeat
-    group: external
+  - name: "healthchecks.io Heartbeat"
+    group: guarded
     url: ${HEALTHCHECK_HEARTBEAT_URL}
     interval: 1m
     client:
