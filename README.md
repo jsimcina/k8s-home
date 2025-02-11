@@ -16,9 +16,9 @@ _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gs
 
 <div align="center">
 
-[![Home-Internet](https://img.shields.io/uptimerobot/status/m793494864-dfc695db066960233ac70f45?color=brightgreeen&label=Home%20Internet&style=for-the-badge&logo=ubiquiti&logoColor=white)](https://status.jonandlinz.io)&nbsp;&nbsp;
-[![Status-Page](https://img.shields.io/uptimerobot/status/m793599155-ba1b18e51c9f8653acd0f5c1?color=brightgreeen&label=Status%20Page&style=for-the-badge&logo=statuspage&logoColor=white)](https://status.jonandlinz.io)&nbsp;&nbsp;
-[![Alertmanager](https://img.shields.io/uptimerobot/status/m793494864-dfc695db066960233ac70f45?color=brightgreeen&label=Alertmanager&style=for-the-badge&logo=prometheus&logoColor=white)](https://status.jonandlinz.io)
+[![Home-Internet](https://img.shields.io/endpoint?url=https%3A%2F%2Fhealthchecks.io%2Fb%2F2%2Fbae6ef21-2b8a-47c6-9c4f-9f1152d01cd5.shields&style=for-the-badge&logo=ubiquiti&logoColor=white)](https://status.jonandlinz.io)&nbsp;&nbsp;
+[![Status-Page](https://img.shields.io/endpoint?url=https%3A%2F%2Fhealthchecks.io%2Fb%2F2%2Ff9d29db8-eee3-4722-b55c-b2f1b77a3a0d.shields&style=for-the-badge&logo=statuspage&logoColor=white)](https://status.jonandlinz.io)&nbsp;&nbsp;
+[![Alertmanager](https://img.shields.io/endpoint?url=https%3A%2F%2Fhealthchecks.io%2Fb%2F2%2F9952bb28-eb32-4de6-8dae-df8bbb29acf4.shields&color=brightgreeen&label=Alertmanager&style=for-the-badge&logo=prometheus&logoColor=white)](https://status.jonandlinz.io)
 
 </div>
 
