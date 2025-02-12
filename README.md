@@ -12,6 +12,7 @@ _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gs
 
 [![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue&label=%20)](https://talos.dev)&nbsp;&nbsp;
 [![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fkubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&color=blue&label=%20)](https://kubernetes.io)&nbsp;&nbsp;
+[![Flux](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fflux_version&style=for-the-badge&logo=flux&logoColor=white&color=blue&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
 </div>
 
 <div align="center">
@@ -95,15 +96,6 @@ graph TD
     D>Kustomization: atuin] -->|Creates| E(HelmRelease: atuin)
     E>HelmRelease: atuin] -->|Depends on| C>HelmRelease: rook-ceph-cluster]
 ```
-
-### Networking
-
-<details>
-  <summary>Click here to see my high-level network diagram</summary>
-
-  <img src="https://raw.githubusercontent.com/onedr0p/home-ops/main/docs/src/assets/network-topology.png" align="center" width="600px" alt="dns"/>
-</details>
-
 ---
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f636_200d_1f32b_fe0f/512.gif" alt="😶" width="20" height="20"> Cloud Dependencies
@@ -114,14 +106,13 @@ Alternative solutions to the first two of these problems would be to host a Kube
 
 | Service                                         | Use                                                               | Cost           |
 |-------------------------------------------------|-------------------------------------------------------------------|----------------|
-| [1Password](https://1password.com/)             | Secrets with [External Secrets](https://external-secrets.io/)     | ~$65/yr        |
+| [1Password](https://1password.com/)             | Secrets with [External Secrets](https://external-secrets.io/)     | Free           |
 | [Cloudflare](https://www.cloudflare.com/)       | Domain and S3                                                     | ~$30/yr        |
 | [GCP](https://cloud.google.com/)                | Voice interactions with Home Assistant over Google Assistant      | Free           |
 | [GitHub](https://github.com/)                   | Hosting this repository and continuous integration/deployments    | Free           |
-| [Migadu](https://migadu.com/)                   | Email hosting                                                     | ~$20/yr        |
 | [Pushover](https://pushover.net/)               | Kubernetes Alerts and application notifications                   | $5 OTP         |
-| [UptimeRobot](https://uptimerobot.com/)         | Monitoring internet connectivity and external facing applications | ~$58/yr        |
-|                                                 |                                                                   | Total: ~$20/mo |
+| [Healthchecks.io](https://healthchecks.io/)     | Monitoring internet connectivity and external facing applications | Free           |
+|                                                 |                                                                   | Total: ~$3/mo  |
 
 ---
 
@@ -141,31 +132,20 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 
 | Device                      | Num | OS Disk Size | Data Disk Size                  | Ram  | OS            | Function                |
 |-----------------------------|-----|--------------|---------------------------------|------|---------------|-------------------------|
-| ASUS NUC 14 Pro CU 5 125H   | 3   | 1TB SSD      | 1TB (local) / 800GB (rook-ceph) | 96GB | Talos         | Kubernetes              |
+| Minisforum MS-01 13900H     | 3   | 1TB SSD      | 1TB (rook-ceph)                 | 64GB | Talos         | Kubernetes              |
+| Asus P64 NUC 12500H         | 1   | 1TB SSD      | 1TB (rook-ceph)                 | 64GB | Talos         | Kubernetes              |
+| BeeLink EQ12 N100           | 1   | 240GB SSD    | 1TB (rook-ceph)                 | 16GB | Talos         | Kubernetes/ZWave Host   |
 | PowerEdge T340              | 1   | 1TB SSD      | 8x22TB ZFS (mirrored vdevs)     | 64GB | TrueNAS SCALE | NFS + Backup Server     |
 | PiKVM (RasPi 4)             | 1   | 64GB (SD)    | -                               | 4GB  | PiKVM         | KVM                     |
 | TESmart 8 Port KVM Switch   | 1   | -            | -                               | -    | -             | Network KVM (for PiKVM) |
-| UniFi UDMP Max              | 1   | -            | 2x4TB HDD                       | -    | -             | Router & NVR            |
-| UniFi US-16-XG              | 1   | -            | -                               | -    | -             | 10Gb Core Switch        |
-| UniFi USW-Enterprise-24-PoE | 1   | -            | -                               | -    | -             | 2.5Gb PoE Switch        |
-| UniFi USP PDU Pro           | 1   | -            | -                               | -    | -             | PDU                     |
-| APC SMT1500RM2U             | 1   | -            | -                               | -    | -             | UPS                     |
+| UniFi UDM SE                | 1   | -            | -                               | -    | -             | Router                  |
+| UniFi USW-Aggregation       | 1   | -            | -                               | -    | -             | 10Gb Core Switch        |
+| USW-PRO-MAX-24              | 1   | -            | -                               | -    | -             | 1/2.5Gb Core Switch     |
+| USW-PRO-MAX-24-POE          | 1   | -            | -                               | -    | -             | 1/2.5Gb POE Core Switch |
+| USW-PRO-MAX-16-POE          | 1   | -            | -                               | -    | -             | 1/2.5Gb POE Outdoor     |
+| Eaton SU2200RTXL2UA + Batt  | 1x2 | -            | -                               | -    | -             | UPS                     |
+| Tripp-Lite PDUMH20AT        | 1x2 | -            | -                               | -    | -             | PDU/ATS                 |
 
----
-
-## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f31f/512.gif" alt="🌟" width="20" height="20"> Stargazers
-
-<div align="center">
-
-<a href="https://star-history.com/#onedr0p/home-ops&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=onedr0p/home-ops&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=onedr0p/home-ops&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=onedr0p/home-ops&type=Date" />
-  </picture>
-</a>
-
-</div>
 
 ---
 
