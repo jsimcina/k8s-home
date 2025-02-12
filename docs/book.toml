@@ -1,5 +1,5 @@
 [book]
-authors = ["Devin Buhl"]
+authors = ["Jon Simcina"]
 language = "en"
 multilingual = false
 src = "src"
@@ -8,7 +8,7 @@ title = "Home Operations"
 [output.html]
 default-theme = "navy"
 preferred-dark-theme = "navy"
-git-repository-url = "https://github.com/onedr0p/home-ops"
+git-repository-url = "https://github.com/jsimcina/k8s-home"
 git-repository-icon = "fa-github"
 no-section-label = true
 additional-js = ["mermaid.min.js", "mermaid-init.js"]
