@@ -105,7 +105,7 @@ spec:
         name: romm-config
         globalMounts:
           - path: /romm/config/config.yml
-            subPath: config.yml
+            subPath: ./config/config.yml
       media:
         type: nfs
         server: unraid.jonandlinz.com
