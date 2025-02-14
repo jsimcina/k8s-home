@@ -8,5 +8,6 @@ resources:
     - ./bambu-connect/ks.yaml
     - ./echo-server/ks.yaml
     - ./paperless-ngx/ks.yaml
+    - ./romm/ks.yaml
 components:
   - ../../flux/components/common
