@@ -100,7 +100,7 @@ spec:
         advancedMounts:
           romm:
             app:
-              - path: /romm
+              - path: /romm/config
       media:
         type: nfs
         server: unraid.jonandlinz.com
