@@ -6,8 +6,10 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-- name: romm-config
-  files:
-    - ./resources/config.yml
-  options:
-    disableNameSuffixHash: true
+  - name: romm-config
+    files:
+      - config.yml=./resources/config.yml
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
