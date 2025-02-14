@@ -95,15 +95,24 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      config:
+      assets:
         existingClaim: *app
-        advancedMounts:
-          romm:
-            app:
-              - path: /romm/config
+        globalMounts:
+          - path: /romm/assets
+            readOnly: false
+      config:
+        type: configMap
+        name: romm-config
+        globalMounts:
+          - path: /romm/config/config.yml
+            subPath: config.yml
       media:
         type: nfs
         server: unraid.jonandlinz.com
         path: /mnt/user/media_server/media/roms
         globalMounts:
           - path: /romm/library
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
