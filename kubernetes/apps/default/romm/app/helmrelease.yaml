@@ -100,13 +100,7 @@ spec:
         advancedMounts:
           romm:
             app:
-              - path: /romm/config
-      assets:
-        existingClaim: *app
-        advancedMounts:
-          romm:
-            app:
-              - path: /romm/assets
+              - path: /romm
       media:
         type: nfs
         server: unraid.jonandlinz.com
