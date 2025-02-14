@@ -100,6 +100,11 @@ spec:
         globalMounts:
           - path: /romm/assets
             readOnly: false
+      resources:
+        existingClaim: romm-resources
+        globalMounts:
+          - path: /romm/resources
+            readOnly: false
       config:
         type: configMap
         name: romm-config
