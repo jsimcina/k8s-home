@@ -54,10 +54,10 @@ spec:
         externalTrafficPolicy: Cluster
         ports:
           imap:
-            port: 1143
+            port: 143
             protocol: TCP
           smtp:
-            port: 1025
+            port: 25
             protocol: TCP
     persistence:
       config:
