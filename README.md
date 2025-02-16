@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/jsimcina/k8s-home/main/docs/src/assets/logo.png" align="center" width="144px" height="144px"/>
+<img src="https://raw.githubusercontent.com/jsimcina/k8s-home/refs/heads/main/docs/src/assets/logo.png?token=GHSAT0AAAAAAC5IU3AR6YYIWPB5J5MTQ7AEZ5SL73A" align="center" width="144px" height="144px"/>
 
 ### <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="🚀" width="16" height="16"> My Home Operations Repository <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f6a7/512.gif" alt="🚧" width="16" height="16">
 
@@ -74,14 +74,15 @@ The way Flux works for me here is it will recursively search the `kubernetes/app
 
 ### Directories
 
-This Git repository contains the following directories under [Kubernetes](./kubernetes/).
+This Git repository contains the following directories:
 
 ```sh
+📁 bootstrap          # bootstrap procedures
 📁 kubernetes
 ├── 📁 apps           # applications
-├── 📁 bootstrap      # bootstrap procedures
 ├── 📁 components     # re-useable components
 └── 📁 flux           # flux system configuration
+📁 talos              # Talos node configuration data
 ```
 
 ### Flux Workflow
@@ -118,37 +119,32 @@ Alternative solutions to the first two of these problems would be to host a Kube
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f30e/512.gif" alt="🌎" width="20" height="20"> DNS
 
-In my cluster there are two instances of [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) running. One for syncing private DNS records to my `UDM Pro Max` using [ExternalDNS webhook provider for UniFi](https://github.com/kashalls/external-dns-unifi-webhook), while another instance syncs public DNS to `Cloudflare`. This setup is managed by creating ingresses with two specific classes: `internal` for private DNS and `external` for public DNS. The `external-dns` instances then syncs the DNS records to their respective platforms accordingly.
+In my cluster there are two instances of [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) running. One for syncing private DNS records to my `UDM SE` using [ExternalDNS webhook provider for UniFi](https://github.com/kashalls/external-dns-unifi-webhook), while another instance syncs public DNS to `Cloudflare`. This setup is managed by creating ingresses with two specific classes: `internal` for private DNS and `external` for public DNS. The `external-dns` instances then syncs the DNS records to their respective platforms accordingly.
 
 ---
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="20" height="20"> Hardware
 
-<details>
-  <summary>Click here to see my server rack</summary>
-
-  <img src="https://raw.githubusercontent.com/onedr0p/home-ops/main/docs/src/assets/rack.png" align="center" width="200px" alt="dns"/>
-</details>
-
-| Device                      | Num | OS Disk Size | Data Disk Size                  | Ram  | OS            | Function                |
-|-----------------------------|-----|--------------|---------------------------------|------|---------------|-------------------------|
-| Minisforum MS-01 13900H     | 3   | 1TB SSD      | 1TB (rook-ceph)                 | 64GB | Talos         | Kubernetes              |
-| Asus P64 NUC 12500H         | 1   | 1TB SSD      | 1TB (rook-ceph)                 | 64GB | Talos         | Kubernetes              |
-| BeeLink EQ12 N100           | 1   | 240GB SSD    | 1TB (rook-ceph)                 | 16GB | Talos         | Kubernetes/ZWave Host   |
-| PowerEdge T340              | 1   | 1TB SSD      | 8x22TB ZFS (mirrored vdevs)     | 64GB | TrueNAS SCALE | NFS + Backup Server     |
-| PiKVM (RasPi 4)             | 1   | 64GB (SD)    | -                               | 4GB  | PiKVM         | KVM                     |
-| TESmart 8 Port KVM Switch   | 1   | -            | -                               | -    | -             | Network KVM (for PiKVM) |
-| UniFi UDM SE                | 1   | -            | -                               | -    | -             | Router                  |
-| UniFi USW-Aggregation       | 1   | -            | -                               | -    | -             | 10Gb Core Switch        |
-| USW-PRO-MAX-24              | 1   | -            | -                               | -    | -             | 1/2.5Gb Core Switch     |
-| USW-PRO-MAX-24-POE          | 1   | -            | -                               | -    | -             | 1/2.5Gb POE Core Switch |
-| USW-PRO-MAX-16-POE          | 1   | -            | -                               | -    | -             | 1/2.5Gb POE Outdoor     |
-| Eaton SU2200RTXL2UA + Batt  | 1x2 | -            | -                               | -    | -             | UPS                     |
-| Tripp-Lite PDUMH20AT        | 1x2 | -            | -                               | -    | -             | PDU/ATS                 |
+| Device                      | Num | OS Disk Size | Data Disk Size                      | Ram  | OS            | Function                |
+|-----------------------------|-----|--------------|-------------------------------------|------|---------------|-------------------------|
+| Minisforum MS-01 13900H     | 3   | 1TB SSD      | 1TB (rook-ceph)                     | 64GB | Talos         | Kubernetes              |
+| Asus P64 NUC 12500H         | 1   | 1TB SSD      | 1TB (rook-ceph)                     | 64GB | Talos         | Kubernetes              |
+| BeeLink EQ12 N100           | 1   | 240GB SSD    | 1TB (rook-ceph)                     | 16GB | Talos         | Kubernetes/ZWave Host   |
+| PowerEdge R730XD            | 1   | 1TB SSD      | 7x14TB Array + 4TB NVME NVR Cache   | 128GB| Unraid        | NFS + Backup Server     |
+| PiKVM (RasPi 4)             | 1   | 64GB (SD)    | -                                   | 4GB  | PiKVM         | KVM                     |
+| TESmart 8 Port KVM Switch   | 1   | -            | -                                   | -    | -             | Network KVM (for PiKVM) |
+| UniFi UDM SE                | 1   | -            | -                                   | -    | -             | Router                  |
+| UniFi USW-Aggregation       | 1   | -            | -                                   | -    | -             | 10Gb Core Switch        |
+| USW-PRO-MAX-24              | 1   | -            | -                                   | -    | -             | 1/2.5Gb Core Switch     |
+| USW-PRO-MAX-24-POE          | 1   | -            | -                                   | -    | -             | 1/2.5Gb POE Core Switch |
+| USW-PRO-MAX-16-POE          | 1   | -            | -                                   | -    | -             | 1/2.5Gb POE Outdoor     |
+| Eaton SU2200RTXL2UA         | 1   | -            | -                                   | -    | -             | UPS                     |
+| Eaton BP48V27-2US           | 2   | -            | -                                   | -    | -             | External Battery Packs  |
+| Tripp-Lite PDUMH20AT        | 1   | -            | -                                   | -    | -             | PDU/ATS                 |
 
 
 ---
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.gif" alt="🙏" width="20" height="20"> Gratitude and Thanks
 
-Thanks to all the people who donate their time to the [Home Operations](https://discord.gg/home-operations) Discord community. Be sure to check out [kubesearch.dev](https://kubesearch.dev/) for ideas on how to deploy applications or get ideas on what you could deploy.
+Thanks to all the people who donate their time to the [Home Operations](https://discord.gg/home-operations) Discord community. Be sure to check out [kubesearch.dev](https://kubesearch.dev/) for ideas on how to deploy applications or get ideas on what you could deploy.  Extra thanks to [onedr0p](https://github.com/onedr0p/home-ops) from whom I shamelessly lift code, and get inspiration to make potentially horrible mistakes with my cluster.
