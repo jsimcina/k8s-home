@@ -13,5 +13,5 @@ machine:
       wwid: naa.55cd2e4150edacea
       type: ssd
   nodeLabels:
-    ser2net: true
+    ser2net: "true"
     servermodel: Beelink-EQ12
