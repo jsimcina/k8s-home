@@ -21,4 +21,4 @@ resources:
   - ./vmlogs/ks.yaml
   - ./unpoller/ks.yaml
 components:
-  - ../../flux/components/common
+  - ../../components/common

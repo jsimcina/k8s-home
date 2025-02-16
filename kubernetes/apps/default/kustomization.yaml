@@ -10,4 +10,4 @@ resources:
     - ./paperless-ngx/ks.yaml
     - ./romm/ks.yaml
 components:
-  - ../../flux/components/common
+  - ../../components/common

@@ -6,4 +6,4 @@ namespace: openebs-system
 resources:
   - ./openebs/ks.yaml
 components:
-  - ../../flux/components/common
+  - ../../components/common

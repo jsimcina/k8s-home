@@ -16,8 +16,8 @@ spec:
     - name: volsync
       namespace: volsync-system
   components:
-    - ../../../../flux/components/gatus/guarded
-    - ../../../../flux/components/volsync
+    - ../../../../components/gatus/guarded
+    - ../../../../components/volsync
   path: ./kubernetes/apps/default/bambu-connect/app
   prune: true
   sourceRef:

@@ -15,4 +15,4 @@ resources:
   - ./spegel/ks.yaml
   - ./system-upgrade/ks.yaml
 components:
-  - ../../flux/components/common
+  - ../../components/common

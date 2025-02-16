@@ -12,8 +12,8 @@ spec:
       app.kubernetes.io/name: *app
   interval: 10m
   components:
-    - ../../../../flux/components/gatus/guarded
-    - ../../../../flux/components/volsync
+    - ../../../../components/gatus/guarded
+    - ../../../../components/volsync
   path: "./kubernetes/apps/media/music-assistant/app"
   prune: true
   sourceRef:

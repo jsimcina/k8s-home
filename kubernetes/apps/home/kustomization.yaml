@@ -14,4 +14,4 @@ resources:
   - ./zigbee2mqtt/ks.yaml
   - ./zwave-js-ui/ks.yaml
 components:
-  - ../../flux/components/common
+  - ../../components/common

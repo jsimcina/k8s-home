@@ -7,4 +7,4 @@ resources:
   - ./authentik/ks.yaml
   - ./proton-bridge/ks.yaml
 components:
-  - ../../flux/components/common
+  - ../../components/common

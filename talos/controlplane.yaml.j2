@@ -1,0 +1,167 @@
+version: v1alpha1
+debug: false
+persist: true
+machine:
+  type: controlplane
+  token: op://kubernetes/talos/MACHINE_TOKEN
+  ca:
+    crt: op://kubernetes/talos/MACHINE_CA_CRT
+    key: op://kubernetes/talos/MACHINE_CA_KEY
+  certSANs: ["10.12.0.254", "jonandlinz.io", "127.0.0.1"]
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
+    extraMounts:
+        - destination: /var/openebs/local
+          type: bind
+          source: /var/openebs/local
+          options:
+            - bind
+            - rshared
+            - rw
+    extraConfig:
+      maxPods: 150
+    defaultRuntimeSeccompProfileEnabled: true
+    nodeIP:
+      validSubnets: ["10.12.0.0/24"]
+    disableManifestsDirectory: true
+  network:
+  install:
+    extraKernelArgs:
+      - i915.enable_guc=3                   # Meteor Lake CPU / iGPU
+      - apparmor=0                          # Less security, faster puter
+      - init_on_alloc=0                     # Less security, faster puter
+      - init_on_free=0                      # Less security, faster puter
+      - intel_iommu=on                      # PCI Passthrough
+      - iommu=pt                            # PCI Passthrough
+      - mitigations=off                     # Less security, faster puter
+      - security=none                       # Less security, faster puter
+      - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU / iGPU
+      - talos.auditd.disabled=1             # Less security, faster puter
+    # i915-ucode, intel-ucode, mei, thunderbolt
+    image: factory.talos.dev/installer/d95e9ce1849c31a3b9d777ed22cb9a1dad986285433211b4292acc8d0114d7dd:{{ ENV.TALOS_VERSION }}
+    wipe: false
+  time:
+    disabled: false
+    servers:
+      - 10.0.20.3
+      - 162.159.200.1
+  files:
+    - # Spegel
+      op: create
+      path: /etc/cri/conf.d/20-customization.part
+      content: |
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+    - op: overwrite
+      path: /etc/nfsmount.conf
+      permissions: 420
+      content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4.2
+        hard=True
+        nconnect=16
+        noatime=True
+  features:
+    rbac: true
+    stableHostname: true
+    kubernetesTalosAPIAccess:
+      enabled: true
+      allowedRoles: ["os:admin"]
+      allowedKubernetesNamespaces: ["actions-runner-system", "kube-system"]
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+    kubePrism:
+      enabled: true
+      port: 7445
+    hostDNS:
+      enabled: true
+      resolveMemberNames: true
+      forwardKubeDNSToHost: false
+  udev:
+    rules:
+      - # Intel GPU
+        SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
+      - # Thunderbolt
+        ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
+  kernel:
+    modules:
+      - name: nbd
+      - name: thunderbolt
+      - name: thunderbolt_net
+  nodeLabels:
+    topology.kubernetes.io/region: k8s-home
+    topology.kubernetes.io/zone: m
+    servertype: physical
+cluster:
+  id: op://kubernetes/talos/CLUSTER_ID
+  secret: op://kubernetes/talos/CLUSTER_SECRET
+  controlPlane:
+    endpoint: https://10.12.0.254:6443
+  clusterName: k8s-home
+  network:
+    cni:
+      name: none
+    dnsDomain: cluster.local
+    podSubnets: ["10.69.0.0/16"]
+    serviceSubnets: ["10.96.0.0/16"]
+  coreDNS:
+    disabled: true
+  token: op://kubernetes/talos/CLUSTER_TOKEN
+  secretboxEncryptionSecret: op://kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
+  ca:
+    crt: op://kubernetes/talos/CLUSTER_CA_CRT
+    key: op://kubernetes/talos/CLUSTER_CA_KEY
+  aggregatorCA:
+    crt: op://kubernetes/talos/CLUSTER_AGGREGATORCA_CRT
+    key: op://kubernetes/talos/CLUSTER_AGGREGATORCA_KEY
+  serviceAccount:
+    key: op://kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
+  apiServer:
+    image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
+    extraArgs:
+      enable-aggregator-routing: true
+      feature-gates: MutatingAdmissionPolicy=true
+      runtime-config: admissionregistration.k8s.io/v1alpha1=true
+    certSANs: ["10.12.0.254", "127.0.0.1"]
+    disablePodSecurityPolicy: true
+    auditPolicy:
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+        - level: Metadata
+  controllerManager:
+    image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
+    extraArgs:
+      bind-address: 0.0.0.0
+  proxy:
+    disabled: true
+    image: registry.k8s.io/kube-proxy:{{ ENV.KUBERNETES_VERSION }}
+  scheduler:
+    image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
+    extraArgs:
+      bind-address: 0.0.0.0
+    config:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: KubeSchedulerConfiguration
+      profiles:
+        - schedulerName: default-scheduler
+          plugins:
+            score:
+              disabled:
+                - name: ImageLocality
+          pluginConfig:
+            - name: PodTopologySpread
+              args:
+                defaultingType: List
+                defaultConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: ScheduleAnyway
+  etcd:
+    ca:
+      crt: op://kubernetes/talos/CLUSTER_ETCD_CA_CRT
+      key: op://kubernetes/talos/CLUSTER_ETCD_CA_KEY
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
+    advertisedSubnets: ["10.12.0.0/24"]
+  allowSchedulingOnControlPlanes: true

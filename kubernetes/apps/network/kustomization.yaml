@@ -8,4 +8,4 @@ resources:
   - ./external-notunnel/ks.yaml
   - ./internal/ks.yaml
 components:
-  - ../../flux/components/common
+  - ../../components/common

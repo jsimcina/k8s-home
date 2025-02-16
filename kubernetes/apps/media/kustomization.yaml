@@ -16,4 +16,4 @@ resources:
   - ./sonarr/ks.yaml
   - ./unpackerr/ks.yaml
 components:
-  - ../../flux/components/common
+  - ../../components/common
