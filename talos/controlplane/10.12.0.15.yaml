@@ -1,0 +1,18 @@
+machine:
+  network:
+    hostname: home-node-05
+    interfaces:
+      - deviceSelector:
+          hardwareAddr: 7c:83:34:bf:bf:ad
+        mtu: 1500
+        dhcp: true
+        vip:
+          ip: 10.12.0.254
+  install:
+    diskSelector:
+      wwid: naa.55cd2e4150edacea
+      type: ssd
+  nodeLabels:
+    hwtranscoding: "true"
+    multus: active
+    servermodel: Beelink-EQ12
