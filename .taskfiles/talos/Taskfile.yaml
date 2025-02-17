@@ -8,7 +8,7 @@ tasks:
     desc: Apply Talos config to a node [IP=required] [MODE=auto]
     cmds:
       - task: down
-      - minijinja-cli {{.TALOS_DIR}}/{{.TALOS_MACHINE_TYPE}}.yaml.j2 | op inject | talosctl --nodes {{.IP}} apply-config --mode {{.MODE}} --config-patch @{{.TALOS_DIR}}/patches/{{.IP}}.yaml --file /dev/stdin
+      - minijinja-cli {{.TALOS_DIR}}/{{.TALOS_MACHINE_TYPE}}.yaml.j2 | op inject | talosctl --nodes {{.IP}} apply-config --mode {{.MODE}} --config-patch @{{.TALOS_DIR}}/nodes/{{.IP}}.yaml --file /dev/stdin
       - talosctl --nodes {{.IP}} health
       - task: up
     vars:
@@ -19,9 +19,8 @@ tasks:
       vars: [IP]
     preconditions:
       - talosctl --nodes {{.IP}} get machineconfig
-      - test -f {{.ROOT_DIR}}/.talos.env
       - test -f {{.TALOS_DIR}}/{{.TALOS_MACHINE_TYPE}}.yaml.j2
-      - test -f {{.TALOS_DIR}}/{{.TALOS_MACHINE_TYPE}}/{{.IP}}.yaml
+      - test -f {{.TALOS_DIR}}/nodes/{{.IP}}.yaml
       - test -f {{.ROOT_DIR}}/talosconfig
       - which minijinja-cli op talosctl
 
@@ -42,9 +41,8 @@ tasks:
     preconditions:
       - talosctl --nodes {{.IP}} get machineconfig
       - talosctl config info
-      - test -f {{.ROOT_DIR}}/.talos.env
       - test -f {{.TALOS_DIR}}/{{.TALOS_MACHINE_TYPE}}.yaml.j2
-      - test -f {{.TALOS_DIR}}/{{.TALOS_MACHINE_TYPE}}/{{.IP}}.yaml
+      - test -f {{.TALOS_DIR}}/nodes/{{.IP}}.yaml
       - test -f {{.ROOT_DIR}}/talosconfig
       - which minijinja-cli talosctl yq
 
@@ -60,7 +58,6 @@ tasks:
     preconditions:
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
       - talosctl config info
-      - test -f {{.ROOT_DIR}}/.talos.env
       - test -f {{.ROOT_DIR}}/talosconfig
       - which jq talosctl
 
@@ -78,7 +75,6 @@ tasks:
     preconditions:
       - talosctl --nodes {{.IP}} get machineconfig
       - talosctl config info
-      - test -f {{.ROOT_DIR}}/.talos.env
       - test -f {{.ROOT_DIR}}/talosconfig
       - which talosctl
 
@@ -115,7 +111,7 @@ tasks:
       IP_ADDRS:
         sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
     preconditions:
-     - talosctl --nodes {{.NODES}} get machineconfig
+      - talosctl --nodes {{.NODES}} get machineconfig
       - talosctl config info
       - test -f {{.ROOT_DIR}}/talosconfig
       - which jq talosctl
@@ -134,7 +130,7 @@ tasks:
   down:
     internal: true
     cmds:
-      #- until kubectl wait cephcluster --for=jsonpath=.status.ceph.health=HEALTH_OK --timeout=10m --all --all-namespaces &>/dev/null; do sleep 5; done
+      - until kubectl wait cephcluster --for=jsonpath=.status.ceph.health=HEALTH_OK --timeout=10m --all --all-namespaces &>/dev/null; do sleep 5; done
       - until kubectl wait jobs --all --all-namespaces --for=condition=complete --timeout=5m &>/dev/null; do sleep 5; done
     preconditions:
       - which kubectl
