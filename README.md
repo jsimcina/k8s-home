@@ -79,9 +79,9 @@ This Git repository contains the following directories:
 ```sh
 📁 bootstrap          # bootstrap procedures
 📁 kubernetes
-├── 📁 apps           # applications
-├── 📁 components     # re-useable components
-└── 📁 flux           # flux system configuration
+├── 📁 apps       # applications
+├── 📁 components # re-useable kustomize components
+└── 📁 flux       # flux system configuration
 📁 talos              # Talos node configuration data
 ```
 

@@ -1,8 +1,6 @@
 /.private/
 /.task/
 ./docs/
-*.secret.env
-*.secret.yaml
 *.crt
 *.key
 .decrypted~*
