@@ -22,7 +22,7 @@ env:
 jobs:
   sync:
     name: Helm Repository Sync
-    runs-on: ["home-ops-runner"]
+    runs-on: ["mr-wriggler-local-runner"]
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@v1

@@ -17,7 +17,7 @@ env:
 jobs:
   publish:
     name: Schemas
-    runs-on: ["home-ops-runner"]
+    runs-on: ["mr-wriggler-local-runner"]
     permissions:
       contents: read
       packages: write

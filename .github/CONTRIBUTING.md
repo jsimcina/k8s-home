@@ -1,6 +1,6 @@
 ## Contribution guidelines
 
-Welcome to [home-ops]! We're thrilled that you'd like to contribute. Your help is essential for making it better.
+Welcome to [k8s-home]! We're thrilled that you'd like to contribute. Your help is essential for making it better.
 
 ### Getting Started
 
@@ -8,18 +8,18 @@ Before you start contributing, please make sure you have read and understood our
 
 1. Fork the Repository
 
-First, fork the [repository](https://github.com/onedr0p/home-ops) to your own GitHub account. This will create a copy of the project under your account.
+First, fork the [repository](https://github.com/jsimcina/k8s-home) to your own GitHub account. This will create a copy of the project under your account.
 
 2. Clone the Repository
 
     ```sh
-    git clone https://github.com/onedr0p/home-ops
+    git clone https://github.com/jsimcina/k8s-home
     ```
 
 3. Navigate to the project directory 📁
 
     ```sh
-    cd home-ops
+    cd k8s-home
     ```
 
 4. Create a new branch for your feature or bug fix:
