@@ -48,10 +48,10 @@ spec:
             memory: 2500Mi
         storage:
           storageClassName: "ceph-block"
-          existingClaim: vm
-          size: "500Gi"
-          accessModes:
-            - ReadWriteOnce
+          resources:
+            size: 500Gi
+            accessModes:
+              - ReadWriteOnce
       ingress:
         enabled: true
         ingressClassName: internal
