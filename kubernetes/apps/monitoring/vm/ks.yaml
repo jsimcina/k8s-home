@@ -22,5 +22,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CLAIM: vm
+      VOLSYNC_CLAIM: vmsingle-vmetrics
       VOLSYNC_CAPACITY: 500Gi
