@@ -6,7 +6,3 @@ resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
   - ./extrascrapes.yaml
-  - ../../../../components/volsync/pvc.yaml
-  - ../../../../components/volsync/local/externalsecret.yaml
-  - ../../../../components/volsync/local/replicationsource.yaml
-  - ../../../../components/volsync/local/replicationdestination.yaml
