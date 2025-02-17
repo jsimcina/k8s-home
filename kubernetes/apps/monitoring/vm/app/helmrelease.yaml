@@ -47,17 +47,11 @@ spec:
             cpu: 500m
             memory: 2500Mi
         storage:
-          volumeClaimTemplate:
-            metadata:
-            annotations:
-              operator.victoriametrics.com/pvc-allow-volume-expansion: "false"
-            spec:
-              storageClassName: "ceph-block"
-              resources:
-                requests:
-                  storage: 500Gi
-              accessModes:
-                - ReadWriteOnce
+          storageClassName: "ceph-block"
+          resources:
+            size: 500Gi
+            accessModes:
+              - ReadWriteOnce
       ingress:
         enabled: true
         ingressClassName: internal
