@@ -95,13 +95,17 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-
     service:
       app:
         controller: gatus
         ports:
           http:
             port: *port
+    serviceMonitor:
+      app:
+        serviceName: gatus
+        endpoints:
+          - port: http
     ingress:
       app:
         className: external
