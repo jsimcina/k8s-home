@@ -12,10 +12,13 @@ instance:
     - notification-controller
   sync:
     kind: GitRepository
-    url: ssh://github.com/jsimcina/k8s-home.git
+    #Now Public
+    #url: ssh://github.com/jsimcina/k8s-home.git
+    url: https://github.com/jsimcina/k8s-home
     ref: refs/heads/main
     path: kubernetes/flux/cluster
-    pullSecret: github-deploy-key
+    #Not needed when public
+    #pullSecret: github-deploy-key
   commonMetadata:
     labels:
       app.kubernetes.io/name: flux
@@ -78,7 +81,7 @@ instance:
         patch: |
           - op: add
             path: /spec/template/spec/containers/0/args/-
-            value: --helm-cache-max-size=10
+            value: --helm-cache-max-size=50
           - op: add
             path: /spec/template/spec/containers/0/args/-
             value: --helm-cache-ttl=60m
