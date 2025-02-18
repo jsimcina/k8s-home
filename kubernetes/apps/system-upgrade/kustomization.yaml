@@ -10,3 +10,5 @@ resources:
 configMapGenerator:
   - name: system-upgrade-plan-versions
     env: ./.env
+generatorOptions:
+  disableNameSuffixHash: true
