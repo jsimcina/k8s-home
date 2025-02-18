@@ -129,7 +129,7 @@ spec:
               GLUETUN_CONTROL_SERVER_API_KEY:
                 valueFrom:
                   secretKeyRef:
-                    name: gluetun-secret
+                    name: qbittorrent-secret
                     key: GLUETUN_CONTROL_SERVER_API_KEY
               MAM_ID_PATH: /media/torrents/mam_id/mam.txt
               QBITTORRENT_HOST: localhost
