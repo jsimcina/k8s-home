@@ -51,7 +51,7 @@ spec:
               VPN_INTERFACE: tun0
               WIREGUARD_ENDPOINT_PORT: 51820
               FIREWALL_INPUT_PORTS: 8080
-              FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/16, 10.69.0.0/16, 10.12.0.0/24 # Allow access to k8s subnets
+              FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/16,10.69.0.0/16,10.12.0.0/24 # Allow access to k8s subnets
             envFrom:
               - secretRef:
                   name: gluetun-secret
