@@ -33,6 +33,11 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: actions-runner-controller
+      namespace: actions-runner-system
+    - name: openebs
+      namespace: openebs-system
   interval: 30m
   path: ./kubernetes/apps/actions-runner-system/actions-runner-controller/runners
   prune: true

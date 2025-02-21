@@ -14,6 +14,11 @@ spec:
   components:
     - ../../../../components/gatus/guarded
     - ../../../../components/volsync
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync-system
   path: "./kubernetes/apps/media/music-assistant/app"
   prune: true
   sourceRef:
@@ -21,9 +26,6 @@ spec:
     name: flux-system
     namespace: flux-system
   wait: false
-  dependsOn:
-    - name: volsync
-      namespace: volsync-system
   postBuild:
     substitute:
       APP: *app

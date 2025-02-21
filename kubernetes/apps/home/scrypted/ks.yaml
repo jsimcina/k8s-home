@@ -11,6 +11,13 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: intel-device-plugin-gpu
+      namespace: kube-system
+    - name: volsync
+      namespace: volsync-system
   interval: 10m
   path: "./kubernetes/apps/home/scrypted/app"
   prune: true
@@ -20,9 +27,6 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   wait: false
-  dependsOn:
-    - name: volsync
-      namespace: volsync-system
   postBuild:
     substitute:
       APP: *app

@@ -22,11 +22,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: actions-runner-controller
-      namespace: actions-runner-system
-    - name: openebs
-      namespace: openebs-system
   valuesFrom:
     - targetPath: githubConfigSecret.github_app_id
       kind: Secret

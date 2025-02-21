@@ -22,10 +22,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-
   values:
     controllers:
       home-assistant:
@@ -37,20 +33,6 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: home-assistant-secret
-          # initContainers:
-        #   init-config:
-        #     image:
-        #       repository: ghcr.io/jsimcina/home-assistant
-        #       tag: 2024.9.0@sha256:b8abcba5149718b9f69ac48239792ebc265c30d7f90128197430693a9db806bc
-        #     command: ["/bin/sh", "-c"]
-        #     args:
-        #       - >-
-        #           sleep 10m;
-        #           mkdir -p /config/.config || :;
-        #           cp -rn /configfiles/qbittorrent/* /config/qBittorrent;
-        #           cp -rn /configfiles/qbitrr/config.toml /config/.config/config.toml;
-        #           chmod -R 0700 /config 2>/dev/null || :;
-        #           echo "Done";
         annotations:
           reloader.stakater.com/auto: "true"
         pod:

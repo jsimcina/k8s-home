@@ -17,6 +17,8 @@ spec:
   dependsOn:
     - name: volsync
       namespace: volsync-system
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   prune: true
   sourceRef:
     kind: GitRepository
