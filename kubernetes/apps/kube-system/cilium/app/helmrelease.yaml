@@ -25,6 +25,9 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: cilium-helm-values
+  values:
+    operator:
+      tolerations: []
   # Enable Hubble, Hubble Relay and Hubble UI
   # values:
   #   hubble:
