@@ -7,7 +7,6 @@
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
-    ":skipStatusChecks",
     ":timezone(America/Chicago)",
     "github>jsimcina/k8s-home//.renovate/autoMerge.json5",
     "github>jsimcina/k8s-home//.renovate/customManagers.json5",
@@ -22,7 +21,6 @@
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
-  "onboarding": false,
   "requireConfig": "ignored",
   "ignorePaths": ["**/*.sops.*", "**/resources/**"],
   "flux": {
