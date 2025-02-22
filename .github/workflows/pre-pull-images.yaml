@@ -85,7 +85,7 @@ jobs:
 
   pre-pull-images:
     name: Pre-pull Images
-    runs-on: "mr-wriggler-local-runner"
+    runs-on: mr-wriggler-local-runner
     needs: ["pre-job", "compare-images"]
     strategy:
       matrix:
