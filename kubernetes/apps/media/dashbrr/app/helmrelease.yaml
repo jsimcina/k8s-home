@@ -38,7 +38,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/jsimcina/postgres17-init
-              tag: 17.2
+              tag: 17.4
             envFrom: &envFrom
               - secretRef:
                   name: dashbrr-secret
