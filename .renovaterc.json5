@@ -16,9 +16,9 @@
     "github>jsimcina/k8s-home//.renovate/packageRules.json5",
     "github>jsimcina/k8s-home//.renovate/semanticCommits.json5"
   ],
-  "gitIgnoredAuthors": [
-     "29139614+renovate[bot]@users.noreply.github.com"
-  ],
+  //"gitIgnoredAuthors": [
+  //   "29139614+renovate[bot]@users.noreply.github.com"
+  //],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
   "ignorePaths": ["**/*.sops.*", "**/resources/**"],
