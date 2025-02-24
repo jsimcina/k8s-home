@@ -34,7 +34,7 @@ jobs:
   helm-repository-sync:
     name: Helm Repository Sync
     needs: pre-job
-    runs-on: "mr-wriggler-local-runner"
+    runs-on: mr-wriggler-local-runner
     if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     steps:
       - name: Checkout
