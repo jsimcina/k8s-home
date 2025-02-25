@@ -30,9 +30,9 @@ servers:
           pods insecure
           fallthrough in-addr.arpa ip6.arpa
       - name: forward
-        parameters: jonandlinz.com 10.0.0.1
+        parameters: jonandlinz.com 10.0.0.2
       - name: forward
-        parameters: jonandlinz.net 10.0.0.1
+        parameters: jonandlinz.net 10.0.0.2
       - name: forward
         parameters: . /etc/resolv.conf
       - name: cache

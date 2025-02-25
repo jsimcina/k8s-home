@@ -67,7 +67,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-      - http://10.0.0.1:9100
+      - http://10.0.0.2:9100
   path: /metrics
   relabelConfigs:
     - action: replace
