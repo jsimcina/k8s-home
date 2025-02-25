@@ -47,7 +47,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-assistant-libs/python-matter-server
-              tag: 7@sha256:828c1cd3f957bb0287a099a439505457a25f5d65ed34281acf19cfbf537fe346
+              tag: 7
               pullPolicy: IfNotPresent
             env:
               TZ: "America/Chicago"
