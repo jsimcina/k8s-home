@@ -47,9 +47,6 @@ spec:
         enabled: true
         strategy:
           type: Recreate
-        service:
-          enabled: true
-          servicePort: 9428
 
       securityContext:
         allowPrivilegeEscalation: false
