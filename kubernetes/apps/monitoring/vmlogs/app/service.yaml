@@ -6,26 +6,18 @@ metadata:
     io.cilium/lb-ipam-ips: 10.12.0.103
     external-dns.alpha.kubernetes.io/hostname: logingestion.jonandlinz.io
 spec:
-  ipFamilies:
-    - IPv4
   ports:
-    - name: http
-      protocol: TCP
-      port: 9428
-      targetPort: http
-
     - name: syslog-udp
       protocol: UDP
       port: 514
       targetPort: 514
-
     - name: syslog-tcp
       protocol: TCP
       port: 514
       targetPort: 514
-  internalTrafficPolicy: Cluster
   type: LoadBalancer
   ipFamilyPolicy: SingleStack
-  sessionAffinity: None
+  ipFamilies:
+    - IPv4
   selector:
     app: server
