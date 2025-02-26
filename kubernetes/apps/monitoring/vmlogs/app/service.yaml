@@ -10,7 +10,7 @@ spec:
     - name: http
       protocol: TCP
       port: 9428
-      targetPort: http
+      targetPort: 9428
     - name: syslog-udp
       protocol: UDP
       port: 514
