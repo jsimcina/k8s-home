@@ -58,6 +58,9 @@ spec:
 
       deployment:
         enabled: true
+        service:
+          enabled: true
+          servicePort: 9428
         strategy:
           type: Recreate
 
