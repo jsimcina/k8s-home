@@ -66,9 +66,6 @@ spec:
         readOnlyRootFilesystem: true
         capabilities: { drop: ["ALL"] }
 
-      service:
-        enabled: true
-
       ingress:
         enabled: true
         ingressClassName: "internal"
