@@ -46,8 +46,9 @@ spec:
 
       persistence:
         enabled: true
-        storageClass: ceph-block
+        storageClassName: ceph-block
         existingClaim: vmlogs
+        mountPath: /storage
         size: 50Gi
         accessModes:
           - ReadWriteOnce
