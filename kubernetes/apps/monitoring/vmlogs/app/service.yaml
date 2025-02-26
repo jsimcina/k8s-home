@@ -7,6 +7,10 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: logingestion.jonandlinz.io
 spec:
   ports:
+    - name: http
+      protocol: TCP
+      port: 9428
+      targetPort: http
     - name: syslog-udp
       protocol: UDP
       port: 514
