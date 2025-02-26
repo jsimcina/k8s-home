@@ -30,6 +30,8 @@ spec:
         syslog.listenAddr.tcp: ":514"
         syslog.timezone: "America/Chicago"
 
+      mode: Deployment
+
       persistence:
         enabled: true
         storageClass: ceph-block
@@ -41,13 +43,12 @@ spec:
       serviceMonitor:
         enabled: true
 
-      statefulSet:
+      deployment:
         enabled: true
-        podManagementPolicy: OrderedReady
+        strategy:
+          type: Recreate
         service:
           enabled: true
-          annotations: {}
-          labels: {}
           servicePort: 9428
 
       securityContext:
