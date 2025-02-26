@@ -44,7 +44,7 @@ spec:
 
       mode: deployment
 
-      persistence:
+      persistentVolume:
         enabled: true
         storageClassName: ceph-block
         existingClaim: vmlogs
