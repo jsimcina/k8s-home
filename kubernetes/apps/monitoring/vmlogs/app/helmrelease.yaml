@@ -75,7 +75,7 @@ spec:
         hosts:
           - name: vmlogs.jonandlinz.io
             path: /
-            port: 9428
+            port: http
 
     defaultPodOptions:
       securityContext:
