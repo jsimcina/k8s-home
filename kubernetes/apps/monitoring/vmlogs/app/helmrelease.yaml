@@ -30,7 +30,7 @@ spec:
         syslog.listenAddr.tcp: ":514"
         syslog.timezone: "America/Chicago"
 
-      mode: Deployment
+      mode: deployment
 
       persistence:
         enabled: true
