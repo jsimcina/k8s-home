@@ -27,7 +27,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    fullnameOverride: vmnlogs
+    fullnameOverride: vmlogs
     global:
       cluster:
         dnsDomain: cluster.local
