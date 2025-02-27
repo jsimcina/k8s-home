@@ -19,6 +19,7 @@ spec:
       protocol: TCP
       port: 514
       targetPort: 514
+  internalTrafficPolicy: Cluster
   type: LoadBalancer
   ipFamilyPolicy: SingleStack
   ipFamilies:
