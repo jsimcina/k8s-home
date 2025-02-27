@@ -35,7 +35,7 @@ spec:
               UP_UNIFI_DEFAULT_ROLE: home-ops
               UP_UNIFI_DEFAULT_URL: https://ui.jonandlinz.com
               UP_DISABLE: false
-              UP_LOKI_URL: http://victoria-logs-ingest.monitoring.svc.cluster.local:9428
+              UP_LOKI_URL: http://vmlogs-server.monitoring.svc.cluster.local:9428
               UP_PROMETHEUS_HTTP_LISTEN: 0.0.0.0:80
               UP_INFLUXDB_DISABLE: true
             envFrom:
