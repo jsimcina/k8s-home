@@ -21,6 +21,7 @@ spec:
       targetPort: 514
   internalTrafficPolicy: Cluster
   type: LoadBalancer
+  clusterIP: None
   ipFamilyPolicy: SingleStack
   ipFamilies:
     - IPv4
