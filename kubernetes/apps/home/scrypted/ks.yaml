@@ -16,8 +16,6 @@ spec:
       namespace: rook-ceph
     - name: intel-device-plugin-gpu
       namespace: kube-system
-    - name: volsync
-      namespace: volsync-system
   interval: 10m
   path: "./kubernetes/apps/home/scrypted/app"
   prune: true

@@ -16,8 +16,8 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
-    - name: volsync
-      namespace: volsync-system
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   path: ./kubernetes/apps/vpn/qbittorrent/app
   prune: true
   sourceRef:

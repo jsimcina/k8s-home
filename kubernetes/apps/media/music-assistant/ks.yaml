@@ -17,8 +17,6 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: volsync-system
   path: "./kubernetes/apps/media/music-assistant/app"
   prune: true
   sourceRef:
