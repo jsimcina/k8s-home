@@ -5,7 +5,7 @@ kind: HelmRelease
 metadata:
   name: victoria-metrics
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: victoria-metrics-k8s-stack

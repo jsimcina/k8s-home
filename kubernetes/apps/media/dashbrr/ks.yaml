@@ -17,12 +17,13 @@ spec:
     - ../../../../components/gatus/guarded
   path: ./kubernetes/apps/media/dashbrr/app
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   wait: false # no flux ks dependents
-  interval: 30m
+  interval: 1h
   timeout: 5m
   postBuild:
     substitute:

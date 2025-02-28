@@ -5,12 +5,11 @@ kind: HelmRelease
 metadata:
   name: music-assistant
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: app-template
       version: 3.7.1
-      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: bjw-s

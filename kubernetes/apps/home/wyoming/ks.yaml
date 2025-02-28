@@ -10,13 +10,14 @@ spec:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/home/wyoming/piper
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
   wait: false
-  interval: 30m
+  interval: 1h
   retryInterval: 1m
   timeout: 5m
   postBuild:
@@ -34,13 +35,14 @@ spec:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/home/wyoming/whisper
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
   wait: false
-  interval: 30m
+  interval: 1h
   retryInterval: 1m
   timeout: 5m
   postBuild:

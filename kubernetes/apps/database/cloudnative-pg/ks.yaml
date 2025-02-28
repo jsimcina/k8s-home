@@ -17,12 +17,13 @@ spec:
       namespace: external-secrets
   path: ./kubernetes/apps/database/cloudnative-pg/app
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   wait: true
-  interval: 30m
+  interval: 1h
   retryInterval: 1m
   timeout: 5m
 ---
@@ -44,11 +45,12 @@ spec:
       namespace: database
   path: ./kubernetes/apps/database/cloudnative-pg/cluster
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   wait: true
-  interval: 30m
+  interval: 1h
   retryInterval: 1m
   timeout: 5m

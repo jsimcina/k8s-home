@@ -19,6 +19,7 @@ spec:
   interval: 10m
   path: "./kubernetes/apps/home/scrypted/app"
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

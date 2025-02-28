@@ -19,6 +19,7 @@ spec:
       namespace: rook-ceph
   path: "./kubernetes/apps/media/music-assistant/app"
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

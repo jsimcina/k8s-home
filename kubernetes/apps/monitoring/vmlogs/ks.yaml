@@ -9,11 +9,12 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  interval: 30m
+  interval: 1h
   components:
     - ../../../../components/volsync-local-only
   path: ./kubernetes/apps/monitoring/vmlogs/app
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

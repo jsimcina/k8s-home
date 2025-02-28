@@ -5,7 +5,7 @@ metadata:
   name: vm-logs
   namespace: monitoring
 spec:
-  interval: 5m
+  interval: 1h
   chart:
     spec:
       chart: victoria-logs-single

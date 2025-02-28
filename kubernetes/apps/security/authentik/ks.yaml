@@ -14,13 +14,14 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/security/authentik/app
   postBuild:
     substitute:
       APP: *app
       GATUS_SUBDOMAIN: auth
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

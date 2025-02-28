@@ -15,13 +15,14 @@ spec:
   components:
     - ../../../../components/gatus/guarded
     - ../../../../components/volsync
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/security/proton-bridge/app
   postBuild:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 500Mi
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

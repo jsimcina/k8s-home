@@ -5,16 +5,15 @@ metadata:
   name: pod-gateway
   namespace: pod-gateway
 spec:
+  interval: 1h
   chart:
     spec:
       chart: pod-gateway
       version: 6.5.1
-      interval: 1h
       sourceRef:
         kind: HelmRepository
         name: angelnu
         namespace: flux-system
-  interval: 30m
   # See https://github.com/angelnu/helm-charts/blob/main/charts/apps/pod-gateway/values.yaml
   values:
     image:

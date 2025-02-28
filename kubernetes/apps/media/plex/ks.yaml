@@ -19,7 +19,7 @@ spec:
       namespace: kube-system
     - name: rook-ceph-cluster
       namespace: rook-ceph
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/media/plex/app
   postBuild:
     substitute:
@@ -29,6 +29,7 @@ spec:
       VOLSYNC_CAPACITY: 50Gi
       GATUS_SUBDOMAIN: watch
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -50,10 +51,11 @@ spec:
 #   dependsOn:
 #     - name: onepassword
 #       namespace: external-secrets
-#   interval: 30m
+#   interval: 1h
 #   path: ./kubernetes/apps/media/plex/tools
 #   prune: true
-#   sourceRef:
+#   retryInterval: 2m
+  sourceRef:
 #     kind: GitRepository
 #     name: flux-system
 #     namespace: flux-system

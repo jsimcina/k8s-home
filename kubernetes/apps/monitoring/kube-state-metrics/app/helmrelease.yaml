@@ -5,12 +5,11 @@ kind: HelmRelease
 metadata:
   name: kube-state-metrics
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: kube-state-metrics
       version: 5.30.0
-      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
