@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: vmlogs-server
+  name: vmlogs-ingestion
   annotations:
     io.cilium/lb-ipam-ips: 10.12.0.103
     external-dns.alpha.kubernetes.io/hostname: logingestion.jonandlinz.io
