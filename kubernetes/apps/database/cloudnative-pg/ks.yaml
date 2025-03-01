@@ -10,8 +10,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  #components:
-  #  - ../../../../flux/components/gatus/guarded
   dependsOn:
     - name: onepassword
       namespace: external-secrets
@@ -37,12 +35,21 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  #components:
-  #  - ../../../../flux/components/gatus/guarded
   dependsOn:
     - name: cloudnative-pg
-      namespace: database
+      namespace: *namespace
+    - name: openebs
+      namespace: openebs-system
+  healthCheckExprs:
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
+      current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
   path: ./kubernetes/apps/database/cloudnative-pg/cluster
+  postBuild:
+    substitute:
+      # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
+      POSTGRESQL_VERSION: 17.2
   prune: true
   retryInterval: 2m
   sourceRef:
