@@ -2,8 +2,13 @@ machine:
   network:
     hostname: home-node-02
     interfaces:
-      - deviceSelector:
-          hardwareAddr: 58:47:ca:77:d5:93
+      - interface: bond0
+        bond:
+          deviceSelectors: [{ hardwareAddr: "58:47:ca:77:d5:93", driver: i40e },{ hardwareAddr: "58:47:ca:77:d5:92", driver: i40e }]
+          mode: 802.3ad
+          xmitHashPolicy: layer3+4
+          lacpRate: fast
+          miimon: 1000
         mtu: 1500
         dhcp: true
         vip:
