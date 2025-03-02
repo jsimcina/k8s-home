@@ -7,7 +7,7 @@
       "automerge": true,
       "automergeType": "branch",
       "matchUpdateTypes": ["digest"],
-      "matchPackagePatterns": ["ghcr.io/bjw-s", "ghcr.io/onedr0p", "ghcr.io/jsimcina"],
+      "matchPackageNames": ["/bjw-s/", "/onedr0p/", "/jsimcina/"],
       "ignoreTests": true
     },
     {
