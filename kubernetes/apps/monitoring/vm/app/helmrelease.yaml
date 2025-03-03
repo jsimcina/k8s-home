@@ -43,6 +43,7 @@ spec:
             memory: 3000Mi
         storage:
           storageClassName: "ceph-block"
+          existingClaim: "vmsingle-vmetrics"
           resources:
             size: 500Gi
             accessModes:
