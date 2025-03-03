@@ -13,7 +13,7 @@ spec:
     # but makes vmagent debugging UI less informative. See: https://docs.victoriametrics.com/vmagent/#relabel-debug
     promscrape.dropOriginalLabels: "true"
   remoteWrite:
-    - url: http://vmsingle-stack.monitoring.svc:8429/api/v1/write
+    - url: http://vmsingle-stack.monitoring.svc.cluster.local:8429/api/v1/write
   replicaCount: 1
   shardCount: 2
   scrapeInterval: 30s
