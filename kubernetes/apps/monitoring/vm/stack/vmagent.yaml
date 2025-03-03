@@ -34,8 +34,3 @@ spec:
           requests:
             storage: 1Gi
   useDefaultResources: false
-ingress:
-  enabled: true
-  ingressClassName: internal
-  hosts:
-    - vmagent.jonandlinz.io

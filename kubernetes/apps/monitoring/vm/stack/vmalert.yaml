@@ -28,8 +28,3 @@ spec:
   selectAllByDefault: true
   useDefaultResources: false
   useStrictSecurity: true
-ingress:
-  enabled: true
-  ingressClassName: internal
-  hosts:
-    - vmalert.jonandlinz.io

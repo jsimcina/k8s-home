@@ -27,8 +27,3 @@ spec:
         storage: 500Gi
     storageClassName: ceph-block
   useDefaultResources: false
-ingress:
-  enabled: true
-  ingressClassName: internal
-  hosts:
-    - vmetrics.jonandlinz.io
