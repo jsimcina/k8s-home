@@ -80,7 +80,7 @@ spec:
             type: prometheus
             uid: prometheus
             access: proxy
-            url: http://vmsingle-vmetrics.monitoring.svc.cluster.local:8429
+            url: http://vmsingle-stack.monitoring.svc.cluster.local:8429
             jsonData:
               prometheusType: Prometheus
               timeInterval: 1m
