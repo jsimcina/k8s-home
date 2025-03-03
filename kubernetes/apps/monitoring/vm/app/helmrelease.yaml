@@ -41,13 +41,19 @@ spec:
           limits:
             cpu: 1
             memory: 3000Mi
-        storage:
+        persistentVolume:
+          enabled: true
+          accessModes:
+            - ReadWriteOnce
           storageClassName: "ceph-block"
           existingClaim: "vmsingle-vmetrics"
-          resources:
-            size: 500Gi
-            accessModes:
-              - ReadWriteOnce
+        #storage:
+        #  storageClassName: "ceph-block"
+        #  existingClaim: "vmsingle-vmetrics"
+        #  resources:
+        #    size: 500Gi
+        #    accessModes:
+        #      - ReadWriteOnce
       ingress:
         enabled: true
         ingressClassName: internal
