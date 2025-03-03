@@ -1,0 +1,34 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMSingle
+metadata:
+  name: stack
+spec:
+  extraArgs:
+    dedup.minScrapeInterval: 30s
+    maxLabelsPerTimeseries: "90"
+    search.minStalenessInterval: 5m
+    vmalert.proxyURL: http://vmalert-stack.monitoring.svc:8080
+  replicaCount: 1
+  # -- Data retention period. Possible units character: h(ours), d(ays), w(eeks), y(ears), if no unit character specified - month. The minimum retention period is 24h. See these [docs](https://docs.victoriametrics.com/single-server-victoriametrics/#retention)
+  retentionPeriod: "1y"
+  resources:
+    requests:
+      cpu: 50m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 3000Mi
+  storage:
+    accessModes: [ReadWriteOnce]
+    existingClaim: vmsingle-vmetrics
+    resources:
+      requests:
+        storage: 500Gi
+    storageClassName: ceph-block
+  useDefaultResources: false
+ingress:
+  enabled: true
+  ingressClassName: internal
+  hosts:
+    - vmetrics.jonandlinz.io
