@@ -35,9 +35,5 @@ spec:
       enabled: true
       certManager:
         enabled: true
-        issuer:
-          name: cluster-ca
-          kind: ClusterIssuer
-          group: cert-manager.io
     serviceMonitor:
       enabled: true
