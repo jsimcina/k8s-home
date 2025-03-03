@@ -6,15 +6,10 @@ metadata:
   namespace: monitoring
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: victoria-logs-single
-      # renovate: registryUrl=https://victoriametrics.github.io/helm-charts chart=victoria-logs-single
-      version: 0.9.2
-      sourceRef:
-        kind: HelmRepository
-        name: victoriametrics
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: victoria-logs-single
+    namespace: monitoring
   install:
     remediation:
       retries: 3
