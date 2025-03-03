@@ -3,7 +3,32 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app vm
+  name: &app vm-operator
+  namespace: &namespace monitoring
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  interval: 1h
+  path: ./kubernetes/apps/monitoring/vm/app
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
+  postBuild:
+    substitute:
+      APP: *app
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app vm-stack
   namespace: &namespace monitoring
 spec:
   commonMetadata:
@@ -12,7 +37,7 @@ spec:
   interval: 1h
   components:
     - ../../../../components/volsync-local-only
-  path: ./kubernetes/apps/monitoring/vm/app
+  path: ./kubernetes/apps/monitoring/vm/stack
   prune: true
   retryInterval: 2m
   sourceRef:
