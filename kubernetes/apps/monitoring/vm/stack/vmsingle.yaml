@@ -19,11 +19,11 @@ spec:
     limits:
       cpu: 1
       memory: 3000Mi
-  persistentVolume:
-    enabled: true
-    accessModes: [ReadWriteOnce]
-    storageClassName: ceph-block
-    existingClaim: vmsingle-vmetrics
-    mountPath: /storage
-    size: 500Gi
+  volumeMounts:
+    - name: storage
+      mountPath: /storage
+  volumes:
+    - name: storage
+      persistentVolumeClaim:
+        claimName: vmsingle-vmetrics
   useDefaultResources: false
