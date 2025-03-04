@@ -10,6 +10,8 @@ machine:
   certSANs: ["10.12.0.254", "jonandlinz.io", "127.0.0.1"]
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
+    extraConfig:
+      serializeImagePulls: false
     extraMounts:
         - destination: /var/openebs/local
           type: bind
