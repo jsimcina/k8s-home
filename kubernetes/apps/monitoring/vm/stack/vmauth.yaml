@@ -13,7 +13,7 @@ spec:
     - src_paths: [".*"]
       url_prefix:
         - http://vmagent-stack.monitoring.svc.cluster.local:8429
-    - src_paths: [".*"]
+    - src_paths: [".*","/vmui/.*"]
       url_prefix:
         - http://vmsingle-stack.monitoring.svc.cluster.local:8429
   useDefaultResources: false
