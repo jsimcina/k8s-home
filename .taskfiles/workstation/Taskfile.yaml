@@ -27,3 +27,8 @@ tasks:
     preconditions:
       - kubectl krew version
       - which kubectl
+
+  import-cluster-secrets:
+    desc: Import cluster secrets from 1Password
+    cmds:
+      - bash {{.SCRIPTS_DIR}}/import-secrets.sh
