@@ -18,11 +18,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: actions-runner-controller
-      namespace: actions-runner-system
-    - name: openebs
-      namespace: openebs-system
   values:
     githubConfigUrl: https://github.com/jsimcina/k8s-home
     githubConfigSecret: mr-wriggler-local-runner-secret

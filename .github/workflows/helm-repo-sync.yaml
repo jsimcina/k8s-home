@@ -41,7 +41,7 @@ jobs:
       - name: Extract Repos
         id: extract
         env:
-          FILTER: '[.spec.chart.spec.sourceRef] | map("\(.namespace)/\(.name)") | unique'
+          FILTER: '[.spec.chart.spec.sourceRef] | map_values("\(.namespace),\(.name)") | unique'
         run: |
           repos=$(yq --indent 0 --output-format json eval-all "${FILTER}" ${{ needs.pre-job.outputs.all_changed_and_modified_files }})
           echo "repos=${repos}" >> $GITHUB_OUTPUT
@@ -55,15 +55,15 @@ jobs:
     name: Helm Repo Sync - Sync Helm Repos
     needs: ["pre-job", "extract"]
     runs-on: mr-wriggler-local-runner
-    if: ${{ needs.pre-job.outputs.any_changed == 'true' && needs.extract.outputs.repos != '["/"]' }}
+    if: ${{ needs.pre-job.outputs.any_changed == 'true' && needs.extract.outputs.repos != '[]' }}
     steps:
       - name: Install flux
         run: curl -fsSL https://fluxcd.io/install.sh | bash
 
       - name: Sync Helm Repos
         run: |
-          jq --raw-output '.[] | split("/") | "\(.[0]) \(.[1])"' <<< '${{ needs.extract.outputs.repos }}' \
-              | xargs -l -r bash -c 'flux --namespace $0 reconcile source helm $1'
+          jq --raw-output '.[] | split(",") | "\(.[0]) \(.[1])"' <<< '${{ needs.extract.outputs.repos }}' \
+              | xargs -l bash -c 'flux --namespace $0 reconcile source helm $1'
 
   status:
     if: ${{ always() }}
