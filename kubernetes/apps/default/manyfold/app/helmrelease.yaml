@@ -46,6 +46,7 @@ spec:
             env:
               PUBLIC_HOSTNAME: models.jonandlinz.io
               HTTPS_ONLY: enabled
+              FORCE_OIDC: enabled
               MULTIUSER: enabled
               TZ: America/Chicago
               PORT: &httpPort 3214
