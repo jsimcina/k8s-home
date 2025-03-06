@@ -44,6 +44,7 @@ spec:
               repository: ghcr.io/bjw-s-labs/manyfold
               tag: 0.103.2@sha256:b385058c49a3b18a6d0c704abc7774a07dc158459377f6f131558288eed1be85
             env:
+              PUBLIC_HOSTNAME: models.jonandlinz.io
               MULTIUSER: enabled
               TZ: America/Chicago
               PORT: &httpPort 3214
