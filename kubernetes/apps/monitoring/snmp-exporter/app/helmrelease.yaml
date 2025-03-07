@@ -1,0 +1,45 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app snmp-exporter
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: snmp-exporter
+    namespace: observability
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    fullnameOverride: *app
+    extraArgs: [ "--config.file=/config/snmp.yaml" ]
+    extraConfigmapMounts:
+    - name: &name custom-snmp
+      mountPath: /config/snmp.yaml
+      subPath: snmp.yaml
+      configMap: *name
+      readOnly: true
+      defaultMode: 420
+    serviceMonitor:
+      enabled: true
+      params:
+        - name: brocade-icx-6650
+          module: [ "brocade-icx" ]
+          target: 10.12.0.1
+          auth: [ "public_v2" ]
+        #- name: dell
+        #  module: ["dell"]
+        #  target: 192.168.1.82
+        #  auth: ["public_v2"]
+      path: /snmp
+      scrapeTimeout: 10s
+      relabelings:
+        - { sourceLabels: ["__param_target"], targetLabel: instance }
