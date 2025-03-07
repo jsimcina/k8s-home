@@ -34,6 +34,14 @@ spec:
           module: [ "brocade-icx" ]
           target: 10.12.0.1
           auth: [ "public_v2" ]
+        - name: tpl-ups
+          module: [ "tpl_ups" ]
+          target: 10.0.255.230
+          auth: [ "public_v2" ]
+        - name: tpl-ats
+          module: [ "tpl_ats" ]
+          target: 10.0.255.231
+          auth: [ "public_v2" ]
         #- name: dell
         #  module: ["dell"]
         #  target: 192.168.1.82

@@ -195,3 +195,2261 @@ modules:
       indexes:
       - labelname: snSwPortInfoPortNum
         type: gauge
+  tpl_ups:
+    walk:
+    - 1.3.6.1.4.1.850.1.1.3.1.1.2
+    - 1.3.6.1.4.1.850.1.1.3.1.2
+    - 1.3.6.1.4.1.850.1.1.3.1.3.1
+    - 1.3.6.1.4.1.850.1.1.3.1.3.2
+    - 1.3.6.1.4.1.850.1.1.3.1.3.3
+    metrics:
+    - name: tlpUpsIdentNumInputs
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.1
+      type: gauge
+      help: The number of input lines supported by the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumOutputs
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.2
+      type: gauge
+      help: The number of output lines supported by the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumBypass
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.3
+      type: gauge
+      help: The number of bypass lines supported by the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumPhases
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.4
+      type: gauge
+      help: The number of phases supported by the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumOutlets
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.5
+      type: gauge
+      help: The number of receptacles supported by the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumOutletGroups
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.6
+      type: gauge
+      help: The number of user-defined receptacle groups created for the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumBatteries
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.7
+      type: gauge
+      help: The number of batteries, internal and external combined, connected to
+        the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumFans
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.8
+      type: gauge
+      help: The number of fans supported by the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumHeatsinks
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.9
+      type: gauge
+      help: The number of heatsink thermistors supported by the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.9
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumInputContacts
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.10
+      type: gauge
+      help: The number of input contacts supported by the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.10
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumOutputContacts
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.11
+      type: gauge
+      help: The number of output contacts supported by the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.11
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumActiveControlModules
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.12
+      type: gauge
+      help: The number of active control modules supported by the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.12
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumRedundantControlModules
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.13
+      type: gauge
+      help: The number of redundant control modules supported by the ups. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.13
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumAvailablePowerModules
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.14
+      type: gauge
+      help: The number of power modules powering or not powering the load which are
+        not defective. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.14
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumCurrentPowerModules
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.15
+      type: gauge
+      help: The number of power modules powering and protecting the load which are
+        not defective. - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.15
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsIdentNumMinimumPowerModules
+      oid: 1.3.6.1.4.1.850.1.1.3.1.1.2.1.16
+      type: gauge
+      help: The minimum number of power sources needed to guarantee the power availability.
+        - 1.3.6.1.4.1.850.1.1.3.1.1.2.1.16
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsDeviceMainLoadState
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.1
+      type: gauge
+      help: The current state of the main output of the device. - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: unknown
+        1: "off"
+        2: "on"
+    - name: tlpUpsDeviceMainLoadControllable
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.2
+      type: gauge
+      help: Indicates whether or not the main output is controllable, and whether
+        the ups can be turned off and on. - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        1: "true"
+        2: "false"
+    - name: tlpUpsDeviceMainLoadCommand
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.3
+      type: gauge
+      help: Reading this value will always return 0 - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: idle
+        1: turnOff
+        2: turnOn
+        3: cycle
+    - name: tlpUpsDevicePowerOnDelay
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.4
+      type: gauge
+      help: The configurable delay value, which sets the amount of additional time
+        a given device will wait before it connects to a valid AC source - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsDeviceTestDate
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.5
+      type: DisplayString
+      help: The date of the last self-test run on the ups, in the format yyyy-mm-dd
+        - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsDeviceTestResultsStatus
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.6
+      type: gauge
+      help: The result of the last self-test run on the ups - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: noTest
+        1: doneAndPassed
+        2: doneAndWarning
+        3: doneAndError
+        4: aborted
+        5: inProgress
+        6: noTestInitiatedDeprecated
+        7: badBattery
+        8: overCurrent
+        9: batteryFailed
+    - name: tlpUpsDeviceTemperatureC
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.7
+      type: gauge
+      help: The ambient temperature at or near the ups casing - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsDeviceTemperatureF
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.8
+      type: gauge
+      help: The ambient temperature at or near the ups casing - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsDeviceLastACFailureReason
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.9
+      type: gauge
+      help: The last reason for ac failure. - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.9
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: noACFailureSinceReset
+        1: blackout
+        2: instantaneousHighLineFrequency
+        3: highLineVoltage
+        4: lowLineVoltage
+        5: averageFrequencyFault
+        6: instantaneousLowLineFrequency
+        7: delayedBrownout
+    - name: tlpUpsDeviceLastShutdownReason
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.10
+      type: gauge
+      help: The last reason for device shut down. - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.10
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: noShutdownSinceReset
+        1: onOffButtonShutdown
+        2: averageVbattSmallerThenLVCShutdown
+        3: fastVbattKeepaliveVoltageFastShutdown
+        4: averageCurrentLimitShutdown
+        5: fastCurrentLimitShutdown
+        6: heavyLoadThermalTimeLimitShutdown
+        7: fixedInvertModeTimeLimitShutdown
+        8: highBatteryVoltageFault
+        9: averageVbattKeepaliveVoltageShutdown
+        10: shutdownCommandWithAutorestartEnabled
+        11: shutdownCommandWithoutAutorestartEnabled
+        12: lineConnectRelayFault
+        13: epoInvertMode
+        14: epoRestartMode
+        15: invalidLineStandbyMode
+        16: chargerLimitMinBatteryVoltage
+        17: chargerLimitMaxBatteryVoltage
+        18: invalidLineDelayedWakeupAutorestartEnabled
+        19: invalidLineDelayedWakeupAutorestartDisabled
+        20: minBatteryVoltagePriorDelayedWakeupAutorestartEnabled
+        21: minBatteryVoltagePriorDelayedWakeupAutorestartDisabled
+        22: lvcShutdownAutorestartEnabled
+        23: lvcShutdownAutorestartDisabled
+        24: overloadShutdownAutorestartEnabled
+        25: overloadShutdownAutorestartDisabled
+        26: overTemperatureShutdownAutorestartEnabled
+        27: overTemperatureShutdownAutorestartDisabled
+        28: onOffButtonShutdownAutorestartEnabled
+        29: onOffButtonShutdownAutorestartDisabled
+        30: batteryReportedFault
+        31: batteryCommunicationLost
+        32: batteryJumpStartChargerTimeoutError
+    - name: tlpUpsDeviceOutputCurrentPrecision
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.11
+      type: gauge
+      help: Output current is reported by tlpUpsOutputLineCurrent, tlpUpsOutputLineCurrentMin
+        and tlpUpsOutputLineCurrentMax - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.11
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: wholeNumber
+        1: tenths
+        2: hundredths
+    - name: tlpUpsDeviceOutputActivePowerTotal
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.12
+      type: gauge
+      help: The AC output total power for all circuits - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.12
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsDeviceAggregatePowerFactor
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.13
+      type: gauge
+      help: The aggregate power factor of all phases - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.13
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsDeviceGeneralFault
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.14
+      type: gauge
+      help: Indicates whether or not the ups is in a fault condition - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.14
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        1: "true"
+        2: "false"
+    - name: tlpUpsDeviceUpsType
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.15
+      type: gauge
+      help: The type of ups. - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.15
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: onLine
+        1: offLine
+        2: lineInteractive
+        3: threePhase
+        4: splitPhase
+        5: others
+        6: splitPhaseOld
+    - name: tlpUpsDeviceLastBypassReason
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.16
+      type: gauge
+      help: The last reason the ups went into bypass mode. - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.16
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: noBypassSinceReset
+        1: overLoad
+        2: overTemperature
+        3: dcBusAbnormal
+        4: inverterStsFailure
+        5: inverterVoltageAbnormal
+        6: fuseOpen
+        7: internalCommunicationsFailure
+        8: softStartFailure
+    - name: tlpUpsDeviceBuzzerStatus
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.17
+      type: gauge
+      help: The present state of the audible alarm - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.17
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: silent
+        1: buzzing
+    - name: tlpUpsDeviceAlarmCode
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.18
+      type: DisplayString
+      help: The code of the most critical alarm currently active - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.18
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsDeviceOperableRegion
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.19
+      type: gauge
+      help: The region in which the ups can operate - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.19
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: europeIndia
+        1: us
+        2: europe208
+        3: worldwide
+        4: australia
+    - name: tlpUpsDeviceBusPositiveVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.20
+      type: gauge
+      help: The DC bus positive voltage - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.20
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsDeviceBusNegativeVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.21
+      type: gauge
+      help: The DC bus negative voltage - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.21
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsDeviceInverterTemperatureC
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.22
+      type: gauge
+      help: The actual value of measured inverter temperature in the ups - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.22
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsDeviceInverterTemperatureF
+      oid: 1.3.6.1.4.1.850.1.1.3.1.2.1.1.23
+      type: gauge
+      help: The actual value of measured inverter temperature in the ups - 1.3.6.1.4.1.850.1.1.3.1.2.1.1.23
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsBatteryStatus
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.1
+      type: gauge
+      help: The indication of the capacity remaining in the ups system's batteries
+        - 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        1: unknown
+        2: batteryNormal
+        3: batteryLow
+        4: batteryDepleted
+    - name: tlpUpsSecondsOnBattery
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.2
+      type: gauge
+      help: If the unit is on battery power, the elapsed time since the ups last switched
+        to battery power, or the time since the network management subsystem was last
+        restarted, whichever is less - 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsEstimatedMinutesRemaining
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.3
+      type: gauge
+      help: An estimate of the time to battery charge depletion under the present
+        load conditions if the utility power is off and remains off, or if it were
+        to be lost and remain off. - 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsEstimatedChargeRemaining
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.4
+      type: gauge
+      help: An estimate of the battery charge remaining expressed as a percent of
+        full charge. - 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsBatteryRunTimeRemaining
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.5
+      type: gauge
+      help: The run time remaining before batteries are exhausted - 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsBatteryTotalMinutesOnBattery
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.6
+      type: gauge
+      help: The total accumulative minutes the ups has run on the battery. - 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsBatteryAutoDetection
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.7
+      type: gauge
+      help: The indication of whether or not the battery is supported by the firmware
+        - 1.3.6.1.4.1.850.1.1.3.1.3.1.1.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: "no"
+        1: "yes"
+    - name: tlpUpsBatteryDetailVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.1
+      type: gauge
+      help: The magnitude of the present battery voltage. - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsBatteryDetailCurrent
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.2
+      type: gauge
+      help: The present battery current. - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsBatteryDetailCapacity
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.3
+      type: gauge
+      help: The estimated remaining battery capacity expressed as a percent of full
+        capacity. - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsBatteryDetailCharge
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.4
+      type: gauge
+      help: Denotes the charge state of the battery. - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: floating
+        1: charging
+        2: resting
+        3: discharging
+        4: normal
+        5: standby
+    - name: tlpUpsBatteryDetailChargerStatus
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.5
+      type: gauge
+      help: The status of the battery charger - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: ok
+        1: inFaultCondition
+    - name: tlpUpsBatteryDetailNominalVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.6
+      type: gauge
+      help: The nominal value of the battery voltage - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsBatteryDetailFullyCharged
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.7
+      type: gauge
+      help: Denotes whether the battery is fully charged - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        1: "true"
+        2: "false"
+    - name: tlpUpsBatteryDetailOvercharged
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.8
+      type: gauge
+      help: Denotes whether the battery is over charged - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        1: "true"
+        2: "false"
+    - name: tlpUpsBatteryDetailVoltageNegative
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.9
+      type: gauge
+      help: The magnitude of the present negative battery voltage. - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.9
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsBatteryDetailVoltagePositive
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.10
+      type: gauge
+      help: The magnitude of the present positive battery voltage. - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.10
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsBatteryDetailMaxChargerCurrent
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.11
+      type: gauge
+      help: The maximum charging current for the battery - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.11
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsBatteryDetailChargerCurrentRating
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.12
+      type: gauge
+      help: The rating of the charger current - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.12
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsBatteryDetailChargerType
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.13
+      type: gauge
+      help: The battery charger type - 1.3.6.1.4.1.850.1.1.3.1.3.1.2.1.13
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: none
+        1: extended
+        2: largeExtension
+        3: extraLargeExtension
+        4: abm
+        5: constantCharge
+    - name: tlpUpsBatteryPackIdentIndex
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.3.1.1
+      type: gauge
+      help: The table row index for the ups battery pack. - 1.3.6.1.4.1.850.1.1.3.1.3.1.3.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackIdentManufacturer
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.3.1.2
+      type: DisplayString
+      help: The manufacturer of the battery pack - 1.3.6.1.4.1.850.1.1.3.1.3.1.3.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackIdentModel
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.3.1.3
+      type: DisplayString
+      help: The model or device name of the battery pack - 1.3.6.1.4.1.850.1.1.3.1.3.1.3.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackIdentSerialNum
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.3.1.4
+      type: DisplayString
+      help: The serial number of the battery pack - 1.3.6.1.4.1.850.1.1.3.1.3.1.3.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackIdentFirmware
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.3.1.5
+      type: DisplayString
+      help: The firmware of the battery pack - 1.3.6.1.4.1.850.1.1.3.1.3.1.3.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackIdentSKU
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.3.1.6
+      type: DisplayString
+      help: The SKU of the battery pack - 1.3.6.1.4.1.850.1.1.3.1.3.1.3.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackConfigChemistry
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.1
+      type: gauge
+      help: The type of battery pack. - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+      enum_values:
+        0: unknown
+        1: leadAcid
+        2: nickelCadmium
+        3: lithiumIon
+    - name: tlpUpsBatteryPackConfigStyle
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.2
+      type: gauge
+      help: The style of battery pack. - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+      enum_values:
+        0: unknown
+        1: nonsmart
+        2: smart
+        3: bms
+        4: none
+        5: battery
+        6: superCap
+        7: flyWheel
+        8: hybrid
+    - name: tlpUpsBatteryPackConfigLocation
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.3
+      type: gauge
+      help: The location of the battery pack. - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+      enum_values:
+        0: unknown
+        1: internal
+        2: external
+    - name: tlpUpsBatteryPackConfigStrings
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.4
+      type: gauge
+      help: The number of series strings in parallel contained in the battery pack
+        - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackConfigBatteriesPerString
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.5
+      type: gauge
+      help: The number of battery per each string in the battery pack - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackConfigCellsPerBattery
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.6
+      type: gauge
+      help: The number of cells per battery.. - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackConfigNumBatteries
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.7
+      type: gauge
+      help: The total number of batteries contained in the battery pack - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackConfigCapacityUnits
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.8
+      type: gauge
+      help: The units of measurement used for tlpUpsBatteryPackConfigDesignCapacity
+        and tlpUpsBatteryPackConfigCellCapacity - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+      enum_values:
+        0: mAHr
+        1: mWHr
+    - name: tlpUpsBatteryPackConfigDesignCapacity
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.9
+      type: gauge
+      help: The theoretical or nominal capacity of a new battery pack in the measurement
+        defined by tlpUpsBatteryPackConfigCapacityUnits - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.9
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackConfigCellCapacity
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.10
+      type: gauge
+      help: The capacity of the batteries in the measurement defined by tlpUpsBatteryPackConfigCapacityUnits
+        - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.10
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackConfigMinCellVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.11
+      type: gauge
+      help: The minimum cell voltage for the batteries - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.11
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackConfigMaxCellVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.12
+      type: gauge
+      help: The maximum cell voltage for the batteries - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.12
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackConfigRechargeable
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.13
+      type: gauge
+      help: Denotes whether this battery pack is rechargeable. - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.13
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+      enum_values:
+        1: "true"
+        2: "false"
+    - name: tlpUpsBatteryPackConfigFullChargeCapacity
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.14
+      type: gauge
+      help: The predicted capacity of the battery pack when fully charged in the measurement
+        defined by tlpUpsBatteryPackConfigCapacityUnits - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.14
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackConfigFullChargePercent
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.15
+      type: gauge
+      help: The predicted capacity of the battery pack when fully charged (percentage)
+        - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.15
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackConfigABM
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.16
+      type: gauge
+      help: Indicates whether the ups uses ABM (c) technology - 1.3.6.1.4.1.850.1.1.3.1.3.1.4.1.16
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+      enum_values:
+        0: disabled
+        1: enabled
+    - name: tlpUpsBatteryPackDetailCondition
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.1
+      type: gauge
+      help: The condition of the battery - 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+      enum_values:
+        0: unknown
+        1: good
+        2: weak
+        3: bad
+    - name: tlpUpsBatteryPackDetailTemperatureC
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.2
+      type: gauge
+      help: The ambient temperature at or near the ups Battery casing. - 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackDetailTemperatureF
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.3
+      type: gauge
+      help: The ambient temperature at or near the ups Battery casing. - 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackDetailAge
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.4
+      type: gauge
+      help: The age of the battery in tenths of years - 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackDetailLastReplaceDate
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.5
+      type: DisplayString
+      help: The date when the batteries were last replaced in yyyy-mm-dd format. -
+        1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackDetailNextReplaceDate
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.6
+      type: DisplayString
+      help: The date when the batteries should next be replaced in yyyy-mm-dd format.
+        - 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackDetailCycleCount
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.7
+      type: gauge
+      help: The number of times the battery went into invert mode - 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+    - name: tlpUpsBatteryPackDetailAgeFault
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.8
+      type: gauge
+      help: Denotes whether the age of this battery pack is in fault and a battery
+        replacement is recommended. - 1.3.6.1.4.1.850.1.1.3.1.3.1.5.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsBatteryPackIdentIndex
+        type: gauge
+      enum_values:
+        1: "true"
+        2: "false"
+    - name: tlpUpsInputLineBads
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.1
+      type: gauge
+      help: A count of the number of times the input entered an out-of-tolerance condition
+        as defined by the manufacturer - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputNominalVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.2
+      type: gauge
+      help: The nominal value of the input line voltage - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputNominalFrequency
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.3
+      type: gauge
+      help: The nominal value of the input line frequency - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputLowTransferVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.4
+      type: gauge
+      help: The minimum line voltage allowed before the ups transfers to battery backup.
+        - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputLowTransferVoltageLowerBound
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.5
+      type: gauge
+      help: The lower boundary value of tlpUpsInputLowTransferVoltage as dictated
+        by the hardware of the unit. - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputLowTransferVoltageUpperBound
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.6
+      type: gauge
+      help: The upper boundary value of tlpUpsInputLowTransferVoltage as dictated
+        by the hardware of the unit. - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputHighTransferVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.7
+      type: gauge
+      help: The maximum line voltage allowed before the ups system transfers to battery
+        backup. - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputHighTransferVoltageLowerBound
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.8
+      type: gauge
+      help: The lower boundary value of tlpUpsInputHighTransferVoltage as dictated
+        by the hardware of the unit. - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputHighTransferVoltageUpperBound
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.9
+      type: gauge
+      help: The upper boundary value of tlpUpsInputHighTransferVoltage as dictated
+        by the hardware of the unit. - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.9
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputCurrentTotal
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.10
+      type: gauge
+      help: The aggregate total of conductor currents - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.10
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputLowTransferVoltageResetTolerance
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.11
+      type: gauge
+      help: If a unit is transferred to battery backup due to under-voltage, the line
+        voltage has to rise above this value from tlpUpsConfigLowVoltageTransfer,
+        before the unit switched back to the AC input. - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.11
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputHighTransferVoltageResetTolerance
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.12
+      type: gauge
+      help: If an input transferred to battery backup due to over-voltage, the line
+        voltage on the input source has to fall below this value from tlpUpsConfigHighVoltageTransfer,
+        before the unit switched back to the AC input. - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.12
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputTransformerStatus
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.13
+      type: gauge
+      help: Denotes the status of the transformer as to whether it is presently reducing
+        or boosting the input. - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.13
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: normal
+        1: reducing
+        2: boosting
+    - name: tlpUpsInputAvrTransitionCount
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.14
+      type: gauge
+      help: The number of times the automatic voltage regulating transformer transitions
+        from a normal state to either boosting or reducing - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.14
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputSource
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.15
+      type: gauge
+      help: Denotes the current input source for the ups - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.15
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: utility
+        1: battery
+        2: other
+        3: none
+        4: testing
+    - name: tlpUpsInputSourceAvailable
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.16
+      type: gauge
+      help: Denotes if the current input source is available for the ups. - 1.3.6.1.4.1.850.1.1.3.1.3.2.1.1.16
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: unknown
+        1: "yes"
+        2: "no"
+    - name: tlpUpsInputPhaseIndex
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.1
+      type: gauge
+      help: The table row index for the ups input phase. - 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsInputPhaseIndex
+        type: gauge
+    - name: tlpUpsInputPhaseFrequency
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.2
+      type: gauge
+      help: The present input frequency for a given input line. - 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsInputPhaseIndex
+        type: gauge
+    - name: tlpUpsInputPhaseVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.3
+      type: gauge
+      help: The magnitude of the present input voltage for a given input line. - 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsInputPhaseIndex
+        type: gauge
+    - name: tlpUpsInputPhaseVoltageMin
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.4
+      type: gauge
+      help: The minimum input voltage value since the last reset of this value for
+        a given input line - 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsInputPhaseIndex
+        type: gauge
+    - name: tlpUpsInputPhaseVoltageMax
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.5
+      type: gauge
+      help: The maximum input voltage value since the last reset of this value for
+        a given input line - 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsInputPhaseIndex
+        type: gauge
+    - name: tlpUpsInputPhaseCurrent
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.6
+      type: gauge
+      help: The magnitude of the present input current. - 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsInputPhaseIndex
+        type: gauge
+    - name: tlpUpsInputPhasePower
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.7
+      type: gauge
+      help: The magnitude of the present input true power. - 1.3.6.1.4.1.850.1.1.3.1.3.2.2.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsInputPhaseIndex
+        type: gauge
+    - name: tlpUpsInputBoostSetting
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.3.1.1
+      type: gauge
+      help: Denotes whether the automatic voltage regulating transformer will correct
+        undervoltage conditions - 1.3.6.1.4.1.850.1.1.3.1.3.2.3.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: disabled
+        1: enabled
+    - name: tlpUpsInputBoostStatus
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.3.1.2
+      type: gauge
+      help: Denotes whether the transformer is currently boosting the input voltage.
+        - 1.3.6.1.4.1.850.1.1.3.1.3.2.3.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: notBoosting
+        1: boosting
+    - name: tlpUpsInputBoostCount
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.3.1.3
+      type: gauge
+      help: The number of times the automatic voltage regulating transformer transitions
+        from a normal state to boosting since the last reset - 1.3.6.1.4.1.850.1.1.3.1.3.2.3.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputBoostHours
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.3.1.4
+      type: gauge
+      help: The total number of hours in boost mode since the last reset. - 1.3.6.1.4.1.850.1.1.3.1.3.2.3.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputBoostVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.3.1.5
+      type: gauge
+      help: The low boost mode activation voltage for undervoltage correction - 1.3.6.1.4.1.850.1.1.3.1.3.2.3.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputBuckSetting
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.4.1.1
+      type: gauge
+      help: Denotes whether the automatic voltage regulating transformer will correct
+        overvoltage conditions - 1.3.6.1.4.1.850.1.1.3.1.3.2.4.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: disabled
+        1: enabled
+    - name: tlpUpsInputBuckStatus
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.4.1.2
+      type: gauge
+      help: Denotes whether the transformer is currently reducing the input voltage.
+        - 1.3.6.1.4.1.850.1.1.3.1.3.2.4.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: notReducing
+        1: reducing
+    - name: tlpUpsInputBuckCount
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.4.1.3
+      type: gauge
+      help: The number of times the automatic voltage regulating transformer transitions
+        from a normal state to reducing since the last reset - 1.3.6.1.4.1.850.1.1.3.1.3.2.4.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputBuckHours
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.4.1.4
+      type: gauge
+      help: The total number of hours in buck mode since the last reset. - 1.3.6.1.4.1.850.1.1.3.1.3.2.4.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsInputBuckVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.2.4.1.5
+      type: gauge
+      help: The low buck mode activation voltage for overvoltage correction - 1.3.6.1.4.1.850.1.1.3.1.3.2.4.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsOutputSource
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.1
+      type: gauge
+      help: The present source of output power - 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: unknown
+        1: other
+        2: none
+        3: normal
+        4: bypass
+        5: battery
+        6: boosting
+        7: reducing
+        8: second
+        9: economy
+        10: testing
+    - name: tlpUpsOutputNominalVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.2
+      type: gauge
+      help: The nominal value of the output voltage - 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsOutputFrequency
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.3
+      type: gauge
+      help: The present output frequency - 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsOutputVARating
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.4
+      type: gauge
+      help: The VA Rating of the ups - 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsOutputPowerFactor
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.5
+      type: gauge
+      help: The percentage of output power factor. - 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsOutputTotalUtilization
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.6
+      type: gauge
+      help: The total percentage of the ups power capacity presently being used on
+        the ups measured in hundredths of a percent. - 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsOutputPowerRating
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.7
+      type: gauge
+      help: The ac output apparent power rating - 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsOutputChargerCurrent
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.8
+      type: gauge
+      help: The charger current - 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsOutputCurrentRating
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.9
+      type: gauge
+      help: The output current rating - 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.9
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsOutputEfficiency
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.10
+      type: gauge
+      help: The present measurement of efficiency of output power conversion - 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.10
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpUpsOutputStatus
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.11
+      type: gauge
+      help: The present status of output power. - 1.3.6.1.4.1.850.1.1.3.1.3.3.1.1.11
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: notPowered
+        1: notProtected
+        2: protected
+        3: poweredWithNoContinuity
+    - name: tlpUpsOutputLineIndex
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.1
+      type: gauge
+      help: The table row index for the ups output line. - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLineVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.2
+      type: gauge
+      help: The magnitude of the present output voltage for a given output line. -
+        1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLineCurrent
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.3
+      type: gauge
+      help: The output current, in hundredths of amps, for a given line - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLineActivePower
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.4
+      type: gauge
+      help: The present output true power. - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLineUtilization
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.5
+      type: gauge
+      help: The percentage of the ups power capacity presently being used on this
+        output line, i.e., the greater of the percent load of true power capacity
+        and the percent load of VA. - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLineFrequency
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.6
+      type: gauge
+      help: The present output frequency on this output line - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLineCurrentMin
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.7
+      type: gauge
+      help: The minimum current, in hundredths of amps, observed for a given phase
+        since last reset - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLineCurrentMax
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.8
+      type: gauge
+      help: The maximum current, in hundredths of amps, observed for a given phase
+        since last reset - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLineApparentPower
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.9
+      type: gauge
+      help: The present output apparent power. - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.9
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLinePowerKVA
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.10
+      type: gauge
+      help: The amount of apparent power being used. - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.10
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLinePowerKW
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.11
+      type: gauge
+      help: The amount of active power being used. - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.11
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLine24hrEnergy
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.12
+      type: gauge
+      help: Estimated 24 hour power consumption using present value of tlpUpsOutputLinePowerKW.
+        - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.12
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLineWattHours
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.13
+      type: gauge
+      help: The number of watt hours of energy utilized in the past 24 hours - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.13
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLinePeakPower
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.14
+      type: gauge
+      help: The maximum 1 second average power value since the last reset - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.14
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLineAveragePower
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.15
+      type: gauge
+      help: The average output power over the past hour. - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.15
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLineCumulativePower
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.16
+      type: gauge
+      help: The cumulative output power since the last reset. - 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.16
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+    - name: tlpUpsOutputLineCumulativePowerDuration
+      oid: 1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.17
+      type: gauge
+      help: The cumulative output power duration, in days, since the last reset. -
+        1.3.6.1.4.1.850.1.1.3.1.3.3.2.1.17
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpUpsOutputLineIndex
+        type: gauge
+  tpl_ats:
+    walk:
+    - 1.3.6.1.4.1.850.1.1.3.4.1.2
+    - 1.3.6.1.4.1.850.1.1.3.4.2
+    - 1.3.6.1.4.1.850.1.1.3.4.3.1
+    - 1.3.6.1.4.1.850.1.1.3.4.3.2
+    - 1.3.6.1.4.1.850.1.1.3.4.3.3.1.1.4
+    - 1.3.6.1.4.1.850.1.1.3.4.3.4
+    metrics:
+    - name: tlpAtsIdentNumInputs
+      oid: 1.3.6.1.4.1.850.1.1.3.4.1.2.1.1
+      type: gauge
+      help: The number of inputs supported by the ats. - 1.3.6.1.4.1.850.1.1.3.4.1.2.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsIdentNumOutputs
+      oid: 1.3.6.1.4.1.850.1.1.3.4.1.2.1.2
+      type: gauge
+      help: The number of outputs supported by the ats. - 1.3.6.1.4.1.850.1.1.3.4.1.2.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsIdentNumPhases
+      oid: 1.3.6.1.4.1.850.1.1.3.4.1.2.1.3
+      type: gauge
+      help: The number of phases per input supported by the ats. - 1.3.6.1.4.1.850.1.1.3.4.1.2.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsIdentNumOutlets
+      oid: 1.3.6.1.4.1.850.1.1.3.4.1.2.1.4
+      type: gauge
+      help: The number of receptacles supported by the ats. - 1.3.6.1.4.1.850.1.1.3.4.1.2.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsIdentNumOutletGroups
+      oid: 1.3.6.1.4.1.850.1.1.3.4.1.2.1.5
+      type: gauge
+      help: The number of user-defined receptacle groups created for the ats. - 1.3.6.1.4.1.850.1.1.3.4.1.2.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsIdentNumCircuits
+      oid: 1.3.6.1.4.1.850.1.1.3.4.1.2.1.6
+      type: gauge
+      help: The number of circuits supported by the ats. - 1.3.6.1.4.1.850.1.1.3.4.1.2.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsIdentNumBreakers
+      oid: 1.3.6.1.4.1.850.1.1.3.4.1.2.1.7
+      type: gauge
+      help: The number of monitored circuit breakers supported by the ats - 1.3.6.1.4.1.850.1.1.3.4.1.2.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsIdentNumHeatsinks
+      oid: 1.3.6.1.4.1.850.1.1.3.4.1.2.1.8
+      type: gauge
+      help: The number of heatsink thermistors supported by the ats. - 1.3.6.1.4.1.850.1.1.3.4.1.2.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDeviceMainLoadState
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.1
+      type: gauge
+      help: The current state of the main output of the device. - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: unknown
+        1: "off"
+        2: "on"
+    - name: tlpAtsDeviceMainLoadControllable
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.2
+      type: gauge
+      help: Indicates whether or not the main output is controllable, and whether
+        the ups can be turned off and on. - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        1: "true"
+        2: "false"
+    - name: tlpAtsDeviceMainLoadCommand
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.3
+      type: gauge
+      help: Reading this value will always return 0 - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: idle
+        1: turnOff
+        2: turnOn
+        3: cycle
+    - name: tlpAtsDevicePowerOnDelay
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.4
+      type: gauge
+      help: The configurable delay value, which sets the amount of additional time
+        a given device will wait before it connects to a valid AC source - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDeviceTotalInputPowerRating
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.5
+      type: gauge
+      help: The total input power rating of all phases on the device - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDeviceTemperatureC
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.6
+      type: gauge
+      help: The ambient temperature at or near the ats casing - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDeviceTemperatureF
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.7
+      type: gauge
+      help: The ambient temperature at or near the ats casing - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDevicePhaseImbalance
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.8
+      type: gauge
+      help: The percentage of imbalance of the three phases - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDeviceOutputActivePowerTotal
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.9
+      type: gauge
+      help: The AC output total true power for all circuits. - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.9
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDeviceAggregatePowerFactor
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.10
+      type: gauge
+      help: The aggregate power factor of all phases. - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.10
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDeviceOutputCurrentPrecision
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.11
+      type: gauge
+      help: Output current is reported by tlpAtsOutputCurrent, tlpAtsOutputCurrentMin
+        and tlpAtsOutputCurrentMax - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.11
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: none
+        1: tenths
+        2: hundredths
+    - name: tlpAtsDeviceGeneralFault
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.12
+      type: gauge
+      help: Indicates whether or not the ats is in a fault condition - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.12
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        1: "true"
+        2: "false"
+    - name: tlpAtsDeviceTotalOutputUtilization
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.13
+      type: gauge
+      help: The total percentage of the ats power capacity presently being used on
+        the ats. - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.13
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDeviceOutputApparentPowerTotal
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.14
+      type: gauge
+      help: The AC output total apparent power for all circuits - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.14
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDeviceOutputReactivePowerTotal
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.15
+      type: gauge
+      help: The AC output total reactive power for all circuits - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.15
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDeviceOutputCurrentTotal
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.16
+      type: gauge
+      help: The total output current, in hundredths of amps.The actual precision of
+        this value, whether a whole number, tenths or hundredths, is returned by tlpAtsDeviceOutputCurrentPrecision.
+        - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.16
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDeviceWattHoursTotal
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.17
+      type: gauge
+      help: The number of watt hours of energy utilized in the past 24 hours - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.17
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDevicePeakPowerTotal
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.18
+      type: gauge
+      help: The maximum 1 second average power value since the last reset - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.18
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsDevice24hrEnergyTotal
+      oid: 1.3.6.1.4.1.850.1.1.3.4.2.1.1.19
+      type: gauge
+      help: Estimated 24 hour power consumption using present value of tlpAtsOutputPowerKW.
+        - 1.3.6.1.4.1.850.1.1.3.4.2.1.1.19
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputNominalVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.1
+      type: gauge
+      help: The nominal value of the input line voltage - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputNominalVoltagePhaseToPhase
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.2
+      type: gauge
+      help: The nominal value of the input line voltage as measured from phase to
+        phase - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputNominalVoltagePhaseToNeutral
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.3
+      type: gauge
+      help: The nominal value of the input line voltage as measured from phase to
+        neutral - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputLowTransferVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.4
+      type: gauge
+      help: The minimum line voltage allowed before the unit disconnects the AC input
+        connection. - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputLowTransferVoltageLowerBound
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.5
+      type: gauge
+      help: The lower boundary value of tlpAtsInputLowTransferVoltage as dictated
+        by the hardware of the unit. - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputLowTransferVoltageUpperBound
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.6
+      type: gauge
+      help: The upper boundary value of tlpAtsInputLowTransferVoltage as dictated
+        by the hardware of the unit. - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputHighTransferVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.7
+      type: gauge
+      help: The maximum line voltage allowed before the unit disconnects the AC input
+        connection. - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputHighTransferVoltageLowerBound
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.8
+      type: gauge
+      help: The lower boundary value of tlpAtsInputHighTransferVoltage as dictated
+        by the hardware of the unit. - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputHighTransferVoltageUpperBound
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.9
+      type: gauge
+      help: The upper boundary value of tlpAtsInputHighTransferVoltage as dictated
+        by the hardware of the unit. - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.9
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputFairVoltageThreshold
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.10
+      type: gauge
+      help: The voltage level at which the device will transition between sources.
+        - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.10
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputBadVoltageThreshold
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.11
+      type: gauge
+      help: The minimum line voltage allowed before the device disconnects the AC
+        input connection. - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.11
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputSourceAvailability
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.12
+      type: gauge
+      help: The determination as to which of two AC input lines are available - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.12
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: none
+        1: inputSourceA
+        2: inputSourceB
+        3: inputSourceAB
+    - name: tlpAtsInputSourceInUse
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.13
+      type: gauge
+      help: The determination as to which one of two AC input lines is in use - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.13
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      enum_values:
+        0: inputSourceA
+        1: inputSourceB
+    - name: tlpAtsInputSourceTransitionCount
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.14
+      type: gauge
+      help: The number of times the device transitions between primary and secondary
+        sources - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.14
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputCurrentLimit
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.15
+      type: gauge
+      help: The capacity of each phase conductor in the ats limited by the AC input
+        cord or any other potential limiting factors unique to a given unit - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.15
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputCurrentTotal
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.16
+      type: gauge
+      help: The aggregate total of conductor currents - 1.3.6.1.4.1.850.1.1.3.4.3.1.1.1.16
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+    - name: tlpAtsInputLineIndex
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.1
+      type: gauge
+      help: The table row index for the input line on the ats. - 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsInputLineIndex
+        type: gauge
+      - labelname: tlpAtsInputPhaseIndex
+        type: gauge
+    - name: tlpAtsInputPhaseIndex
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.2
+      type: gauge
+      help: The table row index for the input phase for the input line. - 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsInputLineIndex
+        type: gauge
+      - labelname: tlpAtsInputPhaseIndex
+        type: gauge
+    - name: tlpAtsInputPhaseType
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.3
+      type: gauge
+      help: Denotes whether measurements are phase to neutral(0) or phase to phase(1).
+        - 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsInputLineIndex
+        type: gauge
+      - labelname: tlpAtsInputPhaseIndex
+        type: gauge
+      enum_values:
+        0: phaseToNeutral
+        1: phaseToPhase
+    - name: tlpAtsInputPhaseFrequency
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.4
+      type: gauge
+      help: The present input frequency for a given phase. - 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsInputLineIndex
+        type: gauge
+      - labelname: tlpAtsInputPhaseIndex
+        type: gauge
+    - name: tlpAtsInputPhaseVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.5
+      type: gauge
+      help: The magnitude of the present input voltage for a given phase. - 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsInputLineIndex
+        type: gauge
+      - labelname: tlpAtsInputPhaseIndex
+        type: gauge
+    - name: tlpAtsInputPhaseVoltageMin
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.6
+      type: gauge
+      help: The minimum input voltage value since the last reset of this value for
+        a given input line - 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsInputLineIndex
+        type: gauge
+      - labelname: tlpAtsInputPhaseIndex
+        type: gauge
+    - name: tlpAtsInputPhaseVoltageMax
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.7
+      type: gauge
+      help: The maximum input voltage value since the last reset of this value for
+        a given input line - 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsInputLineIndex
+        type: gauge
+      - labelname: tlpAtsInputPhaseIndex
+        type: gauge
+    - name: tlpAtsInputPhaseCurrent
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.8
+      type: gauge
+      help: The magnitude of the present input current for a given phase. - 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsInputLineIndex
+        type: gauge
+      - labelname: tlpAtsInputPhaseIndex
+        type: gauge
+    - name: tlpAtsInputPhasePower
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.9
+      type: gauge
+      help: The magnitude of the present input true power. - 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.9
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsInputLineIndex
+        type: gauge
+      - labelname: tlpAtsInputPhaseIndex
+        type: gauge
+    - name: tlpAtsInputPhaseThdVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.10
+      type: gauge
+      help: The voltage thd (total harmonic distortion) for this phase in hundredths
+        of a percent. - 1.3.6.1.4.1.850.1.1.3.4.3.1.2.1.10
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsInputLineIndex
+        type: gauge
+      - labelname: tlpAtsInputPhaseIndex
+        type: gauge
+    - name: tlpAtsOutputIndex
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.1
+      type: gauge
+      help: The table row index for the ats phase. - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputPhase
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.2
+      type: gauge
+      help: Indicates the phase associated with the output line. - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+      enum_values:
+        1: phase1
+        2: phase2
+        3: phase3
+    - name: tlpAtsOutputPhaseType
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.3
+      type: gauge
+      help: Denotes whether measurements are phase to neutral(0) or phase to phase(1).
+        - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+      enum_values:
+        0: phaseToNeutral
+        1: phaseToPhase
+    - name: tlpAtsOutputVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.4
+      type: gauge
+      help: The magnitude of the present output voltage for a given output line. -
+        1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputCurrent
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.5
+      type: gauge
+      help: The output current, in hundredths of amps, for a given phase - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputCurrentMin
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.6
+      type: gauge
+      help: The minimum current, in hundredths of amps, observed for a given phase
+        since last reset - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputCurrentMax
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.7
+      type: gauge
+      help: The maximum current, in hundredths of amps, observed for a given phase
+        since last reset - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputActivePower
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.8
+      type: gauge
+      help: The output true power for a given phase. - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputPowerFactor
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.9
+      type: gauge
+      help: The output power factor ratio for a given phase. - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.9
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputSource
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.10
+      type: gauge
+      help: The present source of output power - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.10
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+      enum_values:
+        0: none
+        1: normal
+    - name: tlpAtsOutputFrequency
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.11
+      type: gauge
+      help: The present output frequency - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.11
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputPowerKVA
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.12
+      type: gauge
+      help: The amount of apparent power being used. - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.12
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputPowerKW
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.13
+      type: gauge
+      help: The amount of active power being used. - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.13
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutput24hrEnergy
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.14
+      type: gauge
+      help: Estimated 24 hour power consumption using present value of tlpAtsOutputPowerKW.
+        - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.14
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputApparentPower
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.15
+      type: gauge
+      help: The amount of apparent power being used. - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.15
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputReactivePower
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.16
+      type: gauge
+      help: The amount of reactive power being used. - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.16
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputUtilization
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.17
+      type: gauge
+      help: The percentage of the ats power capacity presently being used on this
+        output line. - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.17
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputWattHours
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.18
+      type: gauge
+      help: The number of watt hours of energy utilized in the past 24 hours - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.18
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputPeakPower
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.19
+      type: gauge
+      help: The maximum 1 second average power value since the last reset - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.19
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutputAveragePower
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.20
+      type: gauge
+      help: The average output power over the past hour. - 1.3.6.1.4.1.850.1.1.3.4.3.2.1.1.20
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutputIndex
+        type: gauge
+    - name: tlpAtsOutletState
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.3.1.1.4
+      type: gauge
+      help: The current state of the outlet - 1.3.6.1.4.1.850.1.1.3.4.3.3.1.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsOutletIndex
+        type: gauge
+      enum_values:
+        0: unknown
+        1: "off"
+        2: "on"
+    - name: tlpAtsCircuitIndex
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.1
+      type: gauge
+      help: The table row index for the ats circuit. - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.1
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitPhase
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.2
+      type: gauge
+      help: Indicates on which phase or phases the given circuit is wired - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.2
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+      enum_values:
+        0: unknown
+        1: phase1
+        2: phase2
+        3: phase3
+        4: phase1-2
+        5: phase2-3
+        6: phase3-1
+    - name: tlpAtsCircuitInputVoltage
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.3
+      type: gauge
+      help: The input voltage for a circuit. - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.3
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitTotalCurrent
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.4
+      type: gauge
+      help: The total current for all receptacles in a given circuit. - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.4
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitCurrentLimit
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.5
+      type: gauge
+      help: The current capacity of a circuit in the ats limited by the circuit breaker
+        or wiring used in a given unit. - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.5
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitCurrentMin
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.6
+      type: gauge
+      help: The minimum total current for all receptacles in a given circuit since
+        last reset. - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.6
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitCurrentMax
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.7
+      type: gauge
+      help: The maximum total current for all receptacles in a given circuit since
+        last reset. - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.7
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitTotalPower
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.8
+      type: gauge
+      help: The total power for all receptacles in a given circuit. - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.8
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitPowerFactor
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.9
+      type: gauge
+      help: The power factor ratio for all receptacles in a given circuit. - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.9
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitUtilization
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.10
+      type: gauge
+      help: The percentage of utilization of a given circuit - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.10
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitApparentPower
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.11
+      type: gauge
+      help: The apparent power of a given circuit. - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.11
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitReactivePower
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.12
+      type: gauge
+      help: The reactive power of a given circuit. - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.12
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitFrequency
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.13
+      type: gauge
+      help: The frequency of a given circuit. - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.13
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitWattHours
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.14
+      type: gauge
+      help: The number of watt hours of energy utilized in the past 24 hours - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.14
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
+    - name: tlpAtsCircuitPeakPower
+      oid: 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.15
+      type: gauge
+      help: The maximum 1 second average power value since the last reset - 1.3.6.1.4.1.850.1.1.3.4.3.4.1.1.15
+      indexes:
+      - labelname: tlpDeviceIndex
+        type: gauge
+      - labelname: tlpAtsCircuitIndex
+        type: gauge
