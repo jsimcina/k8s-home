@@ -9,10 +9,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: node-exporter
-    namespace: monitoring
   values:
     fullnameOverride: node-exporter
-
     image:
       registry: quay.io
       repository: prometheus/node-exporter

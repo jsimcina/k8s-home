@@ -9,7 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: kube-state-metrics
-    namespace: monitoring
   values:
     fullnameOverride: kube-state-metrics
     prometheus:

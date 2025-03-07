@@ -9,7 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: authentik
-    namespace: security
   install:
     remediation:
       retries: 3

@@ -9,7 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: victoria-logs-single
-    namespace: monitoring
   install:
     remediation:
       retries: 3
