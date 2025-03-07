@@ -9,7 +9,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: snmp-exporter
-    namespace: observability
+    namespace: monitoring
   install:
     remediation:
       retries: 3
