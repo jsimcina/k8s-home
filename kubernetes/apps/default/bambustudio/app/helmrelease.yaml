@@ -26,6 +26,7 @@ spec:
               TZ: America/Chicago
               DARK_MODE: "true"
             securityContext:
+              allowPrivilegeEscalation: true
               privileged: true
               runAsUser: 1000
               runAsGroup: 1000
