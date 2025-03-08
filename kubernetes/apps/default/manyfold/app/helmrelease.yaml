@@ -15,7 +15,8 @@ spec:
       manyfold:
         annotations:
           secret.reloader.stakater.com/reload: manyfold-secret
-
+        labels:
+          nfsMount: "true"
         initContainers:
           init-db:
             image:

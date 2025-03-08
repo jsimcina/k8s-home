@@ -11,10 +11,22 @@ spec:
     name: app-template
     namespace: flux-system
   values:
+    defaultPodOptions:
+      securityContext:
+        # [fatal] writing config file: open /opt/adguardhome/conf/.AdGuardHome.yaml7437003519424238868: permission denied
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsNonRoot: false
+        seccompProfile:
+          type: Unconfined
     controllers:
       bambustudio:
         annotations:
           reloader.stakater.com/auto: "true"
+        labels:
+          nfsMount: "true"
         containers:
           app:
             image:
@@ -25,14 +37,6 @@ spec:
               GUID: 1000
               TZ: America/Chicago
               DARK_MODE: "true"
-            securityContext:
-              allowPrivilegeEscalation: true
-              privileged: true
-              runAsUser: 0
-              runAsGroup: 0
-              fsGroup: 0
-              fsGroupChangePolicy: "OnRootMismatch"
-
             resources:
               requests:
                 cpu: 500m
@@ -64,5 +68,10 @@ spec:
       config:
         existingClaim: bambustudio
         globalMounts:
-        - path: /config
-
+          - path: /config
+      data:
+        type: nfs
+        server: "unraid.jonandlinz.com"
+        path: /mnt/user/makerfiles/libraries/main
+        globalMounts:
+          - path: /library
