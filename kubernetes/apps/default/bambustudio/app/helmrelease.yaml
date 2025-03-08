@@ -20,6 +20,11 @@ spec:
             image:
               repository: lscr.io/linuxserver/bambustudio
               tag: latest
+            env:
+              PUID: 1000
+              GUID: 1000
+              TZ: America/Chicago
+              DARK_MODE: "true"
             securityContext:
               privileged: true
               runAsUser: 1000
