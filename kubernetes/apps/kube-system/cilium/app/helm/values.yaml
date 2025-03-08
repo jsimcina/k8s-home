@@ -19,7 +19,8 @@ cluster:
   name: main
 cni:
   exclusive: false
-#devices: enp+
+dashboards:
+  enabled: true
 enableIPv4BIGTCP: true
 endpointRoutes:
   enabled: true
@@ -76,3 +77,6 @@ securityContext:
       - NET_ADMIN
       - SYS_ADMIN
       - SYS_RESOURCE
+tls:
+  secretNamespace:
+    create: false
