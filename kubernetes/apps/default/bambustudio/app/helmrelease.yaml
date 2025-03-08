@@ -40,7 +40,7 @@ spec:
               limits:
                 cpu: 500m
                 gpu.intel.com/i915: 1
-                memory: 1024M
+                memory: 2048M
 
     service:
       app:
