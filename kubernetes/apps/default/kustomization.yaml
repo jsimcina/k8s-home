@@ -6,6 +6,7 @@ namespace: default
 resources:
     - ./actual/ks.yaml
     - ./bambu-connect/ks.yaml
+    - ./bambustudio/ks.yaml
     - ./echo-server/ks.yaml
     - ./manyfold/ks.yaml
     - ./paperless-ngx/ks.yaml
