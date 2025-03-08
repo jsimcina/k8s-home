@@ -15,18 +15,18 @@ spec:
       bambustudio:
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          securityContext:
-            privileged: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: "OnRootMismatch"
         containers:
           app:
             image:
               repository: lscr.io/linuxserver/bambustudio
               tag: latest
+            securityContext:
+              privileged: true
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+              fsGroupChangePolicy: "OnRootMismatch"
+
             resources:
               requests:
                 cpu: 50m
