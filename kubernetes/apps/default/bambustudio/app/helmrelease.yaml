@@ -25,6 +25,15 @@ spec:
       bambustudio:
         annotations:
           reloader.stakater.com/auto: "true"
+          k8s.v1.cni.cncf.io/networks: |
+            [{
+              "name":"multus-iot",
+              "namespace": "network",
+              "ips": ["10.21.11.2/16"],
+              "mac": "00:02:b3:df:ed:1f"
+            }]
+          nodeSelector:
+          multus: "active"
         labels:
           nfsMount: "true"
         containers:
