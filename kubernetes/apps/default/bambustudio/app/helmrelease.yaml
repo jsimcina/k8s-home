@@ -48,6 +48,7 @@ spec:
               GUID: 1000
               TZ: America/Chicago
               DARK_MODE: "true"
+              DRINODE: /dev/dri/renderD128
             resources:
               requests:
                 cpu: 500m
