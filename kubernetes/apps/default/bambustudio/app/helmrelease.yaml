@@ -56,7 +56,7 @@ spec:
               limits:
                 cpu: 4
                 gpu.intel.com/i915: 1
-                memory: 2048M
+                memory: 8096M
 
     service:
       app:
