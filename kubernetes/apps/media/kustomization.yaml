@@ -8,7 +8,7 @@ resources:
   - ./dashbrr/ks.yaml
   - ./bazarr/ks.yaml
   - ./jellyseerr/ks.yaml
-  #- ./kavita/ks.yaml
+  - ./kavita/ks.yaml
   - ./music-assistant/ks.yaml
   - ./notifiarr/ks.yaml
   - ./plex/ks.yaml
