@@ -14,3 +14,4 @@ resources:
   - ./sabnzbd/ks.yaml
 components:
   - ../../components/vpn-namespace
+  - ../../components/repos/app-template

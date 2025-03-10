@@ -1,4 +1,14 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/helmrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: angelnu
+  namespace: pod-gateway
+spec:
+  interval: 2h
+  url: https://angelnu.github.io/helm-charts
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -13,7 +23,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: angelnu
-        namespace: flux-system
+        namespace: pod-gateway
   # See https://github.com/angelnu/helm-charts/blob/main/charts/apps/pod-gateway/values.yaml
   values:
     image:
