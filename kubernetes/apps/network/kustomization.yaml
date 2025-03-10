@@ -4,9 +4,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: network
 resources:
-  - ./external/ks.yaml
-  - ./external-notunnel/ks.yaml
-  - ./internal/ks.yaml
+  - ./external-dns-lan/ks.yaml
+  - ./ingress-nginx-lan/ks.yaml
+  - ./ingress-nginx-notunnel/ks.yaml
+  - ./multus/ks.yaml
 components:
   - ../../components/common
   - ../../components/repos/app-template
