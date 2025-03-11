@@ -38,6 +38,8 @@ spec:
   values:
     hubble:
       enabled: true
+      ui:
+        enabled: true
       metrics:
         enabled:
           - dns:query
