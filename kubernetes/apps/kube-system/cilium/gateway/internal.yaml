@@ -37,4 +37,4 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: devbu-io-tls
+            name: jonandlinz-io-tls
