@@ -11,22 +11,22 @@ spec:
       namespace: kube-system
       sectionName: https
   rules:
-    - matches:
-      - path:
-          type: PathPrefix
-          value: "/targets"
-      backendRefs:
-        - name: vmagent-stack
-          namespace: &ns monitoring
-          port: 8429
-    - matches:
-      - path:
-          type: RegularExpression
-          value: "^/path/.*$"
-      backendRefs:
-        - name: vmalert-stack
-          namespace: *ns
-          port: 8080
+    # - matches:
+    #   - path:
+    #       type: PathPrefix
+    #       value: "/targets"
+    #   backendRefs:
+    #     - name: vmagent-stack
+    #       namespace: &ns monitoring
+    #       port: 8429
+    # - matches:
+    #   - path:
+    #       type: RegularExpression
+    #       value: "^/path/.*$"
+    #   backendRefs:
+    #     - name: vmalert-stack
+    #       namespace: *ns
+    #       port: 8080
     - backendRefs:
         - name: vmsingle-stack
           namespace: *ns
