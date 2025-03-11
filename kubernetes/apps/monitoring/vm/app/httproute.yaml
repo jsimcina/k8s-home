@@ -21,8 +21,8 @@ spec:
           port: 8429
     - matches:
       - path:
-          type: PathPrefix
-          value: "/alerts"
+          type: RegularExpression
+          value: "^/path/.*$"
       backendRefs:
         - name: vmalert-stack
           namespace: *ns
