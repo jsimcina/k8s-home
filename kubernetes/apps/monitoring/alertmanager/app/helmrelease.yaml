@@ -55,6 +55,7 @@ spec:
         ports:
           http:
             port: *port
+
     serviceMonitor:
       app:
         serviceName: *app
@@ -63,7 +64,8 @@ spec:
             scheme: http
             path: /metrics
             interval: 1m
-            scrapeTimeout: 10s7
+            scrapeTimeout: 10s
+
     route:
       app:
         hostnames: ["alertmanager.jonandlinz.io"]
@@ -75,6 +77,7 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
+
     persistence:
       config:
         type: configMap
