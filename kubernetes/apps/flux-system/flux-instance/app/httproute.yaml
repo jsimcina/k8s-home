@@ -14,7 +14,7 @@ spec:
     - matches:
         - path:
             type: RegularExpression
-            value: ^/hook(/.*)?$
+            value: "^/hook(/.*)?$"
       backendRefs:
         - name: webhook-receiver
           namespace: flux-system
