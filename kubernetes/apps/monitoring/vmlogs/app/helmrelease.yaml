@@ -79,14 +79,6 @@ spec:
         readOnlyRootFilesystem: true
         capabilities: { drop: ["ALL"] }
 
-      #ingress:
-      #  enabled: true
-      #  ingressClassName: "internal"
-      #  hosts:
-      #    - name: vmlogs.jonandlinz.io
-      #      path: /
-      #      port: http
-
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
