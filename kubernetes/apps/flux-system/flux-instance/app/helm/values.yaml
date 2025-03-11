@@ -19,6 +19,7 @@ instance:
     path: kubernetes/flux/cluster
     #Not needed when public
     #pullSecret: github-deploy-key
+    interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: flux
