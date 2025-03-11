@@ -13,12 +13,13 @@ spec:
   rules:
     - matches:
       - path:
+          type: PathPrefix
           value: "/targets"
       backendRefs:
         - name: vmagent-stack
           namespace: &ns monitoring
           port: 8429
     - backendRefs:
-        - name: vmauth-stack
+        - name: vmsingle-stack
           namespace: *ns
           port: 8429
