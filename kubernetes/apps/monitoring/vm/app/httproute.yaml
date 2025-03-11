@@ -11,14 +11,14 @@ spec:
       namespace: kube-system
       sectionName: https
   rules:
-    # - matches:
-    #   - path:
-    #       type: PathPrefix
-    #       value: "/targets"
-    #   backendRefs:
-    #     - name: vmagent-stack
-    #       namespace: &ns monitoring
-    #       port: 8429
+    - matches:
+      - path:
+          type: PathPrefix
+          value: "/targets"
+      backendRefs:
+        - name: vmagent-stack
+          namespace: &ns monitoring
+          port: 8429
     # - matches:
     #   - path:
     #       type: RegularExpression
@@ -29,5 +29,5 @@ spec:
     #       port: 8080
     - backendRefs:
         - name: vmsingle-stack
-          namespace: monitoring
+          namespace: *ns
           port: 8429
