@@ -56,14 +56,6 @@ spec:
         prometheus:
           serviceMonitor:
             enabled: true
-      route:
-        main:
-          enabled: true
-          hostnames: ["auth.jonandlinz.io"]
-          parentRefs:
-            - name: external
-              namespace: kube-system
-              sectionName: https
     worker:
       autoscaling:
         enabled: true
