@@ -11,11 +11,7 @@ spec:
       namespace: kube-system
       sectionName: https
   rules:
-    - matches:
-        - path:
-            type: RegularExpression
-            value: "^/hook(/.*)?$"
-      backendRefs:
+    - backendRefs:
         - name: webhook-receiver
           namespace: flux-system
           port: 80
