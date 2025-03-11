@@ -24,8 +24,8 @@ spec:
           type: PathPrefix
           value: "/alerts"
       filters:
-        - type: RequestRedirect
-          requestRedirect:
+        - type: URLRewrite
+          urlRewrite:
             path:
               type: ReplacePrefixMatch
               replacePrefixMatch: /
