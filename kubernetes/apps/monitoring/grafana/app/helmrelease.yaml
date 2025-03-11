@@ -202,9 +202,6 @@ spec:
           gnetId: 1860
           revision: 37
           datasource: VictoriaMetrics
-        node-feature-discovery:
-          url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
-          datasource: VictoriaMetrics
         smartctl-exporter:
           # renovate: depName="SMARTctl Exporter Dashboard"
           gnetId: 22604
