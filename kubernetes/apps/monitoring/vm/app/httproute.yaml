@@ -29,5 +29,5 @@ spec:
     #       port: 8080
     - backendRefs:
         - name: vmsingle-stack
-          namespace: *ns
+          namespace: monitoring
           port: 8429
