@@ -32,7 +32,7 @@ spec:
               repository: mrcas/kapowarr-alpha
               tag: alpha-34@sha256:76a10c936ef03027e405ec491ed3d36be267e23709ec86cdb2ff502f889aadd2
             env:
-              TZ: ${TIMEZONE}
+              TZ: America/Chicago
             resources:
               requests:
                 cpu: 15m
@@ -54,21 +54,18 @@ spec:
         controller: kapowarr
         ports:
           http:
-            port: 80
-    ingress:
+            port: &port 80
+    route:
       app:
-        className: internal
-        hosts:
-          - host: &host kapowarr.jonandlinz.io
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
+        hostnames: ["kapowarr.jonandlinz.io"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       config:
         enabled: true

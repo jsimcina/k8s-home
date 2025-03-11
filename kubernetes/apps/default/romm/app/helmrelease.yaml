@@ -39,7 +39,7 @@ spec:
               tag: 3.8@sha256:74660a1179f37bee5a7a285ee32ea25bcfeeaae2db77d001fcb258d88903e48d
             env:
               TZ: America/Chicago
-              romm__PORT: &port 80
+              romm__PORT: &port 8080
             envFrom: *envFrom
             probes:
               liveness:
@@ -68,23 +68,23 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-
     service:
       app:
         controller: *app
         ports:
           http:
-            port: 8080
-    ingress:
+            port: *port
+    route:
       app:
-        className: internal
-        hosts:
-          - host: "{{ .Release.Name }}.jonandlinz.io"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["romm.jonandlinz.io"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       assets:
         existingClaim: *app

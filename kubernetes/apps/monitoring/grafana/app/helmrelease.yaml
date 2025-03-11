@@ -17,7 +17,7 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: grafana
+  name: &app grafana
 spec:
   interval: 1h
   chartRef:
@@ -282,10 +282,14 @@ spec:
       - victoriametrics-logs-datasource
     serviceMonitor:
       enabled: true
-    ingress:
-      enabled: true
-      ingressClassName: internal
-      hosts: ["grafana.jonandlinz.io"]
+    route:
+      main:
+        enabled: true
+        hostnames: ["grafana.jonandlinz.io"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
     persistence:
       enabled: false
     testFramework:

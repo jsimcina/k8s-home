@@ -43,16 +43,17 @@ spec:
         ports:
           http:
             port: &port 5000
-    ingress:
+    route:
       app:
-        className: internal
-        hosts:
-          - host: &host read.jonandlinz.io
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["read.jonandlinz.io"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       config:
         existingClaim: *app

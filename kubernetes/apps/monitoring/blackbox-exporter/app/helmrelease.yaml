@@ -17,7 +17,7 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: blackbox-exporter
+  name: &app blackbox-exporter
 spec:
   interval: 1h
   chartRef:
@@ -33,14 +33,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: blackbox-exporter
-    ingress:
-      enabled: true
-      className: internal
-      hosts:
-        - host: blackbox.jonandlinz.io
-          paths:
-            - path: /
-              pathType: Prefix
     securityContext:
       readOnlyRootFilesystem: true
       allowPrivilegeEscalation: false

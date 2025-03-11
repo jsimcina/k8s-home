@@ -17,7 +17,7 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: authentik
+  name: &app authentik
 spec:
   interval: 1h
   chartRef:
@@ -56,12 +56,14 @@ spec:
         prometheus:
           serviceMonitor:
             enabled: true
-      ingress:
-        enabled: true
-        ingressClassName: external
-        hosts:
-          - auth.jonandlinz.io
-        https: false
+      route:
+        main:
+          enabled: true
+          hostnames: ["auth.jonandlinz.io"]
+          parentRefs:
+            - name: external
+              namespace: kube-system
+              sectionName: https
     worker:
       autoscaling:
         enabled: true

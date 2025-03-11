@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: scrypted
+  name: &app scrypted
 spec:
   interval: 1h
   chartRef:
@@ -85,7 +85,7 @@ spec:
         controller: scrypted
         ports:
           http:
-            port: 11080
+            port: &port 11080
           rebroadcast:
             port: 33669
           rebroadcastp1s:
@@ -94,18 +94,17 @@ spec:
             port: 8443
           homekitport:
             port: 10405
-
-    ingress:
+    route:
       app:
-        className: "internal"
-        hosts:
-          - host: &host scrypted.jonandlinz.io
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
+        hostnames: ["scrypted.jonandlinz.io"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       config:
         existingClaim: scrypted

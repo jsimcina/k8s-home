@@ -5,9 +5,9 @@ metadata:
   name: stack
 spec:
   selectAllByDefault: true
-  ingress:
-    class_name: internal
-    host: vmetrics.jonandlinz.io
+  #ingress:
+  #  class_name: internal
+  #  host: vmetrics.jonandlinz.io
   replicaCount: 1
   unauthorizedAccessConfig:
     - src_paths: ["/targets"]

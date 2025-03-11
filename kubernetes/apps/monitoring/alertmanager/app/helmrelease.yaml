@@ -24,7 +24,6 @@ spec:
               storageClass: ceph-block
               globalMounts:
                 - path: /alertmanager
-
         containers:
           alertmanager:
             image:
@@ -32,7 +31,7 @@ spec:
               tag: v0.28.1
             ports:
               - name: http
-                containerPort: 9093
+                containerPort: &port 9093
             probes:
               liveness:
                 enabled: true
@@ -55,8 +54,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: 9093
-
+            port: *port
     serviceMonitor:
       app:
         serviceName: *app
@@ -65,19 +63,18 @@ spec:
             scheme: http
             path: /metrics
             interval: 1m
-            scrapeTimeout: 10s
-
-    ingress:
+            scrapeTimeout: 10s7
+    route:
       app:
-        className: internal
-        hosts:
-          - host: alertmanager.jonandlinz.io
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
+        hostnames: ["alertmanager.jonandlinz.io"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       config:
         type: configMap

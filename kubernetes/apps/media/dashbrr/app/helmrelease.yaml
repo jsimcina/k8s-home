@@ -59,7 +59,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: 80
+                    port: &port 80
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -69,16 +69,17 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-    ingress:
-      dashbrr:
-        className: internal
-        hosts:
-          - host: dashbrr.jonandlinz.io
-            paths:
-              - path: /
-                service:
-                  identifier: dashbrr
-                  port: http
+    route:
+      app:
+        hostnames: ["dashbrr.jonandlinz.io"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     service:
       dashbrr:
         controller: dashbrr

@@ -69,17 +69,18 @@ spec:
         controller: matter-server
         ports:
           websocket:
-            port: 5580
-    ingress:
+            port: *port
+    route:
       app:
-        className: internal
-        hosts:
-          - host: &host matter-server.jonandlinz.io
-            paths:
-              - path: /ws
-                service:
-                  identifier: app
-                  port: websocket
+        hostnames: ["matter-server.jonandlinz.io"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       data:
         enabled: true

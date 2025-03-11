@@ -133,16 +133,17 @@ spec:
           http:
             port: *port
 
-    ingress:
+    route:
       app:
-        className: "internal"
-        hosts:
-          - host: &hostName qb.jonandlinz.io
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["qb.jonandlinz.io"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
 
     persistence:
       config:

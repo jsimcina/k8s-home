@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: manyfold
+  name: &app manyfold
 spec:
   interval: 1h
   chartRef:
@@ -36,7 +36,6 @@ spec:
                 chmod o-rwx /app/tmp /app/log /tmp
             securityContext:
               runAsUser: 0
-
         containers:
           main:
             image:
@@ -48,7 +47,7 @@ spec:
               FORCE_OIDC: enabled
               MULTIUSER: enabled
               TZ: America/Chicago
-              PORT: &httpPort 3214
+              PORT: &port 3214
               REGISTRATION: false
             envFrom: *envFrom
             probes:
@@ -58,7 +57,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: *httpPort
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -74,33 +73,30 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-
     defaultPodOptions:
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-
     service:
       app:
         primary: true
         controller: manyfold
         ports:
           http:
-            port: *httpPort
-
-    ingress:
+            port: *port
+    route:
       app:
-        className: "external"
-        hosts:
-          - host: models.jonandlinz.io
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
+        hostnames: ["models.jonandlinz.io"]
+        parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       data:
         type: nfs

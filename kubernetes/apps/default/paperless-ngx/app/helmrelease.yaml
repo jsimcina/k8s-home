@@ -32,7 +32,7 @@ spec:
             env:
               PAPERLESS_TIME_ZONE: America/Chicago
               PAPERLESS_URL: https://paperless.jonandlinz.io
-              PAPERLESS_PORT: 8000
+              PAPERLESS_PORT: &port 8000
               PAPERLESS_WEBSERVER_WORKERS: 2
               PAPERLESS_TASK_WORKERS: 2
               PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: "false"
@@ -68,18 +68,18 @@ spec:
         controller: paperless-ngx
         ports:
           http:
-            port: 8000
-    ingress:
+            port: *port
+    route:
       app:
-        className: internal
-        hosts:
-          - host: &host paperless.jonandlinz.io
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-
+        hostnames: ["paperless.jonandlinz.io"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       data:
         existingClaim: paperless-ngx
@@ -87,7 +87,6 @@ spec:
           paperless-ngx:
             app:
               - path: /data/local
-
       docs:
         type: nfs
         server: "unraid.jonandlinz.com"
