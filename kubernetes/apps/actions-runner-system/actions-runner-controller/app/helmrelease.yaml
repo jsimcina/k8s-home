@@ -23,15 +23,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: gha-runner-scale-set-controller
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: Deployment
-            patch: |
-              - op: replace
-                path: /spec/template/metadata/labels/app.kubernetes.io~1version
-                value: 0.10.1
   install:
     crds: CreateReplace
     remediation:
