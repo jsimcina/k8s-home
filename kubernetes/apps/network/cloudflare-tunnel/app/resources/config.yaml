@@ -1,6 +1,6 @@
 ---
 originRequest:
-  matchSNItoHost: true
+  originServerName: external.jonandlinz.io
 
 ingress:
   - hostname: jonandlinz.io
