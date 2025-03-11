@@ -120,13 +120,8 @@ cluster:
   coreDNS:
     disabled: true
   extraManifests:
-    {% for crd in [
-        "alertmanagerconfigs", "alertmanagers", "podmonitors", "probes", "prometheusagents",
-        "prometheuses", "prometheusrules", "scrapeconfigs", "servicemonitors", "thanosrulers"
-    ] %}
-    - # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
-      https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.80.1/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
-    {% endfor %}
+    - # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
+      https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.2.1/experimental-install.yaml
   token: op://kubernetes/talos/CLUSTER_TOKEN
   secretboxEncryptionSecret: op://kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   ca:
