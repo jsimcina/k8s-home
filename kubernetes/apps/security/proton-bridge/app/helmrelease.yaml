@@ -45,7 +45,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "proton-bridge.jonandlinz.io"
-          lbipam.cilium.io/ips: 10.12.0.104
+          lbipam.cilium.io/ips: 10.12.0.104, ::ffff:10.12.0.104
         externalTrafficPolicy: Cluster
         ports:
           imap:

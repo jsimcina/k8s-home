@@ -43,7 +43,7 @@ spec:
         controller: ser2net
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: 10.12.0.101
+          lbipam.cilium.io/ips: 10.12.0.101, ::ffff:10.12.0.101
         ports:
           zigbee:
             port: 6638
