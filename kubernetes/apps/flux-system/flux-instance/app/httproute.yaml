@@ -17,5 +17,5 @@ spec:
           port: 80
       matches:
         - path:
-            type: RegularExpression
-            value: ^/hook/.*
+            type: PathPrefix
+            value: "/hook/"
