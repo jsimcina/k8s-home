@@ -18,6 +18,11 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &name actions-runner-controller
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: gha-runner-scale-set-controller
   # TODO: Remove on 0.11.0
   # Ref: https://github.com/actions/actions-runner-controller/pull/3729
   postRenderers:
@@ -29,11 +34,6 @@ metadata:
               - op: replace
                 path: /spec/template/metadata/labels/app.kubernetes.io~1version
                 value: 0.10.1
-spec:
-  interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: gha-runner-scale-set-controller
   install:
     crds: CreateReplace
     remediation:
