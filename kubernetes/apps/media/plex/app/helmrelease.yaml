@@ -84,20 +84,21 @@ spec:
             namespace: kube-system
             sectionName: https
         rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /library/streams
+          - backendRefs:
+              - name: *app
+                port: *port
             filters:
               - type: RequestHeaderModifier
                 requestHeaderModifier:
                   remove: ["Range"]
-            backendRefs:
-              - name: *app
-                port: *port
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /library/streams
           - backendRefs:
               - name: *app
                 port: *port
+
     persistence:
       config:
         existingClaim: plex
