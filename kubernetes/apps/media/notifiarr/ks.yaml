@@ -11,8 +11,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: onepassword
-      namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
   components:

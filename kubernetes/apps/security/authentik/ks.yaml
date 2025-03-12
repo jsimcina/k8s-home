@@ -11,9 +11,6 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/gatus/external
-  dependsOn:
-    - name: onepassword
-      namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/security/authentik/app
   postBuild:

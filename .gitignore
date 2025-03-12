@@ -9,4 +9,5 @@
 Brewfile.lock.json
 Thumbs.db
 kubeconfig
+onepassword.env
 talosconfig

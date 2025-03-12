@@ -31,6 +31,20 @@ spec:
 apiVersion:	operator.victoriametrics.com/v1beta1
 kind: VMScrapeConfig
 metadata:
+  name: &name onepassword-connect
+spec:
+  staticConfigs:
+    - targets:
+        - unraid.jonandlinz.com:7070
+  path: /metrics
+  relabelConfigs:
+    - action: replace
+      targetLabel: job
+      replacement: *name
+---
+apiVersion:	operator.victoriametrics.com/v1beta1
+kind: VMScrapeConfig
+metadata:
   name: &name zigbee-controller
 spec:
   staticConfigs:

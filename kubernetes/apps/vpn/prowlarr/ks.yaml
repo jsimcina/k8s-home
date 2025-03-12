@@ -12,9 +12,6 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/gatus/guarded
-  dependsOn:
-    - name: onepassword
-      namespace: external-secrets
   path: ./kubernetes/apps/vpn/prowlarr/app
   prune: true
   retryInterval: 2m

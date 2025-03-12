@@ -8,9 +8,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: onepassword
-      namespace: external-secrets
   path: ./kubernetes/apps/pod-gateway/pod-gateway/app
   prune: true
   retryInterval: 2m

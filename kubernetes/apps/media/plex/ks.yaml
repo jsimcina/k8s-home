@@ -13,8 +13,6 @@ spec:
     - ../../../../components/gatus/external
     - ../../../../components/volsync
   dependsOn:
-    - name: onepassword
-      namespace: external-secrets
     - name: intel-device-plugin-gpu
       namespace: kube-system
     - name: rook-ceph-cluster

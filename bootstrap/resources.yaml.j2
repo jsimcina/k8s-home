@@ -9,8 +9,24 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
+  name: onepassword-secret
+  namespace: external-secrets
+stringData:
+  token: op://kubernetes/1password/OP_CONNECT_TOKEN
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sops-age
+  namespace: flux-system
+stringData:
+  age.agekey: op://kubernetes/sops/SOPS_PRIVATE_KEY
+---
+apiVersion: v1
+kind: Secret
+metadata:
   name: jonandlinz-io-tls
-  namespace: cert-manager
+  namespace: kube-system
   annotations:
     cert-manager.io/alt-names: '*.jonandlinz.io,jonandlinz.io'
     cert-manager.io/certificate-name: jonandlinz-io
@@ -26,20 +42,3 @@ type: kubernetes.io/tls
 data:
   tls.crt: op://kubernetes/jonandlinz-io-tls/tls.crt
   tls.key: op://kubernetes/jonandlinz-io-tls/tls.key
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: onepassword-secret
-  namespace: external-secrets
-stringData:
-  1password-credentials.json: op://kubernetes/1password/OP_CREDENTIALS_JSON
-  token: op://kubernetes/1password/OP_CONNECT_TOKEN
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: sops-age
-  namespace: flux-system
-stringData:
-  age.agekey: op://kubernetes/sops/SOPS_PRIVATE_KEY

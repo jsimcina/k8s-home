@@ -7,7 +7,7 @@ function main() {
     check_env KUBECONFIG TALOSCONFIG SOPS_AGE_KEY_FILE
     check_cli op
 
-    if ! op user get --me &>/dev/null; then
+    if ! op whoami --format=json &>/dev/null; then
         log error "Failed to authenticate with 1Password CLI"
     fi
 
