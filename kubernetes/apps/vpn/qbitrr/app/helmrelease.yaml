@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: feramance/qbitrr
-              tag: v4.10.16@sha256:6356d4049aebcb46ae2b9c0227fad1eb6c6d811c3bac889fbed80b87cec01ba6
+              tag: v4.10.17@sha256:fd95810e6d87c2ef1344866d29ee6eb172e1816d9a7b50f7911c7cde36cf476b
             env:
               TZ: America/Chicago
         pod:
