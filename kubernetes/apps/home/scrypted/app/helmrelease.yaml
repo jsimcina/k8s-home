@@ -130,13 +130,13 @@ spec:
         hostPathType: Directory
       recs:
         type: nfs
-        server: unraid.jonandlinz.com
-        path: /mnt/user/NVR
+        server: nas.jonandlinz.com
+        path: /mnt/rustpool/NVR
         globalMounts:
           - path: /NVR
       fastrecs:
         type: nfs
-        server: unraid.jonandlinz.com
-        path: /mnt/user/NVRCache
+        server: nas.jonandlinz.com
+        path: /mnt/NVRCache/NVR
         globalMounts:
           - path: /NVRCache

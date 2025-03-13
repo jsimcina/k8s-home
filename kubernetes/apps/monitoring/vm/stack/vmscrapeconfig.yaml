@@ -35,7 +35,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - unraid.jonandlinz.com:7070
+        - nas.jonandlinz.com:7070
   path: /metrics
   relabelConfigs:
     - action: replace

@@ -98,8 +98,8 @@ spec:
               value: Object.spec.template.spec.volumes{
                 name: "repository",
                 nfs: Object.spec.template.spec.volumes.nfs{
-                  server: "unraid.jonandlinz.com",
-                  path: "/mnt/user/Volsync"
+                  server: "nas.jonandlinz.com",
+                  path: "/mnt/rustpool/Volsync"
                 }
               }
             }
