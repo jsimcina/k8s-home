@@ -8,7 +8,7 @@ spec:
   endpoints:
     - dnsName: external.jonandlinz.io
       recordType: CNAME
-      targets: ["5af385f3-8a76-4726-8cb8-7c5ab70c3d55.cfargotunnel.com"]
+      targets: ["${CLOUDFLARE_K8S_HOME_TUNNEL_ID}.cfargotunnel.com"]
 ---
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint

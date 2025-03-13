@@ -11,6 +11,6 @@ spec:
   targets:
     staticConfig:
       static:
-        - unraid.jonandlinz.com
+        - nas.jonandlinz.com
         - pikvm.jonandlinz.com
         - ui.jonandlinz.com
