@@ -81,7 +81,7 @@ spec:
           - path: /config
       data:
         type: nfs
-        server: "unraid.jonandlinz.com"
-        path: /mnt/user/makerfiles/libraries/main
+        server: "nas.jonandlinz.com"
+        path: /mnt/rustpool/makerfiles/libraries/main
         globalMounts:
           - path: /library

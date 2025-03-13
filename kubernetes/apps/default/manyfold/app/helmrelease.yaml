@@ -100,8 +100,8 @@ spec:
     persistence:
       data:
         type: nfs
-        server: "unraid.jonandlinz.com"
-        path: /mnt/user/makerfiles
+        server: "nas.jonandlinz.com"
+        path: /mnt/rustpool/makerfiles
         advancedMounts:
           manyfold:
             main:
