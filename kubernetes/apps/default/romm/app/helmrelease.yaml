@@ -104,7 +104,7 @@ spec:
             subPath: config.yml
       media:
         type: nfs
-        server: unraid.jonandlinz.com
+        server: nas.jonandlinz.com
         path: /mnt/user/media_server/media/roms
         globalMounts:
           - path: /romm/library
