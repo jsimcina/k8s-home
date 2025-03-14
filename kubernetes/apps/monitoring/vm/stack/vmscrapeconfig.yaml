@@ -23,7 +23,7 @@ spec:
     - targets:
         - nas.jonandlinz.com:9633
   path: /metrics
-  relabelings:
+  relabelConfigs:
     - action: replace
       targetLabel: job
       replacement: *name
