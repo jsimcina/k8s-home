@@ -105,7 +105,7 @@ spec:
       media:
         type: nfs
         server: nas.jonandlinz.com
-        path: /mnt/user/media_server/media/roms
+        path: /mnt/rustpool/media_server/media/roms
         globalMounts:
           - path: /romm/library
       tmp:
