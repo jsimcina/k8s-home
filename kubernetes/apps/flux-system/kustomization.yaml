@@ -9,4 +9,3 @@ resources:
   - ./flux-operator/ks.yaml
 components:
   - ../../components/common
-  - ../../components/repos/app-template
