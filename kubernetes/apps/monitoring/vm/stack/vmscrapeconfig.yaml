@@ -106,7 +106,7 @@ spec:
 apiVersion:	operator.victoriametrics.com/v1beta1
 kind: VMScrapeConfig
 metadata:
-  name: &name apiserver
+  name: &name kubernetes-apiservers
 spec:
   kubernetesSDConfigs:
     - role: endpoints
