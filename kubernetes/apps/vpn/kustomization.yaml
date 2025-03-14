@@ -14,4 +14,3 @@ resources:
   - ./sabnzbd/ks.yaml
 components:
   - ../../components/vpn-namespace
-  - ../../components/common
