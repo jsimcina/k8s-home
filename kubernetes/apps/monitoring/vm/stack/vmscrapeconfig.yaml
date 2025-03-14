@@ -14,7 +14,7 @@ spec:
       targetLabel: job
       replacement: *name
 ---
-apiVersion: monitoring.coreos.com/v1alpha1
+apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMScrapeConfig
 metadata:
   name: &name smartctl-exporter
