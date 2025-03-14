@@ -10,7 +10,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 1.17.1
+    tag: 6.5.1
   url: oci://ghcr.io/jsimcina/charts-mirror/pod-gateway
   verify:
     provider: cosign
