@@ -76,7 +76,7 @@ spec:
               - path: /app/db
       media:
         type: nfs
-        server: "unraid.jonandlinz.com"
-        path: /mnt/user/media_server/media/comics
+        server: "nas.jonandlinz.com"
+        path: /mnt/rustpool/media_server/media/comics
         globalMounts:
           - path: /media/comics

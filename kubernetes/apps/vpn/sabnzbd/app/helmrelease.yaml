@@ -102,8 +102,8 @@ spec:
         type: emptyDir
       media:
         type: nfs
-        server: "unraid.jonandlinz.com"
-        path: /mnt/user/media_server/usenet
+        server: "nas.jonandlinz.com"
+        path: /mnt/rustpool/media_server/usenet
         globalMounts:
           - path: /media/usenet
 

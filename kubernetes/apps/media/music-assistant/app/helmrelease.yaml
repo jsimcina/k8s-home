@@ -85,8 +85,8 @@ spec:
               - path: /data
       music:
         type: nfs
-        server: unraid.jonandlinz.com
-        path: /mnt/user/media_server/media/music
+        server: nas.jonandlinz.com
+        path: /mnt/rustpool/media_server/media/music
         globalMounts:
           - path: /music
       cache:

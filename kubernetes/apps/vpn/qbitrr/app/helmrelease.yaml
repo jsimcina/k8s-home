@@ -42,7 +42,7 @@ spec:
                 subPath: config.toml
       media:
         type: nfs
-        server: "unraid.jonandlinz.com"
-        path: /mnt/user/media_server/torrents
+        server: "nas.jonandlinz.com"
+        path: /mnt/rustpool/media_server/torrents
         globalMounts:
           - path: /media/torrents

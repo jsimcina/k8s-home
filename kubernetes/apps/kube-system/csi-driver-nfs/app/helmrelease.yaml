@@ -41,8 +41,8 @@ spec:
       create: true
       name: nfs-slow
       parameters:
-        server: unraid.jonandlinz.com
-        share: /mnt/users/kubedata
+        server: nas.jonandlinz.com
+        share: /mnt/rustpool/Kubernetes
       mountOptions:
         - nfsvers=4.2
         - nconnect=16

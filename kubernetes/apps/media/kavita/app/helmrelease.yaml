@@ -61,7 +61,7 @@ spec:
           - path: /kavita/config
       media:
         type: nfs
-        server: "unraid.jonandlinz.com"
-        path: /mnt/user/media_server/media
+        server: "nas.jonandlinz.com"
+        path: /mnt/rustpool/media_server/media
         globalMounts:
           - path: /media

@@ -116,8 +116,8 @@ spec:
           - path: /config/log
       media:
         type: nfs
-        server: unraid.jonandlinz.com
-        path: /mnt/user/media_server
+        server: nas.jonandlinz.com
+        path: /mnt/rustpool/media_server
         globalMounts:
           - path: /media
       scripts:
