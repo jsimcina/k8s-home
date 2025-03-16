@@ -12,7 +12,7 @@ spec:
   extraArgs:
     external.url: https://vmalert.jonandlinz.io
   notifiers:
-    - url: http://alertmanager.monitoring.svc.cluster.local:9093
+    - url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
   remoteRead:
     url: http://vmsingle-stack.monitoring.svc.cluster.local:8429
   remoteWrite:
