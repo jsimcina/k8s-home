@@ -7,4 +7,5 @@ resources:
   - ./external.yaml
   - ./internal.yaml
   - ./notunnel.yaml
+  - ./redirect.yaml
   - ./pushsecret.yaml
