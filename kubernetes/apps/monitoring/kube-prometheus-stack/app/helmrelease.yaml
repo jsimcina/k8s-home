@@ -39,6 +39,7 @@ spec:
         forceConflicts: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
+      enabled: true
       fullnameOverride: alertmanager
       route:
         main:
