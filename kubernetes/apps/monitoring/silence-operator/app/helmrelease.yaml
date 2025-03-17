@@ -107,5 +107,5 @@ spec:
               value: NodeMemoryHighUtilization
               isRegex: false
             - name: instance
-              value: nas.jonandlinz.io:9100
+              value: nas.jonandlinz.com:9100
               isRegex: false
