@@ -64,6 +64,10 @@ spec:
 
     prometheusOperator:
       fullnameOverride: prometheus-operator
+      admissionWebhooks:
+        enabled: true
+        certManager:
+          enabled: true
 
     kubeApiServer:
       serviceMonitor:
