@@ -24,12 +24,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: victoria-metrics-operator
-  driftDetection:
-    mode: enabled
-    ignore:
-      - paths: ["/metadata/labels/app.kubernetes.io~1name"]
-        target:
-          kind: VMServiceScrape
   install:
     crds: CreateReplace
     remediation:
@@ -43,8 +37,8 @@ spec:
   values:
     fullnameOverride: vm-operator
     operator:
-      disable_prometheus_converter: false
-      enable_converter_ownership: true
+      disable_prometheus_converter: true
+      enable_converter_ownership: false
     serviceMonitor:
       enabled: true
     rbac:
