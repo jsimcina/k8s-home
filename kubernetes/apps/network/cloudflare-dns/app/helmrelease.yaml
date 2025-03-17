@@ -63,6 +63,6 @@ spec:
     txtPrefix: k8s.
     domainFilters: ["jonandlinz.io"]
     serviceMonitor:
-      enabled: false
+      enabled: true
     podAnnotations:
       secret.reloader.stakater.com/reload: *secret

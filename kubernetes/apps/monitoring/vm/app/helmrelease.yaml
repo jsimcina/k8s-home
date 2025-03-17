@@ -40,6 +40,6 @@ spec:
       disable_prometheus_converter: true
       enable_converter_ownership: false
     serviceMonitor:
-      enabled: false
+      enabled: true
     rbac:
       create: ture

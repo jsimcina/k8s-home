@@ -42,7 +42,7 @@ spec:
       enableCephfsSnapshotter: false
       enableLiveness: true
       serviceMonitor:
-        enabled: false
+        enabled: true
     enableDiscoveryDaemon: true
     image:
       repository: ghcr.io/rook/ceph

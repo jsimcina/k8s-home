@@ -278,7 +278,7 @@ spec:
       - victoriametrics-metrics-datasource
       - victoriametrics-logs-datasource
     serviceMonitor:
-      enabled: false
+      enabled: true
     route:
       main:
         enabled: true
