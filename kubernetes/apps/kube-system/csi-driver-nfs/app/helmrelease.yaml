@@ -33,7 +33,7 @@ spec:
     cleanupOnFail: true
     remediation:
       strategy: rollback
-      retries: 3
+      retries: 5
   values:
     controller:
       replicas: 1
