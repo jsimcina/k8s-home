@@ -63,7 +63,7 @@ spec:
           - ReadWriteOnce
 
       serviceMonitor:
-        enabled: true
+        enabled: false
 
       deployment:
         enabled: true
