@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: ghcr.io/bjw-s-labs/manyfold
-              tag: 0.103.2@sha256:eb0aafe50c54ff0c8305e75fc99d15b733e888ed42186277f3e788e2fc72d2b3
+              tag: 0.103.2@sha256:1e572f1a2852dda990ff3b8df3869ef93d485fa0aa458545adbfbac65f368f8a
             env:
               PUBLIC_HOSTNAME: models.jonandlinz.io
               HTTPS_ONLY: enabled
