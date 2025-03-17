@@ -1,0 +1,94 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &name node-exporter
+spec:
+  staticConfigs:
+    - targets:
+        - nas.jonandlinz.com:9100
+        - 10.10.20.1:9100
+  metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &name smartctl-exporter
+spec:
+  staticConfigs:
+    - targets:
+        - nas.jonandlinz.com:9633
+  metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &name pikvm
+spec:
+  staticConfigs:
+    - targets:
+        - pikvm.jonandlinz.com
+  metricsPath: /api/export/prometheus/metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &name zigbee-controller
+spec:
+  staticConfigs:
+    - targets:
+        - 10.21.0.10
+  metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
+#---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+#apiVersion: monitoring.coreos.com/v1alpha1
+#kind: ScrapeConfig
+#metadata:
+#  name: &name hass
+#spec:
+#  staticConfigs:
+#    - targets:
+#      - http://home-assistant.home.svc.cluster.local:8123
+#  metricsPath: /api/prometheus
+#  relabelings:
+#    - action: replace
+#      targetLabel: job
+#      replacement: *name
+#  bearerTokenSecret:
+#    name: vmetrics-secret
+#    key: HASS_BEARER_TOKEN
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &name onepassword-connect
+spec:
+  staticConfigs:
+    - targets:
+        - nas.jonandlinz.com:7070
+  metricsPath: /metrics
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
