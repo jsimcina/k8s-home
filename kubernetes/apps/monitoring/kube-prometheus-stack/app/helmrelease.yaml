@@ -62,13 +62,6 @@ spec:
                 requests:
                   storage: 1Gi
 
-    prometheusOperator:
-      fullnameOverride: prometheus-operator
-      admissionWebhooks:
-        enabled: true
-        certManager:
-          enabled: true
-
     kubeApiServer:
       serviceMonitor:
         metricRelabelings:
