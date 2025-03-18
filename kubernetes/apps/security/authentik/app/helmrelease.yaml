@@ -54,9 +54,9 @@ spec:
         limits:
           memory: 1Gi
       metrics:
-        prometheus:
-          serviceMonitor:
-            enabled: true
+        enabled: true
+        serviceMonitor:
+          enabled: true
     worker:
       autoscaling:
         enabled: true
@@ -67,3 +67,6 @@ spec:
           cpu: 200m
         limits:
           memory: 1Gi
+    prometheus:
+      rules:
+        enabled: true
