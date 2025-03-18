@@ -7,11 +7,11 @@
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["digest"],
-      matchPackageNames: ["/bjw-s/", "/home-operations/", "/jsimcina/"],
+      matchPackageNames: ["/home-operations/", "/jsimcina/"],
       ignoreTests: true,
     },
     {
-      description: "Auto-merge Helm Releases",
+      description: "Auto-merge OCI Charts",
       matchDatasources: ["docker"],
       automerge: true,
       automergeType: "pr",
