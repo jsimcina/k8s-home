@@ -20,14 +20,13 @@ spec:
         initContainers:
           cni-plugins:
             image:
-              repository: ghcr.io/buroa/cni-plugins
-              tag: 1.6.2
-
+              repository: ghcr.io/home-operations/cni-plugins
+              tag: 1.6.2@sha256:cc5aca198391ecda438c4fe435fa648fb513dee92144a99a69bde344b1dffcdc
         containers:
           multus:
             image:
               repository: ghcr.io/k8snetworkplumbingwg/multus-cni
-              tag: v4.1.4
+              tag: v4.1.4@sha256:09fdfb7ce090ccbf8927d2728970c3cdeb5917d48209f692de849e384f00d893
             command:
               - /thin_entrypoint
             args:
