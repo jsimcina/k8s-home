@@ -40,13 +40,6 @@ spec:
             envFrom:
               - secretRef:
                   name: pgadmin-secret
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop: ["ALL"]
-                add:
-                  - NET_BIND_SERVICE
             resources:
               requests:
                 cpu: 15m
@@ -72,10 +65,17 @@ spec:
                 port: *port
     persistence:
       config:
-        enabled: true
         existingClaim: *app
         globalMounts:
           - path: /var/lib/pgadmin
+      logsandtmp:
+        type: emptyDir
+        sizeLimit: 500Mi
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
+          - path: /var/log
+            subPath: log
       server-json:
         enabled: true
         type: configMap
