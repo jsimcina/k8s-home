@@ -60,7 +60,7 @@ spec:
           http:
             port: *port
     route:
-      main:
+      pgadmin:
         hostnames: ["pgadmin.jonandlinz.io"]
         parentRefs:
           - name: internal
@@ -74,10 +74,8 @@ spec:
       config:
         enabled: true
         existingClaim: *app
-        advancedMounts:
-          main:
-            main:
-              - path: /var/lib/pgadmin
+        globalMounts:
+          - path: /var/lib/pgadmin
       server-json:
         enabled: true
         type: configMap
