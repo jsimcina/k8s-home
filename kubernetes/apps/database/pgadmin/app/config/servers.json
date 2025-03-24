@@ -1,0 +1,17 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Kube Primary Postgres Cluster",
+      "Group": "Servers",
+      "Host": "postgres17-loadbalancer.database.svc.cluster.local",
+      "Port": 5432,
+      "MaintenanceDB": "postgres",
+      "Username": "postgres",
+      "SSLMode": "prefer",
+      "Timeout": 10,
+      "UseSSHTunnel": 0,
+      "TunnelPort": "22",
+      "TunnelAuthentication": 0
+    }
+  }
+}
