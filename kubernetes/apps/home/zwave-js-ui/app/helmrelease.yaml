@@ -11,12 +11,11 @@ spec:
     name: app-template
   install:
     remediation:
-      retries: 4
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
-      retries: 4
+      retries: 3
   values:
     controllers:
       zwave-js-ui:

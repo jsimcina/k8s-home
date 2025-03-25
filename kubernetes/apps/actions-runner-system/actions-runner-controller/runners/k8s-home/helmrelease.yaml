@@ -25,11 +25,10 @@ spec:
     name: gha-runner-scale-set
   install:
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
       retries: 3
   values:
     githubConfigUrl: https://github.com/jsimcina/k8s-home

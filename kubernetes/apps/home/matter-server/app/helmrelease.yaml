@@ -11,7 +11,7 @@ spec:
   maxHistory: 3
   install:
     remediation:
-      retries: 4
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:

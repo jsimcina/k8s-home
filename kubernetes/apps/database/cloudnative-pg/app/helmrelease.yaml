@@ -27,7 +27,7 @@ spec:
     name: cloudnative-pg
   install:
     remediation:
-      retries: 6
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
