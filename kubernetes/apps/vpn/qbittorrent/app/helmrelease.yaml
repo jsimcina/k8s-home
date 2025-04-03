@@ -64,7 +64,7 @@ spec:
               tag: 5.0.4@sha256:995c561247b069c10b1fa098186f35b3155c2df63912041f70637a9232755756
             env:
               TZ: America/Chicago
-              QBITTORRENT__PORT: *port
+              QBT_WEBUI_PORT: *port
               QBT_Preferences__WebUI__AlternativeUIEnabled: false
               QBT_Preferences__WebUI__LocalHostAuth: false
               QBT_BitTorrent__Session__Interface: tun0
