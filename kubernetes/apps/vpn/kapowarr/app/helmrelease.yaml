@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: mrcas/kapowarr-alpha
-              tag: alpha-34@sha256:76a10c936ef03027e405ec491ed3d36be267e23709ec86cdb2ff502f889aadd2
+              tag: v1.1.1
             env:
               TZ: America/Chicago
             resources:
