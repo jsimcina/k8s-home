@@ -12,8 +12,6 @@ spec:
   ref:
     tag: 6.5.1
   url: oci://ghcr.io/jsimcina/charts-mirror/pod-gateway
-  verify:
-    provider: cosign
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
