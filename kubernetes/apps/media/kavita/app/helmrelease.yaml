@@ -58,6 +58,10 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /kavita/config
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /kavita/config/cache
       media:
         type: nfs
         server: "nas.jonandlinz.com"
