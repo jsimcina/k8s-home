@@ -14,13 +14,18 @@ resources:
   - ./sabnzbd/ks.yaml
 components:
   - ../../components/common
-  - ../../components/pod-gateway
 patches:
-   - # Add the labels to the namespace
+   - # Add necessary labels for Pod gateway to the namespace
      patch: |
        - op: add
          path: /metadata/labels
          value:
            routed-gateway: "true"
-     target:
-       kind: Namespace
+       - op: add
+         path: /metadata/labels
+         value:
+           pod-security.kubernetes.io/enforce: "privileged"
+       - op: add
+         path: /metadata/labels
+         value:
+           pod-security.kubernetes.io/enforce-version: "latest"

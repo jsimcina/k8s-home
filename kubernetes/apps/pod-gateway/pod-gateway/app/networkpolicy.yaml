@@ -2,7 +2,8 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: pod-gateway
+  name: pod-gateway-vpn
+  namespace: pod-gateway
   labels:
     app.kubernetes.io/instance: pod-gateway
     app.kubernetes.io/name: pod-gateway
@@ -11,6 +12,7 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: pod-gateway
       app.kubernetes.io/name: pod-gateway
+
   egress:
     - toCIDR:
         - 0.0.0.0/0
@@ -20,30 +22,3 @@ spec:
               protocol: UDP
     - toEntities:
         - cluster
----
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
-metadata:
-  name: pod-gateway-vxlan
-  labels:
-    app.kubernetes.io/instance: pod-gateway
-    app.kubernetes.io/name: pod-gateway
-spec:
-  endpointSelector:
-    matchLabels:
-      app.kubernetes.io/instance: pod-gateway
-      app.kubernetes.io/name: pod-gateway
-  egress:
-    - toPorts:
-        - ports:
-            - port: "8472"
-              protocol: UDP
-  ingress:
-    - toPorts:
-        - ports:
-            - port: "8472"
-              protocol: UDP
-    - icmps:
-        - fields:
-            - type: 8
-              family: IPv4
