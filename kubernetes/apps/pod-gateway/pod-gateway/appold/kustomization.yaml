@@ -4,8 +4,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: pod-gateway
 resources:
-  - ./pod-gateway/ks.yaml
-  - ./dnsdist/ks.yaml
-components:
-  - ../../components/common
-  - ../../components/pod-gateway
+  - ./helmrelease.yaml
+  - ./externalsecret.yaml
+  - ./networkpolicy.yaml

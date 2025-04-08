@@ -13,4 +13,14 @@ resources:
   - ./qbittorrent/ks.yaml
   - ./sabnzbd/ks.yaml
 components:
-  - ../../components/vpn-namespace
+  - ../../components/common
+  - ../../components/pod-gateway
+patches:
+   - # Add the labels to the namespace
+     patch: |
+       - op: add
+         path: /metadata/labels
+         value:
+           routed-gateway: "true"
+     target:
+       kind: Namespace
