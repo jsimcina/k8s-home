@@ -9,7 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: app-template
-  maxHistory: 2
   install:
     remediation:
       retries: -1
@@ -29,8 +28,8 @@ spec:
         containers:
           app:
             image:
-              repository: mrcas/kapowarr-alpha
-              tag: v1.1.1
+              repository: mrcas/kapowarr
+              tag: v1.1.1@sha256:5179333c44619f6938814bceb2cb0d1c65bbe2302077de56e56e2568be06b08f
             env:
               TZ: America/Chicago
             resources:
@@ -42,16 +41,9 @@ spec:
         pod:
           labels:
             setGateway: "true"
-    pod:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [10000]
     service:
       app:
-        controller: kapowarr
+        controller: *app
         ports:
           http:
             port: &port 80
@@ -68,12 +60,9 @@ spec:
                 port: *port
     persistence:
       config:
-        enabled: true
         existingClaim: *app
-        advancedMounts:
-          kapowarr:
-            app:
-              - path: /app/db
+        globalMounts:
+          - path: /app/db
       media:
         type: nfs
         server: "nas.jonandlinz.com"
