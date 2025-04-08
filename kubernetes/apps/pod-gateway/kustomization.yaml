@@ -8,4 +8,3 @@ resources:
   - ./dnsdist/ks.yaml
 components:
   - ../../components/common
-  - ../../components/pod-gateway
