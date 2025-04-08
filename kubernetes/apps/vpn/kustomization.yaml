@@ -15,17 +15,19 @@ resources:
 components:
   - ../../components/common
 patches:
-   - # Add necessary labels for Pod gateway to the namespace
-     patch: |
-       - op: add
-         path: /metadata/labels
-         value:
-           routed-gateway: "true"
-       - op: add
-         path: /metadata/labels
-         value:
-           pod-security.kubernetes.io/enforce: "privileged"
-       - op: add
-         path: /metadata/labels
-         value:
-           pod-security.kubernetes.io/enforce-version: "latest"
+  - # Add necessary labels for Pod gateway to the namespace
+    patch: |
+      - op: add
+        path: /metadata/labels
+        value:
+          routed-gateway: "true"
+      - op: add
+        path: /metadata/labels
+        value:
+          pod-security.kubernetes.io/enforce: "privileged"
+      - op: add
+        path: /metadata/labels
+        value:
+          pod-security.kubernetes.io/enforce-version: "latest"
+    target:
+      kind: Namespace
