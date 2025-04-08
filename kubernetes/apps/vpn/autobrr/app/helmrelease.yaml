@@ -70,6 +70,9 @@ spec:
                 cpu: 10m
               limits:
                 memory: 256Mi
+        pod:
+          labels:
+            setGateway: "true"
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
