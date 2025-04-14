@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: ghcr.io/emqx/emqx-exporter
-              tag: 0.2.10@sha256:267e11f2a05e57a4b24fd9b8410c459d250ff7243717c1739efadb25d467bbba
+              tag: 0.2.11@sha256:31173023132078a9243527ff1dbaae5facc77b8d3708a3b018634f8ba8862ec9
             args: ["--config.file", "/etc/emqx-exporter/config.yaml", "--log.level", "debug"]
             probes:
               liveness: &probes
