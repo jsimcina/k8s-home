@@ -27,6 +27,14 @@ spec:
         ]
         no_match: "deny"
       }
+  bootstrapAPIKeys:
+    - secretRef:
+        key:
+          secretKey: EMQX_EXPORTER_APIKEY_KEY
+          secretName: emqx-secret
+        secret:
+          secretKey: EMQX_EXPORTER_APIKEY_SECRET
+          secretName: emqx-secret
   coreTemplate:
     metadata:
       annotations:
