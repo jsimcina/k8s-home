@@ -72,7 +72,7 @@ spec:
 
     persistence:
       ollama:
-        existingClaim: ollama-data-nas
+        existingClaim: ollama
         globalMounts:
           - path: *modelPath
             subPath: models
