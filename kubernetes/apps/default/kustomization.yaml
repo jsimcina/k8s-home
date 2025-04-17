@@ -8,6 +8,7 @@ resources:
     - ./bambu-connect/ks.yaml
     - ./bambustudio/ks.yaml
     - ./manyfold/ks.yaml
+    - ./ollama/ks.yaml
     - ./paperless-ngx/ks.yaml
     - ./romm/ks.yaml
 components:
