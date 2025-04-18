@@ -6,4 +6,4 @@ resources:
   - ./cluster.yaml
   - ./gatus.yaml
   - ./httproute.yaml
-  # - ./podmonitor.yaml
+  - ./podmonitor.yaml
