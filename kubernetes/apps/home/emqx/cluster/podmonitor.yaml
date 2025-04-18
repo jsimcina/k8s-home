@@ -15,7 +15,7 @@ spec:
       relabelings:
         - action: replace
           # user-defined cluster name, requires unique
-          replacement: emqx5
+          replacement: emqx
           targetLabel: cluster
         - action: replace
           # fix value, don't modify
