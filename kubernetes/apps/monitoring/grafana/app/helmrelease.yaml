@@ -153,6 +153,12 @@ spec:
           revision: 6
           datasource:
             - { name: DS_PROMETHEUS, value: VictoriaMetrics }
+        emqx:
+          # renovate: depName="EMQX"
+          gnetId: 17446
+          revision: 2
+          datasource:
+            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
         emqx-authentication:
           url: https://raw.githubusercontent.com/emqx/emqx-exporter/refs/heads/main/grafana-dashboard/template/emqx-5/authentication.json
           datasource: VictoriaMetrics

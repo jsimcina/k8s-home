@@ -15,7 +15,7 @@ spec:
       relabelings:
         - action: replace
           # user-defined cluster name, requires unique
-          replacement: emqx
+          replacement: emqx5
           targetLabel: cluster
         - action: replace
           # fix value, don't modify
@@ -23,5 +23,10 @@ spec:
           targetLabel: from
         - action: replace
           # fix value, don't modify
-          sourceLabels: ['pod']
-          targetLabel: "instance"
+          sourceLabels:
+            - pod
+          targetLabel: instance
+        - action: replace
+          # for dashboards
+          replacement: emqx
+          targetLabel: job
