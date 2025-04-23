@@ -27,10 +27,10 @@ spec:
               repository: ghcr.io/zwave-js/zwave-js-ui
               tag: 10.3.0@sha256:dd0a0e4fbe4cd42a2faf7ca0794aedfcea4ddd7a901f1fc7175eed073047b9d6
             env:
-              TZ: ${TIMEZONE}
+              TZ: America/Chicago
               PORT: &port 80
               STORE_DIR: /usr/src/app/store
-              BACKUPS_DIR: /configfiles/backups
+              BACKUPS_DIR: /usr/src/app/store/backups
               ZWAVEJS_EXTERNAL_CONFIG: /usr/src/app/store/.config-db
               TRUST_PROXY: true
             envFrom:
