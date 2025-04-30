@@ -37,6 +37,7 @@ machine:
       - security=none                       # Less security, faster puter
       - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU / iGPU
       - talos.auditd.disabled=1             # Less security, faster puter
+      - -selinux
     image: factory.talos.dev/installer/d95e9ce1849c31a3b9d777ed22cb9a1dad986285433211b4292acc8d0114d7dd:{{ ENV.TALOS_VERSION }}
     wipe: false
   time:
