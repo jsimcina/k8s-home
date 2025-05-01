@@ -5,7 +5,7 @@ kind: HelmRelease
 metadata:
   name: multus
 spec:
-  interval: 1h
+  interval: 30m
   chartRef:
     kind: OCIRepository
     name: app-template
@@ -13,20 +13,18 @@ spec:
     controllers:
       multus:
         type: daemonset
-
         pod:
           hostNetwork: true
-
         initContainers:
           cni-plugins:
             image:
               repository: ghcr.io/home-operations/cni-plugins
-              tag: 1.7.1@sha256:a2b59b11a9cd50b5e699d7162a899a81c9b30a9386378b1deb01c054eedb38fe
+              tag: 1.7.1
         containers:
           multus:
             image:
               repository: ghcr.io/k8snetworkplumbingwg/multus-cni
-              tag: v4.2.0@sha256:4aa43119b2fac1304a5ab003026845e493af289fba3f8af52a27737667ca666a
+              tag: v4.2.0
             command:
               - /thin_entrypoint
             args:
@@ -38,7 +36,6 @@ spec:
                 memory: "512Mi"
             securityContext:
               privileged: true
-
     persistence:
       etc-cni-net-d:
         type: hostPath
@@ -50,7 +47,6 @@ spec:
         hostPath: /opt/cni/bin
         globalMounts:
           - path: /host/opt/cni/bin
-
     serviceAccount:
       create: true
       name: multus
