@@ -12,6 +12,7 @@ machine:
     diskSelector:
       wwid: naa.55cd2e4150edacea
       type: ssd
+    image: factory.talos.dev/installer/76b9c9042734852b49a522972ad1f5aa580ce5fcc90fbc86615b1ba001c4972a:{{ ENV.TALOS_VERSION }}
   nodeLabels:
     hwtranscoding: "true"
     multus: active
