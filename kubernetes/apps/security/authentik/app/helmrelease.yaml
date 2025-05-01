@@ -48,6 +48,18 @@ spec:
         minReplicas: 2
         maxReplicas: 3
         targetCPUUtilizationPercentage: 90
+        scaleDown:
+          stabilizationWindowSeconds: 300
+          policies:
+            - type: Pods
+              value: 1
+              periodSeconds: 180
+        scaleUp:
+          stabilizationWindowSeconds: 300
+          policies:
+            - type: Pods
+              value: 1
+              periodSeconds: 60
       resources:
         requests:
           cpu: 200m
@@ -63,6 +75,18 @@ spec:
         minReplicas: 2
         maxReplicas: 3
         targetCPUUtilizationPercentage: 90
+        scaleDown:
+          stabilizationWindowSeconds: 300
+          policies:
+            - type: Pods
+              value: 1
+              periodSeconds: 180
+        scaleUp:
+          stabilizationWindowSeconds: 300
+          policies:
+            - type: Pods
+              value: 1
+              periodSeconds: 60
       resources:
         requests:
           cpu: 200m
