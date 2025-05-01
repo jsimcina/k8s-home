@@ -10,11 +10,14 @@ spec:
     kind: OCIRepository
     name: app-template
   values:
+    defaultPodOptions:
+      hostNetwork: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        kubernetes.io/os: linux
     controllers:
       multus:
         type: daemonset
-        pod:
-          hostNetwork: true
         initContainers:
           cni-plugins:
             image:
