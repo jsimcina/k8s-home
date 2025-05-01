@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: media
 resources:
   - ./audiobookshelf/ks.yaml
+  - ./autobrr/ks.yaml
   - ./dashbrr/ks.yaml
   - ./bazarr/ks.yaml
   - ./jellyseerr/ks.yaml

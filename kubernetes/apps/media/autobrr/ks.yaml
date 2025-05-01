@@ -4,7 +4,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app autobrr
-  namespace: &namespace vpn
+  namespace: &namespace media
 spec:
   commonMetadata:
     labels:
@@ -12,7 +12,7 @@ spec:
   components:
     - ../../../../components/gatus/guarded
   interval: 1h
-  path: ./kubernetes/apps/vpn/autobrr/app
+  path: ./kubernetes/apps/media/autobrr/app
   postBuild:
     substitute:
       APP: *app
