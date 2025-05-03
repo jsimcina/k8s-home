@@ -68,7 +68,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-      - http://home-assistant.home.svc.cluster.local:8123
+      - home-assistant.home.svc.cluster.local:8123
   metricsPath: /api/prometheus
   relabelings:
     - action: replace
