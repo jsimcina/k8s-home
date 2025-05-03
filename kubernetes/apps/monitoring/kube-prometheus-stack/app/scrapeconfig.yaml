@@ -74,9 +74,14 @@ spec:
     - action: replace
       targetLabel: job
       replacement: *name
-  bearerTokenSecret:
-    name: alertmanager-secret
-    key: HASS_BEARER_TOKEN
+  authorization:
+    credentials:
+      key: HASS_BEARER_TOKEN
+      name: alertmanager-secret
+
+  #bearerTokenSecret:
+  #  name: alertmanager-secret
+  #  key: HASS_BEARER_TOKEN
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
 apiVersion: monitoring.coreos.com/v1alpha1
