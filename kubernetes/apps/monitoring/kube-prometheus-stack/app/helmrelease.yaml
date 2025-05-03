@@ -75,17 +75,6 @@ spec:
               namespace: kube-system
               sectionName: https
       prometheusSpec:
-        additionalScrapeConfigs:
-          - job_name: "hass"
-            scrape_interval: 60s
-            metrics_path: "/api/prometheus"
-            bearerTokenSecret:
-              name: alertmanager-secret
-              key: HASS_BEARER_TOKEN
-            scheme: http
-            static_configs:
-              - targets:
-                  - home-assistant.home.svc.cluster.local:8123
         remoteWrite:
           - url: http://vmsingle-stack.monitoring.svc.cluster.local:8429/api/v1/write
         podMonitorSelectorNilUsesHelmValues: false
