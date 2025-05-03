@@ -59,24 +59,24 @@ spec:
     - action: replace
       targetLabel: job
       replacement: *name
-#---
+---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
-#apiVersion: monitoring.coreos.com/v1alpha1
-#kind: ScrapeConfig
-#metadata:
-#  name: &name hass
-#spec:
-#  staticConfigs:
-#    - targets:
-#      - http://home-assistant.home.svc.cluster.local:8123
-#  metricsPath: /api/prometheus
-#  relabelings:
-#    - action: replace
-#      targetLabel: job
-#      replacement: *name
-#  bearerTokenSecret:
-#    name: vmetrics-secret
-#    key: HASS_BEARER_TOKEN
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &name hass
+spec:
+  staticConfigs:
+    - targets:
+      - http://home-assistant.home.svc.cluster.local:8123
+  metricsPath: /api/prometheus
+  relabelings:
+    - action: replace
+      targetLabel: job
+      replacement: *name
+  bearerTokenSecret:
+    name: alertmanager-secret
+    key: HASS_BEARER_TOKEN
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
 apiVersion: monitoring.coreos.com/v1alpha1
