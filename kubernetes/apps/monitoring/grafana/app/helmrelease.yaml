@@ -191,9 +191,6 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: VictoriaMetrics
-        external-secrets:
-          url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
-          datasource: VictoriaMetrics
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 15761
