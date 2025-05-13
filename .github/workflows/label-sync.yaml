@@ -11,7 +11,7 @@ on:
     - cron: "0 0 * * *" # Every day at midnight
 
 permissions:
-  issues: read
+  contents: read
 
 jobs:
   main:
