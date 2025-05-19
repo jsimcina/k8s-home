@@ -25,7 +25,7 @@ spec:
     name: dragonfly-operator
   install:
     remediation:
-      retries: -2
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:

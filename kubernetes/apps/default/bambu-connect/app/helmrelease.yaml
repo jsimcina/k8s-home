@@ -12,7 +12,7 @@ spec:
     name: app-template
   install:
     remediation:
-      retries: -2
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
