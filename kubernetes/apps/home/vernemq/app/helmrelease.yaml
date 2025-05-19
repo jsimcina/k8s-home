@@ -115,7 +115,7 @@ spec:
               - path:
                   value: /status.json
             backendRefs: &backendRefs
-              - identifier: app
+              - identifier: http
                 port: *http
           - matches:
               - path:
