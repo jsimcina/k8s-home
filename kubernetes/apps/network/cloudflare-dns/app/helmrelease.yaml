@@ -25,11 +25,11 @@ spec:
     name: cloudflare-dns
   install:
     remediation:
-      retries: 3
+      retries: 2
   upgrade:
     cleanupOnFail: true
     remediation:
-      retries: 3
+      retries: 2
   values:
     fullnameOverride: *app
     provider:
