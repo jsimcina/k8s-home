@@ -94,14 +94,14 @@ spec:
           http:
             port: *http
     serviceMonitor:
-      metrics:
+      app:
         enabled: true
         serviceName: *app
         endpoints:
-          - port: metrics
+          - port: http
             scheme: http
             path: /metrics
-            interval: 1m
+            interval: 10s
             scrapeTimeout: 1s
     route:
       app:
