@@ -39,9 +39,10 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: {drop: [ALL]}
+        serviceAccount:
+          identifier: capacitor
     serviceAccount:
-      create: true
-      name: *app
+      capacitor: {}
     service:
       app:
         controller: *app
