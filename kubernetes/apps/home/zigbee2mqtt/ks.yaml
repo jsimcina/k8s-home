@@ -13,7 +13,7 @@ spec:
     - ../../../../components/gatus/guarded
     - ../../../../components/volsync
   dependsOn:
-    - name: emqx-cluster
+    - name: vernemq
       namespace: home
     - name: rook-ceph-cluster
       namespace: rook-ceph
