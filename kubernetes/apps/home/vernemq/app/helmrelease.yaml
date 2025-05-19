@@ -104,3 +104,29 @@ spec:
           - path: /tmp
     serviceAccount:
       vernemq: {}
+
+    rbac:
+      roles:
+        vernemq:
+          type: Role
+          rules:
+            - apiGroups:
+                - ""
+              resources:
+                - pods
+              verbs:
+                - get
+                - list
+            - apiGroups:
+                - apps
+              resources:
+                - statefulsets
+              verbs:
+                - get
+      bindings:
+        vernemq:
+          type: RoleBinding
+          roleRef:
+            identifier: vernemq
+          subjects:
+            - identifier: vernemq
