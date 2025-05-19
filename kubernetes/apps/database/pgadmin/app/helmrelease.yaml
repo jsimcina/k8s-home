@@ -53,13 +53,13 @@ spec:
               limits:
                 memory: 512M
     service:
-      pgadmin:
+      app:
         controller: pgadmin
         ports:
           http:
             port: *port
     route:
-      pgadmin:
+      app:
         hostnames: ["pgadmin.jonandlinz.io"]
         parentRefs:
           - name: internal
@@ -67,7 +67,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: pgadmin
+              - identifier: app
                 port: *port
     persistence:
       config:

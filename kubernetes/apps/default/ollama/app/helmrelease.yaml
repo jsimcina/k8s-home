@@ -53,7 +53,7 @@ spec:
               limits:
                 memory: 16Gi
     service:
-      main:
+      app:
         controller: *app
         ports:
           http:

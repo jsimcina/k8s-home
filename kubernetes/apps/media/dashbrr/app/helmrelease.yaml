@@ -82,7 +82,7 @@ spec:
               - identifier: app
                 port: *port
     service:
-      dashbrr:
+      app:
         controller: dashbrr
         ports:
           http:
