@@ -25,7 +25,7 @@ spec:
     name: emqx-operator
   install:
     remediation:
-      retries: -1
+      retries: -2
   upgrade:
     cleanupOnFail: true
     remediation:

@@ -25,7 +25,7 @@ spec:
     name: csi-driver-nfs
   install:
     remediation:
-      retries: -1
+      retries: -2
   upgrade:
     cleanupOnFail: true
     remediation:

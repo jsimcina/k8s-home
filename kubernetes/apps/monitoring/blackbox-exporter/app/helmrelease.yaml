@@ -25,7 +25,7 @@ spec:
     name: blackbox-exporter
   install:
     remediation:
-      retries: -1
+      retries: -2
   upgrade:
     cleanupOnFail: true
     remediation:
