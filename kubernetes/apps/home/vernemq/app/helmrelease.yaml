@@ -74,7 +74,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "mqtt.jonandlinz.io"
-          lbipam.cilium.io/ips: 10.12.0.105
+          lbipam.cilium.io/ips: 10.12.0.105, ::ffff:10.12.0.105
         ports:
           mqtt:
             port: 1883
@@ -94,15 +94,14 @@ spec:
           http:
             port: *http
     serviceMonitor:
-      app:
+      metrics:
         enabled: true
         serviceName: *app
         endpoints:
-          - port: http
+          - port: metrics
             scheme: http
-            path: /metrics
-            interval: 10s
-            scrapeTimeout: 1s
+            path: /status.json
+            interval: 1m
     route:
       app:
         hostnames: ["vernemq.jonandlinz.io"]

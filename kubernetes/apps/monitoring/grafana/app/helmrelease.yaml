@@ -153,33 +153,6 @@ spec:
           revision: 6
           datasource:
             - { name: DS_PROMETHEUS, value: VictoriaMetrics }
-        emqx:
-          # renovate: depName="EMQX"
-          gnetId: 17446
-          revision: 2
-          datasource:
-            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
-        emqx-authentication:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/refs/heads/main/grafana-dashboard/template/emqx-5/authentication.json
-          datasource: VictoriaMetrics
-        emqx-authorization:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/refs/heads/main/grafana-dashboard/template/emqx-5/authorization.json
-          datasource: VictoriaMetrics
-        emqx-client-events:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/refs/heads/main/grafana-dashboard/template/emqx-5/client-events.json
-          datasource: VictoriaMetrics
-        emqx-messages:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/refs/heads/main/grafana-dashboard/template/emqx-5/messages.json
-          datasource: VictoriaMetrics
-        emqx-overview:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/refs/heads/main/grafana-dashboard/template/emqx-5/overview.json
-          datasource: VictoriaMetrics
-        emqx-rule-engine-count:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/refs/heads/main/grafana-dashboard/template/emqx-5/rule-engine-count.json
-          datasource: VictoriaMetrics
-        emqx-rule-engine-rate:
-          url: https://raw.githubusercontent.com/emqx/emqx-exporter/refs/heads/main/grafana-dashboard/template/emqx-5/rule-engine-rate.json
-          datasource: VictoriaMetrics
         envoy:
            # renovate: depName="Envoy Proxy Monitoring gRPC"
            gnetId: 23239
