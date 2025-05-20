@@ -10,8 +10,8 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 0.0.8
-  url: oci://ghcr.io/wiremind/wiremind-helm-charts/silence-operator
+    tag: 0.16.1
+  url: oci://ghcr.io/home-operations/charts-mirror/silence-operator
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -31,88 +31,10 @@ spec:
     remediation:
       retries: 3
   values:
+    alertmanagerAddress: http://alertmanager-operated.monitoring.svc.cluster.local:9093
     image:
-      name: quay.io/giantswarm/silence-operator
-    operator:
-      config:
-        alertmanager:
-          service:
-            address: http://alertmanager-operated.monitoring.svc.cluster.local:9093
-    rbac:
-      create: true
-    extraDeploy:
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: ceph-node-nfsmount-diskspace-warning
-          namespace: monitoring
-        spec:
-          matchers:
-            - name: alertname
-              value: CephNodeDiskspaceWarning
-              isRegex: false
-            - name: mountpoint
-              value: /etc/nfsmount.conf
-              isRegex: false
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: ceph-node-noisy-packet-drops-alert
-          namespace: monitoring
-        spec:
-          matchers:
-            - name: alertname
-              value: CephNodeNetworkPacketDrops
-              isRegex: false
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: ceph-node-local-diskspace-warning
-          namespace: monitoring
-        spec:
-          matchers:
-            - name: alertname
-              value: CephNodeDiskspaceWarning
-              isRegex: false
-            - name: device
-              value: /dev/sd.*
-              isRegex: true
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: nonclusternode-cephwarnings
-          namespace: monitoring
-        spec:
-          matchers:
-            - name: alertname
-              value: "^Ceph.+"
-              isRegex: true
-            - name: instance
-              value: "^.*.jonandlinz.com.*"
-              isRegex: true
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: nonclusternode-nodebondingdegraded
-          namespace: monitoring
-        spec:
-          matchers:
-            - name: alertname
-              value: NodeBondingDegraded
-              isRegex: false
-            - name: instance
-              value: "^.*.jonandlinz.com.*"
-              isRegex: true
-      - apiVersion: monitoring.giantswarm.io/v1alpha1
-        kind: Silence
-        metadata:
-          name: nas-memory-high-utilization
-          namespace: monitoring
-        spec:
-          matchers:
-            - name: alertname
-              value: NodeMemoryHighUtilization
-              isRegex: false
-            - name: instance
-              value: nas.jonandlinz.com:9100
-              isRegex: false
+      registry: quay.io
+      name: giantswarm/silence-operator
+      tag: 0.16.1
+    networkPolicy:
+      enabled: false
