@@ -87,6 +87,21 @@ spec:
         ports:
           http:
             port: 80
+    rbac:
+      roles:
+        dashbrr:
+          type: ClusterRole
+          rules:
+            - apiGroups: [""]
+              resources: ["services"]
+              verbs: ["get","watch","list"]
+      bindings:
+        dashbrr:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: dashbrr
+          subjects:
+            - identifier: dashbrr
     serviceAccount:
       dashbrr: {}
     persistence:
