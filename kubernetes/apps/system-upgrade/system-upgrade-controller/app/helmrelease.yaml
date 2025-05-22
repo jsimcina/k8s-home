@@ -61,3 +61,12 @@ spec:
             - identifier: system-upgrade-controller
     serviceAccount:
       system-upgrade-controller: {}
+
+    rawResources:
+      talosServiceAccount:
+        apiVersion: talos.dev/v1alpha1
+        kind: ServiceAccount
+        spec:
+          spec:
+            roles:
+              - os:admin
