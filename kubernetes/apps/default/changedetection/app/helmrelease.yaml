@@ -64,7 +64,7 @@ spec:
         existingClaim: *app
         advancedMounts:
           changedetection:
-            changedetection:
+            app:
               - path: /datastore
                 subPath: changedetection
             browser:
