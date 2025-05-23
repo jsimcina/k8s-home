@@ -89,7 +89,7 @@ spec:
                 port: *port
     service:
       app:
-        controller: app
+        controller: changedetection
         ports:
           http:
             port: *port
