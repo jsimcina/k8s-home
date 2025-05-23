@@ -47,9 +47,9 @@ spec:
               CONCURRENT: "10"
               DATA_DIR: /profile
               DOWNLOAD_DIR: /downloads
-            envFrom:
-              - secretRef:
-                  name: changedetection
+            #envFrom:
+            #  - secretRef:
+            #      name: changedetection
             securityContext:
               allowPrivilegeEscalation: false
     defaultPodOptions:
