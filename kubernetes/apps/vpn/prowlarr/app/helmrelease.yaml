@@ -66,8 +66,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-              limits:
                 memory: 1Gi
+              limits:
+                memory: 5Gi
     defaultPodOptions:
       labels:
         setGateway: "false"
