@@ -12,13 +12,9 @@ instance:
     - notification-controller
   sync:
     kind: GitRepository
-    #Now Public
-    #url: ssh://github.com/jsimcina/k8s-home.git
     url: https://github.com/jsimcina/k8s-home
     ref: refs/heads/main
     path: kubernetes/flux/cluster
-    #Not needed when public
-    #pullSecret: github-deploy-key
     interval: 1h
   commonMetadata:
     labels:
@@ -103,6 +99,14 @@ instance:
           - op: add
             path: /spec/template/spec/containers/0/args/-
             value: --oom-watch-interval=500ms
+        target:
+          kind: Deployment
+          name: helm-controller
+      - # Disable chart digest tracking
+        patch: |
+          - op: add
+            path: /spec/template/spec/containers/0/args/-
+            value: --feature-gates=DisableChartDigestTracking=true
         target:
           kind: Deployment
           name: helm-controller
