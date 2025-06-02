@@ -15,6 +15,7 @@ spec:
       namespace: rook-ceph
   components:
     - ../../../../components/gatus/guarded
+    - ../../../../components/keda/nfs-scaler
     - ../../../../components/volsync
   path: ./kubernetes/apps/default/paperless-ngx/app
   prune: true
