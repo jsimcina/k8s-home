@@ -13,7 +13,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: zwave
+    name: zwave-js-ui
   triggers:
     - type: prometheus
       metadata:
