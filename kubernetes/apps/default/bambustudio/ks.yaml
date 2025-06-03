@@ -16,6 +16,8 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+    - name: keda
+      namespace: monitoring
   interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/default/bambustudio/app"

@@ -12,6 +12,9 @@ spec:
   components:
     - ../../../../components/gatus/external
     - ../../../../components/keda/nfs-scaler
+  dependsOn:
+    - name: keda
+      namespace: monitoring
   interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/default/manyfold/app"
