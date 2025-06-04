@@ -107,7 +107,6 @@ spec:
         path: /mnt/rustpool/photos
         globalMounts:
           - path: /usr/src/app/upload
-            subPath: Immich
       tmp:
         type: emptyDir
         advancedMounts:
