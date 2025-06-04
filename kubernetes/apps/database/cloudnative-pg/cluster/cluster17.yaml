@@ -6,7 +6,7 @@ metadata:
   name: postgres17
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:${POSTGRESQL_VERSION}
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:${POSTGRESQL_VERSION}
   primaryUpdateStrategy: unsupervised
   storage:
     size: 25Gi
