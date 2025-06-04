@@ -53,6 +53,7 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 6Gi
+                gpu.intel.com/i915: 1
       machine-learning:
         annotations:
           reloader.stakater.com/auto: "true"
