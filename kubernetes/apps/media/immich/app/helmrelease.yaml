@@ -103,7 +103,7 @@ spec:
     persistence:
       media:
         type: nfs
-        server: nas.jonandlinz.io
+        server: nas.jonandlinz.com
         path: /mnt/rustpool/photos
         globalMounts:
           - path: /usr/src/app/upload
