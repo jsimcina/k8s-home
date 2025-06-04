@@ -21,6 +21,8 @@ spec:
   postgresql:
     parameters:
       max_connections: "600"
+    shared_preload_libraries:
+      - "vchord.so"
   nodeMaintenanceWindow:
     inProgress: false
     reusePVC: true
