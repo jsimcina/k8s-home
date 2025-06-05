@@ -21,7 +21,7 @@ spec:
   path: ./kubernetes/apps/media/immich/app
   postBuild:
     substitute:
-      APP: *app
+      APP: immich-immich
   prune: true
   retryInterval: 2m
   sourceRef:
