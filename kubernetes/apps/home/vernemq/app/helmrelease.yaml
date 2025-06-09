@@ -21,7 +21,7 @@ spec:
       vernemq:
         type: statefulset
         strategy: RollingUpdate
-        replicas: 2
+        replicas: 3
         annotations:
           secret.reloader.stakater.com/reload: vernemq-secret
         pod:
@@ -65,7 +65,7 @@ spec:
               readiness: *probes
             resources:
               requests:
-                cpu: 20m
+                cpu: 50m
                 memory: 256Mi
               limits:
                 memory: 512Mi
