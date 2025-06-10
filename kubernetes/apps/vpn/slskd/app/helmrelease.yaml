@@ -110,6 +110,6 @@ spec:
         path: /mnt/rustpool/media_server
         globalMounts:
           - path: /ddl/soulseek
-            subPath: soulseek
+            subPath: /ddl/soulseek
       tmp:
         type: emptyDir
