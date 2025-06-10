@@ -109,7 +109,7 @@ spec:
         server: nas.jonandlinz.com
         path: /mnt/rustpool/media_server
         globalMounts:
-          - path: /ddl/soulseek
-            subPath: /ddl/soulseek
+          - path: /media/ddl/soulseek
+            subPath: ddl/soulseek
       tmp:
         type: emptyDir
