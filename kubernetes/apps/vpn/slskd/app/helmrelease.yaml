@@ -106,7 +106,7 @@ spec:
             readOnly: true
       media:
         type: nfs
-        server: nas.jonandlinz.io
+        server: nas.jonandlinz.com
         path: /mnt/rustpool/media_server
         globalMounts:
           - path: /ddl/soulseek
