@@ -79,7 +79,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: prowlarr
         ports:
           http:
             port: *port

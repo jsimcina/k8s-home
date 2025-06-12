@@ -67,7 +67,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: zwave-js-ui
         ports:
           http:
             port: *port
@@ -76,7 +75,6 @@ spec:
     # requires https://github.com/kvaster/zwavejs-prom
     serviceMonitor:
       app:
-        serviceName: zwave-js-ui
         endpoints:
           - port: http
             scheme: http

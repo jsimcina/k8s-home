@@ -38,7 +38,6 @@ spec:
                 memory: 2Gi
     service:
       app:
-        controller: *app
         ports:
           http:
             port: &port 5000

@@ -82,7 +82,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: autobrr
         ports:
           http:
             port: *port
@@ -90,7 +89,6 @@ spec:
             port: *metricsPort
     serviceMonitor:
       app:
-        serviceName: autobrr
         endpoints:
           - port: metrics
     route:

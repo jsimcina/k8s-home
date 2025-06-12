@@ -31,7 +31,6 @@ spec:
               TZ: America/Chicago
     service:
       app:
-        controller: *app
         ports:
           whisper:
             enabled: true

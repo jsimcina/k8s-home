@@ -41,7 +41,6 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: *app
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "proton-bridge.jonandlinz.io"

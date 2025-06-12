@@ -47,7 +47,6 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: notifiarr
         ports:
           http:
             port: &port 80

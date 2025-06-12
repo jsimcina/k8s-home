@@ -81,13 +81,11 @@ spec:
 
     service:
       app:
-        controller: unpackerr
         ports:
           http:
             port: 80
     serviceMonitor:
       app:
-        serviceName: unpackerr
         endpoints:
           - port: http
     persistence:

@@ -39,8 +39,6 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: {drop: [ALL]}
-        serviceAccount:
-          identifier: capacitor
     rbac:
       roles:
         capacitor:
@@ -64,7 +62,6 @@ spec:
       capacitor: {}
     service:
       app:
-        controller: *app
         ports:
           http:
             enabled: true

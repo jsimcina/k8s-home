@@ -58,7 +58,6 @@ spec:
                   app.kubernetes.io/name: *app
     service:
       app:
-        controller: dnsdist
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 10.12.0.102, ::ffff:10.12.0.102

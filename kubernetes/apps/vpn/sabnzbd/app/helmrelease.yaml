@@ -79,7 +79,6 @@ spec:
             supplementalGroups: [10000]
     service:
       app:
-        controller: sabnzbd
         ports:
           http:
             port: *port

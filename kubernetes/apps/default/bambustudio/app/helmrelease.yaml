@@ -59,7 +59,6 @@ spec:
 
     service:
       app:
-        controller: bambustudio
         ports:
           http:
             port: &port 3000

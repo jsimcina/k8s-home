@@ -65,7 +65,6 @@ spec:
                   periodSeconds: 5
     service:
       app:
-        controller: paperless-ngx
         ports:
           http:
             port: *port

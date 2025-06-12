@@ -43,7 +43,6 @@ spec:
             setGateway: "true"
     service:
       app:
-        controller: *app
         ports:
           http:
             port: &port 80

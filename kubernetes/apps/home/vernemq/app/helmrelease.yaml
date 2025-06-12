@@ -74,8 +74,6 @@ spec:
               capabilities:
                 drop:
                   - ALL
-        serviceAccount:
-          identifier: vernemq
     service:
       app:
         type: LoadBalancer

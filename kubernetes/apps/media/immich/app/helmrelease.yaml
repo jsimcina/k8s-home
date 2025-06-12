@@ -82,7 +82,6 @@ spec:
         controller: immich
         ports:
           http:
-            primary: true
             port: &port 2283
           metrics:
             port: 8081

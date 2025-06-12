@@ -68,8 +68,6 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-        serviceAccount:
-          identifier: dashbrr
     route:
       app:
         hostnames: ["dashbrr.jonandlinz.io"]
@@ -83,7 +81,6 @@ spec:
                 port: *port
     service:
       app:
-        controller: dashbrr
         ports:
           http:
             port: 80
