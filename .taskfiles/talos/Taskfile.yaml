@@ -20,6 +20,22 @@ tasks:
       - test -f {{.SCRIPTS_DIR}}/render-machine-config.sh
       - which talosctl
 
+  apply-node-insecure:
+    desc: Apply Talos config to a node [IP=required] [MODE=auto]
+    cmd: |
+      bash {{.SCRIPTS_DIR}}/render-machine-config.sh {{.TALOS_DIR}}/controlplane.yaml.j2 {{.TALOS_DIR}}/nodes/{{.IP}}.yaml.j2 \
+        | talosctl --nodes {{.IP}} apply-config --file /dev/stdin --insecure
+    vars:
+      MODE: '{{.MODE | default "auto"}}'
+      #MACHINE_TYPE:
+      #  sh: talosctl --nodes {{.IP}} get machinetypes --output=jsonpath='{.spec}'
+    requires:
+      vars: [IP]
+    #preconditions:
+      #- talosctl --nodes {{.IP}} get machineconfig
+      #- test -f {{.SCRIPTS_DIR}}/render-machine-config.sh
+      #- which talosctl
+
   upgrade-node:
     desc: Upgrade Talos on a single node [IP=required] [MODE=powercycle]
     cmd: talosctl --nodes {{.IP}} upgrade --image="{{.FACTORY_IMAGE}}" --reboot-mode={{.MODE}} --timeout=10m
