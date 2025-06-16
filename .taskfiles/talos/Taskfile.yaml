@@ -31,10 +31,9 @@ tasks:
       #  sh: talosctl --nodes {{.IP}} get machinetypes --output=jsonpath='{.spec}'
     requires:
       vars: [IP]
-    #preconditions:
-      #- talosctl --nodes {{.IP}} get machineconfig
-      #- test -f {{.SCRIPTS_DIR}}/render-machine-config.sh
-      #- which talosctl
+    preconditions:
+      - test -f {{.SCRIPTS_DIR}}/render-machine-config.sh
+      - which talosctl
 
   upgrade-node:
     desc: Upgrade Talos on a single node [IP=required] [MODE=powercycle]
