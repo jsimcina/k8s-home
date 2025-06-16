@@ -72,8 +72,8 @@ spec:
         useAllNodes: false
         useAllDevices: false
         nodes:
-          - name: home-node-01
-            deviceFilter: nvme1n1
+          #- name: home-node-01
+          #  deviceFilter: nvme1n1
           - name: home-node-02
             deviceFilter: nvme1n1
           - name: home-node-03
