@@ -13,6 +13,11 @@ tasks:
       MODE: '{{.MODE | default "auto"}}'
       MACHINE_TYPE:
         sh: talosctl --nodes {{.IP}} get machinetypes --output=jsonpath='{.spec}'
+    env:
+      TALOS_SCHEMATIC:
+        sh: |-
+          curl --silent -X POST --data-binary @{{.TALOS_DIR}}/schematic.yaml https://factory.talos.dev/schematics \
+            | jq --raw-output '.id'
     requires:
       vars: [IP]
     preconditions:
@@ -41,7 +46,9 @@ tasks:
     vars:
       MODE: '{{.MODE | default "powercycle"}}'
       FACTORY_IMAGE:
-        sh: minijinja-cli {{.TALOS_DIR}}/nodes/{{.IP}}.yaml.j2 | yq --exit-status '.machine.install.image'
+        sh: |-
+          talosctl --nodes {{.IP}} get machineconfig persistent --output=jsonpath='{.spec}' \
+            | yq '.machine.install.image | select(. != null)'
     requires:
       vars: [IP]
     preconditions:
