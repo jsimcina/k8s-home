@@ -78,8 +78,6 @@ spec:
             devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZQL21T9HCJR-00B7C_.*
           - name: home-node-03
             devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZQL21T9HCJR-00B7C_.*
-          - name: home-node-04
-            deviceFilter: nvme0n1
         config:
           osdsPerDevice: "1"
     cephBlockPools:
