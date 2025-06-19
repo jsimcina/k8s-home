@@ -32,6 +32,11 @@ tasks:
         | talosctl --nodes {{.IP}} apply-config --file /dev/stdin --insecure
     vars:
       MODE: '{{.MODE | default "auto"}}'
+    env:
+      TALOS_SCHEMATIC:
+        sh: |-
+          curl --silent -X POST --data-binary @{{.TALOS_DIR}}/schematic.yaml https://factory.talos.dev/schematics \
+            | jq --raw-output '.id'
       #MACHINE_TYPE:
       #  sh: talosctl --nodes {{.IP}} get machinetypes --output=jsonpath='{.spec}'
     requires:

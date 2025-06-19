@@ -6,7 +6,7 @@ machine:
   ca:
     crt: op://kubernetes/talos/MACHINE_CA_CRT
     key: op://kubernetes/talos/MACHINE_CA_KEY
-  certSANs: ["10.12.0.254", "jonandlinz.io", "127.0.0.1"]
+  certSANs: ["10.12.0.254", "jonandlinz.io", "127.0.0.1", "k8s.jonandlinz.io"]
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraConfig:
@@ -125,7 +125,7 @@ cluster:
       enable-aggregator-routing: true
       feature-gates: MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1alpha1=true
-    certSANs: ["10.12.0.254", "127.0.0.1"]
+    certSANs: ["10.12.0.254", "127.0.0.1","k8s.jonandlinz.io"]
     disablePodSecurityPolicy: true
     auditPolicy:
       apiVersion: audit.k8s.io/v1
