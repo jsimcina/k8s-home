@@ -5,7 +5,7 @@ machine:
     interfaces:
       - interface: bond0
         bond:
-          deviceSelectors: [{ hardwareAddr: "58:47:ca:77:f1:f7", driver: i40e },{ hardwareAddr: "58:47:ca:77:f1:f6", driver: i40e }]
+          deviceSelectors: [{ hardwareAddr: "58:47:ca:7e:df:ad", driver: i40e },{ hardwareAddr: "58:47:ca:7e:df:ac", driver: i40e }]
           mode: 802.3ad
           xmitHashPolicy: layer3+4
           lacpRate: fast
@@ -13,7 +13,7 @@ machine:
         mtu: 1500
         dhcp: true
       - deviceSelector:
-          hardwareAddr: 58:47:ca:77:f1:f8
+          hardwareAddr: 58:47:ca:7e:df:af
         ignore: true
       #TB Ring
       - deviceSelector:
@@ -62,7 +62,7 @@ machine:
   udev:
     rules:
     # Rename secondary adapter to eth1
-      - SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="58:47:ca:77:f1:f8", ATTR{type}=="1", NAME="eth1"
+      - SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="58:47:ca:7e:df:af", ATTR{type}=="1", NAME="eth1"
   nodeLabels:
     hwtranscoding: "true"
     multus: active

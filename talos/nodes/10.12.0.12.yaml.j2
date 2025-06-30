@@ -16,24 +16,24 @@ machine:
           hardwareAddr: 58:47:ca:77:d5:95
         ignore: true
       #TB Ring
-      #- deviceSelector:
-      #    busPath: 0-1.0 # home-node-01
-      #  dhcp: false
-      #  mtu: 65520
-      #  addresses:
-      #    - 169.254.255.12/32
-      #  routes:
-      #    - network: 169.254.255.11/32
-      #      metric: 2048
-      #- deviceSelector:
-      #    busPath: 1-1.0 # home-node-03
-      #  dhcp: false
-      #  mtu: 65520
-      #  addresses:
-      #    - 169.254.255.12/32
-      #  routes:
-      #    - network: 169.254.255.13/32
-      #      metric: 2048
+      - deviceSelector:
+          busPath: 0-1.0 # home-node-01
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.12/32
+        routes:
+          - network: 169.254.255.11/32
+            metric: 2048
+      - deviceSelector:
+          busPath: 1-1.0 # home-node-03
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.12/32
+        routes:
+          - network: 169.254.255.13/32
+            metric: 2048
   install:
     diskSelector:
       serial: S665NE0R702445
