@@ -129,10 +129,11 @@ spec:
 
           mousehole:
             image:
-              repository: tmmrtn/mousehole
+              repository: docker.io/tmmrtn/mousehole
               tag: latest
             env:
               TZ: America/Chicago
+              MOUSEHOLE_STATE_DIR_PATH: /config/mousehole
               MOUSEHOLE_PORT: &mouseport 5010
             securityContext:
               runAsUser: 1000
