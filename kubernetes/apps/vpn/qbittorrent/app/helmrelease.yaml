@@ -173,7 +173,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: qbittorrent-mousehole
+              - identifier: mousehole
                 port: *mouseport
 
     persistence:
