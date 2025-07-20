@@ -149,10 +149,6 @@ spec:
         ports:
           http:
             port: *port
-      mousehole:
-        ports:
-          http:
-            port: *mouseport
 
     route:
       app:
@@ -165,16 +161,6 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
-      mousehole:
-        hostnames: ["mouse.jonandlinz.io"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: mousehole
-                port: *mouseport
 
     persistence:
       config:
