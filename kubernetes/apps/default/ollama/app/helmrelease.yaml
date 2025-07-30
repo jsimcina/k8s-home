@@ -111,7 +111,7 @@ spec:
           ollama:
             image:
               repository: docker.io/ollama/ollama
-              tag: 0.9.6
+              tag: 0.10.0
             securityContext:
               privileged: true
             env:
