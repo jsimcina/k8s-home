@@ -44,7 +44,7 @@ spec:
               VPN_INTERFACE: tun0
               FIREWALL_INPUT_PORTS: &port 80
               FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/16,10.69.0.0/16,10.12.0.0/24 # Allow access to k8s subnets
-              VPN_PORT_FORWARDING_UP_COMMAND: /bin/sh -c '/usr/bin/wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{PORTS}}}" http://localhost:80/api/v2/app/setPreferences 2>&1'
+              VPN_PORT_FORWARDING_UP_COMMAND: /bin/sh -c '/usr/bin/wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{`{{PORTS}}`}}}" http://localhost:80/api/v2/app/setPreferences 2>&1'
             envFrom:
               - secretRef:
                   name: gluetun-secret
