@@ -129,8 +129,6 @@ spec:
           #         - ALL
 
           mousehole:
-            dependsOn:
-              - gluetun
             image:
               repository: docker.io/tmmrtn/mousehole
               tag: latest
