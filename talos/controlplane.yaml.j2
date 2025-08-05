@@ -1,6 +1,7 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/refs/heads/release-1.10/website/content/v1.10/schemas/config.schema.json
 version: v1alpha1
+persist: true
 machine:
   token: op://kubernetes/talos/MACHINE_TOKEN
   ca:
@@ -77,8 +78,7 @@ machine:
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     kubePrism:
-      enabled: true
-      port: 7445
+      enabled: false
     hostDNS:
       enabled: true
       resolveMemberNames: true
@@ -121,6 +121,8 @@ cluster:
     key: op://kubernetes/talos/CLUSTER_AGGREGATORCA_KEY
   serviceAccount:
     key: op://kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
+  discovery:
+    enabled: false
   apiServer:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
