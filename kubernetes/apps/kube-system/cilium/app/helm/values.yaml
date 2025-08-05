@@ -15,14 +15,11 @@ cgroup:
   automount:
     enabled: false
   hostRoot: /sys/fs/cgroup
-cluster:
-  id: 1
-  name: main
 cni:
   exclusive: false
 dashboards:
   enabled: true
-#devices: enp+
+devices: bond+
 enableIPv4BIGTCP: true
 endpointRoutes:
   enabled: true
