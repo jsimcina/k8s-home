@@ -10,6 +10,7 @@
     "github>jsimcina/k8s-home//.renovate/groups.json5",
     "github>jsimcina/k8s-home//.renovate/labels.json5",
     "github>jsimcina/k8s-home//.renovate/semanticCommits.json5",
+    "github>jsimcina/k8s-home//.renovate/talosFactory.json5",
     ":automergeBranch",
     ":disableRateLimiting",
     ":dependencyDashboard",
@@ -26,12 +27,12 @@
     "**/resources/**",
   ],
   flux: {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml$/"]
+    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"]
   },
   "helm-values": {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml$/"]
+    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"]
   },
   kubernetes: {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml$/"]
+    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"]
   },
 }

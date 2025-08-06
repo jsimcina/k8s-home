@@ -214,7 +214,7 @@ function apply_helm_releases() {
 }
 
 function main() {
-    check_env KUBECONFIG KUBERNETES_VERSION ROOK_DISK TALOS_VERSION
+    check_env KUBECONFIG KUBERNETES_VERSION
     check_cli helmfile jq kubectl kustomize minijinja-cli op talosctl yq
 
     if ! op whoami --format=json &>/dev/null; then
