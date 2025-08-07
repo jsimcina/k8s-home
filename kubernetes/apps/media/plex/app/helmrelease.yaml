@@ -95,7 +95,6 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
-
     persistence:
       config:
         existingClaim: plex
