@@ -3,6 +3,7 @@
 /.venv/
 ./docs/
 *.crt
+*.iso
 *.key
 .decrypted~*
 .DS_Store
