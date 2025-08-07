@@ -19,8 +19,6 @@ spec:
   values:
     controllers:
       zwave-js-ui:
-        annotations:
-          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -29,10 +27,6 @@ spec:
             env:
               TZ: America/Chicago
               PORT: &port 80
-              STORE_DIR: /usr/src/app/store
-              BACKUPS_DIR: /usr/src/app/store/backups
-              ZWAVEJS_EXTERNAL_CONFIG: /usr/src/app/store/.config-db
-              TRUST_PROXY: true
             envFrom:
               - secretRef:
                   name: zwave-secret
@@ -49,22 +43,13 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 512Mi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
+        pod:
+          hostUsers: false
     service:
       app:
         ports:
@@ -72,15 +57,6 @@ spec:
             port: *port
           websocket:
             port: 3000
-    # requires https://github.com/kvaster/zwavejs-prom
-    serviceMonitor:
-      app:
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
     route:
       app:
         hostnames: ["zwave.jonandlinz.io"]
@@ -88,14 +64,14 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
         existingClaim: zwave-js-ui
         globalMounts:
           - path: /usr/src/app/store
+      config-cache:
+        existingClaim: zwave-cache
+        globalMounts:
+          - path: /usr/src/app/store/.config-db
       tmp:
         type: emptyDir
