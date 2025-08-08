@@ -175,6 +175,6 @@ spec:
         vernemq:
           type: RoleBinding
           roleRef:
-            identifier: "{{ .Release.Name }}"
+            identifier: vernemq
           subjects:
-            - identifier: "{{ .Release.Name }}"
+            - identifier: vernemq

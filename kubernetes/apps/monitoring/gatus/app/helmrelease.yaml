@@ -118,9 +118,9 @@ spec:
         gatus:
           type: ClusterRoleBinding
           roleRef:
-            identifier: "{{ .Release.Name }}"
+            identifier: gatus
           subjects:
-            - identifier: "{{ .Release.Name }}"
+            - identifier: gatus
     serviceAccount:
       gatus: {}
     persistence:

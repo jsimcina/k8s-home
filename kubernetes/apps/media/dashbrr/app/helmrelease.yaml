@@ -94,9 +94,9 @@ spec:
         dashbrr:
           type: ClusterRoleBinding
           roleRef:
-            identifier: "{{ .Release.Name }}"
+            identifier: dashbrr
           subjects:
-            - identifier: "{{ .Release.Name }}"
+            - identifier: dashbrr
     serviceAccount:
       dashbrr: {}
     persistence:
