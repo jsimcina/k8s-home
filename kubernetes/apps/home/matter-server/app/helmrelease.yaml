@@ -19,9 +19,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    global:
-      nameOverride: "{{ .Release.Name }}"
-      fullnameOverride: "{{ .Release.Name }}"
     controllers:
       matter-server:
         annotations:
