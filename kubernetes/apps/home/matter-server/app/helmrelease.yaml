@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app matter-server
+  name: matter-server
 spec:
   interval: 1h
   chartRef:
@@ -20,8 +20,8 @@ spec:
     keepHistory: false
   values:
     global:
-      nameOverride: *app
-      fullnameOverride: *app
+      nameOverride: "{{ .Release.Name }}"
+      fullnameOverride: "{{ .Release.Name }}"
     controllers:
       matter-server:
         annotations:
@@ -83,6 +83,6 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: matter-server
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /data

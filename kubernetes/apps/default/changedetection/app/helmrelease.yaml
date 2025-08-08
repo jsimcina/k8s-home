@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app changedetection
+  name: changedetection
 spec:
   interval: 1h
   chartRef:
@@ -35,7 +35,7 @@ spec:
               PLAYWRIGHT_DRIVER_URL: ws://localhost:3000/?stealth=1&--disable-web-security=true&--user-data-dir=~/browserless-cache-123
             #envFrom:
             #  - secretRef:
-            #      name: changedetection-secret
+            #      name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               capabilities: { drop: ["ALL"] }
@@ -50,7 +50,7 @@ spec:
               DOWNLOAD_DIR: /downloads
             #envFrom:
             #  - secretRef:
-            #      name: changedetection
+            #      name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
     defaultPodOptions:
@@ -62,7 +62,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           changedetection:
             app:

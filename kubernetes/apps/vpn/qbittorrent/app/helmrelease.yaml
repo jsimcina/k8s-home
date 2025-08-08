@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app qbittorrent
+  name: qbittorrent
 spec:
   interval: 1h
   chartRef:
@@ -16,8 +16,8 @@ spec:
     controllers:
       qbittorrent:
         annotations:
-          configmap.reloader.stakater.com/reload: qbittorrent-scripts
-          secret.reloader.stakater.com/reload: qbittorrent-secret
+          configmap.reloader.stakater.com/reload: "{{ .Release.Name }}-scripts"
+          secret.reloader.stakater.com/reload: "{{ .Release.Name }}-secret"
           reloader.stakater.com/auto: "true"
         labels:
           nfsMount: "true"
@@ -100,34 +100,6 @@ spec:
               limits:
                 memory: 8Gi
 
-          # port-forward:
-          #   image:
-          #     repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync
-          #     tag: 0.0.4@sha256:838ba41b3c736b23ae30f7e79a2610173f389a5ac6fb2b3e9c7bd482b9353c18
-          #   env:
-          #     GLUETUN_CONTROL_SERVER_HOST: localhost
-          #     GLUETUN_CONTROL_SERVER_PORT: 8000
-          #     GLUETUN_CONTROL_SERVER_API_KEY:
-          #       valueFrom:
-          #         secretKeyRef:
-          #           name: qbittorrent-secret
-          #           key: GLUETUN_CONTROL_SERVER_API_KEY
-          #     MAM_ID_PATH: /media/torrents/mam_id/mam.txt
-          #     QBITTORRENT_HOST: localhost
-          #     QBITTORRENT_WEBUI_PORT: *port
-          #     CRON_ENABLED: true
-          #     CRON_SCHEDULE: "*/5 * * * *"
-          #     LOG_TIMESTAMP: false
-          #   securityContext:
-          #     runAsUser: 1000
-          #     runAsGroup: 1000
-          #     runAsNonRoot: true
-          #     allowPrivilegeEscalation: false
-          #     readOnlyRootFilesystem: true
-          #     capabilities:
-          #       drop:
-          #         - ALL
-
           mousehole:
             image:
               repository: docker.io/tmmrtn/mousehole
@@ -166,12 +138,12 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: qbittorrent
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
       gluetun-auth:
         type: secret
-        name: qbittorrent-gluetun-secret
+        name: "{{ .Release.Name }}-gluetun-secret"
         advancedMounts:
           qbittorrent:
             gluetun:
@@ -179,7 +151,7 @@ spec:
                 subPath: auth.toml
       dnsdist:
         type: configMap
-        name: qbittorrent-dnsdist
+        name: "{{ .Release.Name }}-dnsdist"
         advancedMounts:
           qbittorrent:
             dnsdist:

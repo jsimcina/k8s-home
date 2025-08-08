@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app dashbrr
+  name: dashbrr
 spec:
   interval: 1h
   chartRef:
@@ -35,7 +35,7 @@ spec:
               tag: 17
             envFrom: &envFrom
               - secretRef:
-                  name: dashbrr-secret
+                  name: "{{ .Release.Name }}-secret"
         containers:
           dashbrr:
             image:
@@ -48,9 +48,7 @@ spec:
               DASHBRR__LISTEN_ADDR: 0.0.0.0:80
               GIN_MODE: debug
               TZ: America/Chicago
-            envFrom:
-              - secretRef:
-                  name: dashbrr-secret
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true
@@ -96,9 +94,9 @@ spec:
         dashbrr:
           type: ClusterRoleBinding
           roleRef:
-            identifier: dashbrr
+            identifier: "{{ .Release.Name }}"
           subjects:
-            - identifier: dashbrr
+            - identifier: "{{ .Release.Name }}"
     serviceAccount:
       dashbrr: {}
     persistence:
@@ -107,4 +105,4 @@ spec:
         sizeLimit: 1Gi
       config:
         type: configMap
-        name: dashbrr-config
+        name: "{{ .Release.Name }}-config"

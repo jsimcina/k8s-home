@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app proton-bridge
+  name: proton-bridge
 spec:
   interval: 1h
   chartRef:
@@ -55,6 +55,6 @@ spec:
             protocol: TCP
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /root

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app autobrr
+  name: autobrr
 spec:
   interval: 1h
   chartRef:
@@ -30,7 +30,7 @@ spec:
               tag: 17
             envFrom: &envFrom
               - secretRef:
-                  name: autobrr-secret
+                  name: "{{ .Release.Name }}-secret"
         containers:
           app:
             image:
@@ -45,9 +45,7 @@ spec:
               AUTOBRR__CHECK_FOR_UPDATES: false
               AUTOBRR__LOG_LEVEL: TRACE
               TZ: America/Chicago
-            envFrom:
-              - secretRef:
-                  name: autobrr-secret
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true

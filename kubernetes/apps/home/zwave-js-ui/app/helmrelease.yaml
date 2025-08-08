@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app zwave-js-ui
+  name: zwave-js-ui
 spec:
   interval: 1h
   chartRef:
@@ -29,7 +29,7 @@ spec:
               PORT: &port 80
             envFrom:
               - secretRef:
-                  name: zwave-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
@@ -66,11 +66,11 @@ spec:
             sectionName: https
     persistence:
       config:
-        existingClaim: zwave-js-ui
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /usr/src/app/store
       config-cache:
-        existingClaim: zwave-cache
+        existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
           - path: /usr/src/app/store/.config-db
       tmp:

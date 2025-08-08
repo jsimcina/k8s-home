@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app pgadmin
+  name: pgadmin
 spec:
   interval: 1h
   chartRef:
@@ -38,7 +38,7 @@ spec:
               PGADMIN_LISTEN_PORT: &port 80
             envFrom:
               - secretRef:
-                  name: pgadmin-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -70,7 +70,7 @@ spec:
                 port: *port
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /var/lib/pgadmin
       logsandtmp:

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app tautulli
+  name: tautulli
 spec:
   interval: 1h
   chartRef:
@@ -77,9 +77,9 @@ spec:
                 port: *port
     persistence:
       config:
-        existingClaim: tautulli
+        existingClaim: "{{ .Release.Name }}"
       config-cache:
-        existingClaim: tautulli-cache
+        existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
           - path: /config/cache
       config-logs:

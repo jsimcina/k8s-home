@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app esphome
+  name: esphome
 spec:
   interval: 1h
   chartRef:
@@ -13,7 +13,7 @@ spec:
     controllers:
       esphome:
         annotations:
-          secret.reloader.stakater.com/reload: esphome-secrets
+          secret.reloader.stakater.com/reload: "{{ .Release.Name }}-secrets"
         pod:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
@@ -63,14 +63,14 @@ spec:
                 port: *port
     persistence:
       config:
-        existingClaim: esphome
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           esphome:
             app:
               - path: /config
       secrets:
         type: secret
-        name: esphome-secrets
+        name: "{{ .Release.Name }}-secrets"
         globalMounts:
           - path: /config/secrets.yaml
             subPath: secrets.yaml
@@ -81,7 +81,7 @@ spec:
       esphome-basefiles:
         enabled: true
         type: configMap
-        name: esphome-basefiles
+        name: "{{ .Release.Name }}-basefiles"
         advancedMounts:
           esphome:
             app:
