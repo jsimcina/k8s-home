@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app radarr
+  name: radarr
 spec:
   interval: 1h
   chartRef:
@@ -30,7 +30,7 @@ spec:
               tag: 17
             envFrom: &envFrom
               - secretRef:
-                  name: radarr-secret
+                  name: "{{ .Release.Name }}-secret"
         containers:
           app:
             image:
@@ -48,7 +48,7 @@ spec:
               TZ: America/Chicago
             envFrom:
               - secretRef:
-                  name: radarr-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
@@ -96,9 +96,9 @@ spec:
                 port: *port
     persistence:
       config:
-        existingClaim: radarr
+        existingClaim: "{{ .Release.Name }}"
       config-cache:
-        existingClaim: radarr-cache
+        existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
           - path: /config/MediaCover
       scripts:

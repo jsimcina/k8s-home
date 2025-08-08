@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app manyfold
+  name: manyfold
 spec:
   interval: 1h
   chartRef:
@@ -13,7 +13,7 @@ spec:
     controllers:
       manyfold:
         annotations:
-          secret.reloader.stakater.com/reload: manyfold-secret
+          secret.reloader.stakater.com/reload: "{{ .Release.Name }}-secret"
         labels:
           nfsMount: "true"
         initContainers:
@@ -23,7 +23,7 @@ spec:
               tag: 17
             envFrom: &envFrom
               - secretRef:
-                  name: manyfold-secret
+                  name: "{{ .Release.Name }}-secret"
           chown-tmpdirs:
             image:
               repository: docker.io/library/alpine

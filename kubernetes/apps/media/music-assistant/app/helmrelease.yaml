@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app music-assistant
+  name: music-assistant
 spec:
   interval: 1h
   chartRef:
@@ -77,7 +77,7 @@ spec:
 
     persistence:
       data:
-        existingClaim: music-assistant
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           music-assistant:
             app:

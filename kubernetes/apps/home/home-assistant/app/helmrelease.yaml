@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app home-assistant
+  name: home-assistant
 spec:
   interval: 1h
   chartRef:
@@ -26,7 +26,7 @@ spec:
               tag: 17
             envFrom: &envFrom
               - secretRef:
-                  name: home-assistant-secret
+                  name: "{{ .Release.Name }}-secret"
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -49,7 +49,7 @@ spec:
               TZ: America/Chicago
             envFrom:
               - secretRef:
-                  name: home-assistant-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -104,7 +104,7 @@ spec:
                 port: *csport
     persistence:
       config:
-        existingClaim: home-assistant
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
       logs:

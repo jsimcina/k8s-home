@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app alertmanager
+  name: alertmanager
 spec:
   interval: 1h
   chartRef:
@@ -53,7 +53,7 @@ spec:
       app:
         ports:
           http:
-            port: *port
+            port: port
 
     serviceMonitor:
       app:
@@ -79,11 +79,11 @@ spec:
     persistence:
       config:
         type: configMap
-        name: alertmanager
+        name: "{{ .Release.Name }}"
         globalMounts:
           - path: /etc/alertmanager
       secrets:
         type: secret
-        name: alertmanager-secret
+        name: "{{ .Release.Name }}-secret"
         globalMounts:
           - path: /etc/secrets

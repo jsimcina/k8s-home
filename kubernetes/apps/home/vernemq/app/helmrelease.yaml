@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app vernemq
+  name: vernemq
 spec:
   interval: 1h
   chartRef:
@@ -23,7 +23,7 @@ spec:
         strategy: RollingUpdate
         replicas: 3
         annotations:
-          secret.reloader.stakater.com/reload: vernemq-secret
+          secret.reloader.stakater.com/reload: "{{ .Release.Name }}-secret"
         pod:
           securityContext:
             runAsUser: 10000
@@ -51,7 +51,7 @@ spec:
               DOCKER_VERNEMQ_ALLOW_UNSUBSCRIBE_DURING_NETSPLIT: 'on'
             envFrom:
               - secretRef:
-                  name: vernemq-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
@@ -101,7 +101,7 @@ spec:
     serviceMonitor:
       metrics:
         enabled: true
-        serviceName: *app
+        serviceName: "{{ .Release.Name }}"
         endpoints:
           - port: metrics
             scheme: http
