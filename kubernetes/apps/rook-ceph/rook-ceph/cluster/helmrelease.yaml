@@ -20,7 +20,7 @@ metadata:
   name: rook-ceph-cluster
 spec:
   interval: 1h
-  timeout: 5m
+  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: rook-ceph-cluster
@@ -50,10 +50,12 @@ spec:
     cephClusterSpec:
       cephConfig:
         global:
-          bdev_enable_discard: "true"
-          bdev_async_discard_threads: "1"
-          osd_class_update_on_start: "false"
+          bdev_enable_discard: "true" # quote
+          bdev_async_discard_threads: "1" # quote
+          osd_class_update_on_start: "false" # quote
           device_failure_prediction_mode: local # requires mgr module
+      cleanupPolicy:
+        wipeDevicesFromOtherClusters: true
       crashCollector:
         disable: false
       csi:
@@ -79,15 +81,9 @@ spec:
         connections:
           requireMsgr2: true
       storage:
-        useAllNodes: false
+        useAllNodes: true
         useAllDevices: false
-        nodes:
-          - name: home-node-01
-            devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZQL21T9HCJR-00B7C_.*
-          - name: home-node-02
-            devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZQL21T9HCJR-00B7C_.*
-          - name: home-node-03
-            devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZQL21T9HCJR-00B7C_.*
+        devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZQL21T9HCJR-00B7C_.*
         config:
           osdsPerDevice: "1"
     cephBlockPools:
@@ -105,6 +101,8 @@ spec:
           volumeBindingMode: Immediate
           mountOptions: ["discard"]
           parameters:
+            compression_mode: aggressive
+            compression_algorithm: zstd
             imageFormat: "2"
             imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
@@ -122,3 +120,4 @@ spec:
     # NOTE: After disabling the filesystem, the filesystem can be removed with the following commands:
     # ceph fs fail ceph-filesystem && ceph fs rm ceph-filesystem --yes-i-really-mean-it
     cephFileSystems: []
+    cephObjectStores: []
