@@ -17,7 +17,7 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: grafana
+  name: &app grafana
 spec:
   interval: 1h
   chartRef:
@@ -48,19 +48,15 @@ spec:
     envFromSecrets:
       - name: *secret
     grafana.ini:
-      analytics:
-        check_for_updates: false
-        check_for_plugin_updates: false
-        reporting_enabled: false
       auth:
         signout_redirect_url: https://auth.jonandlinz.io/application/o/grafana/end-session/
         oauth_auto_login: false
         oauth_allow_insecure_email_lookup: true
       auth.anonymous:
         enabled: true
-        org_id: 1
         org_name: Main Org.
         org_role: Viewer
+        hide_version: true
       auth.generic_oauth:
         name: authentik
         enabled: true
@@ -76,6 +72,10 @@ spec:
       auth.generic_oauth.group_mapping:
         org_id: 1
         role_attribute_path: contains(groups[*], 'Administrators') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'
+      analytics:
+        check_for_updates: false
+        check_for_plugin_updates: false
+        reporting_enabled: false
       news:
         news_feed_enabled: false
     datasources:
@@ -85,20 +85,22 @@ spec:
           - { name: Alertmanager, orgId: 1 }
           - { name: Loki, orgId: 1 }
           - { name: Prometheus, orgId: 1 }
+          - { name: VictoriaLogs, orgId: 1 }
+          - { name: VictoriaMetrics, orgId: 1 }
         datasources:
-          - name: Prometheus
+          - name: VictoriaMetrics
             type: prometheus
             uid: prometheus
             access: proxy
-            url: http://prometheus-operated.monitoring.svc.cluster.local:9090
-            isDefault: true
-          - name: Loki
-            type: loki
-            uid: loki
-            access: proxy
-            url: http://loki-headless.monitoring.svc.cluster.local:3100
+            url: http://vmsingle-stack.monitoring.svc.cluster.local:8429
             jsonData:
-              maxLines: 250
+              prometheusType: Prometheus
+              timeInterval: 1m
+            isDefault: true
+          - name: VictoriaLogs
+            type: victoriametrics-logs-datasource
+            access: proxy
+            url: http://vmlogs-ingestion.monitoring.svc.cluster.local:9428
           - name: Alertmanager
             type: alertmanager
             uid: alertmanager
@@ -106,14 +108,6 @@ spec:
             url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
-          - name: VictoriaMetrics
-            type: prometheus
-            uid: victoriametrics
-            access: proxy
-            url: http://vmsingle-stack.monitoring.svc.cluster.local:8429
-            jsonData:
-              prometheusType: Prometheus
-              timeInterval: 1m
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
@@ -132,134 +126,138 @@ spec:
           # renovate: depName="APC UPS (SNMP)"
           gnetId: 12340
           revision: 1
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
           gnetId: 2842
           revision: 18
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         ceph-osd:
           # renovate: depName="Ceph - OSD (Single)"
           gnetId: 5336
           revision: 9
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         ceph-pools:
           # renovate: depName="Ceph - Pools"
           gnetId: 5342
           revision: 9
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         cert-manager:
           # renovate: depName="Cert-manager-Kubernetes"
           gnetId: 20842
           revision: 3
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
           gnetId: 17457
           revision: 6
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
         envoy:
            # renovate: depName="Envoy Proxy Monitoring gRPC"
            gnetId: 23239
            revision: 1
            datasource:
-             - { name: DS_AFRANET_PROMETHEUS, value: Prometheus }
+             - { name: DS_AFRANET_PROMETHEUS, value: VictoriaMetrics }
         external-dns:
           # renovate: depName="External-dns"
           gnetId: 15038
           revision: 3
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 15761
           revision: 19
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         kubernetes-coredns:
           # renovate: depName="Kubernetes / System / CoreDNS"
           gnetId: 15762
           revision: 21
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         kubernetes-global:
           # renovate: depName="Kubernetes / Views / Global"
           gnetId: 15757
           revision: 43
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         kubernetes-namespaces:
           # renovate: depName="Kubernetes / Views / Namespaces"
           gnetId: 15758
           revision: 42
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         kubernetes-nodes:
           # renovate: depName="Kubernetes / Views / Nodes"
           gnetId: 15759
           revision: 37
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         kubernetes-pods:
           # renovate: depName="Kubernetes / Views / Pods"
           gnetId: 15760
           revision: 36
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         kubernetes-volumes:
           # renovate: depName="K8s / Storage / Volumes / Cluster"
           gnetId: 11454
           revision: 14
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
           revision: 41
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
-        prometheus:
-          # renovate: depName="Prometheus"
-          gnetId: 19105
-          revision: 7
-          datasource: Prometheus
+            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
         smartctl-exporter:
           # renovate: depName="SMARTctl Exporter Dashboard"
           gnetId: 22604
           revision: 2
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
-        unifi-pdu:
-          # renovate: depName="UniFi-Poller: PDU Insights - Prometheus"
-          gnetId: 23027
-          revision: 1
-          datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
         unifi-insights:
           # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
           gnetId: 11315
           revision: 9
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         unifi-network-sites:
           # renovate: depName="UniFi-Poller: Network Sites - Prometheus"
           gnetId: 11311
           revision: 5
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         unifi-uap:
           # renovate: depName="UniFi-Poller: UAP Insights - Prometheus"
           gnetId: 11314
           revision: 10
-          datasource: Prometheus
+          datasource: VictoriaMetrics
         unifi-usw:
           # renovate: depName="UniFi-Poller: USW Insights - Prometheus"
           gnetId: 11312
           revision: 9
-          datasource: Prometheus
+          datasource: VictoriaMetrics
+        unpackerr:
+          # renovate: depName="Unpackerr"
+          gnetId: 18817
+          revision: 1
+          datasource:
+            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
+        victorialogs:
+          gnetId: 21550
+          revision: 1
+          datasource:
+            - { name: DS_LOGS, value: VictoriaLogs }
+            - { name: DS_METRICS, value: VictoriaMetrics }
+        victorialogsmetrics:
+          gnetId: 22084
+          revision: 3
+          datasource: VictoriaMetrics
+        victoriasinglenode:
+          gnetId: 10229
+          revision: 37
+          datasource: VictoriaMetrics
         volsync:
           # renovate: depName="VolSync Dashboard"
           gnetId: 21356
           revision: 3
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
             - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
-        zfs:
-          # renovate: depName="ZFS"
-          gnetId: 7845
-          revision: 4
-          datasource: Prometheus
     sidecar:
       image:
         registry: ghcr.io
@@ -285,12 +283,13 @@ spec:
       - pr0ps-trackmap-panel
       - vonage-status-panel
       - victoriametrics-metrics-datasource
+      - victoriametrics-logs-datasource
     serviceMonitor:
       enabled: true
     route:
       main:
         enabled: true
-        hostnames: ["{{ .Release.Name }}.jonandlinz.io"]
+        hostnames: ["grafana.jonandlinz.io"]
         parentRefs:
           - name: internal
             namespace: kube-system

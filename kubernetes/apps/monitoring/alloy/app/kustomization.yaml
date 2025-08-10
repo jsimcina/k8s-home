@@ -3,14 +3,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: alertmanager
+  - name: alloy-configmap
     files:
-      - config/alertmanager.yml
+      - config.alloy=./resources/config.alloy
 generatorOptions:
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
-configurations:
-  - kustomizeconfig.yaml
+  disableNameSuffixHash: true
