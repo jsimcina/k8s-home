@@ -1,3 +1,21 @@
+{% if hostname == "home-node-01" %}
+{% set ignored_eth_mac = "58:47:ca:7e:df:af" %}
+{% set tb_ip = "169.254.255.11/32" %}
+{% set tb_route1_ip = "169.254.255.12/32" %}
+{% set tb_route2_ip = "169.254.255.13/32" %}
+
+{% elif hostname == "home-node-02" %}
+{% set ignored_eth_mac = "58:47:ca:77:d5:95" %}
+{% set tb_ip = "169.254.255.12/32" %}
+{% set tb_route1_ip = "169.254.255.11/32" %}
+{% set tb_route2_ip = "169.254.255.13/32" %}
+
+{% elif hostname == "home-node-03" %}
+{% set ignored_eth_mac = "58:47:ca:77:35:f1" %}
+{% set tb_ip = "169.254.255.13/32" %}
+{% set tb_route1_ip = "169.254.255.11/32" %}
+{% set tb_route2_ip = "169.254.255.12/32" %}
+{% endif %}
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/refs/heads/release-1.10/website/content/v1.10/schemas/config.schema.json
 version: v1alpha1
@@ -76,6 +94,42 @@ machine:
     nodeIP:
       validSubnets:
         - 10.12.0.0/24
+  network:
+    hostname: {{ hostname }}
+    interfaces:
+      - interface: bond0
+        bond:
+          deviceSelectors: [{ hardwareAddr: "58:47:ca:*", driver: i40e }]
+          mode: 802.3ad
+          xmitHashPolicy: layer3+4
+          lacpRate: fast
+          miimon: 1000
+        mtu: 1500
+        dhcp: true
+        vip:
+          ip: 10.12.0.254
+      - deviceSelector:
+          hardwareAddr: {{ ignored_eth_mac }}
+        ignore: true
+      #TB Ring
+      - deviceSelector:
+          busPath: 0-1.0 # home-node-02
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - {{ tb_ip }}
+        routes:
+          - network: {{ tb_route1_ip }}
+            metric: 2048
+      - deviceSelector:
+          busPath: 1-1.0 # home-node-03
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - {{ tb_ip }}
+        routes:
+          - network: {{ tb_route2_ip }}
+            metric: 2048
   nodeLabels:
     intel.feature.node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: k8s-home
@@ -109,10 +163,12 @@ machine:
     servers:
       - 10.0.20.3
       - 162.159.200.1
+  type: controlplane
   udev:
     rules:
-      - # Thunderbolt
-        ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
+      - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
+    # Rename secondary adapter to eth1
+      - SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ ignored_eth_mac }}", ATTR{type}=="1", NAME="eth1"
 cluster:
   aggregatorCA:
     crt: op://kubernetes/talos/CLUSTER_AGGREGATORCA_CRT
