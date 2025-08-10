@@ -88,7 +88,7 @@ spec:
         datasources:
           - name: Prometheus
             type: prometheus
-            uid: prometheus
+            uid: prom
             access: proxy
             url: http://prometheus-operated.monitoring.svc.cluster.local:9090
             isDefault: true
@@ -108,7 +108,7 @@ spec:
               implementation: prometheus
           - name: VictoriaMetrics
             type: prometheus
-            uid: victoriametrics
+            uid: vmetrics
             access: proxy
             url: http://vmsingle-stack.monitoring.svc.cluster.local:8429
             jsonData:
