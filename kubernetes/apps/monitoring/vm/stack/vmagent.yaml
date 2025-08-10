@@ -24,6 +24,13 @@ spec:
       cpu: 100m
       memory: 128Mi
   selectAllByDefault: false
+  inlineScrapeConfig: |
+    - job_name: "hass"
+      static_configs:
+      - targets: ["home-assistant.home.svc.cluster.local:8123"]
+      bearerTokenSecret:
+        name: vmetrics-secret
+        key: HASS_BEARER_TOKEN
   statefulMode: true
   statefulStorage:
     volumeClaimTemplate:
