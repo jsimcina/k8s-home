@@ -25,8 +25,8 @@ spec:
       memory: 128Mi
   selectAllByDefault: false
   additionalScrapeConfigs:
-    name: hass
-    key: vmscrapeconfig.yaml
+    name: vmetrics-secret
+    key: additionalScrapeConfigs.yaml
   statefulMode: true
   statefulStorage:
     volumeClaimTemplate:
