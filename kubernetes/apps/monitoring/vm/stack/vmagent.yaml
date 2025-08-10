@@ -31,5 +31,5 @@ spec:
         storageClassName: openebs-hostpath
         resources:
           requests:
-            storage: 1Gi
+            storage: 500Mi
   useDefaultResources: false
