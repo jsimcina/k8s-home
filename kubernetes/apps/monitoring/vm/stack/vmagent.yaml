@@ -14,7 +14,7 @@ spec:
     promscrape.dropOriginalLabels: "true"
   remoteWrite:
     - url: http://vmsingle-stack.monitoring.svc.cluster.local:8429/api/v1/write
-  shardCount: 2
+  shardCount: 1
   scrapeInterval: 30s
   resources:
     requests:
@@ -28,7 +28,7 @@ spec:
   statefulStorage:
     volumeClaimTemplate:
       spec:
-        storageClassName: openebs-hostpath
+        storageClassName: ceph-block
         resources:
           requests:
             storage: 500Mi
