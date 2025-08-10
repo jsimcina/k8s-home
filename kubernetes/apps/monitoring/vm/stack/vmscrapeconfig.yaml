@@ -2,77 +2,6 @@
 apiVersion:	operator.victoriametrics.com/v1beta1
 kind: VMScrapeConfig
 metadata:
-  name: &name node-exporter
-spec:
-  staticConfigs:
-    - targets:
-        - nas.jonandlinz.com:9100
-        - 10.10.20.1:9100
-  path: /metrics
-  relabelConfigs:
-    - action: replace
-      targetLabel: job
-      replacement: *name
----
-apiVersion: operator.victoriametrics.com/v1beta1
-kind: VMScrapeConfig
-metadata:
-  name: &name smartctl-exporter
-spec:
-  staticConfigs:
-    - targets:
-        - nas.jonandlinz.com:9633
-  path: /metrics
-  relabelConfigs:
-    - action: replace
-      targetLabel: job
-      replacement: *name
----
-apiVersion:	operator.victoriametrics.com/v1beta1
-kind: VMScrapeConfig
-metadata:
-  name: &name pikvm
-spec:
-  staticConfigs:
-    - targets:
-        - pikvm.jonandlinz.com
-  path: /api/export/prometheus/metrics
-  relabelConfigs:
-    - action: replace
-      targetLabel: job
-      replacement: *name
----
-apiVersion:	operator.victoriametrics.com/v1beta1
-kind: VMScrapeConfig
-metadata:
-  name: &name onepassword-connect
-spec:
-  staticConfigs:
-    - targets:
-        - nas.jonandlinz.com:7070
-  path: /metrics
-  relabelConfigs:
-    - action: replace
-      targetLabel: job
-      replacement: *name
----
-apiVersion:	operator.victoriametrics.com/v1beta1
-kind: VMScrapeConfig
-metadata:
-  name: &name zigbee-controller
-spec:
-  staticConfigs:
-    - targets:
-        - 10.21.0.10
-  path: /metrics
-  relabelConfigs:
-    - action: replace
-      targetLabel: job
-      replacement: *name
----
-apiVersion:	operator.victoriametrics.com/v1beta1
-kind: VMScrapeConfig
-metadata:
   name: &name hass
 spec:
   staticConfigs:
@@ -87,18 +16,3 @@ spec:
   bearerTokenSecret:
     name: vmetrics-secret
     key: HASS_BEARER_TOKEN
----
-apiVersion:	operator.victoriametrics.com/v1beta1
-kind: VMScrapeConfig
-metadata:
-  name: &name controld
-spec:
-  staticConfigs:
-    - targets:
-      - http://10.0.0.2:9100
-  path: /metrics
-  relabelConfigs:
-    - action: replace
-      targetLabel: job
-      replacement: *name
-  scheme: http
