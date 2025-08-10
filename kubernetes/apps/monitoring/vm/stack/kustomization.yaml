@@ -6,6 +6,6 @@ resources:
   - vmagent.yaml
 #  - vmalert.yaml
 #  - vmrule.yaml
-#  - vmscrapeconfig.yaml
+  - vmscrapeconfig.yaml
 #  - vmservicescrape.yaml
   - vmsingle.yaml

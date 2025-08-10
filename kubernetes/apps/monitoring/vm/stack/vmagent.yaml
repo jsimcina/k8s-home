@@ -14,7 +14,6 @@ spec:
     promscrape.dropOriginalLabels: "true"
   remoteWrite:
     - url: http://vmsingle-stack.monitoring.svc.cluster.local:8429/api/v1/write
-  replicaCount: 1
   shardCount: 2
   scrapeInterval: 30s
   resources:
