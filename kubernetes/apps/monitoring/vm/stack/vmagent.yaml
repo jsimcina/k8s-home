@@ -24,11 +24,9 @@ spec:
       cpu: 100m
       memory: 128Mi
   selectAllByDefault: false
-  inlineScrapeConfig: |
-    - job_name: "hass"
-      static_configs:
-      - targets: ["home-assistant.home.svc.cluster.local:8123"]
-      bearer_token: {{ .HASS_BEARER_TOKEN }}
+  additionalScrapeConfigs:
+    name: hass
+    key: vmscrapeconfig.yaml
   statefulMode: true
   statefulStorage:
     volumeClaimTemplate:
