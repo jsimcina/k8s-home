@@ -85,10 +85,11 @@ spec:
           - { name: Alertmanager, orgId: 1 }
           - { name: Loki, orgId: 1 }
           - { name: Prometheus, orgId: 1 }
+          - { name: VictoriaMetrics, orgId: 1 }
         datasources:
           - name: Prometheus
             type: prometheus
-            uid: prom
+            uid: prometheus
             access: proxy
             url: http://prometheus-operated.monitoring.svc.cluster.local:9090
             isDefault: true
@@ -108,7 +109,7 @@ spec:
               implementation: prometheus
           - name: VictoriaMetrics
             type: prometheus
-            uid: vmetrics
+            uid: victoriametrics
             access: proxy
             url: http://vmsingle-stack.monitoring.svc.cluster.local:8429
             jsonData:
