@@ -16,8 +16,7 @@ resources:
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
   - ./tautulli/ks.yaml
-  - ./vm/ks.yaml
-  #- ./vmlogs/ks.yaml
   - ./unpoller/ks.yaml
+  - ./vm/ks.yaml
 components:
   - ../../components/common
