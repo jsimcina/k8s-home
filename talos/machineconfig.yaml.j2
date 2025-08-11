@@ -1,28 +1,11 @@
-{% if hostname == "home-node-01" %}
-{% set ignored_eth_mac = "58:47:ca:7e:df:af" %}
-{% set tb_ip = "169.254.255.11/32" %}
-{% set tb_route1_ip = "169.254.255.12/32" %}
-{% set tb_route2_ip = "169.254.255.13/32" %}
-
-{% elif hostname == "home-node-02" %}
-{% set ignored_eth_mac = "58:47:ca:77:d5:95" %}
-{% set tb_ip = "169.254.255.12/32" %}
-{% set tb_route1_ip = "169.254.255.11/32" %}
-{% set tb_route2_ip = "169.254.255.13/32" %}
-
-{% elif hostname == "home-node-03" %}
-{% set ignored_eth_mac = "58:47:ca:77:35:f1" %}
-{% set tb_ip = "169.254.255.13/32" %}
-{% set tb_route1_ip = "169.254.255.11/32" %}
-{% set tb_route2_ip = "169.254.255.12/32" %}
-{% endif %}
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/siderolabs/talos/refs/heads/release-1.10/website/content/v1.10/schemas/config.schema.json
 version: v1alpha1
 machine:
   ca:
     crt: op://kubernetes/talos/MACHINE_CA_CRT
+    {% if machinetype == 'controlplane' %}
     key: op://kubernetes/talos/MACHINE_CA_KEY
+    {% endif %}
   certSANs:
     - 127.0.0.1
     - 10.12.0.254
@@ -38,6 +21,7 @@ machine:
     kubePrism:
       enabled: true
       port: 7445
+    {% if machinetype == 'controlplane' %}
     kubernetesTalosAPIAccess:
       allowedKubernetesNamespaces:
         - actions-runner-system
@@ -45,6 +29,7 @@ machine:
       allowedRoles:
         - os:admin
       enabled: true
+    {% endif %}
     rbac: true
     stableHostname: true
   files:
@@ -95,7 +80,6 @@ machine:
       validSubnets:
         - 10.12.0.0/24
   network:
-    hostname: {{ hostname }}
     interfaces:
       - interface: bond0
         bond:
@@ -108,28 +92,6 @@ machine:
         dhcp: true
         vip:
           ip: 10.12.0.254
-      - deviceSelector:
-          hardwareAddr: {{ ignored_eth_mac }}
-        ignore: true
-      #TB Ring
-      - deviceSelector:
-          busPath: 0-1.0 # home-node-02
-        dhcp: false
-        mtu: 65520
-        addresses:
-          - {{ tb_ip }}
-        routes:
-          - network: {{ tb_route1_ip }}
-            metric: 2048
-      - deviceSelector:
-          busPath: 1-1.0 # home-node-03
-        dhcp: false
-        mtu: 65520
-        addresses:
-          - {{ tb_ip }}
-        routes:
-          - network: {{ tb_route2_ip }}
-            metric: 2048
   nodeLabels:
     intel.feature.node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: k8s-home
@@ -167,9 +129,27 @@ machine:
   udev:
     rules:
       - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
-    # Rename secondary adapter to eth1
-      - SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="{{ ignored_eth_mac }}", ATTR{type}=="1", NAME="eth1"
 cluster:
+  ca:
+    crt: op://kubernetes/talos/CLUSTER_CA_CRT
+    {% if machinetype == 'controlplane' %}
+    key: op://kubernetes/talos/CLUSTER_CA_KEY
+    {% endif %}
+  clusterName: k8s-home
+  controlPlane:
+    endpoint: https://10.12.0.254:6443
+  id: op://kubernetes/talos/CLUSTER_ID
+  network:
+    cni:
+      name: none
+    dnsDomain: cluster.local
+    podSubnets:
+      - 10.69.0.0/16
+    serviceSubnets:
+      - 10.96.0.0/16
+  secret: op://kubernetes/talos/CLUSTER_SECRET
+  token: op://kubernetes/talos/CLUSTER_TOKEN
+  {% if machinetype == 'controlplane' %}
   aggregatorCA:
     crt: op://kubernetes/talos/CLUSTER_AGGREGATORCA_CRT
     key: op://kubernetes/talos/CLUSTER_AGGREGATORCA_KEY
@@ -190,12 +170,6 @@ cluster:
       feature-gates: MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1alpha1=true
     image: registry.k8s.io/kube-apiserver:v1.33.3
-  ca:
-    crt: op://kubernetes/talos/CLUSTER_CA_CRT
-    key: op://kubernetes/talos/CLUSTER_CA_KEY
-  clusterName: k8s-home
-  controlPlane:
-    endpoint: https://10.12.0.254:6443
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
@@ -210,15 +184,6 @@ cluster:
       key: op://kubernetes/talos/CLUSTER_ETCD_CA_KEY
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
-  id: op://kubernetes/talos/CLUSTER_ID
-  network:
-    cni:
-      name: none
-    dnsDomain: cluster.local
-    podSubnets:
-      - 10.69.0.0/16
-    serviceSubnets:
-      - 10.96.0.0/16
   proxy:
     disabled: true
   scheduler:
@@ -242,8 +207,7 @@ cluster:
     extraArgs:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.33.3
-  secret: op://kubernetes/talos/CLUSTER_SECRET
   secretboxEncryptionSecret: op://kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   serviceAccount:
     key: op://kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
-  token: op://kubernetes/talos/CLUSTER_TOKEN
+  {% endif %}
