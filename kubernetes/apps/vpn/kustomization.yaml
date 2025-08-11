@@ -8,7 +8,6 @@ resources:
   - ./flaresolverr/ks.yaml
   - ./kapowarr/ks.yaml
   - ./prowlarr/ks.yaml
-  - ./qbitrr/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./slskd/ks.yaml

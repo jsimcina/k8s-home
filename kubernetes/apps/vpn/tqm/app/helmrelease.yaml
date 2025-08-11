@@ -96,3 +96,8 @@ spec:
         globalMounts:
           - path: /media/torrents
             readOnly: true
+      qbrr:
+        type: image
+        image: ghcr.io/buroa/qbrr:0.0.29@sha256:5090c88b212f62c40a7c1124dd469b6ce9ee8428e8d0784875ba49d6819d3992
+      tmp:
+        type: emptyDir
