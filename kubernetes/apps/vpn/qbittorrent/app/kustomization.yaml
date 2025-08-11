@@ -9,8 +9,15 @@ configMapGenerator:
   - name: qbittorrent-dnsdist
     files:
       - ./config/dnsdist.conf
+  - name: qbittorrent-loki-rules
+    files:
+      - qbittorrent.yaml=./lokirule.yaml
+    options:
+      labels:
+        loki_rule: "true"
 generatorOptions:
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled
+  disableNameSuffixHash: true
 configurations:
   - kustomizeconfig.yaml
