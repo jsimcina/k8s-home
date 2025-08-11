@@ -3,24 +3,32 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app qbitrr
+  name: &app cross-seed
   namespace: &namespace vpn
 spec:
-  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/vpn/qbitrr/app
+  components:
+    - ../../../../components/keda/nfs-scaler
+    - ../../../../components/volsync
+  dependsOn:
+    - name: keda
+      namespace: monitoring
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  interval: 1h
+  path: ./kubernetes/apps/vpn/cross-seed/app
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 5Gi
   prune: true
   retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: false # no flux ks dependents
-  interval: 1h
+  targetNamespace: *namespace
   timeout: 5m
-  postBuild:
-    substitute:
-      APP: *app
-
+  wait: false
