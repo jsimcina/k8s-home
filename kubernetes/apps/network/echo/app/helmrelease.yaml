@@ -19,7 +19,6 @@ spec:
   values:
     controllers:
       echo:
-        replicas: 2
         strategy: RollingUpdate
         containers:
           app:
@@ -69,12 +68,8 @@ spec:
           - port: http
     route:
       app:
-        hostnames: ["echo.jonandlinz.io"]
+        hostnames: ["{{ .Release.Name }}.jonandlinz.io"]
         parentRefs:
           - name: external
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
