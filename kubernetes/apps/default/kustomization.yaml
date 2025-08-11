@@ -12,5 +12,6 @@ resources:
     - ./ollama/ks.yaml
     - ./paperless-ngx/ks.yaml
     - ./romm/ks.yaml
+    - ./webhook/ks.yaml
 components:
   - ../../components/common
