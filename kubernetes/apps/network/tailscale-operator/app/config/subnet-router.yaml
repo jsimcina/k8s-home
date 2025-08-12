@@ -1,0 +1,16 @@
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: k8s-home-routed-cidrs
+spec:
+  hostname: k8s-home-routed-cidrs
+  subnetRouter:
+    advertiseRoutes:
+      - "10.0.0.0/16"
+      - "10.1.0.0/16"
+      - "10.2.0.0/24"
+      - "10.10.0.0/16"
+      - "10.12.0.0/24"
+      - "10.13.0.0/16"
+      - "10.20.0.0/16"
+      - "10.21.0.0/16"
