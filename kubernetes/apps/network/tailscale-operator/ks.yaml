@@ -37,7 +37,7 @@ spec:
     - name: tailscale-operator
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/network/tailscale-operator/app/config
+  path: ./kubernetes/apps/network/tailscale-operator/config
   prune: true
   retryInterval: 2m
   sourceRef:
