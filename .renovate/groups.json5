@@ -114,7 +114,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 2
+      minimumGroupSize: 4
     },
   ],
 }
