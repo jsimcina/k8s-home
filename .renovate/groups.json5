@@ -59,7 +59,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 2
+      minimumGroupSize: 4
     },
     {
       description: "Intel Device Plugins Group",
@@ -84,7 +84,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 2
+      minimumGroupSize: 4
     },
     {
       description: "Rook-Ceph Group",
@@ -114,7 +114,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 4
+      minimumGroupSize: 2
     },
   ],
 }
