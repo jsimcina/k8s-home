@@ -42,9 +42,9 @@ spec:
               op: "add", path: "/spec/template/spec/initContainers/-",
               value: Object.spec.template.spec.initContainers{
                 name: "jitter",
-                image: "public.ecr.aws/docker/library/busybox:1.37.0@sha256:f9a104fddb33220ec80fc45a4e606c74aadf1ef7a3832eb0b05be9e90cd61f5f",
+                image: "ghcr.io/home-operations/busybox:1.37.0@sha256:026ed7273270ec08f6902b4ae8334c23b473e5394bec3bbbdbfe580c710d50bc",
                 imagePullPolicy: "IfNotPresent",
-                command: ["sh", "-c", "sleep $(shuf -i 0-60 -n 1)"]
+                command: ["sh", "-c", "sleep $(shuf -i 0-30 -n 1)"]
               }
             }
           ]
