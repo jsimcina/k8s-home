@@ -80,12 +80,6 @@ spec:
               - identifier: app
                 port: *port
     persistence:
-      data:
-        existingClaim: "{{ .Release.Name }}"
-        advancedMounts:
-          paperless-ngx:
-            app:
-              - path: /data/local
       docs:
         type: nfs
         server: "nas.jonandlinz.com"

@@ -19,10 +19,10 @@ spec:
       cpu: 1
       memory: 3000Mi
   volumeMounts:
-    - name: storage
-      mountPath: /storage
+    - name: victoria-metrics-data
+      mountPath: /victoria-metrics-data
   volumes:
-    - name: storage
+    - name: victoria-metrics-data
       persistentVolumeClaim:
         claimName: vmsingle-stack
   useDefaultResources: false
