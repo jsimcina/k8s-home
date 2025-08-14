@@ -3,6 +3,9 @@
 version: '3'
 
 vars:
+  RENDER_MACHINE_SCRIPT: '{{.SCRIPTS_DIR}}/render-machine-config.sh'
+  TALOS_MACHINE_FILE: '{{.TALOS_DIR}}/machineconfig.yaml.j2'
+  TALOS_NODES_DIR: '{{.TALOS_DIR}}/nodes'
   TALOS_SCHEMATIC_FILE: '{{.TALOS_DIR}}/schematic.yaml'
 
 tasks:
@@ -10,7 +13,7 @@ tasks:
   apply-node:
     desc: Apply Talos config to a node [NODE=required] [MODE=auto]
     cmd: |
-      {{.SCRIPTS_DIR}}/render-machine-config.sh {{.TALOS_DIR}}/machineconfig.yaml.j2 {{.TALOS_DIR}}/nodes/{{.NODE}}.yaml.j2 \
+      {{.RENDER_MACHINE_SCRIPT}} {{.TALOS_MACHINE_FILE}} {{.TALOS_NODES_DIR}}/{{.NODE}}.yaml.j2 \
           | talosctl --nodes {{.NODE}} apply-config --mode {{.MODE}} --file /dev/stdin
     vars:
       MODE: '{{.MODE | default "auto"}}'
@@ -18,9 +21,9 @@ tasks:
       vars: [NODE]
     preconditions:
       - talosctl --nodes {{.NODE}} get machineconfig
-      - test -f {{.SCRIPTS_DIR}}/render-machine-config.sh
-      - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
-      - test -f {{.TALOS_DIR}}/nodes/{{.NODE}}.yaml.j2
+      - test -f {{.RENDER_MACHINE_SCRIPT}}
+      - test -f {{.TALOS_MACHINE_FILE}}
+      - test -f {{.TALOS_NODES_DIR}}/{{.NODE}}.yaml.j2
       - which minijinja-cli talosctl op yq
 
   upgrade-node:
@@ -34,8 +37,8 @@ tasks:
       vars: [NODE]
     preconditions:
       - talosctl --nodes {{.NODE}} get machineconfig
-      - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
-      - test -f {{.TALOS_DIR}}/nodes/{{.NODE}}.yaml.j2
+      - test -f {{.TALOS_MACHINE_FILE}}
+      - test -f {{.TALOS_NODES_DIR}}/{{.NODE}}.yaml.j2
       - which talosctl yq
 
   upgrade-k8s:
@@ -75,7 +78,7 @@ tasks:
   reset-node:
     desc: Reset Talos on a single node [NODE=required]
     prompt: Reset Talos node '{{.NODE}}' ... continue?
-    cmd: talosctl reset --nodes {{.NODE}} --graceful=false
+    cmd: talosctl reset --nodes {{.NODE}} --graceful=false --user-disks-to-wipe u-local-hostpath
     requires:
       vars: [NODE]
     preconditions:
@@ -85,7 +88,7 @@ tasks:
   reset-cluster:
     desc: Reset Talos across the whole cluster
     prompt: Reset the Talos cluster ... continue?
-    cmd: talosctl reset --nodes {{.NODES}} --graceful=false
+    cmd: talosctl reset --nodes {{.NODES}} --graceful=false --user-disks-to-wipe u-local-hostpath
     vars:
       NODES:
         sh: talosctl config info --output yaml | yq --exit-status '.nodes | join (",")'
