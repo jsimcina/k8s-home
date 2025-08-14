@@ -18,11 +18,13 @@ spec:
     limits:
       cpu: 1
       memory: 2Gi
-  volumeMounts:
-    - name: victoria-metrics-data
-      mountPath: /victoria-metrics-data
-  volumes:
-    - name: victoria-metrics-data
-      persistentVolumeClaim:
-        claimName: vmsingle-stack
+  storage:
+    claimName: vmsingle-stack
+  #volumeMounts:
+  #  - name: victoria-metrics-data
+  #    mountPath: /victoria-metrics-data
+  #volumes:
+  #  - name: victoria-metrics-data
+  #    persistentVolumeClaim:
+  #      claimName: vmsingle-stack
   useDefaultResources: false
