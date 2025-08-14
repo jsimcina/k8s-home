@@ -17,13 +17,13 @@ spec:
       memory: 1Gi
     limits:
       cpu: 1
-      memory: 3000Mi
+      memory: 2Gi
   volumeMounts:
     - name: storage
       mountPath: /storage
   volumes:
     - name: storage
       persistentVolumeClaim:
-        claimName: vmsingle-vmetrics
+        claimName: vmsingle-stack
   storageDataPath: /storage
   useDefaultResources: false
