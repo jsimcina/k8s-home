@@ -17,15 +17,13 @@ spec:
       memory: 1Gi
     limits:
       cpu: 1
-      memory: 2Gi
-  storage:
-    storageClassName: ceph-block
-    persistentVolumeClaim: vmsingle-stack
-  #volumeMounts:
-  #  - name: victoria-metrics-data
-  #    mountPath: /victoria-metrics-data
-  #volumes:
-  #  - name: victoria-metrics-data
-  #    persistentVolumeClaim:
-  #      claimName: vmsingle-stack
+      memory: 3000Mi
+  volumeMounts:
+    - name: storage
+      mountPath: /storage
+  volumes:
+    - name: storage
+      persistentVolumeClaim:
+        claimName: vmsingle-vmetrics
+  storageDataPath: /storage
   useDefaultResources: false
