@@ -19,7 +19,8 @@ spec:
       cpu: 1
       memory: 2Gi
   storage:
-    claimName: vmsingle-stack
+    storageClassName: ceph-block
+    persistentVolumeClaim: vmsingle-stack
   #volumeMounts:
   #  - name: victoria-metrics-data
   #    mountPath: /victoria-metrics-data
