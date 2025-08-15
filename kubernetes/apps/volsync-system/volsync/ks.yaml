@@ -10,8 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: keda
-      namespace: monitoring
     - name: openebs
       namespace: openebs-system
     - name: snapshot-controller

@@ -16,8 +16,6 @@ spec:
     - ../../../../components/volsync
   path: ./kubernetes/apps/vpn/kapowarr/app
   dependsOn:
-    - name: keda
-      namespace: monitoring
     - name: rook-ceph-cluster
       namespace: rook-ceph
   prune: true
