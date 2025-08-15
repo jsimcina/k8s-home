@@ -44,9 +44,11 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2025.8.2@sha256:285c0e289127e85a31e71b20b3529195cd859a19e34b8a05189ffb1ff391c345
+              tag: 2025.8.1@sha256:4e59d68e002d84a8e48f77df029ecd629fd444f57601931cca39a4ee08a45eec
             env:
               TZ: America/Chicago
+              HASS_HTTP_TRUSTED_PROXY_1: 10.69.0.0/16
+              HASS_HTTP_TRUSTED_PROXY_2: 10.12.0.0/24
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -54,33 +56,24 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
             resources:
               requests:
-                cpu: 47m
+                cpu: 50m
                 memory: 2Gi
               limits:
                 memory: 4Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
           http:
-            port: &port 8123
-          code-server:
-            port: &csport 12321
+            port: 8123
     route:
       app:
         hostnames: ["hass.jonandlinz.io"]
@@ -88,34 +81,23 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
-      code-server:
-        hostnames: ["hasscode.jonandlinz.io"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *csport
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
-      logs:
-        type: emptyDir
+      config-cache:
+        existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
-          - path: /config/logs
-      tts:
+          - path: /config/.venv
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /config/tts
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /config/logs
+                subPath: logs
+              - path: /config/tts
+                subPath: tts
+              - path: /tmp
+                subPath: tmp
