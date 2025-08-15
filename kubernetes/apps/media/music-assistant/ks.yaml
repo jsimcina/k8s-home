@@ -16,8 +16,6 @@ spec:
     - ../../../../components/keda/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
-    - name: keda
-      namespace: monitoring
     - name: rook-ceph-cluster
       namespace: rook-ceph
   path: "./kubernetes/apps/media/music-assistant/app"

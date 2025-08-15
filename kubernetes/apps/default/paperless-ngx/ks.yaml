@@ -17,8 +17,6 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: keda
-      namespace: monitoring
   path: ./kubernetes/apps/default/paperless-ngx/app
   prune: true
   retryInterval: 2m
