@@ -12,8 +12,6 @@ spec:
   addresses:
     - type: IPAddress
       value: 10.12.0.250
-    - type: IPAddress
-      value: ::ffff:10.12.0.250
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
