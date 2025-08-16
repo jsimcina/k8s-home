@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
+# yaml-language-server: $schema=https://kube-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
@@ -13,7 +13,7 @@ spec:
     tag: v1.1.11
   url: oci://ghcr.io/dragonflydb/dragonfly-operator/helm/dragonfly-operator
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -23,63 +23,18 @@ spec:
   chartRef:
     kind: OCIRepository
     name: dragonfly-operator
+  dependsOn: []
   install:
     remediation:
       retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
-      retries: 10
-  uninstall:
-    keepHistory: false
+      retries: 3
   values:
-    crds:
-      install: true
-      keep: true
-    serviceAccount:
-      create: true
-      name: *app
-    service:
-      type: ClusterIP
-      port: 8443
-      metricsPort: 8080
     manager:
       image:
         repository: ghcr.io/dragonflydb/operator
-        pullPolicy: IfNotPresent
-      resources:
-        requests:
-          cpu: 10m
-        limits:
-          memory: 128Mi
-      livenessProbe:
-        httpGet:
-          path: /healthz
-          port: 8081
-        initialDelaySeconds: 15
-        periodSeconds: 20
-      readinessProbe:
-        httpGet:
-          path: /readyz
-          port: 8081
-        initialDelaySeconds: 5
-        periodSeconds: 10
-      securityContext:
-        allowPrivilegeEscalation: false
-        capabilities:
-          drop:
-            - ALL
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: DoNotSchedule
-          labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: *app
-      serviceMonitor:
-        enabled: true
-        interval: 1m
-        path: /metrics
-      grafanaDashboard:
-        enabled: true
-        folder: default
+    grafanaDashboard:
+      enabled: true
+      folder: default
