@@ -55,6 +55,23 @@ spec:
               limits:
                 memory: 1024Mi
 
+          bgutil-provider:
+            image:
+              repository: docker.io/brainicism/bgutil-ytdlp-pot-provider
+              tag: 1.1.0
+            env:
+              TZ: America/Chicago
+              PORT: 4416
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
     service:
       app:
         ports:
