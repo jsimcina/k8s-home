@@ -19,6 +19,7 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
+      minimumGroupSize: 2,
     },
     {
       description: "Immich Server Group",
