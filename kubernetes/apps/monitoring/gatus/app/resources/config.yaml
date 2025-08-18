@@ -1,18 +1,25 @@
 ---
 web:
   port: ${GATUS_WEB_PORT}
-storage:
-  type: postgres
-  path: postgres://${INIT_POSTGRES_USER}:${INIT_POSTGRES_PASS}@${INIT_POSTGRES_HOST}:5432/${INIT_POSTGRES_DBNAME}?sslmode=disable
-  caching: true
+
 metrics: true
+
 ui:
   title: Status | Gatus
   header: Status
+  logo: https://avatars.githubusercontent.com/u/2641033
+  link: https://github.com/jsimcina
+  buttons:
+    - name: Github
+      link: https://github.com/jsimcina
+    - name: K8S Cluster
+      link: https://github.com/jsimcina/k8s-home
+
 connectivity:
   checker:
     target: 1.1.1.1:53
     interval: 1m
+
 endpoints:
   - name: flux-webhook
     group: external
@@ -22,6 +29,7 @@ endpoints:
       dns-resolver: tcp://1.1.1.1:53
     conditions:
       - "[STATUS] == 404"
+
   - name: "healthchecks.io Heartbeat"
     group: guarded
     url: ${HEALTHCHECK_HEARTBEAT_URL}
