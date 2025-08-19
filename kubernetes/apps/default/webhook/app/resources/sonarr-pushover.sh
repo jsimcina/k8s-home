@@ -28,7 +28,7 @@ function notify() {
             "${SONARR_APPLICATION_URL}" \
             "${SONARR_SERIES_TITLE_SLUG}"
         printf -v PUSHOVER_URL_TITLE "View Series"
-        printf -v PUSHOVER_PRIORITY "low"
+        printf -v PUSHOVER_PRIORITY "high"
     fi
 
     apprise -vv --title "${PUSHOVER_TITLE}" --body "${PUSHOVER_MESSAGE}" --input-format html \

@@ -28,7 +28,7 @@ function notify() {
             "${RADARR_APPLICATION_URL}" \
             "${RADARR_MOVIE_TMDB_ID}"
         printf -v PUSHOVER_URL_TITLE "View Movie"
-        printf -v PUSHOVER_PRIORITY "low"
+        printf -v PUSHOVER_PRIORITY "high"
     fi
 
     apprise -vv --title "${PUSHOVER_TITLE}" --body "${PUSHOVER_MESSAGE}" --input-format html \
