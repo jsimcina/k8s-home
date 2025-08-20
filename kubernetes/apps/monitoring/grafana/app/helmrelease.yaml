@@ -227,7 +227,7 @@ spec:
         unifi-dpi:
           # renovate: depName="UniFi-Poller: Client DPI - Prometheus"
           gnetId: 11310
-          revision: 9
+          revision: 5
           datasource: Prometheus
         unifi-insights:
           # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
