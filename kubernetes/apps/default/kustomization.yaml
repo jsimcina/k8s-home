@@ -6,7 +6,6 @@ namespace: default
 resources:
     - ./actual/ks.yaml
     - ./bambu-connect/ks.yaml
-    - ./bambustudio/ks.yaml
     - ./changedetection/ks.yaml
     - ./manyfold/ks.yaml
     - ./ollama/ks.yaml
