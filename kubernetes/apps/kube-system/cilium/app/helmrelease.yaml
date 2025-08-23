@@ -54,7 +54,9 @@ spec:
       exclusive: false
     dashboards:
       enabled: true
-    #devices: enp+
+    devices:
+      - bond+
+      - eth1
     enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
