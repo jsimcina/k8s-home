@@ -56,7 +56,6 @@ spec:
       enabled: true
     devices:
       - bond+
-      - eth1
     enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
