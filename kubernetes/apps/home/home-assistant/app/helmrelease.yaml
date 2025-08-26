@@ -30,14 +30,14 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"multus-iot",
-                "namespace": "network",
-                "ips": ["10.21.1.5/16"],
-                "mac": "00:02:b3:af:42:1f"
-              }]
+          #annotations:
+          #  k8s.v1.cni.cncf.io/networks: |
+          #    [{
+          #      "name":"multus-iot",
+          #      "namespace": "network",
+          #      "ips": ["10.21.1.5/16"],
+          #      "mac": "00:02:b3:af:42:1f"
+          #   }]
           nodeSelector:
             multus: "active"
         containers:
