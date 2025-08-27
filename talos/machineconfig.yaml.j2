@@ -63,9 +63,8 @@ machine:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
-      #This is a 1.11 feature
-      #featureGates:
-      #  ImageVolume: true
+      featureGates:
+        ImageVolume: true
       serializeImagePulls: false
     extraMounts:
         - destination: /var/openebs/local
@@ -126,9 +125,6 @@ machine:
       - 10.0.20.3
       - 162.159.200.1
   type: controlplane
-  udev:
-    rules:
-      - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
 cluster:
   ca:
     crt: op://kubernetes/talos/CLUSTER_CA_CRT
@@ -167,7 +163,7 @@ cluster:
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
-      feature-gates: MutatingAdmissionPolicy=true
+      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1alpha1=true
     image: registry.k8s.io/kube-apiserver:v1.33.4
   controllerManager:
