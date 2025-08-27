@@ -93,6 +93,8 @@ machine:
         vip:
           ip: 10.12.0.254
         vlans:
+          - # K8s VLAN
+            { vlanId: 12, dhcp: false, mtu: 1500 }
           - # IOT VLAN
             { vlanId: 21, dhcp: false, mtu: 1500 }
   nodeLabels:
