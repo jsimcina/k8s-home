@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/jsimcina/k8s-home/refs/heads/main/docs/src/assets/logo.png" align="center" width="144px" height="144px"/>
+<img width="200" height="194" alt="kubelogo" src="https://github.com/user-attachments/assets/1cae9c36-5a41-4f65-bc78-cc40d76bef0d" align="center" width="144px" height="144px" />
 
 ### <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="🚀" width="16" height="16"> My Home Operations Repository <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f6a7/512.gif" alt="🚧" width="16" height="16">
 
@@ -55,11 +55,10 @@ There is a template over at [onedr0p/cluster-template](https://github.com/onedr0
 
 - [actions-runner-controller](https://github.com/actions/actions-runner-controller): Self-hosted Github runners.
 - [cert-manager](https://github.com/cert-manager/cert-manager): Creates SSL certificates for services in my cluster.
-- [cilium](https://github.com/cilium/cilium): Internal Kubernetes container networking interface.
-- [cloudflared](https://github.com/cloudflare/cloudflared): Enables Cloudflare secure access to certain ingresses.
+- [cilium](https://github.com/cilium/cilium): eBPF-based networking for workloads.
+- [cloudflared](https://github.com/cloudflare/cloudflared): Enables Cloudflare secure access to my routes.
 - [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically syncs ingress DNS records to a DNS provider.
 - [external-secrets](https://github.com/external-secrets/external-secrets): Managed Kubernetes secrets using [1Password Connect](https://github.com/1Password/connect).
-- [ingress-nginx](https://github.com/kubernetes/ingress-nginx): Kubernetes ingress controller using NGINX as a reverse proxy and load balancer.
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
 - [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes and Terraform which are commited to Git.
 - [spegel](https://github.com/spegel-org/spegel): Stateless cluster local OCI registry mirror.
@@ -78,12 +77,10 @@ The way Flux works for me here is it will recursively search the `kubernetes/app
 This Git repository contains the following directories:
 
 ```sh
-📁 bootstrap          # bootstrap procedures
 📁 kubernetes
 ├── 📁 apps       # applications
 ├── 📁 components # re-useable kustomize components
 └── 📁 flux       # flux system configuration
-📁 talos              # Talos node configuration data
 ```
 
 ### Flux Workflow
@@ -128,21 +125,18 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 
 | Device                      | Num | OS Disk Size | Data Disk Size                      | Ram  | OS            | Function                |
 |-----------------------------|-----|--------------|-------------------------------------|------|---------------|-------------------------|
-| Minisforum MS-01 13900H     | 3   | 1TB SSD      | 1TB (rook-ceph)                     | 64GB | Talos         | Kubernetes              |
-| Asus P64 NUC 12500H         | 1   | 1TB SSD      | 1TB (rook-ceph)                     | 64GB | Talos         | Kubernetes              |
-| BeeLink EQ12 N100           | 1   | 240GB SSD    | 1TB (rook-ceph)                     | 16GB | Talos         | Kubernetes/ZWave Host   |
-| PowerEdge R730XD            | 1   | 1TB SSD      | 7x14TB Array + 4TB NVME NVR Cache   | 128GB| Unraid        | NFS + Backup Server     |
+| Minisforum MS-01 13900H     | 3   | 1TB SSD      | 1.92TB (rook-ceph)                  | 96GB | Talos         | Kubernetes              |
+| PowerEdge R730XD            | 1   | 1TB SSD      | 7x14TB Array + 4TB NVME NVR Cache   | 128GB| TrueNAS SCALE | NFS + Backup Server     |
 | PiKVM (RasPi 4)             | 1   | 64GB (SD)    | -                                   | 4GB  | PiKVM         | KVM                     |
 | TESmart 8 Port KVM Switch   | 1   | -            | -                                   | -    | -             | Network KVM (for PiKVM) |
 | UniFi UDM SE                | 1   | -            | -                                   | -    | -             | Router                  |
-| UniFi USW-Aggregation       | 1   | -            | -                                   | -    | -             | 10Gb Core Switch        |
+| Brocade ICX6650             | 1   | -            | -                                   | -    | -             | 10/40Gb Core Switch        |
 | USW-PRO-MAX-24              | 1   | -            | -                                   | -    | -             | 1/2.5Gb Core Switch     |
 | USW-PRO-MAX-24-POE          | 1   | -            | -                                   | -    | -             | 1/2.5Gb POE Core Switch |
 | USW-PRO-MAX-16-POE          | 1   | -            | -                                   | -    | -             | 1/2.5Gb POE Outdoor     |
 | Eaton SU2200RTXL2UA         | 1   | -            | -                                   | -    | -             | UPS                     |
 | Eaton BP48V27-2US           | 2   | -            | -                                   | -    | -             | External Battery Packs  |
 | Tripp-Lite PDUMH20AT        | 1   | -            | -                                   | -    | -             | PDU/ATS                 |
-
 
 ---
 
