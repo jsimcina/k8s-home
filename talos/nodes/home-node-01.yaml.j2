@@ -3,6 +3,9 @@ machine:
   network:
     hostname: home-node-01
     interfaces:
+      - deviceSelector:
+          hardwareAddr: 58:47:ca:7e:df:af
+        ignore: true
       #TB Ring
       - deviceSelector:
           busPath: 0-1.0 # home-node-02
@@ -23,3 +26,7 @@ machine:
           - network: 169.254.255.13/32
             metric: 2048
   type: controlplane
+  udev:
+    rules:
+    # Rename secondary adapter to eth1
+      - SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="58:47:ca:7e:df:af", ATTR{type}=="1", NAME="eth1"
