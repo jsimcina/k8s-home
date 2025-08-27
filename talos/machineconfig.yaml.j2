@@ -52,7 +52,7 @@ machine:
   install:
     diskSelector:
       model: SAMSUNG MZ1L2960HCJR-00A07
-    image: factory.talos.dev/metal-installer/7a28044d2a58d5f4b65b1ae56670fad8066cba59257292563a7a7348d9a484af:v1.10.7
+    image: factory.talos.dev/metal-installer/7a28044d2a58d5f4b65b1ae56670fad8066cba59257292563a7a7348d9a484af:v1.11.0-rc.0
     wipe: false
   kernel:
     modules:
@@ -92,11 +92,6 @@ machine:
         dhcp: true
         vip:
           ip: 10.12.0.254
-        vlans:
-          - # K8s VLAN
-            { vlanId: 12, dhcp: false, mtu: 1500 }
-          - # IOT VLAN
-            { vlanId: 21, dhcp: false, mtu: 1500 }
   nodeLabels:
     intel.feature.node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: k8s-home
