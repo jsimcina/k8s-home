@@ -59,7 +59,8 @@ spec:
             port: *port
     route:
       app:
-        hostnames: ["pgadmin.jonandlinz.io"]
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
           - name: internal
             namespace: kube-system

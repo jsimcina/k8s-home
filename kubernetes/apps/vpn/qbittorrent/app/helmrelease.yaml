@@ -93,7 +93,7 @@ spec:
               allowPrivilegeEscalation: false
               fsGroupChangePolicy: OnRootMismatch
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 100m
@@ -125,7 +125,8 @@ spec:
 
     route:
       app:
-        hostnames: ["qb.jonandlinz.io"]
+        hostnames:
+          - qb.jonandlinz.io
         parentRefs:
           - name: internal
             namespace: kube-system

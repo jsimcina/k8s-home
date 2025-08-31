@@ -5,7 +5,8 @@ kind: HTTPRoute
 metadata:
   name: authentik-http
 spec:
-  hostnames: ["auth.jonandlinz.io"]
+  hostnames:
+    - auth.jonandlinz.io
   parentRefs:
     - name: external
       namespace: kube-system

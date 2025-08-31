@@ -53,7 +53,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 10m
@@ -84,7 +84,8 @@ spec:
             protocol: TCP
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.jonandlinz.io"]
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
           - name: internal
             namespace: kube-system

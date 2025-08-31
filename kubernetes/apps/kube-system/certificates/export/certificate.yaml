@@ -10,4 +10,6 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   commonName: jonandlinz.io
-  dnsNames: ["jonandlinz.io", "*.jonandlinz.io"]
+  dnsNames:
+    - jonandlinz.io
+    - "*.jonandlinz.io"

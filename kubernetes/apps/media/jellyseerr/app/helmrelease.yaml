@@ -59,7 +59,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 10m
@@ -80,7 +80,8 @@ spec:
             port: *port
     route:
       app:
-        hostnames: ["requests.jonandlinz.io"]
+        hostnames:
+          - requests.jonandlinz.io
         parentRefs:
           - name: external
             namespace: kube-system

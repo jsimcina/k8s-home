@@ -32,21 +32,16 @@
     // namespaces
     "actions-runner-system": "github",
     "cert-manager": "guard",
-    "database": "database",
     "default": "home",
-    "docs": "docs",
     "external-secrets": "secure",
     "flux-system": "pipe",
     "kube-system": "kubernetes",
     "network": "connection",
-    "media": "video",
-    "monitoring": "event",
+    "observability": "event",
     "openebs-system": "base",
     "rook-ceph": "dump",
-    "security": "secure",
     "system-upgrade": "update",
-    "volsync-system": "aws",
-    "vpn": "cloudflare"
+    "volsync-system": "aws"
   },
   "sops.defaults.ageKeyFile": "age.key",
   "vs-kubernetes": {
@@ -58,5 +53,8 @@
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {
     "kubernetes": "./kubernetes/**/*.yaml"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "bluebrown.yamlfmt"
   }
 }

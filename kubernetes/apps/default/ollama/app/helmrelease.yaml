@@ -60,7 +60,8 @@ spec:
 
     route:
       app:
-        hostnames: ["ollama.jonandlinz.io"]
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
           - name: internal
             namespace: kube-system

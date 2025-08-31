@@ -1,20 +1,4 @@
 ---
-web:
-  port: ${GATUS_WEB_PORT}
-
-metrics: true
-
-ui:
-  title: Status | Gatus
-  header: Status
-  logo: https://avatars.githubusercontent.com/u/2641033
-  link: https://github.com/jsimcina
-  buttons:
-    - name: Github
-      link: https://github.com/jsimcina
-    - name: K8S Cluster
-      link: https://github.com/jsimcina/k8s-home
-
 connectivity:
   checker:
     target: 1.1.1.1:53
@@ -38,3 +22,19 @@ endpoints:
       dns-resolver: tcp://1.1.1.1:53
     conditions:
       - "[STATUS] == 200"
+
+metrics: true
+
+ui:
+  title: Status | Gatus
+  header: Status
+  logo: https://avatars.githubusercontent.com/u/2641033
+  link: https://github.com/jsimcina
+  buttons:
+    - name: Github
+      link: https://github.com/jsimcina
+    - name: K8S Cluster
+      link: https://github.com/jsimcina/k8s-home
+
+web:
+  port: ${GATUS_WEB_PORT}

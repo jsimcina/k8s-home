@@ -52,7 +52,8 @@ spec:
 
     route:
       app:
-        hostnames: ["esphome.jonandlinz.io"]
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
           - name: internal
             namespace: kube-system

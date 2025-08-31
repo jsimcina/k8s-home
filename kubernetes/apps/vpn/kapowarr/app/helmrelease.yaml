@@ -48,7 +48,8 @@ spec:
             port: &port 80
     route:
       app:
-        hostnames: ["kapowarr.jonandlinz.io"]
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
           - name: internal
             namespace: kube-system

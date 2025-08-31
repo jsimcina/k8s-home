@@ -70,7 +70,8 @@ spec:
             port: *port
     route:
       app:
-        hostnames: ["paperless.jonandlinz.io"]
+        hostnames:
+          - paperless.jonandlinz.io
         parentRefs:
           - name: internal
             namespace: kube-system

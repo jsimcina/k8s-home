@@ -68,7 +68,8 @@ spec:
             port: *port
     route:
       app:
-        hostnames: ["matter-server.jonandlinz.io"]
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
           - name: internal
             namespace: kube-system

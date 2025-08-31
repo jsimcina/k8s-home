@@ -109,7 +109,8 @@ spec:
             interval: 1m
     route:
       app:
-        hostnames: ["vernemq.jonandlinz.io"]
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
           - name: internal
             namespace: kube-system

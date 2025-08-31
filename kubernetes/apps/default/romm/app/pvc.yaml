@@ -4,7 +4,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: romm-resources
 spec:
-  accessModes: ["ReadWriteOnce"]
+  accessModes:
+    - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi

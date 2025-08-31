@@ -54,10 +54,13 @@ spec:
       - --zone-id-filter=$(CF_ZONE_ID)
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["crd", "gateway-httproute"]
+    sources:
+      - crd
+      - gateway-httproute
     txtOwnerId: default
     txtPrefix: k8s.
-    domainFilters: ["jonandlinz.io"]
+    domainFilters:
+      - jonandlinz.io
     serviceMonitor:
       enabled: true
     podAnnotations:

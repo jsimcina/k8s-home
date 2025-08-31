@@ -22,4 +22,5 @@ kind: ServiceAccount
 metadata:
   name: mr-wriggler-local-runner
 spec:
-  roles: ["os:admin"]
+  roles:
+    - os:admin

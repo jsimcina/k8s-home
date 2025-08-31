@@ -72,7 +72,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
     defaultPodOptions:
       securityContext:
         runAsUser: 1000
@@ -87,7 +87,8 @@ spec:
             port: *port
     route:
       app:
-        hostnames: ["models.jonandlinz.io"]
+        hostnames:
+          - models.jonandlinz.io
         parentRefs:
           - name: external
             namespace: kube-system

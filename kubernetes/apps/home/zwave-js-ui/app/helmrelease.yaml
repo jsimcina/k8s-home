@@ -59,7 +59,8 @@ spec:
             port: 3000
     route:
       app:
-        hostnames: ["zwave.jonandlinz.io"]
+        hostnames:
+          - zwave.jonandlinz.io
         parentRefs:
           - name: internal
             namespace: kube-system

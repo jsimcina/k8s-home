@@ -41,7 +41,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { add: ["NET_ADMIN"], drop: ["ALL"] }
+              capabilities: {add: ["NET_ADMIN"],drop: ["ALL"]}
         serviceAccount:
           name: multus
     defaultPodOptions:

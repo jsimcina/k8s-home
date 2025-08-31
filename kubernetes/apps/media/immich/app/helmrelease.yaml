@@ -46,7 +46,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 150m
@@ -92,7 +92,8 @@ spec:
             port: 3003
     route:
       app:
-        hostnames: ["photos.jonandlinz.io"]
+        hostnames:
+          - photos.jonandlinz.io
         parentRefs:
           - name: external
             namespace: kube-system

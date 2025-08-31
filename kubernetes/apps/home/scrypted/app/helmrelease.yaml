@@ -96,7 +96,8 @@ spec:
             port: 10405
     route:
       app:
-        hostnames: ["scrypted.jonandlinz.io"]
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
           - name: internal
             namespace: kube-system

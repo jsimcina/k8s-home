@@ -82,7 +82,8 @@ spec:
 
     route:
       app:
-        hostnames: ["music-assistant.jonandlinz.io"]
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
           - name: internal
             namespace: kube-system

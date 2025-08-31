@@ -43,7 +43,8 @@ spec:
             port: &port 5000
     route:
       app:
-        hostnames: ["read.jonandlinz.io"]
+        hostnames:
+          - read.jonandlinz.io
         parentRefs:
           - name: internal
             namespace: kube-system

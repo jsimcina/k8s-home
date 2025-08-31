@@ -5,7 +5,8 @@ kind: HTTPRoute
 metadata:
   name: rook
 spec:
-  hostnames: ["rook.jonandlinz.io"]
+  hostnames:
+    - rook.jonandlinz.io
   parentRefs:
     - name: internal
       namespace: kube-system

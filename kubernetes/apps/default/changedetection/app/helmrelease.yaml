@@ -38,7 +38,7 @@ spec:
             #      name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
               readOnlyRootFilesystem: true
           browser:
             image:
@@ -79,7 +79,8 @@ spec:
         sizeLimit: 1Gi
     route:
       changedetection:
-        hostnames: ["changedetection.jonandlinz.io"]
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
           - name: internal
             namespace: kube-system
