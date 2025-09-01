@@ -16,7 +16,7 @@ components:
   - ../../components/common
 patches:
   - # Add necessary labels for Pod gateway to the namespace
-    patch: |
+    patch: |-
       - op: add
         path: /metadata/labels
         value:

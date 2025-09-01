@@ -54,7 +54,7 @@ spec:
     - name: pushover
       pushoverConfigs:
         - html: true
-          message: |
+          message: |-
             {{- range .Alerts }}
               {{- if ne .Annotations.description "" }}
                 {{ .Annotations.description }}
@@ -73,7 +73,7 @@ spec:
                 </small>
               {{- end }}
             {{- end }}
-          priority: |
+          priority: |-
             {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
           sendResolved: true
           sound: gamelan
