@@ -8,7 +8,7 @@ spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: ollama
   install:
     remediation:
       retries: -1
@@ -92,7 +92,7 @@ spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: ollama
   install:
     remediation:
       retries: -1

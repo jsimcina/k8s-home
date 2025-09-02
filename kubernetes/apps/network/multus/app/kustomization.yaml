@@ -5,4 +5,5 @@ resources:
   # renovate: datasource=github-releases depName=k8snetworkplumbingwg/network-attachment-definition-client
   - https://raw.githubusercontent.com/k8snetworkplumbingwg/network-attachment-definition-client/refs/tags/v1.7.7/artifacts/networks-crd.yaml
   - ./helmrelease.yaml
+  - ./ocirepository.yaml
   - ./rbac.yaml
