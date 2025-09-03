@@ -10,6 +10,7 @@ resources:
     - ./manyfold/ks.yaml
     - ./ollama/ks.yaml
     - ./paperless-ngx/ks.yaml
+    - ./qui/ks.yaml
     - ./romm/ks.yaml
     - ./webhook/ks.yaml
 components:
