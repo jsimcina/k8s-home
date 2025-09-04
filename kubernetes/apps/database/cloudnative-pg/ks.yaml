@@ -25,7 +25,7 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: cnpg-barman-cloud-crds
+  name: cloudnative-pg-barman-cloud-crds
 spec:
   interval: 1h
   url: https://github.com/cloudnative-pg/plugin-barman-cloud.git
