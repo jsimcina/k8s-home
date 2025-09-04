@@ -83,7 +83,6 @@ spec:
         path: /mnt/rustpool/media_server/usenet
         globalMounts:
           - path: /media/usenet
-            subPath: nzbget
       tmpfs:
         type: emptyDir
         advancedMounts:
