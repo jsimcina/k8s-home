@@ -36,15 +36,17 @@ spec:
               UN_ACTIVITY: true
               UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local
               UN_SONARR_0_PATHS_0: /media/torrents/
-              UN_SONARR_0_PATHS_1: /media/usenet/completed/
-              UN_SONARR_0_PROTOCOLS: torrent,usenet
+              #UN_SONARR_0_PATHS_1: /media/usenet/completed/
+              #UN_SONARR_0_PROTOCOLS: torrent,usenet
+              UN_SONARR_0_PROTOCOLS: torrent
               UN_SONARR_0_TIMEOUT: 10s
               UN_SONARR_0_DELETE_ORIG: true
               UN_SONARR_0_DELETE_DELAY: 5m
               UN_RADARR_0_URL: http://radarr.media.svc.cluster.local
               UN_RADARR_0_PATHS_0: /media/torrents/
-              UN_RADARR_0_PATHS_1: /media/usenet/completed/
-              UN_RADARR_0_PROTOCOLS: torrent,usenet
+              #UN_RADARR_0_PATHS_1: /media/usenet/completed/
+              #UN_RADARR_0_PROTOCOLS: torrent,usenet
+              UN_RADARR_0_PROTOCOLS: torrent
               UN_RADARR_0_TIMEOUT: 10s
               UN_RADARR_0_DELETE_ORIG: true
               UN_RADARR_0_DELETE_DELAY: 5m
