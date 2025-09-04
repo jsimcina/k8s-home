@@ -1,0 +1,22 @@
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: cfr2
+spec:
+  configuration:
+    data:
+      compression: bzip2
+    destinationPath: s3://cnpg/
+    endpointURL: https://531a6d1ed13dfc473dcac1270662c109.r2.cloudflarestorage.com
+    s3Credentials:
+      accessKeyId:
+        name: cloudnative-pg-secret
+        key: aws-access-key-id
+      secretAccessKey:
+        name: cloudnative-pg-secret
+        key: aws-access-key-secret
+    wal:
+      compression: bzip2
+      maxParallel: 8
+  retentionPolicy: 30d
