@@ -52,17 +52,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-    persistence:
-      server:
-        type: secret
-        name: *serverCert
-        globalMounts:
-          - path: /server
-      client:
-        type: secret
-        name: *clientCert
-        globalMounts:
-          - path: /client
     service:
       barman-cloud:
         forceRename: barman-cloud
@@ -76,6 +65,17 @@ spec:
         ports:
           tcp:
             port: *port
+    persistence:
+      server:
+        type: secret
+        name: *serverCert
+        globalMounts:
+          - path: /server
+      client:
+        type: secret
+        name: *clientCert
+        globalMounts:
+          - path: /client
     rawResources:
       client: &cert
         apiVersion: cert-manager.io/v1
