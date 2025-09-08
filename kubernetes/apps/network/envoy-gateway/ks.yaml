@@ -15,7 +15,10 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/network/envoy-gateway/app
   prune: true
-
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
