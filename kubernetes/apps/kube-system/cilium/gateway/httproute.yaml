@@ -9,11 +9,11 @@ metadata:
     external-dns.alpha.kubernetes.io/controller: none
 spec:
   parentRefs:
-    - name: internal
-      namespace: kube-system
+    - name: envoy-internal
+      namespace: network
       sectionName: http
-    - name: external
-      namespace: kube-system
+    - name: envoy-external
+      namespace: network
       sectionName: http
   rules:
     - filters:
