@@ -6,4 +6,4 @@ resources:
   - ./external.yaml
   - ./internal.yaml
   - ./notunnel.yaml
-  - ./redirect.yaml
+  - ./httproute.yaml
