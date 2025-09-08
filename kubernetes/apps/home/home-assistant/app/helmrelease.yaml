@@ -80,8 +80,8 @@ spec:
         hostnames:
           - hass.jonandlinz.io
         parentRefs:
-          - name: envoy-internal
-            namespace: network
+          - name: internal
+            namespace: kube-system
             sectionName: https
     persistence:
       config:

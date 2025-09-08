@@ -93,8 +93,8 @@ spec:
         hostnames:
           - status.jonandlinz.io
         parentRefs:
-          - name: envoy-external
-            namespace: network
+          - name: external
+            namespace: kube-system
             sectionName: https
     rbac:
       roles:

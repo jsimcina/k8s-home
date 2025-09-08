@@ -71,8 +71,8 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
-          - name: envoy-external
-            namespace: network
+          - name: external
+            namespace: kube-system
             sectionName: https
         rules:
           - backendRefs:

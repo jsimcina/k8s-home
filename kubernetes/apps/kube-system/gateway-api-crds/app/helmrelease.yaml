@@ -3,21 +3,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: envoy-gateway
+  name: gateway-api-crds
 spec:
-  interval: 5m
+  interval: 1h
   chartRef:
     kind: OCIRepository
-    name: envoy-gateway
+    name: gateway-api-crds
   install:
-    crds: CreateReplace
     remediation:
       retries: -1
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
     remediation:
       retries: 3
-  values:
-    global:
-      imageRegistry: mirror.gcr.io
