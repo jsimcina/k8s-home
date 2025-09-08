@@ -4,7 +4,7 @@ originRequest:
 
 ingress:
   - hostname: jonandlinz.io
-    service: &svc https://cilium-gateway-external.kube-system.svc.cluster.local
+    service: &svc https://envoy-external.network.svc.cluster.local
   - hostname: "*.jonandlinz.io"
     service: *svc
   - service: http_status:404
