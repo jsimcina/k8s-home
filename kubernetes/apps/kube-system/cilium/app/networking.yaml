@@ -79,7 +79,6 @@ metadata:
     io.cilium/lb-ipam-ips: 10.12.0.254
 spec:
   type: LoadBalancer
-  externalTrafficPolicy: Cluster
   selector:
     k8s-app: kube-apiserver
     tier: control-plane
