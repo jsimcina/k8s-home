@@ -78,7 +78,7 @@ spec:
         hostnames:
           - watch.jonandlinz.io
         parentRefs:
-          - name: envoy-external
+          - name: envoy-external-notunnel
             namespace: network
             sectionName: https
         rules:
