@@ -152,12 +152,6 @@ spec:
           revision: 1
           datasource:
             - {name: DS_AFRANET_PROMETHEUS, value: Prometheus}
-        envoy-gateway:
-          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-addons-helm/dashboards/envoy-gateway-global.json
-          datasource: Prometheus
-        envoy-proxy:
-          url: https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-addons-helm/dashboards/envoy-proxy-global.json
-          datasource: Prometheus
         external-dns:
           # renovate: depName="External-dns"
           gnetId: 15038
@@ -290,8 +284,8 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
-          - name: envoy-internal
-            namespace: network
+          - name: internal
+            namespace: kube-system
             sectionName: https
     persistence:
       enabled: false

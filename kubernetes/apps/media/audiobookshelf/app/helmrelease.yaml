@@ -71,8 +71,8 @@ spec:
         hostnames:
           - listen.jonandlinz.io
         parentRefs:
-          - name: envoy-external
-            namespace: network
+          - name: external
+            namespace: kube-system
             sectionName: https
         rules:
           - backendRefs:

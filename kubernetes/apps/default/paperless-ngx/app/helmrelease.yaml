@@ -73,8 +73,8 @@ spec:
         hostnames:
           - paperless.jonandlinz.io
         parentRefs:
-          - name: envoy-internal
-            namespace: network
+          - name: internal
+            namespace: kube-system
             sectionName: https
         rules:
           - backendRefs:

@@ -8,7 +8,7 @@ controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
 nodes := `talosctl config info -o yaml | yq -e '.nodes | join (" ")'`
 
 [private]
-default: talos kubernetes controller-kubeconfig wait namespaces resources crds apps cilium-kubeconfig
+default: talos kubernetes kubeconfig wait namespaces resources crds apps
 
 [doc('Install Talos')]
 talos:
@@ -31,14 +31,11 @@ kubernetes:
         sleep 5; \
     done
 
-[doc('Fetch kubeconfig with the controller endpoint')]
-controller-kubeconfig:
+[doc('Fetch kubeconfig for the Talos cluster')]
+kubeconfig:
     just log info "Running stage..." "stage" "$0"
     if ! just talos gen-kubeconfig; then \
         just log fatal "Failed to fetch kubeconfig" "stage" "$0"; \
-    fi
-    if ! kubectl config set-cluster main --server "https://{{ controller }}:6443"; then \
-        just log fatal "Failed to set kubectl cluster server address" "stage" "$0"; \
     fi
 
 [doc('Wait for nodes to be not-ready')]
@@ -79,11 +76,4 @@ apps:
     just log info "Running stage..." "stage" "$0"
     if ! helmfile -f "{{ bootstrap_dir }}/helmfile.d/01-apps.yaml" sync --hide-notes; then \
         just log fatal "Failed to sync helmfile" "stage" "$0"; \
-    fi
-
-[doc('Fetch kubeconfig with the cilium endpoint')]
-cilium-kubeconfig:
-    just log info "Running stage..." "stage" "$0"
-    if ! just talos gen-kubeconfig; then \
-        just log fatal "Failed to fetch kubeconfig" "stage" "$0"; \
     fi

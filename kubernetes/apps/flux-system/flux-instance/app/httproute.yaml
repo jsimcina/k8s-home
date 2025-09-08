@@ -8,8 +8,8 @@ spec:
   hostnames:
     - flux-webhook.jonandlinz.io
   parentRefs:
-    - name: envoy-external
-      namespace: network
+    - name: external
+      namespace: kube-system
       sectionName: https
   rules:
     - matches:
