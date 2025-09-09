@@ -6,5 +6,4 @@ resources:
   - ./envoy.yaml
   - ./helmrelease.yaml
   - ./observability.yaml
-  #- Nope
   - ./ocirepository.yaml
