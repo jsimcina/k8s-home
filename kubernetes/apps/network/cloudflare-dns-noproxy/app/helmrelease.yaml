@@ -3,12 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app cloudflare-dns
+  name: &app cloudflare-dns-noproxy
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: cloudflare-dns
+    name: cloudflare-dns-noproxy
   install:
     remediation:
       retries: 2
