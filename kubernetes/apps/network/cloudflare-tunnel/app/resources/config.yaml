@@ -4,7 +4,7 @@ originRequest:
 
 ingress:
   - hostname: jonandlinz.io
-    service: &svc https://envoy-external.network.svc.cluster.local
+    service: &service https://envoy-external.network.svc.cluster.local
   - hostname: "*.jonandlinz.io"
-    service: *svc
+    service: *service
   - service: http_status:404
