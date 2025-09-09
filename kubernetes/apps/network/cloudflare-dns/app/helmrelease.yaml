@@ -34,7 +34,7 @@ spec:
     extraArgs:
       - --cloudflare-dns-records-per-page=1000
       - --cloudflare-proxied
-      - --upsert-only
+      - --policy=upsert-only
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
       - --gateway-name=envoy-external
