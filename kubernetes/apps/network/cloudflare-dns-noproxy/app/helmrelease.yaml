@@ -24,7 +24,7 @@ spec:
       - name: &name CF_API_TOKEN
         valueFrom:
           secretKeyRef:
-            name: &secret cloudflare-dns-secret-noproxy
+            name: &secret cloudflare-dns-noproxy-secret
             key: *name
       - name: &name CF_ZONE_ID
         valueFrom:
