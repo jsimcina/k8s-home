@@ -5,6 +5,7 @@
     "docker:enableMajor",
     "helpers:pinGitHubActionDigests",
     "github>jsimcina/k8s-home//.renovate/autoMerge.json5",
+    "github>jsimcina/k8s-home//.renovate/changelogs.json5",
     "github>jsimcina/k8s-home//.renovate/customManagers.json5",
     "github>jsimcina/k8s-home//.renovate/grafanaDashboards.json5",
     "github>jsimcina/k8s-home//.renovate/groups.json5",

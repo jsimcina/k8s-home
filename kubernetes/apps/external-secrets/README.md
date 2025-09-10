@@ -1,6 +1,5 @@
 
-# Onepassword Connect
-
+# Onepassword Connect, this is now deprecated in favor of in-cluster 1pass, but is still a viable solution
 ## Deployment
 ```yaml
 services:
