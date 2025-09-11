@@ -14,4 +14,3 @@ resources:
   - ./envoy-gateway/ks.yaml
   - ./lan-dns/ks.yaml
   - ./multus/ks.yaml
-  - ./tailscale-operator/ks.yaml
