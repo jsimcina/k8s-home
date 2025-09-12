@@ -63,7 +63,7 @@ spec:
               allowPrivilegeEscalation: true
               readOnlyRootFilesystem: false
               #capabilities: {drop: ["ALL"]}
-              capabilities: {add: ["NET_RAW"]}
+              capabilities: {add: ["NET_ADMIN"]}
             resources:
               requests:
                 cpu: 10m
