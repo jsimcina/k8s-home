@@ -91,6 +91,11 @@ machine:
         dhcp: true
         vip:
           ip: 10.12.0.254
+        vlans:
+          - # IOT
+            vlanId: 21
+            dhcp: false
+            mtu: 9000
   nodeLabels:
     intel.feature.node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: k8s-home
