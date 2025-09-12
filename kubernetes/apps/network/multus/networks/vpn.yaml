@@ -25,7 +25,6 @@ spec:
           }
         },
         {
-          "capabilities": { "mac": true },
           "type": "sbr"
         }
       ]
