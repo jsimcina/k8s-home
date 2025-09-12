@@ -10,9 +10,6 @@ spec:
     kind: OCIRepository
     name: qbittorrent
   values:
-    defaultPodOptions:
-      labels:
-        setGateway: "false"
     controllers:
       qbittorrent:
         annotations:
@@ -21,43 +18,6 @@ spec:
           reloader.stakater.com/auto: "true"
         labels:
           nfsMount: "true"
-        pod:
-          securityContext:
-            fsGroup: 1000
-            fsGroupChangePolicy: "OnRootMismatch"
-        initContainers:
-          dnsdist:
-            image:
-              repository: docker.io/powerdns/dnsdist-19
-              tag: 1.9.10
-            restartPolicy: Always
-
-          gluetun:
-            dependsOn:
-              - dnsdist
-            image:
-              repository: ghcr.io/qdm12/gluetun
-              tag: v3.40.0
-            env:
-              DOT: "off"
-              HTTP_CONTROL_SERVER_AUTH_CONFIG_FILEPATH: &gluetunAuthPath /gluetun/auth.toml
-              VPN_INTERFACE: tun0
-              FIREWALL_INPUT_PORTS: &port 80
-              FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/16,10.69.0.0/16,10.12.0.0/24 # Allow access to k8s subnets
-              VPN_PORT_FORWARDING_UP_COMMAND: /bin/sh -c '/usr/bin/wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{`{{PORTS}}`}}}" http://localhost:80/api/v2/app/setPreferences 2>&1'
-            envFrom:
-              - secretRef:
-                  name: gluetun-secret
-            lifecycle:
-              postStart:
-                exec:
-                  command: ["/bin/sh", "-c", "(ip rule del table 51820; ip -6 rule del table 51820) || true"]
-            restartPolicy: Always
-            securityContext:
-              capabilities:
-                add:
-                  - NET_ADMIN
-              allowPrivilegeEscalation: false
         containers:
           app:
             image:
@@ -66,10 +26,9 @@ spec:
             env:
               TZ: America/Chicago
               QBT_WEBUI_PORT: *port
-              QBT_Preferences__WebUI__AlternativeUIEnabled: false
-              QBT_Preferences__WebUI__LocalHostAuth: false
-              QBT_BitTorrent__Session__Interface: tun0
-              QBT_BitTorrent__Session__InterfaceName: tun0
+              QBT_TORRENTING_PORT: 58282
+              QBT_BitTorrent__Session__Interface: net1
+              QBT_BitTorrent__Session__InterfaceName: net1
             probes:
               liveness: &probes
                 enabled: false
@@ -86,13 +45,8 @@ spec:
               startup:
                 enabled: false
             securityContext:
-              runAsUser: 1000
-              runAsGroup: 1000
-              fsGroup: 1000
-              runAsNonRoot: true
               allowPrivilegeEscalation: false
-              fsGroupChangePolicy: OnRootMismatch
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
             resources:
               requests:
@@ -109,20 +63,31 @@ spec:
               MOUSEHOLE_STATE_DIR_PATH: /config/mousehole
               MOUSEHOLE_PORT: &mouseport 5010
             securityContext:
-              runAsUser: 1000
-              runAsGroup: 1000
-              runAsNonRoot: true
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
+              capabilities: {drop: ["ALL"]}
+
+    defaultPodOptions:
+      annotations:
+          k8s.v1.cni.cncf.io/networks: |-
+            [{
+              "name": "multus-vpn",
+              "namespace": "network",
+              "ips": ["10.4.0.12/24"],
+              "mac": "00:02:41:8e:8d:cc"
+            }]
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
     service:
       app:
         ports:
           http:
             port: *port
-
     route:
       app:
         hostnames:
@@ -142,23 +107,6 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /config
-      gluetun-auth:
-        type: secret
-        name: "{{ .Release.Name }}-gluetun-secret"
-        advancedMounts:
-          qbittorrent:
-            gluetun:
-              - path: *gluetunAuthPath
-                subPath: auth.toml
-      dnsdist:
-        type: configMap
-        name: qbittorrent-dnsdist
-        advancedMounts:
-          qbittorrent:
-            dnsdist:
-              - path: /etc/dnsdist/dnsdist.conf
-                subPath: dnsdist.conf
-                readOnly: true
       media:
         type: nfs
         server: "nas.jonandlinz.com"
