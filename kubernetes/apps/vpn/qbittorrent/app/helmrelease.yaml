@@ -25,7 +25,7 @@ spec:
               tag: 5.1.2@sha256:31ac39705e31f7cdcc04dc46c1c0b0cdf8dc6f9865d4894efc097a33adc41524
             env:
               TZ: America/Chicago
-              QBT_WEBUI_PORT: *port
+              QBT_WEBUI_PORT: &port 80
               QBT_TORRENTING_PORT: 58282
               QBT_BitTorrent__Session__Interface: net1
               QBT_BitTorrent__Session__InterfaceName: net1
