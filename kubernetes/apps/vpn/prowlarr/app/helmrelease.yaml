@@ -60,8 +60,8 @@ spec:
               startup:
                 enabled: false
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: true
+              readOnlyRootFilesystem: false
               #capabilities: {drop: ["ALL"]}
               capabilities: {add: ["NET_RAW"]}
             resources:
