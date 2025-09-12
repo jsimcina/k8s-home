@@ -60,24 +60,15 @@ spec:
               startup:
                 enabled: false
             securityContext:
-              allowPrivilegeEscalation: true
-              readOnlyRootFilesystem: false
-              #capabilities: {drop: ["ALL"]}
-              capabilities: {add: ["NET_ADMIN"]}
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 4Gi
     defaultPodOptions:
-      annotations:
-        k8s.v1.cni.cncf.io/networks: |-
-          [{
-            "name": "multus-vpn",
-            "namespace": "network",
-            "ips": ["10.4.0.1/24"],
-            "mac": "00:02:dc:91:ad:2f"
-          }]
       labels:
         setGateway: "false"
       securityContext:
