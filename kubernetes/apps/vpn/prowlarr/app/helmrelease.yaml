@@ -69,6 +69,14 @@ spec:
               limits:
                 memory: 4Gi
     defaultPodOptions:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "multus-vpn",
+            "namespace": "network",
+            "ips": ["10.4.0.1/24"],
+            "mac": "00:02:dc:91:ad:2f"
+          }]
       labels:
         setGateway: "false"
       securityContext:
