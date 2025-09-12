@@ -39,8 +39,14 @@ spec:
               limits:
                 memory: 1Gi
         pod:
-          labels:
-            setGateway: "true"
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |-
+              [{
+                "name": "multus-vpn",
+                "namespace": "network",
+                "ips": ["10.4.0.7/24"],
+                "mac": "00:02:a4:8e:5b:7e"
+              }]
     service:
       app:
         ports:

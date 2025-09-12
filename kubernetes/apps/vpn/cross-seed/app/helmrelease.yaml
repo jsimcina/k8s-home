@@ -54,6 +54,14 @@ spec:
               limits:
                 memory: 512Mi
     defaultPodOptions:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "multus-vpn",
+            "namespace": "network",
+            "ips": ["10.4.0.6/24"],
+            "mac": "00:02:cc:31:0a:41"
+          }]
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000

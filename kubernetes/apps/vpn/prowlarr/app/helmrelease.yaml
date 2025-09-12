@@ -69,8 +69,6 @@ spec:
               limits:
                 memory: 4Gi
     defaultPodOptions:
-      labels:
-        setGateway: "false"
       annotations:
         k8s.v1.cni.cncf.io/networks: |-
           [{

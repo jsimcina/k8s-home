@@ -67,6 +67,14 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "multus-vpn",
+            "namespace": "network",
+            "ips": ["10.4.0.10/24"],
+            "mac": "00:02:c9:e7:ea:fc"
+          }]
     service:
       app:
         forceRename: "{{ .Release.Name }}"

@@ -32,19 +32,19 @@ spec:
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
-            #probes:
-            #  liveness: &probes
-            #    enabled: true
-            #    custom: true
-            #    spec:
-            #      httpGet:
-            #        path: /
-            #        port: *port
-            #      initialDelaySeconds: 0
-            #      periodSeconds: 10
-            #      timeoutSeconds: 1
-            #      failureThreshold: 3
-            #  readiness: *probes
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -61,6 +61,14 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "multus-vpn",
+            "namespace": "network",
+            "ips": ["10.4.0.8/24"],
+            "mac": "00:02:ae:dc:3e:8b"
+          }]
     service:
       app:
         ports:
