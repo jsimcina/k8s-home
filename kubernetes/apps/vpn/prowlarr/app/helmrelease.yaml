@@ -71,6 +71,14 @@ spec:
     defaultPodOptions:
       labels:
         setGateway: "false"
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "multus-vpn",
+            "namespace": "network",
+            "ips": ["10.4.0.5/24"],
+            "mac": "00:02:dc:91:ad:2f"
+          }]
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
