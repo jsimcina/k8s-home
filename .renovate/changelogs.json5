@@ -11,5 +11,10 @@
       matchPackageNames: ["/1password/"],
       changelogUrl: "https://github.com/1Password/connect/blob/main/CHANGELOG.md",
     },
+    {
+      description: "Changelog URL for Victoria Metrics Operator Helm-Charf",
+      matchPackageNames: ["/helm-charts/victoria-metrics-operator/"],
+      changelogUrl: "https://github.com/VictoriaMetrics/helm-charts/blob/master/charts/victoria-metrics-operator/CHANGELOG.md"
+    },
   ],
 }
