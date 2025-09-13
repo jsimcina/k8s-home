@@ -120,5 +120,10 @@ spec:
         globalMounts:
           - path: /media/ddl/soulseek
             subPath: ddl/soulseek
-      tmp:
+      tmpfs:
         type: emptyDir
+        advancedMounts:
+          slskd:
+            app:
+              - path: /tmp
+                subPath: tmp
