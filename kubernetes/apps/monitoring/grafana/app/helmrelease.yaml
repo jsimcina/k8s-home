@@ -275,7 +275,6 @@ spec:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
       - vonage-status-panel
-      - victoriametrics-metrics-datasource
     serviceMonitor:
       enabled: true
     route:
