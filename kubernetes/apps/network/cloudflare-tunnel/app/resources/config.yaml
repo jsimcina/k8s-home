@@ -5,7 +5,7 @@ ingress:
       originServerName: jonandlinz.io
     service: https://envoy-external.network.svc.cluster.local:443
   - hostname: watch.jonandlinz.io
-    service: http://plex.media.svc.cluster.local:32400
+    service: https://plex.media.svc.cluster.local:32400
     originRequest:
       noTLSVerify: true
   - hostname: "*.jonandlinz.io"
