@@ -43,7 +43,7 @@ spec:
         k8s.v1.cni.cncf.io/networks: |-
           [{
             "name": "multus-vpn",
-            "namespace": "network",
+            "namespace": "kube-system",
             "ips": ["10.4.0.9/24"],
             "mac": "00:02:bf:a8:14:bd"
           }]

@@ -13,4 +13,3 @@ resources:
   - ./echo/ks.yaml
   - ./envoy-gateway/ks.yaml
   - ./lan-dns/ks.yaml
-  - ./multus/ks.yaml
