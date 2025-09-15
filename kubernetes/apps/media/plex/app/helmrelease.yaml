@@ -28,7 +28,7 @@ spec:
               tag: 1.42.1.10060@sha256:04563be281364ba2462285aacb2ca13d7ef7e1d0b19e1203f4c19b4a56840c5c
             env:
               TZ: America/Chicago
-              PLEX_ADVERTISE_URL: https://watch.jonandlinz.io:443,http://10.12.0.100:32400,,http://plex.media.svc.cluster.local:32400
+              PLEX_ADVERTISE_URL: https://watch.jonandlinz.io:443,http://10.12.0.100:32400,http://plex.media.svc.cluster.local:32400
               PLEX_NO_AUTH_NETWORKS: 10.0.0.0/8
             probes:
               liveness: &probes
