@@ -1,0 +1,22 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAlert
+metadata:
+  name: logs
+spec:
+  replicaCount: 1
+  evaluationInterval: "10s"
+  datasource:
+    url: http://victoria-logs-server.monitoring.svc.cluster.local:9428
+  notifiers:
+    - url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
+  remoteWrite:
+    url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+  remoteRead:
+    url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+  ruleSelector:
+    matchLabels:
+      vmalert-logs.io/enabled: "true"
+  ruleNamespaceSelector:
+    matchExpressions:
+      - { key: somekey, operator: NotIn, values: ["never-used-value"] }
