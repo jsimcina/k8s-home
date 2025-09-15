@@ -54,6 +54,7 @@ spec:
           merge_log on
           merge_log_key log_processed
           merge_log_trim on
+          buffer_size 0
           k8s-logging.parser on
           k8s-logging.exclude off
           labels on
