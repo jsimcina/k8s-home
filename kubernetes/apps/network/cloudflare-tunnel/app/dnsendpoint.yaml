@@ -10,17 +10,3 @@ spec:
       recordType: CNAME
       targets:
         - ${CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com
----
-apiVersion: externaldns.k8s.io/v1alpha1
-kind: DNSEndpoint
-metadata:
-  name: cluster-public-ip
-spec:
-  endpoints:
-    - dnsName: "external-notunnel.jonandlinz.io"
-      recordType: CNAME
-      targets:
-        - pubip.jonandlinz.io
-      providerSpecific:
-        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-          value: 'false'

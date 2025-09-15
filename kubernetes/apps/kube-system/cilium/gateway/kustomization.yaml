@@ -5,5 +5,4 @@ kind: Kustomization
 resources:
   - ./external.yaml
   - ./internal.yaml
-  - ./notunnel.yaml
   - ./httproute.yaml
