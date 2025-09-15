@@ -17,7 +17,6 @@ resources:
   - ./snmp-exporter/ks.yaml
   - ./tautulli/ks.yaml
   - ./unpoller/ks.yaml
-#  - ./victoria-logs/ks.yaml
   - ./vm/ks.yaml
 components:
   - ../../components/common
