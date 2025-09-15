@@ -11,13 +11,13 @@ resources:
   - ./keda/ks.yaml
   - ./kromgo/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
-#  - ./loki/ks.yaml
+  - ./loki/ks.yaml
   - ./silence-operator/ks.yaml
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
   - ./tautulli/ks.yaml
   - ./unpoller/ks.yaml
-  - ./victoria-logs/ks.yaml
+#  - ./victoria-logs/ks.yaml
   - ./vm/ks.yaml
 components:
   - ../../components/common
