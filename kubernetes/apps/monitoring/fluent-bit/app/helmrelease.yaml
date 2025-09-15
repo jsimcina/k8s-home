@@ -83,7 +83,7 @@ spec:
 
       outputs: |-
         [OUTPUT]
-          name vlogs
+          name http
           match kubernetes.*
           host victoria-logs-server.monitoring.svc.cluster.local
           port 9428
