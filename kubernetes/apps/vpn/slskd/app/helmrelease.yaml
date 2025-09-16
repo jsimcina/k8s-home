@@ -33,7 +33,8 @@ spec:
               SLSKD_HTTP_PORT: &port 80
               SLSKD_NO_AUTH: true
               SLSKD_NO_HTTPS: true
-              SLSKD_SLSK_LISTEN_PORT: &soulseekPort 50300
+              SLSKD_NO_VERSION_CHECK: true
+              SLSKD_SLSK_LISTEN_PORT: 50300
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -77,19 +78,9 @@ spec:
           }]
     service:
       app:
-        forceRename: "{{ .Release.Name }}"
         ports:
           http:
             port: *port
-      soulseek:
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 10.12.0.107
-        externalTrafficPolicy: Local
-        ports:
-          soulseek-tcp:
-            port: *soulseekPort
-            protocol: TCP
     route:
       app:
         hostnames:
@@ -102,17 +93,33 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
+    configMaps:
+      config:
+        forceRename: &configMapName "{{ .Release.Name }}-configmap"
+        data:
+          slskd.yml: |-
+            directories:
+              downloads: /media/ddl/soulseek/complete
+              incomplete: /media/ddl/soulseek/incomplete
+            permissions:
+              file:
+                mode: 750
+            shares:
+              directories:
+                - /media/ddl/soulseek/shared
+              filters:
+                - \.ini$
+                - Thumbs.db$
+                - \.DS_Store$
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
       config-file:
         type: configMap
-        name: "{{ .Release.Name }}-configmap"
-        defaultMode: 0775
+        name: *configMapName
         globalMounts:
           - path: /config/slskd.yml
             subPath: slskd.yml
-            readOnly: true
       media:
         type: nfs
         server: nas.jonandlinz.com

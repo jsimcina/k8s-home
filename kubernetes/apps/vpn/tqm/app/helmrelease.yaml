@@ -96,7 +96,6 @@ spec:
         globalMounts:
           - path: /.config/tqm/config.yaml
             subPath: config.yaml
-            readOnly: true
       media:
         type: nfs
         server: "nas.jonandlinz.com"

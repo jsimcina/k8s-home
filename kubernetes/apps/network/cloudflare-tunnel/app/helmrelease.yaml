@@ -77,10 +77,25 @@ spec:
       app:
         endpoints:
           - port: http
+    configMaps:
+      config:
+        forceRename: &configMapName "{{ .Release.Name }}-configmap"
+        data:
+          config.yaml: |-
+            ingress:
+              - hostname: jonandlinz.io
+                originRequest:
+                  originServerName: jonandlinz.io
+                service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
+              - hostname: "*.jonandlinz.io"
+                originRequest:
+                  originServerName: external.jonandlinz.io
+                service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
+              - service: http_status:404
     persistence:
       config-file:
         type: configMap
-        name: cloudflare-tunnel-configmap
+        name: *configMapName
         globalMounts:
           - path: /etc/cloudflared/config.yaml
             subPath: config.yaml
