@@ -6,6 +6,6 @@ resources:
   - ./cluster17.yaml
   - ./loadbalancer.yaml
   - ./objectstore.yaml
+  - ./pooler.yaml
   - ./prometheusrules.yaml
   - ./scheduledbackup.yaml
-#  - ./gatus.yaml
