@@ -91,6 +91,10 @@ spec:
               - identifier: app
                 port: *port
     persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /pinepods/cache
       config:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
@@ -101,7 +105,10 @@ spec:
         path: /mnt/rustpool/media_server/media/podcasts
         globalMounts:
           - path: /opt/pinepods/downloads
-      cache:
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /pinepods/cache
+        advancedMounts:
+          pinepods:
+            app:
+              - path: /tmp
+                subPath: tmp
