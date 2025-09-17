@@ -62,11 +62,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
-        pod:
-          securityContext:
-            runAsGroup: 2000
-            fsGroup: 2000
-            fsGroupChangePolicy: "OnRootMismatch"
     service:
       app:
         ports:
