@@ -37,8 +37,8 @@ spec:
               repository: madeofpendletonwool/pinepods
               tag: 0.7.9@sha256:d722388502248c91e154377a8ac5299a2b0b4becda65d15cc7c00feee675a355
             env:
-              PUID: 1000
-              PGID: 1000
+              PUID: 2000
+              PGID: 2000
               TZ: America/Chicago
               HOSTNAME: https://pods.jonandlinz.io
               SEARCH_API_URL: https://search.pinepods.online/api/search
@@ -65,9 +65,9 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 2000
+        runAsGroup: 2000
+        fsGroup: 2000
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
