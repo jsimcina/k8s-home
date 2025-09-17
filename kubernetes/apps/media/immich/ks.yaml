@@ -19,7 +19,7 @@ spec:
   path: ./kubernetes/apps/media/immich/app
   postBuild:
     substitute:
-      APP: immich-immich
+      APP: immich
       GATUS_SUBDOMAIN: photos
   prune: true
   retryInterval: 2m
