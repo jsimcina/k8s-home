@@ -1,0 +1,107 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pinepods
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: pinepods
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      pinepods:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        labels:
+          nfsMount: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17
+            envFrom: &envFrom
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+        containers:
+          app:
+            image:
+              repository: madeofpendletonwool/pinepods
+              tag: 0.7.10@sha256:c6eff84d00636c9c21dae913fa4731e008a2542427183396e813512eecd4fdb3
+            env:
+              PUID: 1000
+              PGID: 1000
+              TZ: America/Chicago
+              HOSTNAME: https://pods.jonandlinz.io
+              SEARCH_API_URL: https://search.pinepods.online/api/search
+              PEOPLE_API_URL: https://people.pinepods.online
+              # Valkey
+              VALKEY_HOST: dragonfly.database.svc.cluster.local
+              VALKEY_PORT: 6379
+            envFrom: *envFrom
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: &port 8040
+    route:
+      app:
+        hostnames:
+          - "pods.jonandlinz.io"
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /opt/pinepods
+      media:
+        type: nfs
+        server: nas.jonandlinz.com
+        path: /mnt/rustpool/media_server/media/podcasts
+        globalMounts:
+          - path: /opt/pinepods/downloads
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /pinepods/cache
