@@ -112,7 +112,7 @@ spec:
   postBuild:
     substitute:
       # renovate: datasource=docker depName=ghcr.io/tensorchord/cloudnative-vectorchord
-      POSTGRESQL_VERSION: "17.5-0.4.2"
+      POSTGRESQL_VERSION: "17.6-0.5.2"
   prune: true
   retryInterval: 2m
   sourceRef:
