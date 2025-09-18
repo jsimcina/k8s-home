@@ -71,7 +71,6 @@ spec:
                 port: *port
     configMaps:
       server-json:
-        forceRename: &configMapName "{{ .Release.Name }}-configmap"
         data:
           servers.json: |-
             {
@@ -107,7 +106,7 @@ spec:
       server-json:
         enabled: true
         type: configMap
-        name: *configMapName
+        identifier: server-json
         globalMounts:
           - path: /pgadmin4/servers.json
             subPath: servers.json
