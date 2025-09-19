@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: madeofpendletonwool/pinepods
-              tag: nightly@sha256:3c4082191be72e8c31bd90d6fe4280d795efca6f8f3f0be5dc13ec9718d49ea4
+              tag: nightly@sha256:40abe134c627260aebf66ee249f20060febc6334cbbbcd7257f4c774a0d5debb
             env:
               PUID: 2000
               PGID: 2000
