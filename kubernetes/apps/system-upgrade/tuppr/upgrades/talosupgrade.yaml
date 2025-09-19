@@ -7,7 +7,7 @@ metadata:
 spec:
   target:
     image:
-      repository: factory.talos.dev/metal-installer/05b4a47a70bc97786ed83d200567dcc8a13f731b164537ba59d5397d668851fa
+      repository: factory.talos.dev/metal-installer/43122bd4d525175aad7241d73cf9d6ac87140494b833d82c6e1c3412e469d064
       tag: v1.11.1
     options:
       rebootMode: powercycle
