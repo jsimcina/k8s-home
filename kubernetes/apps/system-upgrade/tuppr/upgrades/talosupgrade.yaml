@@ -3,11 +3,22 @@
 apiVersion: tuppr.home-operations.com/v1alpha1
 kind: TalosUpgrade
 metadata:
-  name: cluster
+  name: controllers
 spec:
-  target:
-    image:
-      repository: factory.talos.dev/metal-installer/43122bd4d525175aad7241d73cf9d6ac87140494b833d82c6e1c3412e469d064
-      tag: v1.11.1
-    options:
-      rebootMode: powercycle
+  image:
+    repository: factory.talos.dev/metal-installer
+    tag: v1.11.1
+  upgradePolicy:
+    debug: true
+    rebootMode: powercycle
+  nodeLabelSelector:
+    matchExpressions:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+  healthChecks:
+    - apiVersion: v1
+      kind: Node
+      expr: status.conditions.filter(c, c.type == "Ready").all(c, c.status == "True")
+    - apiVersion: ceph.rook.io/v1
+      kind: CephCluster
+      expr: status.ceph.health in ['HEALTH_OK']
