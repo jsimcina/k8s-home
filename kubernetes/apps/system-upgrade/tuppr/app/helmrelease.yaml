@@ -19,4 +19,7 @@ spec:
     remediation:
       retries: 3
   values:
+    image:
+      repository: ghcr.io/home-operations/tuppr
+      tag: main-8d8cfe5
     replicaCount: 2
