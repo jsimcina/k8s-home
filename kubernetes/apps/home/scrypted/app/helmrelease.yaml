@@ -83,6 +83,7 @@ spec:
         annotations:
           lbipam.cilium.io/ips: 10.12.0.106
         controller: scrypted
+        externalTrafficPolicy: Local
         ports:
           http:
             port: &port 11080
