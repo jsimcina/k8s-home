@@ -90,8 +90,9 @@ spec:
                 service: https://plex.media.svc.cluster.local:32400
                 originRequest:
                   noTLSVerify: true
-                  http2Origin: true
-                  httpHostHeader: "Accept-Encoding: identity"
+                  httpHostHeader: 'Accept-Encoding: identity'
+                  tlsTimeout: 20s
+                  connectTimeout: 20s
               - hostname: "*.jonandlinz.io"
                 originRequest:
                   originServerName: external.jonandlinz.io
