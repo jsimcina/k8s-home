@@ -86,6 +86,10 @@ spec:
                 originRequest:
                   originServerName: jonandlinz.io
                 service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
+              - hostname: watch.jonandlinz.io
+                service: https://plex.media.svc.cluster.local:32400
+                originRequest:
+                  noTLSVerify: true
               - hostname: "*.jonandlinz.io"
                 originRequest:
                   originServerName: external.jonandlinz.io
