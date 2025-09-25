@@ -89,7 +89,8 @@ spec:
             filters:
               - type: RequestHeaderModifier
                 requestHeaderModifier:
-                  remove: ["Range"]
+                  remove:
+                    - "Range"
             matches:
               - path:
                   type: PathPrefix
