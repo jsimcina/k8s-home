@@ -90,8 +90,6 @@ spec:
                 service: https://plex.media.svc.cluster.local:32400
                 originRequest:
                   noTLSVerify: true
-                  tlsTimeout: 20s
-                  connectTimeout: 20s
               - hostname: "*.jonandlinz.io"
                 originRequest:
                   originServerName: external.jonandlinz.io
