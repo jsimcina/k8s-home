@@ -9,13 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: ollama
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     controllers:
       ollama:
@@ -93,13 +86,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: ollama
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     controllers:
       ollama:

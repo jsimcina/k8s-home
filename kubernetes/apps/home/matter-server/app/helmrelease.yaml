@@ -8,16 +8,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: matter-server
-  maxHistory: 3
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 4
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       matter-server:

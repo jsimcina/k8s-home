@@ -8,6 +8,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/defaults
   path: ./kubernetes/apps/home/wyoming/piper
   prune: true
   retryInterval: 2m
@@ -32,6 +34,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/defaults
   path: ./kubernetes/apps/home/wyoming/whisper
   prune: true
   retryInterval: 2m

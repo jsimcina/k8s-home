@@ -9,13 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: gha-runner-scale-set
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     githubConfigUrl: https://github.com/jsimcina/k8s-home
     githubConfigSecret: mr-wriggler-local-runner-secret

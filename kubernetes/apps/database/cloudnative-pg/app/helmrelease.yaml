@@ -9,19 +9,10 @@ spec:
   chartRef:
     kind: OCIRepository
     name: cloudnative-pg
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 10
-  uninstall:
-    keepHistory: false
   values:
     crds:
       create: true
     monitoring:
       podMonitorEnabled: false
       grafanaDashboard:
-        create: false
+        create: true

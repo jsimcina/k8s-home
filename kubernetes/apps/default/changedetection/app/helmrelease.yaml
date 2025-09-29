@@ -9,13 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: changedetection
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     controllers:
       changedetection:
@@ -33,9 +26,6 @@ spec:
               USE_X_SETTINGS: 1
               TZ: America/Chicago
               PLAYWRIGHT_DRIVER_URL: ws://localhost:3000/?stealth=1&--disable-web-security=true&--user-data-dir=~/browserless-cache-123
-            #envFrom:
-            #  - secretRef:
-            #      name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               capabilities: {drop: ["ALL"]}
