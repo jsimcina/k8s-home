@@ -107,5 +107,4 @@ spec:
       cache:
         type: emptyDir
         globalMounts:
-          - path: /.cache
-
+          - path: /cache
