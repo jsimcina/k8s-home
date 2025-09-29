@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/defaults
+    - ../../../../components/defaults/helmrelease
   path: ./kubernetes/apps/home/wyoming/piper
   prune: true
   retryInterval: 2m
@@ -35,7 +35,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/defaults
+    - ../../../../components/defaults/helmrelease
   path: ./kubernetes/apps/home/wyoming/whisper
   prune: true
   retryInterval: 2m

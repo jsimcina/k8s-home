@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/defaults
+    - ../../../../components/defaults/helmrelease
   interval: 1h
   timeout: 5m
   path: "./kubernetes/apps/kube-system/multus/app"
