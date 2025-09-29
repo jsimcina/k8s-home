@@ -23,8 +23,6 @@ spec:
                 "ips": ["10.21.5.11/16"],
                 "mac": "00:02:b3:df:ed:1b"
               }]
-          nodeSelector:
-            multus: "active"
         containers:
           app:
             image:
