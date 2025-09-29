@@ -51,10 +51,12 @@ spec:
               namespace: network
               sectionName: https
       prometheusSpec:
+        externalUrl: https://prometheus.jonandlinz.io
+        version: v2.55.1 # override 'unsupported Prometheus version' error
         image:
           registry: docker.io
           repository: prompp/prompp
-          tag: 2.53.2-0.4.0
+          tag: .5.1
         securityContext:
           runAsNonRoot: true
           runAsUser: 64535
