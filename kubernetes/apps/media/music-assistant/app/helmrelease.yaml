@@ -74,7 +74,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 8095
+            port: &port 443
           stream:
             port: 8098
 
