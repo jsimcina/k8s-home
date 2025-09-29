@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/defaults/helmrelease
+    - ../../../../components/defaults
     - ../../../../components/gatus/guarded
   path: ./kubernetes/apps/vpn/prowlarr/app
   prune: true

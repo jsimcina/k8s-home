@@ -10,9 +10,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/defaults/helmrelease
+    - ../../../../components/defaults
     - ../../../../components/gatus/external
-    - ../../../../components/keda/nfs-scaler
+    - ../../../../components/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
     - name: intel-device-plugin-gpu
@@ -48,7 +48,7 @@ spec:
 #     labels:
 #       app.kubernetes.io/name: *app
 #   components:
-#     - ../../../../components/defaults/helmrelease
+#     - ../../../../components/defaults
 #   dependsOn:
 #     - name: onepassword
 #       namespace: external-secrets
