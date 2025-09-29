@@ -98,13 +98,16 @@ spec:
           music-assistant:
             app:
               - path: /data
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /cache
+          - path: /.cache
       music:
         type: nfs
         server: nas.jonandlinz.com
         path: /mnt/rustpool/media_server/media/music
         globalMounts:
           - path: /music
-      cache:
+      tmp:
         type: emptyDir
-        globalMounts:
-          - path: /cache
