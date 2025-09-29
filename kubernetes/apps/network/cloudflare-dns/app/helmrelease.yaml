@@ -9,13 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: cloudflare-dns
-  install:
-    remediation:
-      retries: 2
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 2
   values:
     fullnameOverride: *app
     provider:

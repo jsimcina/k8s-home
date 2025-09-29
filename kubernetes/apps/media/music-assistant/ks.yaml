@@ -10,14 +10,15 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  interval: 10m
   components:
+    - ../../../../components/defaults
     - ../../../../components/gatus/guarded
     - ../../../../components/keda/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
+  interval: 10m
   path: "./kubernetes/apps/media/music-assistant/app"
   prune: true
   retryInterval: 2m

@@ -9,13 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: notifiarr
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 5
   values:
     controllers:
       notifiarr:
