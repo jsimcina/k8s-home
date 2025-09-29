@@ -6,11 +6,6 @@ machine:
     {% if ENV.IS_CONTROLLER %}
     key: op://kubernetes/talos/MACHINE_CA_KEY
     {% endif %}
-  certSANs:
-    - 127.0.0.1
-    - 10.12.0.254
-    - jonandlinz.io
-    - k8s.jonandlinz.io
   features:
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
@@ -89,8 +84,6 @@ machine:
           miimon: 1000
         mtu: 1500
         dhcp: true
-        vip:
-          ip: 10.12.0.254
         vlans:
           - # IOT
             vlanId: 21
@@ -106,7 +99,6 @@ machine:
     topology.kubernetes.io/zone: m
     servertype: physical
     hwtranscoding: "true"
-    multus: active
     servermodel: MS-01
   sysctls:
     fs.inotify.max_user_instances: "8192"
@@ -143,6 +135,13 @@ cluster:
   clusterName: k8s-home
   controlPlane:
     endpoint: https://k8s.jonandlinz.io:6443
+  discovery:
+    enabled: true
+    registries:
+      kubernetes:
+        disabled: true
+      service:
+        disabled: false
   id: op://kubernetes/talos/CLUSTER_ID
   network:
     cni:
@@ -166,8 +165,6 @@ cluster:
       rules:
         - level: Metadata
     certSANs:
-      - 10.12.0.254
-      - 127.0.0.1
       - k8s.jonandlinz.io
     disablePodSecurityPolicy: true
     extraArgs:
