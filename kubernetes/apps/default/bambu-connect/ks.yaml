@@ -10,12 +10,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/defaults
+    - ../../../../components/gatus/guarded
+    - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-  components:
-    - ../../../../components/gatus/guarded
-    - ../../../../components/volsync
   path: ./kubernetes/apps/default/bambu-connect/app
   prune: true
   retryInterval: 2m

@@ -9,13 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: pgadmin
-  install:
-    remediation:
-      retries: -2
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     defaultPodOptions:
       securityContext:
