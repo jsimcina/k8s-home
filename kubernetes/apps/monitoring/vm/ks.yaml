@@ -12,13 +12,11 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/monitoring/vm/app
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 5m
   wait: false
   postBuild:
     substitute:
@@ -39,13 +37,11 @@ spec:
     - ../../../../components/volsync
   path: ./kubernetes/apps/monitoring/vm/stack
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 5m
   wait: false
   postBuild:
     substitute:

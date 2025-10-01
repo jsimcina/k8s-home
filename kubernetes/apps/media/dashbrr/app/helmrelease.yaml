@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: dashbrr
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: dashbrr
+  interval: 1h
   values:
     defaultPodOptions:
       securityContext:

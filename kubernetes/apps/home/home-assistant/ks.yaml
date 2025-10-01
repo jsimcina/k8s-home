@@ -18,7 +18,6 @@ spec:
   interval: 10m
   path: "./kubernetes/apps/home/home-assistant/app"
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

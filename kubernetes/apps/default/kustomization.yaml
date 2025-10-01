@@ -14,4 +14,4 @@ resources:
     - ./romm/ks.yaml
     - ./webhook/ks.yaml
 components:
-  - ../../components/common
+  - ../../components/namespace

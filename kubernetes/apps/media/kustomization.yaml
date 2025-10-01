@@ -21,4 +21,4 @@ resources:
   - ./sonarr/ks.yaml
   - ./unpackerr/ks.yaml
 components:
-  - ../../components/common
+  - ../../components/namespace

@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: &name mr-wriggler-local-runner
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: gha-runner-scale-set
+  interval: 1h
   values:
     githubConfigUrl: https://github.com/jsimcina/k8s-home
     githubConfigSecret: mr-wriggler-local-runner-secret

@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: manyfold
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: manyfold
+  interval: 1h
   values:
     controllers:
       manyfold:

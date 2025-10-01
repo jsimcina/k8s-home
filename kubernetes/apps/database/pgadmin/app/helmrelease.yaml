@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: pgadmin
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: pgadmin
+  interval: 1h
   values:
     defaultPodOptions:
       securityContext:

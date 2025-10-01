@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: paperless-ngx
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: paperless-ngx
+  interval: 1h
   values:
     controllers:
       paperless-ngx:

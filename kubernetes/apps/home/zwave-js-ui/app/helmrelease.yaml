@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: zwave-js-ui
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: zwave-js-ui
+  interval: 1h
   values:
     controllers:
       zwave-js-ui:

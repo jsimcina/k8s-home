@@ -6,10 +6,10 @@ metadata:
   name: bambu-connect
   namespace: default
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: bambu-connect
+  interval: 1h
   values:
     controllers:
       bambu-connect:

@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: zigbee2mqtt
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: zigbee2mqtt
+  interval: 1h
   values:
     controllers:
       zigbee2mqtt:

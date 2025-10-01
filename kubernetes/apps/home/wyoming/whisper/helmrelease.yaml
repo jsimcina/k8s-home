@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: wyoming-whisper
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: wyoming-whisper
+  interval: 1h
   values:
     controllers:
       wyoming-whisper:
