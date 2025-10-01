@@ -10,8 +10,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/defaults
   path: ./kubernetes/apps/database/cloudnative-pg/app
   prune: true
   retryInterval: 2m
@@ -70,8 +68,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/defaults
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
