@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: filebrowser
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: filebrowser
+  interval: 1h
   values:
     controllers:
       filebrowser:

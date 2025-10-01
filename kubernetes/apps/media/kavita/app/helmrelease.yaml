@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: kavita
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: kavita
+  interval: 1h
   values:
     controllers:
       kavita:

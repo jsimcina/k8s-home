@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: ollama
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: ollama
+  interval: 1h
   values:
     controllers:
       ollama:
@@ -82,10 +82,10 @@ kind: HelmRelease
 metadata:
   name: ollama-cpu
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: ollama
+  interval: 1h
   values:
     controllers:
       ollama:

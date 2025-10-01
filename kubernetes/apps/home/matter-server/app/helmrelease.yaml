@@ -4,10 +4,10 @@ kind: HelmRelease
 metadata:
   name: matter-server
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: matter-server
+  interval: 1h
   values:
     controllers:
       matter-server:

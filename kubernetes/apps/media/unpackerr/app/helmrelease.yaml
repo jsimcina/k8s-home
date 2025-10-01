@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: unpackerr
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: unpackerr
+  interval: 1h
   values:
     controllers:
       unpackerr:

@@ -6,4 +6,4 @@ namespace: security
 resources:
   - ./authentik/ks.yaml
 components:
-  - ../../components/common
+  - ../../components/namespace

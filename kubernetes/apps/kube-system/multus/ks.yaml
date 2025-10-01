@@ -11,10 +11,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   interval: 1h
-  timeout: 5m
   path: "./kubernetes/apps/kube-system/multus/app"
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -33,10 +31,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   interval: 1h
-  timeout: 5m
   path: "./kubernetes/apps/kube-system/multus/networks"
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -17,14 +17,12 @@ spec:
       namespace: rook-ceph
   path: ./kubernetes/apps/home/matter-server/app
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   wait: false
   interval: 1h
-  timeout: 5m
   postBuild:
     substitute:
       APP: *app

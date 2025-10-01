@@ -19,4 +19,4 @@ resources:
   - ./unpoller/ks.yaml
   - ./vm/ks.yaml
 components:
-  - ../../components/common
+  - ../../components/namespace

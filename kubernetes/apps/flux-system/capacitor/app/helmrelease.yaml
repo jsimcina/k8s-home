@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: capacitor
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: capacitor
+  interval: 1h
   values:
     controllers:
       capacitor:

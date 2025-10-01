@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: esphome
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: esphome
+  interval: 1h
   values:
     controllers:
       esphome:

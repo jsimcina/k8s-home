@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: romm
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: romm
+  interval: 1h
   values:
     controllers:
       romm:

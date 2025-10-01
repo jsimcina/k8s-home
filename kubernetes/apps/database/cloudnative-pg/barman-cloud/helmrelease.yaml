@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: barman-cloud
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: barman-cloud
+  interval: 1h
   values:
     controllers:
       barman-cloud:
