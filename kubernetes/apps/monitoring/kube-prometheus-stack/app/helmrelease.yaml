@@ -62,16 +62,11 @@ spec:
           runAsUser: 64535
           runAsGroup: 64535
           fsGroup: 64535
-  interval: 1h
-  values: false
-  interval: 1h
-  values: false
-  interval: 1h
-  values: false
-  interval: 1h
-  values: false
-  interval: 1h
-  values: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
         retention: 30d
         retentionSize: 50GB
         resources:
