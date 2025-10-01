@@ -10,7 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/external
     - ../../../../components/nfs-scaler
   dependsOn:
     - name: rook-ceph-cluster
@@ -20,7 +19,6 @@ spec:
   postBuild:
     substitute:
       APP: immich
-      GATUS_SUBDOMAIN: photos
   prune: true
   retryInterval: 2m
   sourceRef:

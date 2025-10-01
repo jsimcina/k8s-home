@@ -11,7 +11,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/guarded
     - ../../../../components/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
@@ -33,4 +32,3 @@ spec:
       APP_GID: "1000"
       VOLSYNC_CLAIM: music-assistant
       VOLSYNC_CAPACITY: 250Mi
-      GATUS_PATH: /#/home

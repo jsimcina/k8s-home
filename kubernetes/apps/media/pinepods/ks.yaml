@@ -10,7 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/external
     - ../../../../components/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
@@ -21,7 +20,6 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      GATUS_SUBDOMAIN: pods
       VOLSYNC_CAPACITY: 5Gi
   prune: true
   retryInterval: 2m
