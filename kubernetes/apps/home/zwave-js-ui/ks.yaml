@@ -6,9 +6,6 @@ metadata:
   name: &app zwave-js-ui
   namespace: &namespace home
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
   dependsOn:

@@ -7,9 +7,6 @@ metadata:
   namespace: &namespace database
 spec:
   targetNamespace: *namespace
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   path: ./kubernetes/apps/database/cloudnative-pg/app
   prune: true
   sourceRef:
@@ -61,9 +58,6 @@ metadata:
   name: &app cloudnative-pg-barman-cloud
   namespace: &namespace database
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
@@ -89,9 +83,6 @@ metadata:
   namespace: &namespace database
 spec:
   targetNamespace: *namespace
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg
       namespace: *namespace

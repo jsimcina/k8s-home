@@ -6,9 +6,6 @@ metadata:
   name: &app capacitor
   namespace: flux-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 1h
   path: ./kubernetes/apps/flux-system/capacitor/app
   postBuild:

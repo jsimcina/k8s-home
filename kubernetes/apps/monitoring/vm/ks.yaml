@@ -6,9 +6,6 @@ metadata:
   name: &app vm-operator
   namespace: &namespace monitoring
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/namespace
   interval: 1h
@@ -31,9 +28,6 @@ metadata:
   name: &app vmsingle-stack
   namespace: &namespace monitoring
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 1h
   components:
     - ../../../../components/volsync
