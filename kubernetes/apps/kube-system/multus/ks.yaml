@@ -7,9 +7,6 @@ metadata:
   namespace: &namespace kube-system
 spec:
   targetNamespace: *namespace
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 1h
   path: "./kubernetes/apps/kube-system/multus/app"
   prune: true
@@ -27,9 +24,6 @@ metadata:
   namespace: &namespace kube-system
 spec:
   targetNamespace: *namespace
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 1h
   path: "./kubernetes/apps/kube-system/multus/networks"
   prune: true

@@ -6,9 +6,6 @@ metadata:
   name: &app unpoller
   namespace: &namespace monitoring
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   interval: 1h
   path: ./kubernetes/apps/monitoring/unpoller/app
   prune: true

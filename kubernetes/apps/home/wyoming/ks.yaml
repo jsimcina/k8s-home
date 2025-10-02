@@ -5,9 +5,6 @@ metadata:
   name: &app wyoming-piper
   namespace: &namespace home
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   path: ./kubernetes/apps/home/wyoming/piper
   prune: true
   sourceRef:
@@ -27,9 +24,6 @@ metadata:
   name: &app wyoming-whisper
   namespace: &namespace home
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   path: ./kubernetes/apps/home/wyoming/whisper
   prune: true
   sourceRef:
