@@ -3,8 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app pgadmin
-  namespace: &namespace database
+  name: pgadmin
 spec:
   components:
     - ../../../../components/volsync
@@ -18,9 +17,8 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
   wait: false
   postBuild:
     substitute:
-      APP: *app
+      APP: pgadmin
       VOLSYNC_CAPACITY: 5Gi

@@ -3,10 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app notifiarr
-  namespace: &namespace media
+  name: notifiarr
 spec:
-  targetNamespace: *namespace
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -22,5 +20,5 @@ spec:
   interval: 1h
   postBuild:
     substitute:
-      APP: *app
+      APP: notifiarr
       VOLSYNC_CAPACITY: 2Gi

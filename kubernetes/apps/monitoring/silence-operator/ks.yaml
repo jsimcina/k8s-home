@@ -3,14 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app silence-operator
-  namespace: &namespace monitoring
+  name: silence-operator
 spec:
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/monitoring/silence-operator/app
   prune: true
@@ -18,18 +12,15 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app silence-operator-silenced
-  namespace: &namespace monitoring
+  name: silence-operator-silenced
 spec:
   dependsOn:
     - name: silence-operator
-      namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/monitoring/silence-operator/silenced
   prune: true
@@ -37,5 +28,4 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
   wait: false

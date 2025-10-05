@@ -3,10 +3,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: database
+components:
+  - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
 resources:
     - ./cloudnative-pg/ks.yaml
     - ./dragonfly/ks.yaml
     - ./mosquitto/ks.yaml
     - ./pgadmin/ks.yaml
-components:
-  - ../../components/namespace

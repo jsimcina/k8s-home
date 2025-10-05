@@ -3,6 +3,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: default
+components:
+  - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
 resources:
     - ./actual/ks.yaml
     - ./bambu-connect/ks.yaml
@@ -13,5 +17,3 @@ resources:
     - ./qui/ks.yaml
     - ./romm/ks.yaml
     - ./webhook/ks.yaml
-components:
-  - ../../components/namespace

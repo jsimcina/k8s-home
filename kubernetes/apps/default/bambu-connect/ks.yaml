@@ -3,10 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app bambu-connect
-  namespace: &namespace default
+  name: bambu-connect
 spec:
-  targetNamespace: *namespace
   components:
     - ../../../../components/volsync
   dependsOn:
@@ -22,6 +20,6 @@ spec:
   interval: 1h
   postBuild:
     substitute:
-      APP: *app
+      APP: bambu-connect
       VOLSYNC_CAPACITY: 5Gi
 

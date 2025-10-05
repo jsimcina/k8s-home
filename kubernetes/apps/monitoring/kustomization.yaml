@@ -3,6 +3,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
+components:
+  - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
 resources:
   - ./blackbox-exporter/ks.yaml
   - ./fluent-bit/ks.yaml
@@ -18,5 +22,3 @@ resources:
   - ./tautulli/ks.yaml
   - ./unpoller/ks.yaml
   - ./vm/ks.yaml
-components:
-  - ../../components/namespace
