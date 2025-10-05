@@ -3,8 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app immich
-  namespace: &namespace media
+  name: immich
 spec:
   components:
     - ../../../../components/nfs-scaler
@@ -21,5 +20,4 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
   wait: false

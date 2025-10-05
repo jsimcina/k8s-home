@@ -3,10 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app matter-server
-  namespace: &namespace home
+  name: matter-server
 spec:
-  targetNamespace: *namespace
   components:
     - ../../../../components/volsync
   dependsOn:
@@ -22,5 +20,5 @@ spec:
   interval: 1h
   postBuild:
     substitute:
-      APP: *app
+      APP: matter-server
       VOLSYNC_CAPACITY: 500Mi

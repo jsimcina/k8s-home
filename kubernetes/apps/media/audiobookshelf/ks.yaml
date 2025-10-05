@@ -3,10 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app audiobookshelf
-  namespace: &namespace media
+  name: audiobookshelf
 spec:
-  targetNamespace: *namespace
   components:
     - ../../../../components/nfs-scaler
     - ../../../../components/volsync
@@ -23,5 +21,5 @@ spec:
   interval: 1h
   postBuild:
     substitute:
-      APP: *app
+      APP: audiobookshelf
       VOLSYNC_CAPACITY: 5Gi

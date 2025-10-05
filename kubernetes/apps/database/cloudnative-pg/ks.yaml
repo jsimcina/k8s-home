@@ -37,7 +37,6 @@ metadata:
   name: &name cnpg-barman-cloud-crds
   namespace: &namespace database
 spec:
-  targetNamespace: *namespace
   prune: true
   sourceRef:
     kind: GitRepository

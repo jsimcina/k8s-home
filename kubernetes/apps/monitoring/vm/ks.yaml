@@ -3,8 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app vm-operator
-  namespace: &namespace monitoring
+  name: vm-operator
 spec:
   components:
     - ../../../../components/namespace
@@ -15,18 +14,16 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
   wait: false
   postBuild:
     substitute:
-      APP: *app
+      APP: vm-operator
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app vmsingle-stack
-  namespace: &namespace monitoring
+  name: vmsingle-stack
 spec:
   interval: 1h
   components:
@@ -37,10 +34,9 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
   wait: false
   postBuild:
     substitute:
-      APP: *app
-      VOLSYNC_CLAIM: *app
+      APP: vmsingle-stack
+      VOLSYNC_CLAIM: vmsingle-stack
       VOLSYNC_CAPACITY: 500Gi

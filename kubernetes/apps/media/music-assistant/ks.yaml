@@ -3,10 +3,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app music-assistant
-  namespace: &namespace media
+  name: music-assistant
 spec:
-  targetNamespace: *namespace
   components:
     - ../../../../components/nfs-scaler
     - ../../../../components/volsync
@@ -23,7 +21,7 @@ spec:
   wait: false
   postBuild:
     substitute:
-      APP: *app
+      APP: music-assistant
       APP_UID: "1000"
       APP_GID: "1000"
       VOLSYNC_CLAIM: music-assistant
