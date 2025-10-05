@@ -12,6 +12,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  wait: true
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -30,8 +31,8 @@ spec:
       namespace: rook-ceph
     - apiVersion: ceph.rook.io/v1
       kind: CephCluster
-      name: rook-ceph
       namespace: rook-ceph
+      name: rook-ceph
   healthCheckExprs:
     - apiVersion: ceph.rook.io/v1
       kind: CephCluster
@@ -44,5 +45,3 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  timeout: 15m
-  wait: false
