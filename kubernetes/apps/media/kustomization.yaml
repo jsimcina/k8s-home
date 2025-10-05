@@ -5,6 +5,8 @@ kind: Kustomization
 namespace: media
 components:
   - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
 resources:
   - ./audiobookshelf/ks.yaml
   - ./autobrr/ks.yaml
@@ -22,15 +24,3 @@ resources:
   - ./radarr/ks.yaml
   - ./sonarr/ks.yaml
   - ./unpackerr/ks.yaml
-replacements:
-  - source:
-      kind: Namespace
-      fieldPath: metadata.name
-    targets:
-      - select:
-          kind: Kustomization
-          group: kustomize.toolkit.fluxcd.io
-        fieldPaths:
-          - spec.targetNamespace
-        options:
-          create: true

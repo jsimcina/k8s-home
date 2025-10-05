@@ -5,6 +5,8 @@ kind: Kustomization
 namespace: kube-system
 components:
   - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
 resources:
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
@@ -17,15 +19,3 @@ resources:
   - ./reloader/ks.yaml
   - ./snapshot-controller/ks.yaml
   - ./spegel/ks.yaml
-replacements:
-  - source:
-      kind: Namespace
-      fieldPath: metadata.name
-    targets:
-      - select:
-          kind: Kustomization
-          group: kustomize.toolkit.fluxcd.io
-        fieldPaths:
-          - spec.targetNamespace
-        options:
-          create: true

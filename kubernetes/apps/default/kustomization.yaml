@@ -5,6 +5,8 @@ kind: Kustomization
 namespace: default
 components:
   - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
 resources:
     - ./actual/ks.yaml
     - ./bambu-connect/ks.yaml
@@ -15,15 +17,3 @@ resources:
     - ./qui/ks.yaml
     - ./romm/ks.yaml
     - ./webhook/ks.yaml
-replacements:
-  - source:
-      kind: Namespace
-      fieldPath: metadata.name
-    targets:
-      - select:
-          kind: Kustomization
-          group: kustomize.toolkit.fluxcd.io
-        fieldPaths:
-          - spec.targetNamespace
-        options:
-          create: true
