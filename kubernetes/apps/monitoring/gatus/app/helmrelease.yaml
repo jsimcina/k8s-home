@@ -20,8 +20,7 @@ spec:
               repository: ghcr.io/home-operations/gatus-sidecar
               tag: 0.0.6@sha256:99c193a9ddc6561c8f7a8573c8a0199de5cfc2e1490fb0bb3dd277c12ea06335
             args:
-              - --auto-group=true
-              - --auto-routes=false
+              - --auto-httproute
             resources:
               requests:
                 cpu: 10m
@@ -82,7 +81,6 @@ spec:
       app:
 
         annotations:
-          gatus.home-operations.com/enabled: "true"
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 200"]
         hostnames:
@@ -107,6 +105,7 @@ spec:
             - apiGroups:
                 - gateway.networking.k8s.io
               resources:
+                - gateways
                 - httproutes
               verbs:
                 - get
