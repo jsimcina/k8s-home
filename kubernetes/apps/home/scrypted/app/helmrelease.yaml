@@ -48,7 +48,8 @@ spec:
                 spec:
                   httpGet:
                     path: /endpoint/@scrypted/core/public
-                    port: &port 10443
+                    port: 10443
+                    scheme: HTTPS
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
