@@ -69,12 +69,14 @@ spec:
         externalTrafficPolicy: Local
         ports:
           http:
-            port: 8443
+            port: 10443
             primary: true
           rebroadcast:
             port: 33669
           rebroadcastp1s:
             port: 34213
+          forwardport:
+            port: 8443
           homekitport:
             port: 10405
     route:
