@@ -6,8 +6,11 @@ metadata:
   name: immich
 spec:
   components:
+    - ../../../../components/gpu
     - ../../../../components/nfs-scaler
   dependsOn:
+    - name: intel-gpu-resource-driver
+      namespace: kube-system
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
