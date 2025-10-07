@@ -96,7 +96,7 @@ spec:
         annotations:
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 200"]
-            url: "http://{{ .Release.Name }}.home.svc.cluster.local:11080/endpoint/@scrypted/core/public/#/"
+            url: "http://{{ .Release.Name }}.home.svc.cluster.local"
         hostnames:
           - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
