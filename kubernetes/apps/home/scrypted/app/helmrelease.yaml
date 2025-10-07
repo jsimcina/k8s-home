@@ -97,6 +97,7 @@ spec:
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 200"]
             url: "http://{{ .Release.Name }}.home.svc.cluster.local"
+            guarded: true
         hostnames:
           - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
