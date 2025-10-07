@@ -93,14 +93,10 @@ spec:
             port: 10405
     route:
       app:
-        annotations:
-          gatus.home-operations.com/endpoint: |-
-            conditions: ["[STATUS] == 200"]
-            url: "https://{{ .Release.Name }}.jonandlinz.io"
         hostnames:
           - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: network
             sectionName: https
     persistence:
