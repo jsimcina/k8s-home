@@ -39,6 +39,7 @@ spec:
               tag: latest@sha256:00356794146a7fd72698fcbef6e0483329c5168a14d055b234753912bf460feb
             env:
               SCRYPTED_DOCKER_AVAHI: true
+              DERP: true
               TZ: America/Chicago
             probes:
               liveness:
