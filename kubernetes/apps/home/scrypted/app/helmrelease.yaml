@@ -42,10 +42,23 @@ spec:
               DERP: true
               TZ: America/Chicago
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
+                custom: true
+                spec:
+                  httpGet:
+                    path: /endpoint/@scrypted/core/public
+                    port: &port 10443
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
                 enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             resources:
               claims:
                 - name: gpu
