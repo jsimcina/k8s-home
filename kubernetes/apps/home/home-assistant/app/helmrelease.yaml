@@ -17,20 +17,11 @@ spec:
             image:
               repository: ghcr.io/home-operations/postgres-init
               tag: 17
-            envFrom: &envFrom
+            envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"multus-iot",
-                "namespace": "kube-system",
-                "ips": ["10.21.1.5/16"],
-                "mac": "00:02:b3:af:42:1f"
-              }]
         containers:
           app:
             image:
@@ -54,6 +45,14 @@ spec:
               limits:
                 memory: 4Gi
     defaultPodOptions:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name":"multus-iot",
+            "namespace": "kube-system",
+            "ips": ["10.21.1.5/16"],
+            "mac": "00:02:b3:af:42:1f"
+          }]
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -68,9 +67,6 @@ spec:
             port: 8123
     route:
       app:
-        annotations:
-          gatus.home-operations.com/endpoint: |-
-            conditions: ["[STATUS] == 200"]
         hostnames:
           - hass.jonandlinz.io
         parentRefs:
