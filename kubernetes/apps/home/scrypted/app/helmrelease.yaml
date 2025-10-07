@@ -97,7 +97,6 @@ spec:
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 200"]
             url: "https://{{ .Release.Name }}.jonandlinz.io"
-            guarded: true
         hostnames:
           - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
