@@ -35,8 +35,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/bjw-s-labs/scrypted
-              tag: 0.141.0@sha256:5a18d0dc431ff8ec0388e4177e53b4abc58c07fea1111a9deb5dcbe2947bb66a
+              repository: ghcr.io/koush/scrypted
+              tag: v0.142.8-noble-full@sha256:4ad57580cb279b2ef688d02f08b187ff491fb0f50c4159aa4ed557d8bfaa12bb
             env:
               SCRYPTED_DOCKER_AVAHI: true
               TZ: America/Chicago
