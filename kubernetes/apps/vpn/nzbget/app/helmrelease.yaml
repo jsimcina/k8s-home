@@ -84,10 +84,5 @@ spec:
         path: /mnt/rustpool/media_server/usenet
         globalMounts:
           - path: /media/usenet
-      tmpfs:
+      tmp:
         type: emptyDir
-        advancedMounts:
-          nzbget:
-            app:
-              - path: /tmp
-                subPath: tmp

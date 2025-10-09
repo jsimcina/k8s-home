@@ -63,9 +63,5 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /usr/src/app/store
-      config-cache:
-        existingClaim: zwave-cache
-        globalMounts:
-          - path: /usr/src/app/store/.config-db
       tmp:
         type: emptyDir

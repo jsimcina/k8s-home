@@ -91,17 +91,6 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      config-cache:
-        existingClaim: "{{ .Release.Name }}-cache"
-        globalMounts:
-          - path: /config/MediaCover
-      scripts:
-        type: configMap
-        name: radarr-configmap
-        globalMounts:
-          - path: /scripts/pushover-notifier.sh
-            subPath: pushover-notifier.sh
-            readOnly: true
       media:
         type: nfs
         server: nas.jonandlinz.com

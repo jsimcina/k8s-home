@@ -98,28 +98,11 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      config-cache:
-        type: emptyDir
-        globalMounts:
-          - path: /config/cache
-      config-log:
-        type: emptyDir
-        globalMounts:
-          - path: /config/log
       media:
         type: nfs
         server: nas.jonandlinz.com
         path: /mnt/rustpool/media_server
         globalMounts:
           - path: /media
-      scripts:
-        type: configMap
-        name: bazarr-scripts
-        globalMounts:
-          - path: /scripts/subcleaner.sh
-            subPath: subcleaner.sh
-            readOnly: true
-      subcleaner:
-        type: emptyDir
       tmp:
         type: emptyDir

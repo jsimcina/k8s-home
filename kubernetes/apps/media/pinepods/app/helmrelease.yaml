@@ -87,10 +87,5 @@ spec:
         path: /mnt/rustpool/media_server/media/podcasts
         globalMounts:
           - path: /opt/pinepods/downloads
-      tmpfs:
+      tmp:
         type: emptyDir
-        advancedMounts:
-          pinepods:
-            app:
-              - path: /tmp
-                subPath: tmp
