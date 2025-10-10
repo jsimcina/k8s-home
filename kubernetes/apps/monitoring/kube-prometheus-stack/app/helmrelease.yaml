@@ -115,7 +115,7 @@ spec:
       sidecar:
         dashboards:
           annotations:
-            grafana_folder: Monitoring
+            grafana_folder: Prometheus
           multicluster:
             etcd:
               enabled: true

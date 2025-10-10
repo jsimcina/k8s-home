@@ -106,14 +106,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/database-folder
-          - name: default
-            orgId: 1
-            folder: ""
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/default
           - name: flux
             orgId: 1
             folder: Flux
@@ -130,14 +122,14 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/kubernetes-folder
-          - name: monitoring
+          - name: prometheus
             orgId: 1
-            folder: Monitoring Tools
+            folder: Prometheus
             type: file
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/monitoring-folder
+              path: /var/lib/grafana/dashboards/prometheus-folder
           - name: network
             orgId: 1
             folder: Network
@@ -295,7 +287,7 @@ spec:
           revision: 4
           datasource: Prometheus
 
-      monitoring:
+      prometheus:
         prometheus:
           # renovate: depName="Prometheus"
           gnetId: 19105
