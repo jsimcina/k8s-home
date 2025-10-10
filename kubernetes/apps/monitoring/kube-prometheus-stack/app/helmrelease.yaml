@@ -112,8 +112,11 @@ spec:
     grafana:
       enabled: false
       forceDeployDashboards: true
-      annotations:
-        grafana_folder: Monitoring
+      sidecar:
+        dashboards:
+          annotations:
+            grafana_folder: Monitoring
+          multicluster: false
     additionalPrometheusRulesMap:
       dockerhub-rules:
         groups:
