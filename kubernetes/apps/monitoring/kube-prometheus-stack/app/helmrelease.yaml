@@ -116,7 +116,9 @@ spec:
         dashboards:
           annotations:
             grafana_folder: Monitoring
-          multicluster: false
+          multicluster:
+            etcd:
+              enabled: true
     additionalPrometheusRulesMap:
       dockerhub-rules:
         groups:
