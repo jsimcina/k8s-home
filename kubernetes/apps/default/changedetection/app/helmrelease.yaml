@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dgtlmoon/changedetection.io
-              tag: 0.50.18@sha256:bef888d9b8012410ba97778dea85e3c4bd708c0c2810825b7084c5879800c131
+              tag: 0.50.20@sha256:9e7a0ba46fc4a54df9acacb76c8b8071e1e5e4f4285c0d044f8bf1e172b73c8f
             env:
               BASE_URL: "https://changedetection.jonandlinz.io"
               DISABLE_VERSION_CHECK: "true"
