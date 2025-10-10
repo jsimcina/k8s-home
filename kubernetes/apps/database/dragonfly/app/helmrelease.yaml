@@ -16,4 +16,4 @@ spec:
         repository: ghcr.io/dragonflydb/operator
     grafanaDashboard:
       enabled: true
-      folder: default
+      folder: Database
