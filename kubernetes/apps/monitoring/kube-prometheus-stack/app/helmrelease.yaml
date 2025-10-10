@@ -112,6 +112,8 @@ spec:
     grafana:
       enabled: false
       forceDeployDashboards: true
+      annotations:
+        grafana_folder: Monitoring
     additionalPrometheusRulesMap:
       dockerhub-rules:
         groups:
