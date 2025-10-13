@@ -50,11 +50,13 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "mqtt.jonandlinz.io"
+          external-dns.alpha.kubernetes.io/hostname: mqtt.jonandlinz.io
+          gatus.home-operations.com/endpoint: |-
+            group: services
           lbipam.cilium.io/ips: 10.12.0.105
         externalTrafficPolicy: Local
         ports:
-          http:
+          mqtt:
             port: 1883
     configMaps:
       config:
