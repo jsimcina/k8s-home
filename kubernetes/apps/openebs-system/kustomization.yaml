@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: openebs-system
 
 components:
-  - ../../components/nalerts
+  - ../../components/alerts
 
 resources:
   - ./namespace.yaml
