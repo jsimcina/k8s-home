@@ -21,6 +21,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: home
   wait: false
   postBuild:
     substitute:
