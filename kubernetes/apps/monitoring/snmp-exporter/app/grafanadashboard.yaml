@@ -3,14 +3,14 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: cert-manager
+  name: tpl-ups
 spec:
   allowCrossNamespaceImport: true
-  folder: "Monitoring"
+  folder: Infrastructure
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  url: https://grafana.com/api/dashboards/20842/revisions/3/download
+  url: https://grafana.com/api/dashboards/12340/revisions/1/download

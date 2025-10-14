@@ -3,14 +3,17 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: cert-manager
+  name: volsync
 spec:
   allowCrossNamespaceImport: true
-  folder: "Monitoring"
+  folder: Storage
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
-  url: https://grafana.com/api/dashboards/20842/revisions/3/download
+  envs:
+    - name: VAR_REPLICATIONDESTNAME
+      value: .*-dst
+  url: https://grafana.com/api/dashboards/21356/revisions/3/download
