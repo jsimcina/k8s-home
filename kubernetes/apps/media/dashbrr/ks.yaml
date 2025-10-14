@@ -11,6 +11,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: media
   wait: false # no flux ks dependents
   interval: 1h
   postBuild:

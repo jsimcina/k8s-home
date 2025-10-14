@@ -16,6 +16,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: media
   prune: true
   wait: false
   interval: 1h
