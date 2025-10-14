@@ -21,6 +21,7 @@ spec:
         annotations:
           lbipam.cilium.io/ips: 10.12.0.103
           external-dns.alpha.kubernetes.io/hostname: logingestion.jonandlinz.io
+        loadBalancerIP: 10.12.0.103
       serviceMonitor:
         enabled: true
     dashboards:
