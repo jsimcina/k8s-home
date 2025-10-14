@@ -6,7 +6,7 @@ metadata:
   name: unifi-insights
 spec:
   allowCrossNamespaceImport: true
-  folder: Networking
+  folder: Network
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
@@ -22,7 +22,7 @@ metadata:
   name: unifi-network-sites
 spec:
   allowCrossNamespaceImport: true
-  folder: Networking
+  folder: Network
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
@@ -38,7 +38,7 @@ metadata:
   name: unifi-uap
 spec:
   allowCrossNamespaceImport: true
-  folder: Networking
+  folder: Network
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
@@ -54,7 +54,7 @@ metadata:
   name: unifi-usw
 spec:
   allowCrossNamespaceImport: true
-  folder: Networking
+  folder: Network
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
