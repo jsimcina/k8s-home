@@ -32,3 +32,20 @@ spec:
     jsonData:
       implementation: prometheus
     url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadatasource_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: vmetrics-hass
+spec:
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana
+  datasource:
+    type: prometheus
+    name: vmetrics-hass
+    access: proxy
+    jsonData:
+      implementation: prometheus
+    url: http://vmsingle-stack.monitoring.svc.cluster.local:8429
