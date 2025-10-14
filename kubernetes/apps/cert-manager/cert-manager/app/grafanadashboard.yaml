@@ -6,7 +6,7 @@ metadata:
   name: cert-manager
 spec:
   allowCrossNamespaceImport: true
-  folder: "Monitoring"
+  folder: Monitoring
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
