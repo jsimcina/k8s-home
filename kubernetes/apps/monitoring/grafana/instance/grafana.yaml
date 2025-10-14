@@ -19,7 +19,7 @@ spec:
     auth.anonymous:
       enabled: "true"
     auth.generic_oauth:
-      allow_sign_up: "false"
+      allow_sign_up: "true"
       api_url: https://auth.jonandlinz.io/application/o/userinfo/
       auth_url: https://auth.jonandlinz.io/application/o/authorize/
       client_id: ${GF_AUTH_OIDC_CLIENT_ID}
