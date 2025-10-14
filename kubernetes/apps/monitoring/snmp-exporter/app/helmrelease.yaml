@@ -40,12 +40,6 @@ spec:
           target: 10.0.255.231
           auth:
             - public_v2
-        - name: unifi
-          module:
-            - ubiquiti_unifi
-          target: 10.0.0.2
-          auth:
-            - public_v2
       path: /snmp
       scrapeTimeout: 10s
       relabelings:

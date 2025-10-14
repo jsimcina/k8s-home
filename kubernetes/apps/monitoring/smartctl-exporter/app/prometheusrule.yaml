@@ -36,6 +36,7 @@ spec:
               Mounted drive {{ $labels.device }} on device {{ $labels.instance }} is in a critical state
           labels:
             severity: critical
+
         - alert: SmartDeviceMediaErrors
           expr: |-
             smartctl_device_media_errors != 0
@@ -45,6 +46,7 @@ spec:
               Mounted drive {{ $labels.device }} on device {{ $labels.instance }} has media errors
           labels:
             severity: critical
+
         - alert: SmartDeviceAvailableSpareUnderThreadhold
           expr: |-
             smartctl_device_available_spare_threshold > smartctl_device_available_spare
@@ -54,6 +56,7 @@ spec:
               Device {{ $labels.device }} on instance {{ $labels.instance }} is under available spare threashold
           labels:
             severity: critical
+
         - alert: SmartDeviceInterfaceSlow
           expr: |-
             smartctl_device_interface_speed{speed_type="current"} != on(device, instance, namespace, pod) smartctl_device_interface_speed{speed_type="max"}
