@@ -18,7 +18,7 @@ spec:
           topologyKey: "kubernetes.io/hostname"
   enableSuperuserAccess: true
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/tensorchord/cloudnative-vectorchord:${POSTGRESQL_VERSION}
+  imageName: ghcr.io/cloudnative-pg/postgresql:18
   monitoring:
     enablePodMonitor: true
   plugins:

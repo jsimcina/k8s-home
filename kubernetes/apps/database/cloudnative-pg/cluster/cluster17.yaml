@@ -31,6 +31,8 @@ spec:
   postgresql:
     parameters:
       max_connections: "600"
+    shared_preload_libraries:
+      - "vchord.so"
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
   resources:
@@ -57,5 +59,5 @@ spec:
 #      plugin:
 #        enabled: true
 #        isWALArchiver: false
-#        name: barman-cloud.cloudnative-pg.io
-#        parameters: *barmanParameters
+        name: barman-cloud.cloudnative-pg.io
+        parameters: *barmanParameters
