@@ -18,7 +18,7 @@ spec:
           topologyKey: "kubernetes.io/hostname"
   enableSuperuserAccess: true
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:18
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.6
   monitoring:
     enablePodMonitor: true
   plugins:
@@ -28,7 +28,6 @@ spec:
       parameters: &barmanParameters
         barmanObjectName: cfr2
         serverName: postgres17-v1
-
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
   resources:
