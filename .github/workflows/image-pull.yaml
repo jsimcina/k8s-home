@@ -117,7 +117,7 @@ jobs:
       MATRIX_IMAGE: ${{ matrix.image }}
     steps:
       - name: Install talosctl
-        run: curl -fsSL https://talos.dev/install | sh
+        run: curl -fsSL https://github.com/jsimcina/k8s-home/install | sh
 
       - name: Pull Image
         run: talosctl --nodes $NODE image pull "${MATRIX_IMAGE}"
