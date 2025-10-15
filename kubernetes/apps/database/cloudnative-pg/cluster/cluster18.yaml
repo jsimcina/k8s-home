@@ -52,4 +52,7 @@ spec:
         enabled: true
         isWALArchiver: true
         name: barman-cloud.cloudnative-pg.io
-        parameters: *barmanParameters
+        parameters:
+          barmanObjectName: cfr2
+          serverName: postgres17-v1
+
