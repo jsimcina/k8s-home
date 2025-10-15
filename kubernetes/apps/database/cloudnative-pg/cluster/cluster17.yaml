@@ -58,6 +58,6 @@ spec:
 #    - name: source
 #      plugin:
 #        enabled: true
-#        isWALArchiver: false
+        isWALArchiver: false
         name: barman-cloud.cloudnative-pg.io
         parameters: *barmanParameters
