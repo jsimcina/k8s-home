@@ -18,7 +18,7 @@ spec:
           topologyKey: "kubernetes.io/hostname"
   enableSuperuserAccess: true
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.6
+  imageName: ghcr.io/cloudnative-pg/postgresql:18
   monitoring:
     enablePodMonitor: true
   plugins:
@@ -32,7 +32,7 @@ spec:
     extensions:
       - name: vchord
         image:
-          reference: ghcr.io/tensorchord/vchord-scratch:pg17-v0.5.3
+          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3
     parameters:
       max_connections: "600"
     shared_preload_libraries:
