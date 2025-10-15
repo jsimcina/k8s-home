@@ -5,7 +5,7 @@ metadata:
   name: pgbouncer-rw
 spec:
   cluster:
-    name: postgres17
+    name: postgres
   instances: 3
   type: rw
   monitoring:
