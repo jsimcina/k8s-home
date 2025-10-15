@@ -40,10 +40,10 @@ spec:
     storageClass: openebs-hostpath
   superuserSecret:
     name: cloudnative-pg-secret
-  externalClusters:
-    - name: source
-      plugin:
-        enabled: true
-        isWALArchiver: false
-        name: barman-cloud.cloudnative-pg.io
-        parameters: *barmanParameters
+  #externalClusters:
+  #  - name: source
+  #    plugin:
+  #      enabled: true
+  #      isWALArchiver: false
+  #      name: barman-cloud.cloudnative-pg.io
+  #      parameters: *barmanParameters

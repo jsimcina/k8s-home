@@ -8,8 +8,9 @@ spec:
   chartRef:
     kind: OCIRepository
     name: plugin-barman-cloud
-  values:
-    crds:
-      create: true
-    rbac:
-      create: true
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  uninstall:
+    keepHistory: false
