@@ -12,3 +12,4 @@ Brewfile.lock.json
 Thumbs.db
 kubeconfig
 talosconfig
+app.dump
