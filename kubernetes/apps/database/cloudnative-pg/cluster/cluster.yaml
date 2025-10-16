@@ -40,8 +40,6 @@ spec:
           - /usr/lib/postgresql/18/lib
         extension_control_path:
           - /usr/share/postgresql/18/
-    shared_preload_libraries:
-      - "vchord.so"
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
   resources:
