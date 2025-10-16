@@ -36,7 +36,8 @@ spec:
       - name: vchord
         image:
           reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3
-
+    shared_preload_libraries:
+      - "vchord.so"
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
   resources:
