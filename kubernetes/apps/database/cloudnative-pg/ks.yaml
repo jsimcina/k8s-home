@@ -54,10 +54,6 @@ spec:
       current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
   interval: 1h
   path: ./kubernetes/apps/database/cloudnative-pg/cluster
-  postBuild:
-    substitute:
-      # renovate: datasource=docker depName=ghcr.io/tensorchord/cloudnative-vectorchord
-      POSTGRESQL_VERSION: "17.5-0.4.3"
   prune: true
   sourceRef:
     kind: GitRepository

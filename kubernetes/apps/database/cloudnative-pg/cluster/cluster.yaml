@@ -35,6 +35,7 @@ spec:
     extensions:
       - name: vchord
         image:
+          # renovate: datasource=docker depName=ghcr.io/tensorchord/vchord-scratch
           reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3
         dynamic_library_path:
           - /usr/lib/postgresql/18/lib
