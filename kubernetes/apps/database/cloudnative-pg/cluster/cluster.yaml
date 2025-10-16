@@ -32,6 +32,10 @@ spec:
   postgresql:
     parameters:
       max_connections: "600"
+    extensions:
+      - name: vchord
+        image:
+          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v0.5.3
 
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
