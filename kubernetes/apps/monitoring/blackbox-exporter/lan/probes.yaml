@@ -16,6 +16,10 @@ spec:
         - ui.jonandlinz.com
         - zigbee-controller.jonandlinz.com
         - zwave-controller.jonandlinz.com
+  metricRelabelings:
+    - targetLabel: service
+      replacement: blackbox-exporter-lan
+      action: replace
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/probe_v1.json
 apiVersion: monitoring.coreos.com/v1
@@ -30,3 +34,7 @@ spec:
     staticConfig:
       static:
         - nas.jonandlinz.com:2049
+  metricRelabelings:
+    - targetLabel: service
+      replacement: blackbox-exporter-lan
+      action: replace
