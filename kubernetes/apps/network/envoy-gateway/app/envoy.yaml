@@ -77,6 +77,16 @@ spec:
         certificateRefs:
           - kind: Secret
             name: jonandlinz-io-tls
+    - name: scrypted-forward
+      protocol: HTTPS
+      port: 42451
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: jonandlinz-io-tls
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/gateway_v1.json
 apiVersion: gateway.networking.k8s.io/v1
