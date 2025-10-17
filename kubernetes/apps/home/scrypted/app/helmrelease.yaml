@@ -89,7 +89,7 @@ spec:
           rebroadcastp1s:
             port: 34213
           forwardport:
-            port: 8443
+            port: 45273
           homekitport:
             port: 10405
     route:
