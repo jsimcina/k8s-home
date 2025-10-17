@@ -88,8 +88,6 @@ spec:
             port: 33669
           rebroadcastp1s:
             port: 34213
-          forwardport:
-            port: 42451
           homekitport:
             port: 10405
     route:
@@ -107,6 +105,8 @@ spec:
           scrypted:
             app:
               - path: /server/volume
+              - path: /.cloudflared
+                subPath: .cloudflared
       tmpfs:
         type: emptyDir
         advancedMounts:
