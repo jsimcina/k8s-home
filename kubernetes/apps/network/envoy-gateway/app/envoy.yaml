@@ -73,12 +73,12 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    - name: scrypted-forward
-      protocol: HTTPS
-      port: 42451
-      allowedRoutes:
-        namespaces:
-          from: Same
+    # - name: scrypted-forward
+    #   protocol: HTTPS
+    #   port: 42451
+    #   allowedRoutes:
+    #     namespaces:
+    #       from: Same
       tls:
         certificateRefs:
           - kind: Secret
