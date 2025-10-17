@@ -78,7 +78,6 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 10.12.0.106
-          external-dns.alpha.kubernetes.io/hostname: scrypted-lb.jonandlinz.io
         controller: scrypted
         externalTrafficPolicy: Local
         ports:
@@ -96,7 +95,7 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: network
             sectionName: https
     persistence:
