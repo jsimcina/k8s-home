@@ -24,8 +24,6 @@ spec:
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
-          global:
-            resolveTimeout: 5m
         externalUrl: https://alertmanager.jonandlinz.io
         storage:
           volumeClaimTemplate:
@@ -83,32 +81,8 @@ spec:
                   storage: 50Gi
     prometheus-node-exporter:
       fullnameOverride: node-exporter
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
-              targetLabel: kubernetes_node
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
-      metricLabelsAllowlist:
-        - pods=[*]
-        - deployments=[*]
-        - persistentvolumeclaims=[*]
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
-              targetLabel: kubernetes_node
     grafana:
       enabled: false
       forceDeployDashboards: true
@@ -117,10 +91,6 @@ spec:
         folder: Monitoring
         matchLabels:
           grafana.internal/instance: grafana
-      sidecar:
-        dashboards:
-          label: grafana_dashboard_ignored # GrafanaDashboard is used instead, don't conflict with k8s-sidecar
-          labelValue: "1"
     additionalPrometheusRulesMap:
       dockerhub-rules:
         groups:

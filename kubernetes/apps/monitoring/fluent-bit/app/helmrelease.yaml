@@ -86,8 +86,6 @@ spec:
           log_response_payload false
     dashboards:
       enabled: true
-      annotations:
-        grafana_folder: Monitoring
     serviceMonitor:
       enabled: true
     logLevel: warn

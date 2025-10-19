@@ -15,8 +15,6 @@ spec:
       enabled: true
     grafanaDashboard:
       enabled: true
-      annotations:
-        grafana_folder: Kubernetes
     certController:
       serviceMonitor:
         enabled: true
