@@ -23,7 +23,7 @@ spec:
         strategy: RollingUpdate
         statefulset:
           podManagementPolicy: OrderedReady
-          serviceName: rmqtt
+          serviceName: rmqtt-headless
         replicas: 3
         containers:
           app:
