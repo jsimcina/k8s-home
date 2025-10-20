@@ -23,7 +23,7 @@ spec:
         strategy: RollingUpdate
         statefulset:
           podManagementPolicy: OrderedReady
-          serviceName: rmqtt-headless
+          serviceName: rmqtt
         replicas: 3
         containers:
           app:
@@ -42,13 +42,13 @@ spec:
               - rmqtt-cluster-raft
               - rmqtt-retainer
               - --node-grpc-addrs
-              - 1@rmqtt-1.rmqtt-headless.database.svc.cluster.local:5363
-              - 2@rmqtt-2.rmqtt-headless.database.svc.cluster.local:5363
-              - 3@rmqtt-3.rmqtt-headless.database.svc.cluster.local:5363
+              - 1@rmqtt-1.rmqtt.database.svc.cluster.local:5363
+              - 2@rmqtt-2.rmqtt.database.svc.cluster.local:5363
+              - 3@rmqtt-3.rmqtt.database.svc.cluster.local:5363
               - --raft-peer-addrs
-              - 1@rmqtt-1.rmqtt-headless.database.svc.cluster.local:6003
-              - 2@rmqtt-2.rmqtt-headless.database.svc.cluster.local:6003
-              - 3@rmqtt-3.rmqtt-headless.database.svc.cluster.local:6003
+              - 1@rmqtt-1.rmqtt.database.svc.cluster.local:6003
+              - 2@rmqtt-2.rmqtt.database.svc.cluster.local:6003
+              - 3@rmqtt-3.rmqtt.database.svc.cluster.local:6003
             probes:
               liveness: &probes
                 enabled: true
@@ -75,8 +75,8 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
-      headless:
-        controller: rmqtt
+      app:
+        type: ClusterIP
         clusterIP: None
         publishNotReadyAddresses: true
         ports:
