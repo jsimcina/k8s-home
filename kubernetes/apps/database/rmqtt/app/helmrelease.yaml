@@ -75,7 +75,8 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
-      app:
+      rmqtt:
+        controller: rmqtt
         type: ClusterIP
         clusterIP: None
         publishNotReadyAddresses: true
