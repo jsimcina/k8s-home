@@ -120,7 +120,7 @@ spec:
       user-acl:
         type: secret
         name: rmqtt-secret
-        advancedMounts:
+        globalMounts:
           - path: /app/rmqtt/rmqtt-plugins/rmqtt-acl.toml
             subPath: rmqtt-acl.toml
             readOnly: true
