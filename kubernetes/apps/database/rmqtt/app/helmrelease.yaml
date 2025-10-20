@@ -42,13 +42,13 @@ spec:
               - rmqtt-cluster-raft
               - rmqtt-retainer
               - --node-grpc-addrs
-              - 0@rmqtt-0.rmqtt.database.svc.cluster.local:5363
-              - 1@rmqtt-1.rmqtt.database.svc.cluster.local:5363
-              - 2@rmqtt-2.rmqtt.database.svc.cluster.local:5363
+              - 1@rmqtt-0.rmqtt.database.svc.cluster.local:5363
+              - 2@rmqtt-1.rmqtt.database.svc.cluster.local:5363
+              - 3@rmqtt-2.rmqtt.database.svc.cluster.local:5363
               - --raft-peer-addrs
-              - 0@rmqtt-0.rmqtt.database.svc.cluster.local:6003
-              - 1@rmqtt-1.rmqtt.database.svc.cluster.local:6003
-              - 2@rmqtt-2.rmqtt.database.svc.cluster.local:6003
+              - 1@rmqtt-0.rmqtt.database.svc.cluster.local:6003
+              - 2@rmqtt-1.rmqtt.database.svc.cluster.local:6003
+              - 3@rmqtt-2.rmqtt.database.svc.cluster.local:6003
             probes:
               liveness: &probes
                 enabled: true
