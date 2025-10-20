@@ -11,5 +11,6 @@ resources:
   - ./namespace.yaml
   - ./cloudnative-pg/ks.yaml
   - ./dragonfly/ks.yaml
-  - ./mosquitto/ks.yaml
+  #- ./mosquitto/ks.yaml
   - ./pgadmin/ks.yaml
+  - ./rmqtt/ks.yaml
