@@ -10,7 +10,7 @@ spec:
   parentRefs:
     - name: envoy-external
       namespace: network
-      sectionName: https
+
   rules:
     - backendRefs:
         - name: authentik-server

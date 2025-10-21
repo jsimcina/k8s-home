@@ -97,8 +97,7 @@ spec:
           - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
           - name: envoy-internal
-            namespace: network
-    persistence:
+            namespace: network    persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
       tmp:

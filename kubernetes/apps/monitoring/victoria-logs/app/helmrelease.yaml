@@ -23,8 +23,7 @@ spec:
           - victoria-logs.jonandlinz.io
         parentRefs:
           - name: envoy-internal
-            namespace: network
-        extraRules:
+            namespace: network        extraRules:
           - filters:
               - type: RequestRedirect
                 requestRedirect:

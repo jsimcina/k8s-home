@@ -13,7 +13,7 @@ spec:
   parentRefs:
     - name: envoy-external
       namespace: network
-      sectionName: https
+
   rules:
     - matches:
         - path:
