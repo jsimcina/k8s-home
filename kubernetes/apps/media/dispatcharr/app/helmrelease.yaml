@@ -65,15 +65,14 @@ spec:
                 memory: 512Mi
 
           nginx:
-            env:
-              DISPATCHARR_HOST: "[::]:9191"
+            envFrom: *envFrom
             image: *image
             command: bash
             args:
             - -c
             - |-
               sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /etc/nginx/sites-enabled/default && \
-              sed -i "s/NGINX_PORT/$(DISPATCHARR_HOST)/g" /etc/nginx/sites-enabled/default && \
+              sed -i "s/NGINX_PORT/9191/g" /etc/nginx/sites-enabled/default && \
               nginx -g "daemon off;"
 
 
