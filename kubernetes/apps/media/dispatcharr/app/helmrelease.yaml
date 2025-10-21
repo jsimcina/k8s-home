@@ -64,19 +64,6 @@ spec:
               limits:
                 memory: 4Gi
 
-          nginx:
-            env:
-              DISPATCHARR_HOST: "[::]:9191"
-            image: *image
-            command: bash
-            args:
-            - -c
-            - |-
-              sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /etc/nginx/sites-enabled/default && \
-              sed -i "s/NGINX_PORT/$(DISPATCHARR_HOST)/g" /etc/nginx/sites-enabled/default && \
-              nginx -g "daemon off;"
-
-
     defaultPodOptions:
       hostUsers: false
       resourceClaims:
