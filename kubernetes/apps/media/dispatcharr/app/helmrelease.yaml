@@ -31,6 +31,19 @@ spec:
              - -c
              - ". /app/docker/init/03-init-dispatcharr.sh && python manage.py migrate --noinput"
         containers:
+          celery:
+            envFrom: *envFrom
+            image: *image
+            workingDir: /app
+            command: celery
+            args: ["-A", "dispatcharr", "worker", "-l", "info"]
+            resources:
+              limits:
+                memory: 4Gi
+              requests:
+                cpu: 10m
+                memory: 512Mi
+
           app:
             envFrom: *envFrom
             image: *image
@@ -63,18 +76,6 @@ spec:
               sed -i "s/NGINX_PORT/$(DISPATCHARR_HOST)/g" /etc/nginx/sites-enabled/default && \
               nginx -g "daemon off;"
 
-          celery:
-            envFrom: *envFrom
-            image: *image
-            workingDir: /app
-            command: celery
-            args: ["-A", "dispatcharr", "worker", "-l", "info"]
-            resources:
-              limits:
-                memory: 4Gi
-              requests:
-                cpu: 10m
-                memory: 512Mi
 
     defaultPodOptions:
       hostUsers: false
