@@ -71,7 +71,7 @@ spec:
             args: ["-A", "dispatcharr", "worker", "-l", "info"]
             resources:
               limits:
-                memory: 1Gi
+                memory: 4Gi
               requests:
                 cpu: 10m
                 memory: 512Mi
