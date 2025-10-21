@@ -42,7 +42,6 @@ spec:
               tag: 0.10.4@sha256:31242b53f369e82e92d8f5ef53f93d5686c2a8c7fbb486a1fc57d006def13401
             env:
               CELERY_BROKER_URL: redis://dragonfly.database.svc.cluster.local:6379/7
-              DISPATCHARR_ENV: aio
               DISPATCHARR_LOG_LEVEL: info
               DISPATCHARR_PORT: &port 9191
               REDIS_HOST: dragonfly.database.svc.cluster.local
