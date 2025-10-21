@@ -31,19 +31,6 @@ spec:
              - -c
              - ". /app/docker/init/03-init-dispatcharr.sh && python manage.py migrate --noinput"
         containers:
-          celery:
-            envFrom: *envFrom
-            image: *image
-            workingDir: /app
-            command: celery
-            args: ["-A", "dispatcharr", "worker", "-l", "info"]
-            resources:
-              limits:
-                memory: 4Gi
-              requests:
-                cpu: 10m
-                memory: 512Mi
-
           app:
             envFrom: *envFrom
             image: *image
@@ -64,6 +51,19 @@ spec:
               limits:
                 memory: 4Gi
 
+          celery:
+            envFrom: *envFrom
+            image: *image
+            workingDir: /app
+            command: celery
+            args: ["-A", "dispatcharr", "worker", "-l", "info"]
+            resources:
+              limits:
+                memory: 4Gi
+              requests:
+                cpu: 10m
+                memory: 512Mi
+
           nginx:
             env:
               DISPATCHARR_HOST: "[::]:9191"
@@ -78,6 +78,9 @@ spec:
 
 
     defaultPodOptions:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
       resourceClaims:
         - name: gpu
           resourceClaimTemplateName: dispatcharr-gpu
