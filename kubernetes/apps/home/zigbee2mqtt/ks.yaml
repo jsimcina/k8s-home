@@ -8,7 +8,7 @@ spec:
   components:
     - ../../../../components/volsync
   dependsOn:
-    - name: rmqtt
+    - name: mosquitto
       namespace: database
     - name: rook-ceph-cluster
       namespace: rook-ceph
