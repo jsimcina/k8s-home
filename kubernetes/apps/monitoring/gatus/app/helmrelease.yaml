@@ -38,7 +38,6 @@ spec:
             env:
               TZ: America/Chicago
               GATUS_CONFIG_PATH: /config
-              GATUS_DELAY_START_SECONDS: 5
               GATUS_WEB_PORT: &port 80
               GATUS_LOG_LEVEL: DEBUG
             envFrom:
