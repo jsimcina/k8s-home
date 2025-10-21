@@ -21,13 +21,8 @@ spec:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
           migrate:
-            env:
-              REDIS_HOST: dragonfly.database.svc.cluster.local
-              REDIS_DB: 7
-              CELERY_BROKER_URL: "redis://dragonfly.database.svc.cluster.local:6379/7"
-              DISPATCHARR_LOG_LEVEL: info
             envFrom: *envFrom
-            image:
+            image: &image
               repository: ghcr.io/dispatcharr/dispatcharr
               tag: 0.10.4@sha256:31242b53f369e82e92d8f5ef53f93d5686c2a8c7fbb486a1fc57d006def13401
             workingDir: /app
@@ -37,16 +32,17 @@ spec:
              - ". /app/docker/init/03-init-dispatcharr.sh && python manage.py migrate --noinput"
         containers:
           app:
-            image:
-              repository: ghcr.io/dispatcharr/dispatcharr
-              tag: 0.10.4@sha256:31242b53f369e82e92d8f5ef53f93d5686c2a8c7fbb486a1fc57d006def13401
-            env:
-              CELERY_BROKER_URL: redis://dragonfly.database.svc.cluster.local:6379/7
-              DISPATCHARR_LOG_LEVEL: info
-              DISPATCHARR_PORT: &port 9191
-              REDIS_HOST: dragonfly.database.svc.cluster.local
-              REDIS_DB: 7
             envFrom: *envFrom
+            image: *image
+            workingDir: /app
+            command: bash
+            args:
+              - -c
+              - |-
+                sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /app/docker/uwsgi.ini && \
+                sed -i '/^attach-daemon = redis-server/s/^/;/' /app/docker/uwsgi.ini && \
+                sed -i '/^attach-daemon = .*celery.*worker.*/s/^/;/' /app/docker/uwsgi.ini && \
+                uwsgi --ini /app/docker/uwsgi.ini --disable-logging
             resources:
               claims:
                 - name: gpu
@@ -54,16 +50,45 @@ spec:
                 cpu: 100m
               limits:
                 memory: 4Gi
+
+          nginx:
+            env:
+              DISPATCHARR_HOST: "[::]:9191"
+            image: *image
+            command: bash
+            args:
+            - -c
+            - |-
+              sed -i "s:/app/uwsgi.sock:/tmp/uwsgi.sock:g" /etc/nginx/sites-enabled/default && \
+              sed -i "s/NGINX_PORT/$(DISPATCHARR_HOST)/g" /etc/nginx/sites-enabled/default && \
+              nginx -g "daemon off;"
+
+          celery:
+            envFrom: *envFrom
+            image: *image
+            workingDir: /app
+            command: celery
+            args: ["-A", "dispatcharr", "worker", "-l", "info"]
+            resources:
+              limits:
+                memory: 1Gi
+              requests:
+                cpu: 10m
+                memory: 512Mi
+
     defaultPodOptions:
       hostUsers: false
       resourceClaims:
         - name: gpu
           resourceClaimTemplateName: dispatcharr-gpu
+
     service:
       app:
+        controller: dispatcharr
         ports:
           http:
-            port: *port
+            port: 80
+            targetPort: *port
     route:
       app:
         hostnames:
