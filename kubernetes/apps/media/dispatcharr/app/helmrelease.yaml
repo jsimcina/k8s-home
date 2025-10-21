@@ -100,7 +100,7 @@ spec:
             namespace: network
         rules:
           - backendRefs:
-              - identifier: dispatcharr
+              - identifier: app
                 port: 80
     persistence:
       data:
