@@ -83,6 +83,8 @@ spec:
         ports:
           http:
             port: 11080
+          https:
+            port: 10443
             primary: true
           rebroadcast:
             port: 33669
