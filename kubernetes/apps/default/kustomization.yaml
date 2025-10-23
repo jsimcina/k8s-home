@@ -12,6 +12,7 @@ resources:
   - ./actual/ks.yaml
   - ./bambu-connect/ks.yaml
   - ./changedetection/ks.yaml
+  - ./convertx/ks.yaml
   - ./manyfold/ks.yaml
   - ./ollama/ks.yaml
   - ./paperless-ngx/ks.yaml
