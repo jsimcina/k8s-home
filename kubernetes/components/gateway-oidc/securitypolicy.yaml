@@ -10,7 +10,7 @@ spec:
       name: ${APP}
   oidc:
     provider:
-      issuer: https://auth.jonandlinz.io
+      issuer: https://auth.jonandlinz.io/application/o/${APP}/
     clientIDRef:
       name: "${APP}-gw-oidc"
     clientSecret:
