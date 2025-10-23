@@ -1,0 +1,22 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: ${APP}-gw-oidc
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: ${APP}
+  oidc:
+    provider:
+      issuer: https://auth.jonandlinz.io
+    clientIDRef:
+      name: "${APP}-gw-oidc"
+    clientSecret:
+      name: "${APP}-gw-oidc"
+    refreshToken: true
+    cookieDomain: jonandlinz.io
+    redirectURL: "https://${APP_SUBDOMAIN:-${APP}}.jonandlinz.io/oauth2/callback"
+    logoutPath: "${LOGOUT_PATH:-/logout}"
+    scopes: ["openid", "profile", "email"]
