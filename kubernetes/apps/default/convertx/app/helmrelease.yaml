@@ -23,8 +23,9 @@ spec:
               TZ: America/Chicago
               ACCOUNT_REGISTRATION: true
               HTTP_ALLOWED: false
-              ALLOW_UNAUTHENTICATED: false
+              ALLOW_UNAUTHENTICATED: true
               AUTO_DELETE_EVERY_N_HOURS: 1
+              UNAUTHENTICATED_USER_SHARING: false
             probes:
               liveness: &probes
                 enabled: true
