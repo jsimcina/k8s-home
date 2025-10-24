@@ -44,6 +44,7 @@ spec:
         clusterIP: None
         servicePort: 514
         externalTrafficPolicy: Local
+        type: LoadBalancer
 
       serviceMonitor:
         enabled: true
