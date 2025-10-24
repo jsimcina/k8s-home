@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vlogs-ingestion
+  annotations:
+    lbipam.cilium.io/ips: 10.12.0.103
+    external-dns.alpha.kubernetes.io/hostname: vlogs-ingestion.jonandlinz.io
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: victoria-logs
+  ports:
+    - name: syslog-tcp
+      port: 514
+      protocol: TCP
+    - name: syslog-udp
+      port: 514
+      protocol: UDP
