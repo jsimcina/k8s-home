@@ -10,6 +10,7 @@ spec:
   type: LoadBalancer
   selector:
     app.kubernetes.io/name: victoria-logs-server
+  externalTrafficPolicy: Local
   ports:
     - name: syslog-tcp
       port: 514
