@@ -15,7 +15,6 @@ spec:
     server:
       extraArgs:
         syslog.listenAddr.tcp: ":514"
-        syslog.tenantID.tcp: "51401:0"
       persistentVolume:
         enabled: true
         storageClassName: ceph-block
