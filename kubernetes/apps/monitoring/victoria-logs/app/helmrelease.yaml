@@ -78,11 +78,9 @@ spec:
         annotations:
           lbipam.cilium.io/ips: 10.12.0.103
           external-dns.alpha.kubernetes.io/hostname: vlogs-ingestion.jonandlinz.io
-        type: LoadBalancer
-        #loadBalancerIP: 10.12.0.103
-        clusterIP: None
-        servicePort: 514
-        externalTrafficPolicy: Local
+        loadBalancerIP: 10.12.0.103
+
+
 
       serviceMonitor:
         enabled: true
