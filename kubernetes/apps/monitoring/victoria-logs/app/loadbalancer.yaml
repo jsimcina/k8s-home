@@ -9,7 +9,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app.kubernetes.io/name: victoria-logs
+    app.kubernetes.io/name: victoria-logs-server
   ports:
     - name: syslog-tcp
       port: 514
