@@ -36,47 +36,7 @@ spec:
               - path:
                   type: Exact
                   value: /
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: victoria-logs
-spec:
-  chartRef:
-    kind: OCIRepository
-    name: victoria-logs
-  interval: 1h
-  values:
-    fullnameOverride: victoria-logs
-    retentionPeriod: 30d
-    server:
-      persistentVolume:
-        enabled: true
-        storageClassName: ceph-block
-        size: 50Gi
-      route:
-        enabled: true
-        hostnames:
-          - victoria-logs.jonandlinz.io
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-        extraRules:
-          - filters:
-              - type: RequestRedirect
-                requestRedirect:
-                  path:
-                    type: ReplaceFullPath
-                    replaceFullPath: /select/vmui/
-                  statusCode: 302
-            matches:
-              - path:
-                  type: Exact
-                  value: /
       serviceMonitor:
         enabled: true
     dashboards:
       enabled: true
-      serviceMonitor:
-        enabled: true
