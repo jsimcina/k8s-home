@@ -8,13 +8,9 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: vlogs-ingestion.jonandlinz.io
 spec:
   type: LoadBalancer
-  selector:
-    app.kubernetes.io/name: victoria-logs-server
-  externalTrafficPolicy: Local
   ports:
     - name: syslog-tcp
       port: 514
       protocol: TCP
-    - name: syslog-udp
-      port: 514
-      protocol: UDP
+  selector:
+    app.kubernetes.io/name: victoria-logs-single
