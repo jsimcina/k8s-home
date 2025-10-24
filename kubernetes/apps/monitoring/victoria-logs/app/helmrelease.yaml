@@ -74,14 +74,6 @@ spec:
               - path:
                   type: Exact
                   value: /
-      service:
-        annotations:
-          lbipam.cilium.io/ips: 10.12.0.103
-          external-dns.alpha.kubernetes.io/hostname: vlogs-ingestion.jonandlinz.io
-        loadBalancerIP: 10.12.0.103
-
-
-
       serviceMonitor:
         enabled: true
     dashboards:
