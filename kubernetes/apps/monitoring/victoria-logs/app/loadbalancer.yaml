@@ -10,10 +10,10 @@ spec:
   type: LoadBalancer
   ports:
     - name: syslog-tcp
-      port: 514
+      port: 5514
       protocol: TCP
     - name: syslog-udp
-      port: 514
+      port: 5514
       protocol: UDP
   selector:
     app.kubernetes.io/name: victoria-logs-single

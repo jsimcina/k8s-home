@@ -14,8 +14,8 @@ spec:
     retentionPeriod: 30d
     server:
       extraArgs:
-        syslog.listenAddr.tcp: ":514"
-        syslog.listenAddr.udp: ":514"
+        syslog.listenAddr.tcp: ":5514"
+        syslog.listenAddr.udp: ":5514"
       persistentVolume:
         enabled: true
         storageClassName: ceph-block
