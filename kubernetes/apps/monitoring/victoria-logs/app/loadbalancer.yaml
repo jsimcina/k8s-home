@@ -15,5 +15,11 @@ spec:
     - name: syslog-udp
       port: 514
       protocol: UDP
+    - name: unifisyslog-tcp
+      port: 55514
+      protocol: TCP
+    - name: unifisyslog-udp
+      port: 55514
+      protocol: UDP
   selector:
     app.kubernetes.io/name: victoria-logs-single
