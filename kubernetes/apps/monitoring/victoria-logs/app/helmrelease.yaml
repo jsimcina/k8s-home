@@ -16,8 +16,6 @@ spec:
       extraArgs:
         syslog.listenAddr.tcp: ":514"
         syslog.listenAddr.udp: ":514"
-        syslog.compressMethod.tcp: gzip
-        syslog.compressMethod.udp: gzip
       persistentVolume:
         enabled: true
         storageClassName: ceph-block
