@@ -46,6 +46,15 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+      route:
+        main:          
+          enabled: true
+          kind: HTTPRoute          
+          hostnames:
+            - auth.jonandlinz.io
+          parentRefs:
+            - name: envoy-external
+              namespace: network
     worker:
       autoscaling:
         enabled: true
