@@ -47,14 +47,19 @@ spec:
         serviceMonitor:
           enabled: true
       route:
-        main:          
+        main:
           enabled: true
-          kind: HTTPRoute          
+          kind: HTTPRoute
           hostnames:
             - auth.jonandlinz.io
           parentRefs:
             - name: envoy-external
               namespace: network
+          additionalRules:
+            - backendRefs:
+                - name: authentik-server
+                  namespace: security
+                  port: 80
     worker:
       autoscaling:
         enabled: true
