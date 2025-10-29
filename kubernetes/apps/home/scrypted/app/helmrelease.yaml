@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/koush/scrypted
-              tag: latest@sha256:00356794146a7fd72698fcbef6e0483329c5168a14d055b234753912bf460feb
+              tag: latest@sha256:0bd5e7743dbfda9387f1831c1f5d1076cb8416b742a29ae4f769febe549927ec
             env:
               SCRYPTED_DOCKER_AVAHI: true
               TZ: America/Chicago
