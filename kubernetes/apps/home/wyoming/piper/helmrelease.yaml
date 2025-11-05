@@ -20,6 +20,8 @@ spec:
             args:
               - --voice
               - en_US-libritts_r-medium
+              - --data-dir
+              - /data
             env:
               TZ: America/Chicago
     service:
