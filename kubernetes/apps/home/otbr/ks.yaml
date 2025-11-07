@@ -3,21 +3,20 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: vikunja
+  name: otbr
 spec:
   components:
     - ../../../../components/volsync
   interval: 1h
-  path: ./kubernetes/apps/default/vikunja/app
+  path: ./kubernetes/apps/home/otbr/app
   postBuild:
     substitute:
-      APP: vikunja
+      APP: otbr
       VOLSYNC_CAPACITY: 5Gi
-      APP_SUBDOMAIN: todo
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: home
   wait: false

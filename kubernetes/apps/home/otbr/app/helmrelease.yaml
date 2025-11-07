@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: otbr
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: otbr
+  interval: 1h
+  values:
+    controllers:
+      otbr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/bnutzer/otbr-tcp
+              tag: 20251103@sha256:1b9076dd81f8068f111b7e23052fe038aa32595d60260bae448f5d87a8083d1b
+            env:
+              RCP_HOST: 10.21.0.11
+              RCP_PORT: 6638
+              RCP_BAUDRATE: 460800
+              OTBR_WEB_ENABLE: 1
+              OTBR_WEB_PORT: 8080
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 8080
+          rest:
+            port: 8081
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+    persistence:
+      files:
+        existingClaim: otbr
+        globalMounts:
+          - path: /var/lib/thread
+      tmp:
+        type: emptyDir
