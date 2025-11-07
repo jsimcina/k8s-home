@@ -1,0 +1,112 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vikunja
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: vikunja
+  interval: 1h
+  values:
+    controllers:
+      vikunja:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17
+            envFrom: &envFrom
+              - secretRef:
+                  name: vikunja-secret
+        containers:
+          app:
+            image:
+              repository: docker.io/vikunja/vikunja
+              tag: 0.24.6@sha256:ed1f3ed467fecec0b57e9de7bc6607f8bbcbb23ffced6a81f5dfefc794cdbe3b
+            env:
+              # Proper shell path for cli
+              PATH: /app/vikunja:$${PATH}
+              VIKUNJA_SERVICE_PUBLICURL: https://todo.jonandlinz.io
+              VIKUNJA_SERVICE_TIMEZONE: "America/Chicago"
+              POSTGRES_ENABLED: "true"
+              VIKUNJA_MAILER_ENABLED: true
+              VIKUNJA_METRICS_ENABLED: true
+              VIKUNJA_DEFAULTSETTINGS_DISCOVERABLE_BY_NAME: true
+              VIKUNJA_DEFAULTSETTINGS_EMAIL_REMINDERS_ENABLED: true
+              discoverable_by_email: true
+              overdue_tasks_reminders_time: '11:00'
+              VIKUNJA_DEFAULTSETTINGS_WEEK_START: 1
+
+              # Redis
+              VIKUNJA_REDIS_ENABLED: true
+              VIKUNJA_REDIS_HOST: dragonfly.database.svc.cluster.local:6379
+              VIKUNJA_REDIS_DB: 7
+              VIKUNJA_KEYVALUE_TYPE: redis
+
+              # SMTP
+              #VIKUNJA_MAILER_HOST: smtp.jonandlinz.io
+              #VIKUNJA_MAILER_PORT: 25
+              #VIKUNJA_MAILER_FROMEMAIL: Vikunja <bot@jonandlinz.io>
+
+              # postgres
+              VIKUNJA_DATABASE_TYPE: postgres
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 3456
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+                memory: 20Mi
+              limits:
+                memory: 150Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "todo.jonandlinz.io"
+          - "{{ .Release.Name }}.jonandlinz.io"
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+    persistence:
+      files:
+        existingClaim: vikunja
+        globalMounts:
+          - path: /app/vikunja/files
+      config:
+        type: secret
+        name: vikunja-secret
+        globalMounts:
+          - path: /etc/vikunja/config.yml
+            subPath: config.yml
+            readOnly: true
