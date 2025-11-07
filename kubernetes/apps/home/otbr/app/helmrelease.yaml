@@ -27,7 +27,7 @@ spec:
               OTBR_WEB_PORT: 8080
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
