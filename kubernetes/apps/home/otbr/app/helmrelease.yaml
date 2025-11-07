@@ -24,7 +24,7 @@ spec:
               RCP_PORT: 6638
               RCP_BAUDRATE: 460800
               OTBR_LOG_LEVEL_INT: 1
-              OTBR_WEB_ENABLE: 1
+              OTBR_WEB_ENABLE: 8
               OTBR_WEB_PORT: 8080
             securityContext:
               allowPrivilegeEscalation: true
