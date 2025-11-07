@@ -29,6 +29,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: true
               readOnlyRootFilesystem: false
+              privileged: true
               #capabilities: { drop: ["ALL"] }
             resources:
               requests:
