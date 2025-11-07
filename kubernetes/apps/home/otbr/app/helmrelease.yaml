@@ -26,9 +26,9 @@ spec:
               OTBR_WEB_ENABLE: 1
               OTBR_WEB_PORT: 8080
             securityContext:
-              allowPrivilegeEscalation: false
+              allowPrivilegeEscalation: true
               readOnlyRootFilesystem: false
-              capabilities: { drop: ["ALL"] }
+              #capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 100m
@@ -61,5 +61,3 @@ spec:
         existingClaim: otbr
         globalMounts:
           - path: /var/lib/thread
-      tmp:
-        type: emptyDir
