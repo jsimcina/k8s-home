@@ -61,7 +61,6 @@ machine:
     extraConfig:
       featureGates:
         ImageVolume: true
-        ResourceHealthStatus: true
       serializeImagePulls: false
     extraMounts:
         - destination: /var/openebs/local
@@ -128,6 +127,10 @@ machine:
       - 10.0.20.3
       - 162.159.200.1
   type: controlplane
+  udev:
+    rules:
+      - # Thunderbolt - Disable Power Management
+        ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{power/control}="on"
 cluster:
   ca:
     crt: op://kubernetes/talos/CLUSTER_CA_CRT
@@ -171,7 +174,7 @@ cluster:
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
-      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true,ResourceHealthStatus=true
+      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
     image: registry.k8s.io/kube-apiserver:v1.34.2
   controllerManager:
