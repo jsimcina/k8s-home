@@ -11,7 +11,6 @@ spec:
   interval: 1h
   values:
     fullnameOverride: victoria-logs
-    retentionPeriod: 30d
     server:
       extraArgs:
         syslog.listenAddr.tcp: ":5514"
@@ -20,6 +19,7 @@ spec:
         enabled: true
         storageClassName: ceph-block
         size: 50Gi
+      retentionPeriod: 30d
       route:
         enabled: true
         hostnames:
