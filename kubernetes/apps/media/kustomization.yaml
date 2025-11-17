@@ -15,7 +15,6 @@ resources:
   - ./dispatcharr/ks.yaml
   - ./filebrowser/ks.yaml
   - ./immich/ks.yaml
-  - ./jellyseerr/ks.yaml
   - ./kavita/ks.yaml
   - ./lidarr/ks.yaml
   - ./music-assistant/ks.yaml
@@ -23,5 +22,6 @@ resources:
   - ./pinepods/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
+  - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
   - ./unpackerr/ks.yaml

@@ -5,9 +5,9 @@ set -euo pipefail
 PAYLOAD=${1:-}
 
 # Required environment variables
-: "${JELLYSEERR_PUSHOVER_URL:?Pushover URL required}"
+: "${SEERR_PUSHOVER_URL:?Pushover URL required}"
 
-echo "[DEBUG] Jellyseerr Payload: ${PAYLOAD}"
+echo "[DEBUG] Seerr Payload: ${PAYLOAD}"
 
 function _jq() {
     jq -r "${1:?}" <<<"${PAYLOAD}"
@@ -19,9 +19,9 @@ function notify() {
     case "${event_type}" in
         "TEST_NOTIFICATION")
             printf -v PUSHOVER_TITLE "Test Notification"
-            printf -v PUSHOVER_MESSAGE "Howdy this is a test notification from <b>%s</b>" "Jellyseerr"
+            printf -v PUSHOVER_MESSAGE "Howdy this is a test notification from <b>%s</b>" "Seerr"
             printf -v PUSHOVER_URL "%s" "https://requests.jonandlinz.io"
-            printf -v PUSHOVER_URL_TITLE "Open %s" "Jellyseerr"
+            printf -v PUSHOVER_URL_TITLE "Open %s" "Seerr"
             printf -v PUSHOVER_PRIORITY "%s" "low"
             ;;
         "*")
@@ -31,7 +31,7 @@ function notify() {
     esac
 
     apprise -vv --title "${PUSHOVER_TITLE}" --body "${PUSHOVER_MESSAGE}" --input-format html \
-        "${JELLYSEERR_PUSHOVER_URL}?url=${PUSHOVER_URL}&url_title=${PUSHOVER_URL_TITLE}&priority=${PUSHOVER_PRIORITY}&format=html"
+        "${SEERR_PUSHOVER_URL}?url=${PUSHOVER_URL}&url_title=${PUSHOVER_URL_TITLE}&priority=${PUSHOVER_PRIORITY}&format=html"
 }
 
 function main() {
