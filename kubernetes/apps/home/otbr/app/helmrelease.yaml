@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: docker.io/bnutzer/otbr-tcp
-              tag: 20251110@sha256:fce2ffcfb73d7904ac6a3f6c7e14f41a0914ec4d97cfabe8c2c1cdeb8d8a6dc0
+              tag: 20251117@sha256:1c4724955219c84dfa81bc554c186c08f315126b3971b842cb9a5d8e40e26197
             env:
               RCP_HOST: 10.21.0.11
               RCP_PORT: 6638
