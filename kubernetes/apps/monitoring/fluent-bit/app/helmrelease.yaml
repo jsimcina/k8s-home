@@ -22,7 +22,7 @@ spec:
           http_listen 0.0.0.0
           http_port {{ .Values.metricsPort }}
           health_check on
-          mem_buf_limit 0
+          http_buffer_size 2M
 
       inputs: |-
         [INPUT]
