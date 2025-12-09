@@ -1,0 +1,10 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ClusterImageCatalog
+metadata:
+  name: postgresql-standard-trixie
+spec:
+  images:
+    # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
+    - major: 18
+      image: ghcr.io/cloudnative-pg/postgresql:18.1-202512080807-standard-trixie@sha256:2fc5696eb0b684921f7d976b134e9c2419313aa4bbf8b1d79f8591b452787792
