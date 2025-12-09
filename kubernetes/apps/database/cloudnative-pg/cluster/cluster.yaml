@@ -20,7 +20,8 @@ spec:
   instances: 3
   # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
   imageCatalogRef:
-    kind: postgresql.cnpg.io
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
     major: 18
     name: postgresql-standard-trixie
   plugins:
