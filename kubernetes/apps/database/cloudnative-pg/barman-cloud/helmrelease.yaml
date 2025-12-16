@@ -14,3 +14,6 @@ spec:
     crds: CreateReplace
   uninstall:
     keepHistory: false
+  values:
+    certificate:
+      rewnewBefore: 720h # 30 days
