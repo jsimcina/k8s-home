@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: docker.io/rmqtt/rmqtt
-              tag: 0.17.0@sha256:14eaa6538da528ffad791eca6a68f49a244661b6da301a42d9f845d21d5006cb
+              tag: 0.18.0@sha256:cf9d547b472ad981d43c7eeaf4717abbbf2c0ab15428a56b21cb47e9ecb9e34c
             env:
               POD_ID:
                 valueFrom:
