@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/music-assistant/server
-              tag: beta
+              tag: 2.7@sha256:8f2a742d032de95bac49acb0f9c6095cbf60988d96a690dc6b479c1c1588e454
             probes:
               liveness:
                 enabled: false
