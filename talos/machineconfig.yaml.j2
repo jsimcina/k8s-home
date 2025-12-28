@@ -26,7 +26,6 @@ machine:
       enabled: true
     {% endif %}
     rbac: true
-    stableHostname: true
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
@@ -59,8 +58,6 @@ machine:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
-      featureGates:
-        ImageVolume: true
       serializeImagePulls: false
       imageMaximumGCAge: 720h
       imageGCHighThresholdPercent: 65
@@ -133,10 +130,6 @@ machine:
       - 10.0.20.3
       - 162.159.200.1
   type: controlplane
-  udev:
-    rules:
-      - # Thunderbolt - Disable Power Management
-        ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{power/control}="on"
 cluster:
   ca:
     crt: op://kubernetes/talos/CLUSTER_CA_CRT
@@ -180,7 +173,7 @@ cluster:
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
-      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
+      feature-gates: MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
     image: registry.k8s.io/kube-apiserver:v1.35.0
   controllerManager:

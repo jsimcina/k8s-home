@@ -1,7 +1,6 @@
 ---
 machine:
   network:
-    hostname: home-node-01
     interfaces:
       #TB Ring
       - deviceSelector:
@@ -23,3 +22,7 @@ machine:
           - network: 169.254.255.13/32
             metric: 2048
   type: controlplane
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: home-node-01
