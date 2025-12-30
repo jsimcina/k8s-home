@@ -13,4 +13,3 @@ resources:
   - ./dragonfly/ks.yaml
   - ./mosquitto/ks.yaml
   - ./pgadmin/ks.yaml
-  #- ./rmqtt/ks.yaml
