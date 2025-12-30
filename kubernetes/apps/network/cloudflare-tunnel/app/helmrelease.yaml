@@ -24,9 +24,6 @@ spec:
             env:
               NO_AUTOUPDATE: true
               TUNNEL_METRICS: 0.0.0.0:8080
-              #TUNNEL_LOGLEVEL: debug
-              TUNNEL_POST_QUANTUM: true
-              TUNNEL_TRANSPORT_PROTOCOL: quic
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -77,7 +74,9 @@ spec:
               - hostname: "*.jonandlinz.io"
                 originRequest:
                   http2Origin: true
+                  keepAliveTimeout: 3600s
                   originServerName: external.jonandlinz.io
+                  tcpKeepAlive: 7200s
                 service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
               - service: http_status:404
     persistence:
