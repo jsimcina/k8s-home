@@ -200,16 +200,11 @@ cluster:
   {% endif %}
 ---
 apiVersion: v1alpha1
-kind: LinkAliasConfig
-name: net0
-selector:
-  match: link.driver == "i40e" && mac(link.permanent_addr).startsWith("58:47:ca:")
----
-apiVersion: v1alpha1
 kind: BondConfig
 name: bond0
 links:
-  - net0
+  - enp2s0f0np0
+  - enp2s0f1np1
 bondMode: 802.3ad
 miimon: 1000
 xmitHashPolicy: layer3+4
@@ -234,6 +229,33 @@ name: bond0.3000
 vlanID: 3000
 parent: bond0
 mtu: 1500
+---
+apiVersion: v1alpha1
+kind: EthernetConfig
+name: bond0
+features:
+  rx-gro-list: off
+  rx-udp-gro-forwarding: on
+---
+apiVersion: v1alpha1
+kind: EthernetConfig
+name: enp2s0f0np0
+rings:
+  rx: 8160
+  tx: 8160
+features:
+  rx-gro-list: off
+  rx-udp-gro-forwarding: on
+---
+apiVersion: v1alpha1
+kind: EthernetConfig
+name: enp2s0f1np1
+rings:
+  rx: 8160
+  tx: 8160
+features:
+  rx-gro-list: off
+  rx-udp-gro-forwarding: on
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
