@@ -9,11 +9,10 @@ components:
 
 resources:
   - ./namespace.yaml
-  #- ./cross-seed/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./kapowarr/ks.yaml
   - ./nzbget/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
+  - ./qui/ks.yaml
   - ./slskd/ks.yaml
-  - ./tqm/ks.yaml

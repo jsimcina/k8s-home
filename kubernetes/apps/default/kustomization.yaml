@@ -17,7 +17,6 @@ resources:
   - ./manyfold/ks.yaml
   - ./ollama/ks.yaml
   - ./paperless-ngx/ks.yaml
-  - ./qui/ks.yaml
   - ./romm/ks.yaml
   - ./vikunja/ks.yaml
   - ./webhook/ks.yaml
