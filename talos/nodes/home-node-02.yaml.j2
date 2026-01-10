@@ -5,37 +5,3 @@ machine:
 apiVersion: v1alpha1
 kind: HostnameConfig
 hostname: home-node-02
----
-apiVersion: v1alpha1
-kind: LinkAliasConfig
-name: home-node-02-to-home-node-01
-selector:
-  match: link.driver == "thunderbolt-net" && link.bus_path == "0-1.0"
----
-apiVersion: v1alpha1
-kind: LinkConfig
-name: home-node-02-to-home-node-01
-addresses:
-  - address: 169.254.255.12/32 # home-node-02
-mtu: 65520
-routes:
-  - destination: 169.254.255.11/32 # home-node-01
-    metric: 2048
-up: true
----
-apiVersion: v1alpha1
-kind: LinkAliasConfig
-name: home-node-02-to-home-node-03
-selector:
-  match: link.driver == "thunderbolt-net" && link.bus_path == "1-1.0"
----
-apiVersion: v1alpha1
-kind: LinkConfig
-name: home-node-02-to-home-node-03
-addresses:
-  - address: 169.254.255.12/32 # home-node-02
-mtu: 65520
-routes:
-  - destination: 169.254.255.13/32 # home-node-3
-    metric: 2048
-up: true
