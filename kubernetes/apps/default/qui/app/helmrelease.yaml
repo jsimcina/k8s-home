@@ -71,3 +71,10 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      media:
+        type: nfs
+        server: "nas.jonandlinz.com"
+        path: /mnt/rustpool/media_server/torrents
+        globalMounts:
+          - path: /media/torrents
+            readOnly: true
