@@ -1,7 +1,6 @@
 [env]
 KUBECONFIG = "{{config_root}}/kubeconfig"
 MINIJINJA_CONFIG_FILE = "{{config_root}}/.minijinja.toml"
-SOPS_AGE_KEY_FILE = "{{config_root}}/age.key"
 TALOSCONFIG = "{{config_root}}/talosconfig"
 JUST_UNSTABLE = "1"
 LEFTHOOK_OUTPUT = "false"
@@ -21,7 +20,6 @@ _.file = [
 "aqua:cloudflare/cloudflared" = "2025.11.1"
 "aqua:FiloSottile/age" = "1.3.1"
 "aqua:fluxcd/flux2" = "2.7.5"
-"aqua:getsops/sops" = "3.11.0"
 "aqua:helm/helm" = "latest"
 "aqua:helmfile/helmfile" = "1.2.3"
 "aqua:jqlang/jq" = "1.8.1"
