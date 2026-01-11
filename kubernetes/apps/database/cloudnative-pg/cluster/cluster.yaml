@@ -57,15 +57,15 @@ spec:
     storageClass: openebs-hostpath
   superuserSecret:
     name: cloudnative-pg-secret
-  # bootstrap:
-  #   recovery:
-  #     source: postgres17-v2
-  # externalClusters:
-  #   - name: postgres17-v2
-  #     plugin:
-  #       enabled: true
-  #       isWALArchiver: true
-  #       name: barman-cloud.cloudnative-pg.io
-  #       parameters:
-  #         barmanObjectName: cfr2
-  #         serverName: postgres17-v2
+  bootstrap:
+    recovery:
+      source: postgres18
+  externalClusters:
+    - name: postgres18
+      plugin:
+        enabled: true
+        isWALArchiver: true
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: cfr2
+          serverName: postgres18
