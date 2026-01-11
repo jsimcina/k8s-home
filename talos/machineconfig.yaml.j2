@@ -76,7 +76,7 @@ machine:
         - 10.12.0.0/24
   nodeLabels:
     node.kubernetes.io/gpu: "true"
-    topology.kubernetes.io/region: k8s-home
+    topology.kubernetes.io/region: main
     topology.kubernetes.io/zone: m
     servertype: physical
     hwtranscoding: "true"
@@ -116,7 +116,7 @@ cluster:
     {% if ENV.IS_CONTROLLER %}
     key: op://kubernetes/talos/CLUSTER_CA_KEY
     {% endif %}
-  clusterName: k8s-home
+  clusterName: main
   controlPlane:
     endpoint: https://k8s.jonandlinz.io:6443
   discovery:
@@ -204,7 +204,7 @@ kind: BondConfig
 name: bond0
 links:
   - enp2s0f0np0
-  - enp2s0f1np1
+  #- enp2s0f1np1
 bondMode: 802.3ad
 miimon: 1000
 xmitHashPolicy: layer3+4
@@ -246,16 +246,16 @@ rings:
 features:
   rx-gro-list: off
   rx-udp-gro-forwarding: on
----
-apiVersion: v1alpha1
-kind: EthernetConfig
-name: enp2s0f1np1
-rings:
-  rx: 8160
-  tx: 8160
-features:
-  rx-gro-list: off
-  rx-udp-gro-forwarding: on
+#---
+#apiVersion: v1alpha1
+#kind: EthernetConfig
+#name: enp2s0f1np1
+#rings:
+#  rx: 8160
+#  tx: 8160
+#features:
+#  rx-gro-list: off
+#  rx-udp-gro-forwarding: on
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
