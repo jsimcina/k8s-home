@@ -15,7 +15,6 @@ resources:
   - ./convertx/ks.yaml
   - ./it-tools/ks.yaml
   - ./manyfold/ks.yaml
-  - ./ollama/ks.yaml
   - ./paperless-ngx/ks.yaml
   - ./romm/ks.yaml
   - ./vikunja/ks.yaml
