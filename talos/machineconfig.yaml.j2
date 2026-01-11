@@ -204,7 +204,7 @@ kind: BondConfig
 name: bond0
 links:
   - enp2s0f0np0
-  #- enp2s0f1np1
+  - enp2s0f1np1
 bondMode: 802.3ad
 miimon: 1000
 xmitHashPolicy: layer3+4
@@ -246,16 +246,16 @@ rings:
 features:
   rx-gro-list: off
   rx-udp-gro-forwarding: on
-#---
-#apiVersion: v1alpha1
-#kind: EthernetConfig
-#name: enp2s0f1np1
-#rings:
-#  rx: 8160
-#  tx: 8160
-#features:
-#  rx-gro-list: off
-#  rx-udp-gro-forwarding: on
+---
+apiVersion: v1alpha1
+kind: EthernetConfig
+name: enp2s0f1np1
+rings:
+  rx: 8160
+  tx: 8160
+features:
+  rx-gro-list: off
+  rx-udp-gro-forwarding: on
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
