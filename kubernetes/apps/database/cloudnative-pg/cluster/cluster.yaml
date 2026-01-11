@@ -30,7 +30,7 @@ spec:
       name: barman-cloud.cloudnative-pg.io
       parameters: &barmanParameters
         barmanObjectName: cfr2
-        serverName: postgres18
+        serverName: postgres18-v1
   postgresql:
     parameters:
       max_connections: "600"
