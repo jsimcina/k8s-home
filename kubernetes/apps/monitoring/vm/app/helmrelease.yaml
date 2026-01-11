@@ -12,6 +12,8 @@ spec:
   timeout: 5m
   values:
     fullnameOverride: vm-operator
+    crds:
+      enabled: true
     operator:
       disable_prometheus_converter: true
       enable_converter_ownership: false
