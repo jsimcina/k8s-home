@@ -11,7 +11,6 @@ spec:
   interval: 1h
   timeout: 5m
   values:
-    fullnameOverride: vm-operator
     crds:
       enabled: true
     operator:
