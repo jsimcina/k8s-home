@@ -14,6 +14,7 @@ spec:
     fullnameOverride: vm-operator
     crds:
       enabled: true
+    createCRD: true
     operator:
       disable_prometheus_converter: true
       enable_converter_ownership: false
