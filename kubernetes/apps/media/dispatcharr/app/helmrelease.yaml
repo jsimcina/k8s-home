@@ -25,19 +25,19 @@ spec:
           resourceClaims:
             - name: gpu
               resourceClaimTemplateName: dispatcharr-1-gpu
-        # initContainers:
-        #   chown-dbdir:
-        #     image:
-        #       repository: docker.io/library/alpine
-        #       tag: "3.23"
-        #     command:
-        #       - /bin/sh
-        #       - -c
-        #     args:
-        #       - |
-        #         chmod 0750 /data/db
-        #     securityContext:
-        #       runAsUser: 0
+        initContainers:
+          chown-dbdir:
+            image:
+              repository: docker.io/library/alpine
+              tag: "3.23"
+            command:
+              - /bin/sh
+              - -c
+            args:
+              - |
+                chmod 0750 /data/db
+            securityContext:
+              runAsUser: 0
         containers:
           app:
             image:
