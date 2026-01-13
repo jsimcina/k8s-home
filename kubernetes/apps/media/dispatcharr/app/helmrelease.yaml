@@ -24,7 +24,7 @@ spec:
           hostUsers: false
           resourceClaims:
             - name: gpu
-              resourceClaimTemplateName: dispatcharr-gpu
+              resourceClaimTemplateName: dispatcharr-1-gpu
         initContainers:
           chown-dbdir:
             image:
