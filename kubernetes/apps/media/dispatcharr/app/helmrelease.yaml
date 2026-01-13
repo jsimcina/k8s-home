@@ -20,6 +20,18 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
+          chown-dbdir:
+            image:
+              repository: docker.io/library/alpine
+              tag: "3.22"
+            command:
+              - /bin/sh
+              - -c
+            args:
+              - |
+                chmod 0750 /data/db
+            securityContext:
+              runAsUser: 0
         containers:
           app:
             image:
@@ -73,6 +85,9 @@ spec:
         advancedMounts:
           dispatcharr:
             app:
+              - path: /data
+                subPath: data
+            chown-dbdir:
               - path: /data
                 subPath: data
       tmpfs:
