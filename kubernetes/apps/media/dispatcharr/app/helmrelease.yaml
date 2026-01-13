@@ -65,7 +65,7 @@ spec:
             port: *port
     persistence:
       data:
-        existingClaim: dispatcharr
+        existingClaim: dispatcharr-1
         advancedMounts:
           dispatcharr:
             app:
@@ -86,5 +86,5 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: network

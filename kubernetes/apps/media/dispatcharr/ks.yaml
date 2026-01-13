@@ -17,8 +17,9 @@ spec:
   path: ./kubernetes/apps/media/dispatcharr/app
   postBuild:
     substitute:
-      APP: dispatcharr
+      APP: dispatcharr-1
       VOLSYNC_CAPACITY: 10Gi
+      VOLSYNC_CLAIM: dispatcharr-1
   prune: true
   sourceRef:
     kind: GitRepository
