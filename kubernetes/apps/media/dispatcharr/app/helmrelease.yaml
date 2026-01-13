@@ -13,13 +13,6 @@ spec:
     controllers:
       dispatcharr:
         initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-            envFrom: &envFrom
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
           chown-dbdir:
             image:
               repository: docker.io/library/alpine
@@ -44,7 +37,6 @@ spec:
               DISPATCHARR_PORT: &port 9191
               REDIS_HOST: dragonfly.database.svc.cluster.local
               REDIS_DB: 7
-            envFrom: *envFrom
             resources:
               claims:
                 - name: gpu
