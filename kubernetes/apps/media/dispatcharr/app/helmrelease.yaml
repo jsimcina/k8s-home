@@ -45,6 +45,14 @@ spec:
       resourceClaims:
         - name: gpu
           resourceClaimTemplateName: dispatcharr-gpu
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "multus-vpn",
+            "namespace": "kube-system",
+            "ips": ["10.4.0.11/24"],
+            "mac": "00:02:5d:ee:d4:5c"
+          }]
     service:
       app:
         ports:

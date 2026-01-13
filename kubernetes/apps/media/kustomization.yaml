@@ -13,6 +13,7 @@ resources:
   - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml
   - ./dashbrr/ks.yaml
+  - ./dispatcharr/ks.yaml
   - ./filebrowser/ks.yaml
   - ./immich/ks.yaml
   - ./kavita/ks.yaml
