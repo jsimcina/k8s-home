@@ -14,7 +14,7 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/vpn/dispatcharr/app
+  path: ./kubernetes/apps/media/dispatcharr/app
   postBuild:
     substitute:
       APP: dispatcharr
@@ -24,5 +24,5 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: vpn
+  targetNamespace: media
   wait: false
