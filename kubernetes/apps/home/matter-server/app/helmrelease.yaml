@@ -13,15 +13,6 @@ spec:
       matter-server:
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"multus-iot",
-                "namespace": "kube-system",
-                "ips": ["10.21.5.10/16"],
-                "mac": "00:02:b3:44:cb:21"
-              }]
         containers:
           app:
             image:
@@ -30,10 +21,15 @@ spec:
               pullPolicy: IfNotPresent
             env:
               TZ: "America/Chicago"
-              MATTER_SERVER__INSTANCE_NAME: Matter-Server
+              MATTER_SERVER__INSTANCE_NAME: "{{ .Release.Name }}"
               MATTER_SERVER__PORT: &port 5580
-              MATTER_SERVER__APPLICATION_URL: &host-cluster "matter-server.jonandlinz.io"
+              MATTER_SERVER__APPLICATION_URL: "{{ .Release.Name }}.jonandlinz.io"
               MATTER_SERVER__LOG_LEVEL: info
+            args:
+              - --storage-path=/data
+              - --primary-interface=net1
+              - --log-level=debug
+              - --log-level-sdk=info
             probes:
               liveness:
                 enabled: false
@@ -49,6 +45,23 @@ spec:
                 memory: "200Mi"
               limits:
                 memory: "1Gi"
+    defaultPodOptions:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name":"multus-iot",
+            "namespace": "kube-system",
+            "ips": ["10.21.5.10/16"],
+            "mac": "00:02:b3:44:cb:21"
+          }]
+      hostUsers: false
+      securityContext:
+        runAsNonRoot: false # Must be run as root user
+        runAsUser: 0        # Must be run as root user
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [34]
     service:
       app:
         ports:
