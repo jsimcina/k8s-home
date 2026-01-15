@@ -34,12 +34,6 @@ spec:
           target: 10.0.255.230
           auth:
             - public_v2
-        - name: tpl-ats
-          module:
-            - tpl_ats
-          target: 10.0.255.231
-          auth:
-            - public_v2
       path: /snmp
       scrapeTimeout: 10s
       relabelings:
