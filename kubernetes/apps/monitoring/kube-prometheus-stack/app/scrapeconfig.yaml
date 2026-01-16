@@ -9,6 +9,7 @@ spec:
     - targets:
         - nas.jonandlinz.com:9100
         - 10.0.20.1:9100
+        - matter-server.jonandlinz.com:9100
   metricsPath: /metrics
   relabelings:
     - action: replace
@@ -24,6 +25,7 @@ spec:
   staticConfigs:
     - targets:
         - nas.jonandlinz.com:9633
+        - matter-server.jonandlinz.com:9633
   metricsPath: /metrics
   relabelings:
     - action: replace
