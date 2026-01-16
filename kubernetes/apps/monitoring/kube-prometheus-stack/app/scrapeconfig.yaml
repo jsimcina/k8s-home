@@ -8,7 +8,7 @@ spec:
   staticConfigs:
     - targets:
         - nas.jonandlinz.com:9100
-        - 10.0.20.10:9100
+        - pikvm.jonandlinz.com:9100
         - matter-server.jonandlinz.com:9100
   metricsPath: /metrics
   relabelings:
