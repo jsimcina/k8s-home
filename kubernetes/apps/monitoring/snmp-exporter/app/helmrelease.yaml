@@ -25,7 +25,7 @@ spec:
         - name: brocade-icx-6650
           module:
             - brocade-icx
-          target: 10.12.0.1
+          target: 10.0.0.6
           auth:
             - public_v2
         - name: tpl-ups
