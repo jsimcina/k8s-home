@@ -42,9 +42,9 @@ spec:
           - name: forward
             parameters: . /etc/resolv.conf
           - name: forward
-            parameters: jonandlinz.com 10.0.0.1
+            parameters: jonandlinz.com 10.12.0.1
           - name: forward
-            parameters: jonandlinz.net 10.0.0.1
+            parameters: jonandlinz.net 10.12.0.1
           - name: cache
             configBlock: |-
               prefetch 20
