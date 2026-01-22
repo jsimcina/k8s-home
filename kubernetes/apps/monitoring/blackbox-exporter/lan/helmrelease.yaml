@@ -32,11 +32,6 @@ spec:
           timeout: 5s
           tcp:
             preferred_ip_protocol: ip4
-        udp_connect:
-          prober: udp
-          timeout: 5s
-          udp:
-            preferred_ip_protocol: ip4
     serviceMonitor:
       enabled: true
       selfMonitor:
