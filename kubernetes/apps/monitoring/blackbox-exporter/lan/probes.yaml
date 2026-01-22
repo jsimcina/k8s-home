@@ -12,6 +12,7 @@ spec:
     staticConfig:
       static:
         - nas.jonandlinz.com
+        - ntp.jonandlinz.com
         - pikvm.jonandlinz.com
         - ui.jonandlinz.com
         - zigbee-controller.jonandlinz.com
@@ -34,6 +35,24 @@ spec:
     staticConfig:
       static:
         - nas.jonandlinz.com:2049
+  metricRelabelings:
+    - targetLabel: service
+      replacement: blackbox-exporter-lan
+      action: replace
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/probe_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: lan-udp
+spec:
+  module: udp_connect
+  prober:
+    url: blackbox-exporter-lan.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - ntp.jonandlinz.com:123
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter-lan
