@@ -51,7 +51,7 @@ metrics:
     title: Memory
 
   - name: cluster_power_usage
-    query: round(upsHighPrecOutputLoad, 0.1)
+    query: round(sum(unpoller_device_outlet_outlet_power{outlet_name=~"K8S-Home-Node-01-Outlet 11|K8S-Home-Node-02-Outlet 12|K8S-Home-Node-03-Outlet 13|Server-TrueNas-Outlet 14|Disk Shelf - Outlet 15"}), 0.1)
     suffix: "w"
     colors:
       - {color: "green", min: 0, max: 400}
