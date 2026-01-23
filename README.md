@@ -49,20 +49,14 @@ This is a mono repository for my home infrastructure and Kubernetes cluster. I t
 
 My Kubernetes cluster is deployed with [Talos](https://www.talos.dev). This is a semi-hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes while I have a separate server with ZFS for NFS/SMB shares, bulk file storage and backups.
 
-There is a template over at [onedr0p/cluster-template](https://github.com/onedr0p/cluster-template) if you want to try and follow along with some of the practices I use here.
+If you're interested in going down this rabbit-holes, start with this template [onedr0p/cluster-template](https://github.com/onedr0p/cluster-template) created by @onedr0p.  This is an absolutely invaluable resource, and you will learn a ton, while raising your blood pressure to untold new heights.  Join the [Home-Operations](https://discord.gg/home-operations), it's an extremely helpful community filled with some of the wrinkliest brains on the internet.
 
 ### Core Components
 
-- [actions-runner-controller](https://github.com/actions/actions-runner-controller): Self-hosted Github runners.
-- [cert-manager](https://github.com/cert-manager/cert-manager): Creates SSL certificates for services in my cluster.
-- [cilium](https://github.com/cilium/cilium): eBPF-based networking for workloads.
-- [cloudflared](https://github.com/cloudflare/cloudflared): Enables Cloudflare secure access to my routes.
-- [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically syncs ingress DNS records to a DNS provider.
-- [external-secrets](https://github.com/external-secrets/external-secrets): Managed Kubernetes secrets using [1Password Connect](https://github.com/1Password/connect).
-- [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
-- [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes and Terraform which are commited to Git.
-- [spegel](https://github.com/spegel-org/spegel): Stateless cluster local OCI registry mirror.
-- [volsync](https://github.com/backube/volsync): Backup and recovery of persistent volume claims.
+- **Networking & Service Mesh**: [cilium](https://github.com/cilium/cilium) provides eBPF-based networking, while [envoy](https://www.envoyproxy.io/) powers service-to-service communication with L7 proxying and traffic management. [cloudflared](https://github.com/cloudflare/cloudflared) secures ingress traffic via Cloudflare, and [external-dns](https://github.com/kubernetes-sigs/external-dns) keeps DNS records in sync automatically.
+- **Security & Secrets**: [cert-manager](https://github.com/cert-manager/cert-manager) automates SSL/TLS certificate management. For secrets, I use [external-secrets](https://github.com/external-secrets/external-secrets) with [1Password Connect API](https://github.com/1Password/connect) to inject secrets into Kubernetes.
+- **Storage & Data Protection**: [rook](https://github.com/rook/rook) provides distributed storage for persistent volumes, with [volsync](https://github.com/backube/volsync) handling backups and restores. [spegel](https://github.com/spegel-org/spegel) improves reliability by running a stateless, cluster-local OCI image mirror.
+- **Automation & CI/CD**: [actions-runner-controller](https://github.com/actions/actions-runner-controller) runs self-hosted GitHub Actions runners directly in the cluster for continuous integration workflows.
 
 ### GitOps
 
@@ -77,24 +71,28 @@ The way Flux works for me here is it will recursively search the `kubernetes/app
 This Git repository contains the following directories:
 
 ```sh
+📁 bootstrap      # Bootstrapping Scripts and resources
 📁 kubernetes
 ├── 📁 apps       # applications
 ├── 📁 components # re-useable kustomize components
 └── 📁 flux       # flux system configuration
+📁 talos          # general talos node configuration
+└── 📁 nodes      # specific talos node configuration
 ```
 
 ### Flux Workflow
 
-This is a high-level look how Flux deploys my applications with dependencies. In most cases a `HelmRelease` will depend on other `HelmRelease`'s, in other cases a `Kustomization` will depend on other `Kustomization`'s, and in rare situations an app can depend on a `HelmRelease` and a `Kustomization`. The example below shows that `atuin` won't be deployed or upgrade until the `rook-ceph-cluster` Helm release is installed or in a healthy state.
+This is a high-level look how Flux deploys my applications with dependencies. In most cases a `HelmRelease` will depend on other `HelmRelease`'s, in other cases a `Kustomization` will depend on other `Kustomization`'s, and in rare situations an app can depend on a `HelmRelease` and a `Kustomization`. The example below shows that `scrypted` won't be deployed or upgrade until the `rook-ceph-cluster` Helm release is installed or in a healthy state.
 
 ```mermaid
 graph TD
     A>Kustomization: rook-ceph] -->|Creates| B[HelmRelease: rook-ceph]
     A>Kustomization: rook-ceph] -->|Creates| C[HelmRelease: rook-ceph-cluster]
     C>HelmRelease: rook-ceph-cluster] -->|Depends on| B>HelmRelease: rook-ceph]
-    D>Kustomization: atuin] -->|Creates| E(HelmRelease: atuin)
-    E>HelmRelease: atuin] -->|Depends on| C>HelmRelease: rook-ceph-cluster]
+    D>Kustomization: scrypted] -->|Creates| E(HelmRelease: scrypted)
+    E>HelmRelease: scrypted] -->|Depends on| C>HelmRelease: rook-ceph-cluster]
 ```
+
 ---
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f636_200d_1f32b_fe0f/512.gif" alt="😶" width="20" height="20"> Cloud Dependencies
@@ -109,15 +107,16 @@ Alternative solutions to the first two of these problems would be to host a Kube
 | [Cloudflare](https://www.cloudflare.com/)       | Domain and S3                                                     | ~$30/yr        |
 | [GCP](https://cloud.google.com/)                | Voice interactions with Home Assistant over Google Assistant      | Free           |
 | [GitHub](https://github.com/)                   | Hosting this repository and continuous integration/deployments    | Free           |
+| [Migadu](https://migadu.com/)             |     | Email hosting                                                     | ~$20/yr        |
 | [Pushover](https://pushover.net/)               | Kubernetes Alerts and application notifications                   | $5 OTP         |
 | [Healthchecks.io](https://healthchecks.io/)     | Monitoring internet connectivity and external facing applications | Free           |
-|                                                 |                                                                   | Total: ~$3/mo  |
+|                                                 |                                                                   | Total: ~$5/mo  |
 
 ---
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f30e/512.gif" alt="🌎" width="20" height="20"> DNS
 
-In my cluster there are two instances of [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) running. One for syncing private DNS records to my `UDM SE` using [ExternalDNS webhook provider for UniFi](https://github.com/kashalls/external-dns-unifi-webhook), while another instance syncs public DNS to `Cloudflare`. This setup is managed by creating ingresses with two specific classes: `internal` for private DNS and `external` for public DNS. The `external-dns` instances then syncs the DNS records to their respective platforms accordingly.
+In my cluster there are two instances of [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) running. One for syncing private DNS records to my `UDM Pro Max` using [ExternalDNS webhook provider for UniFi](https://github.com/kashalls/external-dns-unifi-webhook), while another instance syncs public DNS to `Cloudflare`. This setup is managed by creating ingresses with two specific classes: `internal` for private DNS and `external` for public DNS. The `external-dns` instances then syncs the DNS records to their respective platforms accordingly.
 
 ---
 
@@ -126,17 +125,18 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 | Device                      | Num | OS Disk Size | Data Disk Size                      | Ram  | OS            | Function                |
 |-----------------------------|-----|--------------|-------------------------------------|------|---------------|-------------------------|
 | Minisforum MS-01 13900H     | 3   | 1TB SSD      | 1.92TB (rook-ceph)                  | 96GB | Talos         | Kubernetes              |
-| PowerEdge R730XD            | 1   | 1TB SSD      | 7x14TB Array + 4TB NVME NVR Cache   | 128GB| TrueNAS SCALE | NFS + Backup Server     |
+| Custom Intel i7-9700k       | 1   | 240GB SSD    | 7x14TB Array + 4TB NVME NVR Cache   | 48GB | TrueNAS SCALE | NFS + Backup Server     |
 | PiKVM (RasPi 4)             | 1   | 64GB (SD)    | -                                   | 4GB  | PiKVM         | KVM                     |
+| Matter-Server (RasPi 4)     | 1   | 250GB (SSD)  | -                                   | 4GB  | Raspbian Lite | Matter Server           |
 | TESmart 8 Port KVM Switch   | 1   | -            | -                                   | -    | -             | Network KVM (for PiKVM) |
 | UniFi UDM SE                | 1   | -            | -                                   | -    | -             | Router                  |
-| Brocade ICX6650             | 1   | -            | -                                   | -    | -             | 10/40Gb Core Switch        |
-| USW-PRO-MAX-24              | 1   | -            | -                                   | -    | -             | 1/2.5Gb Core Switch     |
-| USW-PRO-MAX-24-POE          | 1   | -            | -                                   | -    | -             | 1/2.5Gb POE Core Switch |
+| Brocade ICX6650             | 1   | -            | -                                   | -    | -             | 10/40Gb Core Switch     |
+| USW-PRO-MAX-24              | 1   | -            | -                                   | -    | -             | 1/2.5Gb Switch          |
+| USW-PRO-MAX-24-POE          | 1   | -            | -                                   | -    | -             | 1/2.5Gb POE Switch      |
 | USW-PRO-MAX-16-POE          | 1   | -            | -                                   | -    | -             | 1/2.5Gb POE Outdoor     |
 | Eaton SU2200RTXL2UA         | 1   | -            | -                                   | -    | -             | UPS                     |
 | Eaton BP48V27-2US           | 2   | -            | -                                   | -    | -             | External Battery Packs  |
-| Tripp-Lite PDUMH20AT        | 1   | -            | -                                   | -    | -             | PDU/ATS                 |
+| USP-PDU-Pro                 | 1   | -            | -                                   | -    | -             | PDU                     |
 
 ---
 
