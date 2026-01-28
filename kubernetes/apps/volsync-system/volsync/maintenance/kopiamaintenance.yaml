@@ -8,8 +8,8 @@ metadata:
 spec:
   enabled: true
   trigger:
-    schedule: 5 */12 * * *
-  activeDeadlineSeconds: 43200
+    schedule: 5 */8 * * *
+  activeDeadlineSeconds: 28800
   repository:
     repository: volsync-maintenance-secret
   resources:
