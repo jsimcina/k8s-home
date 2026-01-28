@@ -42,7 +42,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://10.21.0.10:6638
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: "ember"
-              ZIGBEE2MQTT_CONFIG_SERIAL_RTSCTS: false
+              ZIGBEE2MQTT_CONFIG_SERIAL_RTSCTS: true
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
