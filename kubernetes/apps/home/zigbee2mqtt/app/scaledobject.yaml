@@ -18,6 +18,6 @@ spec:
     - type: prometheus
       metadata:
         serverAddress: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
-        query: probe_success{instance=~"zigbee-controller.+"}
+        query: probe_success{instance=~"slzbhub.+"}
         threshold: "1"
         ignoreNullValues: "0"

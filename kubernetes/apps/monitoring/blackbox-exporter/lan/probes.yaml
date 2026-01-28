@@ -16,7 +16,7 @@ spec:
         - ntp.jonandlinz.com
         - pikvm.jonandlinz.com
         - ui.jonandlinz.com
-        - zigbee-controller.jonandlinz.com
+        - slzbhub.jonandlinz.com
         - zwave-controller.jonandlinz.com
   metricRelabelings:
     - targetLabel: service
