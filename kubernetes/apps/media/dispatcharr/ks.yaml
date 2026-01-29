@@ -19,7 +19,6 @@ spec:
     substitute:
       APP: dispatcharr
       VOLSYNC_CAPACITY: 10Gi
-      VOLSYNC_CLAIM: dispatcharr-1
   prune: true
   sourceRef:
     kind: GitRepository
