@@ -24,7 +24,7 @@ spec:
           hostUsers: false
           resourceClaims:
             - name: gpu
-              resourceClaimTemplateName: dispatcharr-1-gpu
+              resourceClaimTemplateName: dispatcharr-gpu
         initContainers:
           chown-dbdir:
             image:
@@ -85,7 +85,7 @@ spec:
       app:
         hostnames:
           - "{{ .Release.Name }}.jonandlinz.io"
-          - "{{ .Release.Name }}-1.jonandlinz.io"
+          - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
           - name: envoy-internal
             namespace: network
