@@ -6,11 +6,45 @@ connectivity:
 
 endpoints:
   - name: "healthchecks.io Heartbeat"
-    group: guarded
+    group: connectivity
+    ui:
+      hide-url: true
     url: ${HEALTHCHECK_HEARTBEAT_URL}
     interval: 1m
     client:
       dns-resolver: tcp://1.1.1.1:53
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: Cloudflare
+    group: connectivity
+    url: icmp://1.1.1.1
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: Google
+    group: connectivity
+    url: icmp://8.8.8.8
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: ControlD
+    group: connectivity
+    url: icmp://76.76.2.22
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+
+  - name: "Matter Server"
+    group: services
+    ui:
+      hide-url: true
+    url: http://matter-server.jonandlinz.com:5580/health
+    interval: 1m
+    client:
+      insecure: true
     conditions:
       - "[STATUS] == 200"
 
