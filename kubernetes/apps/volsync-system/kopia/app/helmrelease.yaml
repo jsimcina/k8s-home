@@ -95,7 +95,7 @@ spec:
       repository:
         type: nfs
         server: nas.jonandlinz.com
-        path: /mnt/rustpool/Volsync
+        path: /mnt/ssdpool/Volsync
         globalMounts:
           - path: /repository
       tmpfs:
