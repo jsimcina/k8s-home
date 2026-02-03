@@ -26,7 +26,7 @@ spec:
             env:
               TZ: America/Chicago
               QBT_WEBUI_PORT: &port 80
-              QBT_TORRENTING_PORT: &torrentPort 58282
+              QBT_TORRENTING_PORT: &torrentPort 58283
               #QBT_BitTorrent__Session__Interface: net1
               #QBT_BitTorrent__Session__InterfaceName: net1
             probes:
