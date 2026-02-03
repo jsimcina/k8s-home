@@ -26,9 +26,9 @@ spec:
             env:
               TZ: America/Chicago
               QBT_WEBUI_PORT: &port 80
-              QBT_TORRENTING_PORT: 58282
-              QBT_BitTorrent__Session__Interface: net1
-              QBT_BitTorrent__Session__InterfaceName: net1
+              QBT_TORRENTING_PORT: &torrentPort 58282
+              #QBT_BitTorrent__Session__Interface: net1
+              #QBT_BitTorrent__Session__InterfaceName: net1
             probes:
               liveness: &probes
                 enabled: false
@@ -85,9 +85,20 @@ spec:
 
     service:
       app:
+        forceRename: "{{ .Release.Name }}"
+        primary: true
         ports:
           http:
             port: *port
+      bittorrent:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.12.0.107
+        externalTrafficPolicy: Local
+        ports:
+          bittorrent-tcp:
+            port: *torrentPort
+            protocol: TCP
     route:
       app:
         hostnames:
