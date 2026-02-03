@@ -68,14 +68,6 @@ spec:
               capabilities: {drop: ["ALL"]}
 
     defaultPodOptions:
-#      annotations:
-#          k8s.v1.cni.cncf.io/networks: |-
-#            [{
-#              "name": "multus-vpn",
-#              "namespace": "kube-system",
-#              "ips": ["10.4.0.12/24"],
-#              "mac": "00:02:41:8e:8d:cc"
-#            }]
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000

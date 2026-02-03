@@ -54,14 +54,6 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-      annotations:
-        k8s.v1.cni.cncf.io/networks: |-
-          [{
-            "name": "multus-vpn",
-            "namespace": "kube-system",
-            "ips": ["10.4.0.8/24"],
-            "mac": "00:02:ae:dc:3e:8b"
-          }]
     service:
       app:
         ports:
