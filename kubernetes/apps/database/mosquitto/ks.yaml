@@ -5,13 +5,15 @@ kind: Kustomization
 metadata:
   name: mosquitto
 spec:
-  components:
-    - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/database/mosquitto/app
+  postBuild:
+    substitute:
+      APP: mosquitto
+      CONTROLLER: StatefulSet
   prune: true
   sourceRef:
     kind: GitRepository
@@ -19,7 +21,3 @@ spec:
     namespace: flux-system
   targetNamespace: database
   wait: false
-  postBuild:
-    substitute:
-      APP: mosquitto
-      VOLSYNC_CAPACITY: 1Gi

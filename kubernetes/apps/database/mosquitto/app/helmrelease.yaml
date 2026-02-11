@@ -62,17 +62,15 @@ spec:
       config:
         data:
           mosquitto.conf: |-
-            per_listener_settings false
-            listener 1883
             allow_anonymous false
+            autosave_interval 60
+            connection_messages false
+            listener 1883
+            per_listener_settings false
             persistence true
             persistence_location /config
-            connection_messages false
-            autosave_interval 60
             password_file /mosquitto/external_config/mosquitto_pwd
     persistence:
-      config:
-        existingClaim: "{{ .Release.Name }}"
       config-file:
         type: configMap
         identifier: config
