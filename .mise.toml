@@ -32,5 +32,5 @@ _.file = [
 "github:clbx/kubectl-browse-pvc" = "latest"
 "github:charmbracelet/gum" = "v0.17.0"
 "github:EnterpriseDB/kubectl-cnp" = "1.28.1"
-"github:mitsuhiko/minijinja" = "2.13.0"
+"github:mitsuhiko/minijinja" = "2.15.1"
 "github:rook/kubectl-rook-ceph" = "latest"
