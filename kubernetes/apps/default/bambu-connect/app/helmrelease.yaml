@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: docker.io/octoeverywhere/octoeverywhere
-              tag: latest@sha256:c3d8046bbf8f5cc7bfb1b52f8a0a8865e5ce2693c0cda46ad17deda3f754542d
+              tag: latest@sha256:3b3480d9f3520cde8ddaa0b7addb9714c44e6e82f0ec26fc467d9a4e4df9f379
             env:
               TZ: America/Chicago
               PRINTER_IP: "10.21.20.6"
