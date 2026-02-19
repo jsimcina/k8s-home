@@ -23,4 +23,3 @@ spec:
   postBuild:
     substitute:
       APP: paperless-ngx
-      VOLSYNC_CAPACITY: 5Gi

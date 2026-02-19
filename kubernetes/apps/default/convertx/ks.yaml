@@ -17,7 +17,6 @@ spec:
   postBuild:
     substitute:
       APP: convertx
-      VOLSYNC_CAPACITY: 5Gi
       APP_SUBDOMAIN: fileconvert
   prune: true
   sourceRef:

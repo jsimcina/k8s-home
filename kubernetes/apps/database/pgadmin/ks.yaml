@@ -22,4 +22,3 @@ spec:
   postBuild:
     substitute:
       APP: pgadmin
-      VOLSYNC_CAPACITY: 5Gi

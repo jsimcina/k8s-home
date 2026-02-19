@@ -29,4 +29,3 @@ spec:
       APP_UID: "0"
       APP_GID: "0"
       VOLSYNC_CLAIM: scrypted
-      VOLSYNC_CAPACITY: 5Gi
