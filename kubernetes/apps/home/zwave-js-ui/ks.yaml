@@ -17,7 +17,6 @@ spec:
   postBuild:
     substitute:
       APP: zwave-js-ui
-      VOLSYNC_CAPACITY: 1Gi
   prune: true
   sourceRef:
     kind: GitRepository

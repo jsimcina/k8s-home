@@ -22,4 +22,3 @@ spec:
   postBuild:
     substitute:
       APP: esphome
-      VOLSYNC_CAPACITY: 500Mi

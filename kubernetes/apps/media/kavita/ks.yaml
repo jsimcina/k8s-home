@@ -23,4 +23,3 @@ spec:
   postBuild:
     substitute:
       APP: kavita
-      VOLSYNC_CAPACITY: 2Gi
