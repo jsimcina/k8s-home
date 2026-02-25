@@ -82,7 +82,7 @@ spec:
         requests:
           cpu: 300m
         limits:
-          memory: 1Gi
+          memory: 1.5Gi
     prometheus:
       rules:
         enabled: true
