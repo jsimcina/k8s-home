@@ -9,6 +9,12 @@ spec:
   enabled: true
   trigger:
     schedule: 0 */8 * * *
+  moverVolumes:
+    - mountPath: repository
+      volumeSource:
+        nfs:
+          path: /mnt/ssdpool/Volsync
+          server: nas.jonandlinz.com
   activeDeadlineSeconds: 28500
   repository:
     repository: volsync-maintenance-secret
