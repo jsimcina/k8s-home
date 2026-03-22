@@ -18,7 +18,7 @@ spec:
               repository: ghcr.io/maziggy/bambuddy
               tag: 0.2.2
             env:
-              PORT: 8000
+              PORT: 80
               TZ: America/Chicago
             # probes:
             #   liveness: &probes
@@ -57,15 +57,15 @@ spec:
           }]
       securityContext:
         runAsNonRoot: true
-        runAsUser: 2000
-        runAsGroup: 2000
-        fsGroup: 2000
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         ports:
           http:
-            port: 8000
+            port: 80
     route:
       app:
         hostnames:
