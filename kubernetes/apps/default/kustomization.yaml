@@ -11,6 +11,7 @@ resources:
   - ./namespace.yaml
   - ./actual/ks.yaml
   - ./bambu-connect/ks.yaml
+  - ./bambuddy/ks.yaml
   - ./changedetection/ks.yaml
   - ./convertx/ks.yaml
   - ./it-tools/ks.yaml
