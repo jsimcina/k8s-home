@@ -81,5 +81,12 @@ spec:
             app:
               - path: /app/data
                 subPath: data
-      tmp:
+      tmpfs:
         type: emptyDir
+        advancedMounts:
+          bambuddy:
+            app:
+              - path: /tmp
+                subPath: tmp
+              - path: /app/logs
+                subPath: logs
