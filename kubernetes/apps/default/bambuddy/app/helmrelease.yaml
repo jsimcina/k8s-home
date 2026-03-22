@@ -18,7 +18,7 @@ spec:
               repository: ghcr.io/maziggy/bambuddy
               tag: 0.2.2
             env:
-              PORT: 80
+              PORT: 8000
               TZ: America/Chicago
             probes:
               liveness: &probes
@@ -27,7 +27,7 @@ spec:
                 spec:
                   httpGet:
                     path: /
-                    port: 80
+                    port: 8000
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -75,7 +75,7 @@ spec:
             namespace: network
     persistence:
       config:
-        existingClaim: bambuddy
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           bambuddy:
             app:
