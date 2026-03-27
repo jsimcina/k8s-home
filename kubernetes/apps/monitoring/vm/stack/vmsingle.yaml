@@ -1,5 +1,5 @@
 ---
-apiVersion: operator.victoriametrics.com/v1
+apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMSingle
 metadata:
   name: stack
@@ -18,15 +18,8 @@ spec:
     limits:
       cpu: 1
       memory: 1Gi
-  storage:
-    volumeClaimTemplate:
-      metadata:
-        name: vmsingle-stack
-      spec:
-        storageClassName: ceph-block
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 500Gi
+  persistentVolume:
+    enabled: true
+    existingClaim: vmsingle-stack
+    size: 500Gi
   useDefaultResources: false
