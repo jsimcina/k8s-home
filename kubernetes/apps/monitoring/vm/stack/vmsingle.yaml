@@ -8,6 +8,7 @@ spec:
     dedup.minScrapeInterval: 30s
     maxLabelsPerTimeseries: "90"
     search.minStalenessInterval: 5m
+    storageDataPath: /vmdata
   replicaCount: 1
   # -- Data retention period. Possible units character: h(ours), d(ays), w(eeks), y(ears), if no unit character specified - month. The minimum retention period is 24h. See these [docs](https://docs.victoriametrics.com/single-server-victoriametrics/#retention)
   retentionPeriod: "5y"
@@ -25,5 +26,4 @@ spec:
     - name: vmdata
       persistentVolumeClaim:
         claimName: vmsingle-stack
-  storageDataPath: /vmdata
   useDefaultResources: false
