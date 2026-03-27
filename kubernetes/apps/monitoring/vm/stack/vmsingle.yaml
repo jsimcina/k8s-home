@@ -18,11 +18,12 @@ spec:
     limits:
       cpu: 1
       memory: 1Gi
-  storage:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 500Gi
-    existingClaim: vmsingle-stack
+  volumeMounts:
+    - name: vmdata
+      mountPath: /vmdata
+  volumes:
+    - name: vmdata
+      persistentVolumeClaim:
+        claimName: vmsingle-stack
+  storageDataPath: /vmdata
   useDefaultResources: false
