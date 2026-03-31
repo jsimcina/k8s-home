@@ -35,7 +35,7 @@ spec:
 #   name: plex-tools
 # spec:
 #   dependsOn:
-#     - name: onepassword
+#     - name: onepassword-connect
 #       namespace: external-secrets
 #   interval: 1h
 #   path: ./kubernetes/apps/media/plex/tools
