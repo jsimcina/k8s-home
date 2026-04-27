@@ -6,7 +6,7 @@ metadata:
   name: manyfold
 spec:
   components:
-    - ../../../../components/nfs-scaler
+    - ../../../../components/zeroscaler
   interval: 1h
   path: "./kubernetes/apps/default/manyfold/app"
   prune: true

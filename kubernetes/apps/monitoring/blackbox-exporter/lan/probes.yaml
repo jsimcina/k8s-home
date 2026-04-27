@@ -16,8 +16,6 @@ spec:
         - ntp.jonandlinz.com
         - pikvm.jonandlinz.com
         - ui.jonandlinz.com
-        - slzbhub.jonandlinz.com
-        - zwave-controller.jonandlinz.com
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter-lan
@@ -27,8 +25,9 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
 metadata:
-  name: lan-tcp
+  name: lan-nfs
 spec:
+  jobName: nfs_probe
   module: tcp_connect
   prober:
     url: blackbox-exporter-lan.monitoring.svc.cluster.local:9115
@@ -36,6 +35,44 @@ spec:
     staticConfig:
       static:
         - nas.jonandlinz.com:2049
+  metricRelabelings:
+    - targetLabel: service
+      replacement: blackbox-exporter-lan
+      action: replace
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/probe_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: lan-zigbee
+spec:
+  jobName: zigbee_probe
+  module: icmp
+  prober:
+    url: blackbox-exporter-lan.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - slzbhub.jonandlinz.com
+  metricRelabelings:
+    - targetLabel: service
+      replacement: blackbox-exporter-lan
+      action: replace
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/probe_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: lan-zwave
+spec:
+  jobName: zwave_probe
+  module: icmp
+  prober:
+    url: blackbox-exporter-lan.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - zwave-controller.jonandlinz.com
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter-lan
