@@ -1,0 +1,38 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAgent
+metadata:
+  name: stack
+spec:
+  externalLabels:
+    cluster: "k8s-home"
+  extraArgs:
+    promscrape.maxScrapeSize: "33554432" # 32MiB
+    promscrape.streamParse: "true"
+    # Do not store original labels in vmagent's memory by default. This reduces the amount of memory used by vmagent
+    # but makes vmagent debugging UI less informative. See: https://docs.victoriametrics.com/vmagent/#relabel-debug
+    promscrape.dropOriginalLabels: "true"
+  remoteWrite:
+    - url: http://vmsingle-stack.o11y.svc.cluster.local:8429/api/v1/write
+  shardCount: 1
+  scrapeInterval: 30s
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+  selectAllByDefault: false
+  additionalScrapeConfigs:
+    name: vmetrics-secret
+    key: additionalScrapeConfigs.yaml
+  statefulMode: true
+  statefulStorage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: ceph-block
+        resources:
+          requests:
+            storage: 500Mi
+  useDefaultResources: false

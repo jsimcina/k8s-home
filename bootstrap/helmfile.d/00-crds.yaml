@@ -21,11 +21,11 @@ releases:
     version: 1.7.2
 
   - name: grafana-operator
-    namespace: monitoring
+    namespace: o11y
     chart: oci://ghcr.io/grafana/helm-charts/grafana-operator
     version: 5.22.2
 
   - name: kube-prometheus-stack
-    namespace: monitoring
+    namespace: o11y
     chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
     version: 84.3.0

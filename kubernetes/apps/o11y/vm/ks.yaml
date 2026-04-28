@@ -1,0 +1,58 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: victoria-metrics-operator-crds
+spec:
+  interval: 1h
+  path: ./kubernetes/apps/o11y/vm/crds
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: o11y
+  wait: true
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: vm-operator
+spec:
+  interval: 1h
+  path: ./kubernetes/apps/o11y/vm/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: o11y
+  wait: false
+  postBuild:
+    substitute:
+      APP: vm-operator
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: vmsingle-stack
+spec:
+  interval: 1h
+  components:
+    - ../../../../components/volsync
+  path: ./kubernetes/apps/o11y/vm/stack
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: o11y
+  wait: false
+  postBuild:
+    substitute:
+      APP: vmsingle-stack
+      VOLSYNC_CLAIM: vmsingle-stack
+      VOLSYNC_CAPACITY: 500Gi
