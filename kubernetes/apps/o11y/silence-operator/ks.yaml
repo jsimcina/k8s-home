@@ -24,7 +24,7 @@ spec:
   dependsOn:
     - name: silence-operator
   interval: 1h
-  path: ./kubernetes/apps/o11y/silence-operator/silences
+  path: ./kubernetes/apps/o11y/silence-operator/silenced
   prune: true
   sourceRef:
     kind: GitRepository
