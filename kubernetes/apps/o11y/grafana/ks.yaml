@@ -7,9 +7,6 @@ metadata:
 spec:
   interval: 1h
   path: ./kubernetes/apps/o11y/grafana/app
-  postBuild:
-    substitute:
-      APP: grafana
   prune: true
   sourceRef:
     kind: GitRepository
@@ -36,3 +33,4 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: o11y
+  wait: false

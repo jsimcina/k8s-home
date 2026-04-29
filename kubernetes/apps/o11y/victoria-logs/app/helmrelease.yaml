@@ -10,8 +10,15 @@ spec:
     name: victoria-logs
   interval: 1h
   values:
-    fullnameOverride: victoria-logs
+    global:
+      image:
+        registry: quay.io
+    dashboards:
+      enabled: true
+      grafanaOperator:
+        enabled: true
     server:
+      fullnameOverride: victoria-logs
       extraArgs:
         syslog.listenAddr.tcp: ":5514"
         syslog.listenAddr.udp: ":5514"
@@ -19,7 +26,7 @@ spec:
         enabled: true
         storageClassName: ceph-block
         size: 50Gi
-      retentionPeriod: 30d
+      retentionPeriod: 90d
       route:
         enabled: true
         hostnames:
@@ -27,19 +34,5 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-        extraRules:
-          - filters:
-              - type: RequestRedirect
-                requestRedirect:
-                  path:
-                    type: ReplaceFullPath
-                    replaceFullPath: /select/vmui/
-                  statusCode: 302
-            matches:
-              - path:
-                  type: Exact
-                  value: /
       serviceMonitor:
         enabled: true
-    dashboards:
-      enabled: true

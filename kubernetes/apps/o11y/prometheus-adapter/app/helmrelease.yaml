@@ -11,8 +11,8 @@ spec:
   interval: 1h
   values:
     prometheus:
-      url: http://kube-prometheus-stack-prometheus.o11y.svc.cluster.local
-      port: 8080
+      url: http://vmsingle-victoria-metrics-cluster.o11y.svc.cluster.local
+      port: 8428
     rules:
       default: false
       external:
