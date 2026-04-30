@@ -23,7 +23,8 @@ spec:
           routes:
             - receiver: blackhole
               matchers:
-                - alertname = InfoInhibitor
+                - alertname = InfoInhibitor|RecordingRulesNoData
+                - severity = info
             - receiver: heartbeat
               matchers:
                 - alertname = "Watchdog"
