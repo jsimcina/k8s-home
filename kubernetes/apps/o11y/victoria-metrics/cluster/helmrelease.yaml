@@ -48,8 +48,7 @@ spec:
           - name: blackhole
           - name: buddy-heartbeat
             webhook_configs:
-              - http_config:
-                url_secret:
+              - url_secret:
                   name: vmalertmanager-secret
                   key: ALERTMANAGER_HEARTBEAT_URL
           - name: pushover
