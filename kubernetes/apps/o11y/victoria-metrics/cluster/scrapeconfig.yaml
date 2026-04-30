@@ -7,7 +7,9 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - expanse.internal:9100
+        - nas.jonandlinz.com:9100
+        - pikvm.jonandlinz.com:9100
+        - matter-server.jonandlinz.com:9100
   metricsPath: /metrics
   relabelings:
     - action: replace
@@ -22,7 +24,8 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - expanse.internal:9633
+        - nas.jonandlinz.com:9633
+        - matter-server.jonandlinz.com:9633
   metricsPath: /metrics
   relabelings:
     - action: replace
@@ -33,15 +36,13 @@ spec:
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: jetkvm
+  name: pikvm
 spec:
   staticConfigs:
     - targets:
-        - jetkvm-0.internal
-        - jetkvm-1.internal
-        - jetkvm-2.internal
-  metricsPath: /metrics
+        - pikvm.jonandlinz.com
+  metricsPath: /api/export/prometheus/metrics
   relabelings:
     - action: replace
       targetLabel: job
-      replacement: jetkvm
+      replacement: pikvm
