@@ -24,6 +24,9 @@ spec:
             - receiver: blackhole
               matchers:
                 - alertname = InfoInhibitor
+            - receiver: recordingrulenodatahole
+              matchers:
+                - alertname = RecordingRulesNoData
             - receiver: heartbeat
               matchers:
                 - alertname = "Watchdog"
