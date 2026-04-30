@@ -11,7 +11,7 @@ spec:
     matchLabels:
       grafana.internal/instance: grafana
   datasources:
-    - datasourceName: prometheus
+    - datasourceName: VictoriaMetrics
       inputName: DS_PROMETHEUS
   envs:
     - name: VAR_REPLICATIONDESTNAME
