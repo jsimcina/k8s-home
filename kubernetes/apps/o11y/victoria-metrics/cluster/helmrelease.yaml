@@ -49,6 +49,7 @@ spec:
               - severity = "warning"
         receivers:
           - name: blackhole
+          - name: recordingrulenodatahole
           - name: heartbeat
             webhook_configs:
               - url_secret:
