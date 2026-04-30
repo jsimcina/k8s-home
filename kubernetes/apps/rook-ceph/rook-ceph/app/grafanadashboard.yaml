@@ -6,10 +6,9 @@ metadata:
   name: ceph-cluster
 spec:
   allowCrossNamespaceImport: true
-  folder: Storage
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   datasources:
     - datasourceName: VictoriaMetrics
       inputName: DS_PROMETHEUS
@@ -22,10 +21,9 @@ metadata:
   name: ceph-osd
 spec:
   allowCrossNamespaceImport: true
-  folder: Storage
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   datasources:
     - datasourceName: VictoriaMetrics
       inputName: DS_PROMETHEUS
@@ -38,10 +36,9 @@ metadata:
   name: ceph-pools
 spec:
   allowCrossNamespaceImport: true
-  folder: Storage
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   datasources:
     - datasourceName: VictoriaMetrics
       inputName: DS_PROMETHEUS
