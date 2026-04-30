@@ -3,10 +3,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: grafana
+  name: victoria-metrics
 spec:
   interval: 1h
-  path: ./kubernetes/apps/o11y/grafana/app
+  path: ./kubernetes/apps/o11y/victoria-metrics/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -19,14 +19,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: grafana-instance
+  name: victoria-metrics-cluster
 spec:
   dependsOn:
-    - name: grafana
+    - name: victoria-metrics
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/o11y/grafana/instance
+  path: ./kubernetes/apps/o11y/victoria-metrics/cluster
   prune: true
   sourceRef:
     kind: GitRepository

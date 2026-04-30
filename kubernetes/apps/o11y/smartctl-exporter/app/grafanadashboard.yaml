@@ -6,11 +6,10 @@ metadata:
   name: smartctl-exporter
 spec:
   allowCrossNamespaceImport: true
-  folder: Storage
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   datasources:
-    - datasourceName: prometheus
+    - datasourceName: VictoriaMetrics
       inputName: DS_PROMETHEUS
   url: https://grafana.com/api/dashboards/22604/revisions/2/download
