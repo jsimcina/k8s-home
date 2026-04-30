@@ -46,7 +46,7 @@ spec:
               - severity = "warning"
         receivers:
           - name: blackhole
-          - name: buddy-heartbeat
+          - name: heartbeat
             webhook_configs:
               - url_secret:
                   name: vmalertmanager-secret
