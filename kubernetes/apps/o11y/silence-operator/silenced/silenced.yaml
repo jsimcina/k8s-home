@@ -108,5 +108,5 @@ spec:
     - name: alertname
       value: RecordingRulesNoData
     - name: file
-      value: /etc/vmalert/config/vm-victoria-metrics-cluster-rulefiles-0/security-authentik.yaml
+      value: /etc/vmalert/config/vm-victoria-metrics-rulefiles-0/security-authentik.yaml
       matchType: "=~"
