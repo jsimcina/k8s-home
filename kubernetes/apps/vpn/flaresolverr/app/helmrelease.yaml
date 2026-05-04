@@ -26,6 +26,7 @@ spec:
                 cpu: 15m
                 memory: 150Mi
     defaultPodOptions:
+      automountServiceAccountToken: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
