@@ -73,7 +73,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: 80
+                port: 1984
     # configMaps:
     #   config:
     #     data:
