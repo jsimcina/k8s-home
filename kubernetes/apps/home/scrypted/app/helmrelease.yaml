@@ -90,6 +90,8 @@ spec:
             port: 33669
           rebroadcastkaiser01:
             port: 38345
+          rebroadcastcarnifex01:
+            port: 41577
           rebroadcastp1s:
             port: 34213
           homekitport:
