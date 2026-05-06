@@ -92,7 +92,7 @@ spec:
                 - ffmpeg:rtsp://scrypted.home.svc.cluster.local:38345/122506d5ae4bd124
             publish:
               kaiser-cam-01:
-                - rtmp://a.rtmp.youtube.com/live2/"{{ .Kaiser_Newt_01 }}"
+                - rtmp://a.rtmp.youtube.com/live2/{{ .Kaiser_Newt_01 }}
     persistence:
       config-file:
         type: configMap
