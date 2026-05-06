@@ -88,6 +88,8 @@ spec:
             port: 10443
           rebroadcast:
             port: 33669
+          rebroadcastkaiser01:
+            port: 38345
           rebroadcastp1s:
             port: 34213
           homekitport:
