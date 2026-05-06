@@ -89,7 +89,7 @@ spec:
               listen: :8555
             streams:
               kaiser-cam-01:
-                - rtsp://scrypted.home.svc.cluster.local:38345/122506d5ae4bd124
+                - rtsp://10.12.0.106:38345/122506d5ae4bd124
     persistence:
       config-file:
         type: configMap
