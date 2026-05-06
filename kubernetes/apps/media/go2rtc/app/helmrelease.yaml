@@ -18,6 +18,9 @@ spec:
             image:
               repository: ghcr.io/alexxit/go2rtc
               tag: 1.9.14@sha256:675c318b23c06fd862a61d262240c9a63436b4050d177ffc68a32710d9e05bae
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
@@ -92,7 +95,7 @@ spec:
                 - ffmpeg:rtsp://scrypted.home.svc.cluster.local:38345/122506d5ae4bd124
             publish:
               kaiser-cam-01:
-                - rtmp://a.rtmp.youtube.com/live2/{{ .Kaiser_Newt_01 }}
+                - rtmp://a.rtmp.youtube.com/live2/{env:YOUTUBE_KAISER_01_KEY}
     persistence:
       config-file:
         type: configMap
