@@ -100,8 +100,3 @@ spec:
         globalMounts:
           - path: /config/go2rtc.yaml
             subPath: go2rtc.yaml
-    #persistence:
-    #  config:
-    #    existingClaim: "go2rtc"
-    #    globalMounts:
-    #      - path: /config
