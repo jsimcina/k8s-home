@@ -75,9 +75,9 @@ spec:
               - identifier: app
                 port: 80
     persistence:
-      config-file:
+      credentials:
         type: secret
-        identifier: go2rtc-secret
+        name: go2rtc-secret
         globalMounts:
           - path: /config/go2rtc.yaml
             subPath: go2rtc.yaml
