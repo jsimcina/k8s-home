@@ -74,26 +74,26 @@ spec:
           - backendRefs:
               - identifier: app
                 port: 80
-    configMaps:
-      config:
-        data:
-          go2rtc.yaml: |-
-            log:
-              streams: error # Prevent log spam from UniFi Protect
-            api:
-              listen: :80
-              origin: "*"
-            rtsp:
-              listen: :554
-            webrtc:
-              listen: :8555
-            streams:
-              kaiser-cam-01:
-                - rtsp://scrypted.home.svc.cluster.local:38345/122506d5ae4bd124
-    persistence:
-      config-file:
-        type: configMap
-        identifier: config
-        globalMounts:
-          - path: /config/go2rtc.yaml
-            subPath: go2rtc.yaml
+    # configMaps:
+    #   config:
+    #     data:
+    #       go2rtc.yaml: |-
+    #         log:
+    #           streams: error # Prevent log spam from UniFi Protect
+    #         api:
+    #           listen: :80
+    #           origin: "*"
+    #         rtsp:
+    #           listen: :554
+    #         webrtc:
+    #           listen: :8555
+    #         streams:
+    #           kaiser-cam-01:
+    #             - rtsp://scrypted.home.svc.cluster.local:38345/122506d5ae4bd124
+    # persistence:
+    #   config-file:
+    #     type: configMap
+    #     identifier: config
+    #     globalMounts:
+    #       - path: /config/go2rtc.yaml
+    #         subPath: go2rtc.yaml
