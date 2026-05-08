@@ -1,11 +1,8 @@
 set lazy
-set positional-arguments
 set quiet
 set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
-bootstrap_dir := justfile_dir() + '/bootstrap'
-kubernetes_dir := justfile_dir() + '/kubernetes'
 controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
 nodes := `talosctl config info -o yaml | yq -e '.nodes | join (" ")'`
 
@@ -16,7 +13,7 @@ default:
 
 [doc('Bootstrap Cluster')]
 [script]
-cluster: talos kube (kubeconfig "node") wait namespaces resources crds apps kubeconfig
+cluster: talos kube (kubeconfig "node") wait-for-nodes resources crds apps kubeconfig
 
 [private]
 [script]
@@ -56,7 +53,7 @@ kubeconfig lb="cilium":
 
 [private]
 [script]
-wait:
+wait-for-nodes:
     just log info "Running stage..." "stage" "$(basename "$0")"
     if ! kubectl wait nodes --for=condition=Ready=True --all --timeout=10s &>/dev/null; then
         until kubectl wait nodes --for=condition=Ready=False --all --timeout=10s &>/dev/null; do
@@ -67,27 +64,19 @@ wait:
 
 [private]
 [script]
-namespaces:
+resources:
     just log info "Running stage..." "stage" "$(basename "$0")"
-    find "{{ kubernetes_dir }}/apps" -mindepth 1 -maxdepth 1 -type d | while IFS= read -r dir; do
-        if ! kustomize build "$dir" | yq ea -e 'select(.kind == "Namespace")' | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -; then
-            just log fatal "Failed to apply namespace" "stage" "$(basename "$0")" "namespace" "$(basename "$dir")"
+    for f in {{ source_directory() }}/resources/*.yaml.j2; do
+        if ! just template "$f" | kubectl apply --server-side --force-conflicts -f -; then
+            just log fatal "Failed to apply resources" "stage" "$(basename "$0")" "file" "$f"
         fi
     done
 
 [private]
 [script]
-resources:
-    just log info "Running stage..." "stage" "$(basename "$0")"
-    if ! just template "{{ bootstrap_dir }}/resources.yaml.j2" | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -; then
-        just log fatal "Failed to apply resources" "stage" "$(basename "$0")"
-    fi
-
-[private]
-[script]
 crds:
     just log info "Running stage..." "stage" "$(basename "$0")"
-    if ! helmfile -f "{{ bootstrap_dir }}/helmfile.d/00-crds.yaml" template -q | yq ea -e 'select(.kind == "CustomResourceDefinition")' | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -; then
+    if ! helmfile -f "{{ source_directory() }}/helmfile.d/00-crds.yaml" template -q | yq ea -e 'select(.kind == "CustomResourceDefinition")' | kubectl apply --server-side --force-conflicts -f -; then
         just log fatal "Failed to apply crds" "stage" "$(basename "$0")"
     fi
 
@@ -95,6 +84,6 @@ crds:
 [script]
 apps:
     just log info "Running stage..." "stage" "$(basename "$0")"
-    if ! helmfile -f "{{ bootstrap_dir }}/helmfile.d/01-apps.yaml" sync --hide-notes; then
+    if ! helmfile -f "{{ source_directory() }}/helmfile.d/01-apps.yaml" sync --hide-notes; then
         just log fatal "Failed to sync helmfile" "stage" "$(basename "$0")"
     fi
