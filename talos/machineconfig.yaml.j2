@@ -3,7 +3,7 @@ version: v1alpha1
 machine:
   ca:
     crt: op://kubernetes/talos/MACHINE_CA_CRT
-    {% if ENV.IS_CONTROLLER %}
+    {% if ENV.CONTROLPLANE %}
     key: op://kubernetes/talos/MACHINE_CA_KEY
     {% endif %}
   features:
@@ -16,7 +16,7 @@ machine:
     kubePrism:
       enabled: true
       port: 7445
-    {% if ENV.IS_CONTROLLER %}
+    {% if ENV.CONTROLPLANE %}
     kubernetesTalosAPIAccess:
       enabled: true
       allowedKubernetesNamespaces:
@@ -46,7 +46,7 @@ machine:
   install:
     diskSelector:
       model: SAMSUNG MZ1L2960HCJR-00A07
-    image: factory.talos.dev/metal-installer/43122bd4d525175aad7241d73cf9d6ac87140494b833d82c6e1c3412e469d064:v1.13.0
+    image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC }}:v1.13.0
     wipe: false
   kernel:
     modules:
@@ -112,7 +112,7 @@ machine:
 cluster:
   ca:
     crt: op://kubernetes/talos/CLUSTER_CA_CRT
-    {% if ENV.IS_CONTROLLER %}
+    {% if ENV.CONTROLPLANE %}
     key: op://kubernetes/talos/CLUSTER_CA_KEY
     {% endif %}
   clusterName: main
@@ -136,7 +136,7 @@ cluster:
       - 10.96.0.0/16
   secret: op://kubernetes/talos/CLUSTER_SECRET
   token: op://kubernetes/talos/CLUSTER_TOKEN
-  {% if ENV.IS_CONTROLLER %}
+  {% if ENV.CONTROLPLANE %}
   aggregatorCA:
     crt: op://kubernetes/talos/CLUSTER_AGGREGATORCA_CRT
     key: op://kubernetes/talos/CLUSTER_AGGREGATORCA_KEY

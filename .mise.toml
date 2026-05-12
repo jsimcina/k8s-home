@@ -1,4 +1,5 @@
 [env]
+_.python.venv = { path = "{{config_root}}/.venv", create = true }
 KUBECONFIG = "{{config_root}}/kubeconfig"
 MINIJINJA_CONFIG_FILE = "{{config_root}}/.minijinja.toml"
 TALOSCONFIG = "{{config_root}}/talosconfig"
@@ -10,9 +11,9 @@ _.file = [
 ]
 
 [tools]
+"python" = "latest"
 "uv" = "latest"
 "pipx:flux-local" = "latest"
-"python" = "3.14.5"
 "pipx:makejinja" = "2.8.2"
 "aqua:casey/just" = "latest"
 "aqua:cert-manager/cmctl" = "latest"

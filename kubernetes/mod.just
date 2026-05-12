@@ -4,30 +4,28 @@ set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
 [private]
-[script]
 default:
     just -l kube
 
 [doc('Apply local Flux Kustomization')]
-[script]
 apply-ks ns ks:
     just kube render-local-ks "{{ ns }}" "{{ ks }}" | kubectl apply --server-side --force-conflicts --field-manager=kustomize-controller -f -
 
 [doc('Browse a PVC')]
-[script]
 browse-pvc ns claim:
-    kubectl browse-pvc -n {{ ns }} -i mirror.gcr.io/alpine:latest {{ claim }}
+    kubectl run -n {{ ns }} browse-pvc-{{ claim }} -it --rm --restart=Never \
+        --image=mirror.gcr.io/alpine:latest \
+        --overrides='{"spec":{"containers":[{"name":"browse-pvc-{{ claim }}","image":"mirror.gcr.io/alpine:latest","stdin":true,"tty":true,"command":["/bin/sh"],"workingDir":"/mnt","volumeMounts":[{"mountPath":"/mnt","name":"data"}]}],"volumes":[{"name":"data","persistentVolumeClaim":{"claimName":"{{ claim }}"}}]}}'
+
+[doc('Debug a node')]
+[script]
+debug-node node:
+    trap 'kubectl delete pod -n default -l app.kubernetes.io/managed-by=kubectl-debug --ignore-not-found --wait=false' EXIT
+    kubectl debug node/{{ node }} -n default -it --image=mirror.gcr.io/alpine:latest --profile=sysadmin
 
 [doc('Delete local Flux Kustomization')]
-[script]
 delete-ks ns ks:
     just kube render-local-ks "{{ ns }}" "{{ ks }}" | kubectl delete -f -
-
-[doc('Open a shell on a node')]
-[script]
-node-shell node:
-    kubectl debug node/{{ node }} -n default -it --image="mirror.gcr.io/alpine:latest" --profile sysadmin
-    kubectl delete pod -n default -l app.kubernetes.io/managed-by=kubectl-debug
 
 [doc('Prune pods in Failed, Pending, or Succeeded state')]
 [script]
@@ -35,6 +33,29 @@ prune-pods:
     for phase in Failed Pending Succeeded; do
         kubectl delete pods -A --field-selector status.phase="$phase" --ignore-not-found=true
     done
+
+[doc('Restore a PVC from VolSync')]
+[script]
+restore ns app previous='0':
+    flux -n {{ ns }} suspend kustomization {{ app }}
+    flux -n {{ ns }} suspend helmrelease {{ app }}
+    kubectl -n {{ ns }} get deploy,sts -l app.kubernetes.io/name={{ app }} -o name \
+        | xargs -r -I{} kubectl -n {{ ns }} scale {} --replicas=0
+    kubectl -n {{ ns }} wait pod --for=delete --selector="app.kubernetes.io/name={{ app }}" --timeout=5m
+    kubectl -n {{ ns }} get replicationdestination {{ app }}-dst -o json \
+        | jq 'del(.status)
+            | .metadata = {name: "{{ app }}-manual", namespace: .metadata.namespace}
+            | .spec.kopia.copyMethod = "Direct"
+            | .spec.kopia.destinationPVC = "{{ app }}"
+            | .spec.kopia.previous = {{ previous }}' \
+        | kubectl apply --server-side -f -
+    kubectl -n {{ ns }} wait job/volsync-dst-{{ app }}-manual --for=create --timeout=120s
+    kubectl -n {{ ns }} wait job/volsync-dst-{{ app }}-manual --for=condition=complete --timeout=120m
+    kubectl -n {{ ns }} delete replicationdestination {{ app }}-manual
+    flux -n {{ ns }} resume kustomization {{ app }}
+    flux -n {{ ns }} resume helmrelease {{ app }}
+    flux -n {{ ns }} reconcile helmrelease {{ app }} --force
+    kubectl -n {{ ns }} wait pod --for=condition=ready --selector="app.kubernetes.io/name={{ app }}" --timeout=5m
 
 [doc('Snapshot VolSync PVCs')]
 [script]
@@ -44,7 +65,6 @@ snapshot:
     done
 
 [doc('Suspend or resume VolSync')]
-[script]
 volsync state:
     flux -n volsync-system {{ state }} kustomization volsync
     flux -n volsync-system {{ state }} helmrelease volsync
@@ -86,11 +106,9 @@ sync-oci:
     done
 
 [doc('View a secret')]
-[script]
 view-secret ns secret:
     kubectl view-secret -n {{ ns }} {{ secret }}
 
 [private]
-[script]
 render-local-ks ns ks:
     flux-local build ks --namespace "{{ ns }}" --path "{{ source_directory() }}/flux/cluster" "{{ ks }}"
