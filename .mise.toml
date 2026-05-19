@@ -35,3 +35,6 @@ _.file = [
 "github:EnterpriseDB/kubectl-cnp" = "1.29.1"
 "github:mitsuhiko/minijinja" = "2.19.0"
 "github:rook/kubectl-rook-ceph" = "latest"
+
+[hooks]
+postinstall = "lefthook install"
