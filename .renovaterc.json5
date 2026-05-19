@@ -13,4 +13,5 @@
     ":semanticCommits",
     ":timezone(America/Chicago)",
   ],
-  dependencyDashboardTitle: "Renovate Dashboard 🤖",
+  dependencyDashboardTitle: "Renovate Dashboard 🤖"
+}

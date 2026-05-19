@@ -1,4 +1,3 @@
-set lazy
 set quiet
 set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
@@ -20,7 +19,7 @@ browse-pvc ns claim:
 [doc('Debug a node')]
 [script]
 debug-node node:
-    trap 'kubectl delete pod -n default -l app.kubernetes.io/managed-by=kubectl-debug --ignore-not-found --wait=false' EXIT
+    trap 'kubectl delete pod -n default -l app.kubernetes.io/managed-by=kubectl-debug --field-selector spec.nodeName={{ node }} --ignore-not-found --wait=false' EXIT
     kubectl debug node/{{ node }} -n default -it --image=mirror.gcr.io/alpine:latest --profile=sysadmin
 
 [doc('Delete local Flux Kustomization')]
@@ -64,45 +63,22 @@ snapshot:
         kubectl -n "$ns" patch replicationsources "$name" --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'
     done
 
+[arg('state', pattern='suspend|resume')]
 [doc('Suspend or resume VolSync')]
 volsync state:
     flux -n volsync-system {{ state }} kustomization volsync
     flux -n volsync-system {{ state }} helmrelease volsync
     kubectl -n volsync-system scale deployment volsync --replicas {{ if state != "suspend" { "1" } else { "0" } }}
 
-[doc('Sync ExternalSecrets')]
+[arg('resource', pattern='hr|ks|gitrepo|ocirepo|es')]
+[doc('Sync a resource')]
 [script]
-sync-es:
-    kubectl get es --no-headers -A | while read -r ns name _; do
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite es "$name" force-sync="$(date +%s)"
-    done
-
-[doc('Sync GitRepositories')]
-[script]
-sync-git:
-    kubectl get gitrepo --no-headers -A | while read -r ns name _; do
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite gitrepo "$name" reconcile.fluxcd.io/requestedAt="$(date +%s)"
-    done
-
-[doc('Sync HelmReleases')]
-[script]
-sync-hr:
-    kubectl get hr --no-headers -A | while read -r ns name _; do
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite hr "$name" reconcile.fluxcd.io/requestedAt="$(date +%s)" reconcile.fluxcd.io/forceAt="$(date +%s)"
-    done
-
-[doc('Sync Kustomizations')]
-[script]
-sync-ks:
-    kubectl get ks --no-headers -A | while read -r ns name _; do
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite ks "$name" reconcile.fluxcd.io/requestedAt="$(date +%s)"
-    done
-
-[doc('Sync OCIRepositories')]
-[script]
-sync-oci:
-    kubectl get ocirepo --no-headers -A | while read -r ns name _; do
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite ocirepo "$name" reconcile.fluxcd.io/requestedAt="$(date +%s)"
+sync resource:
+    kubectl get {{ resource }} --no-headers -A | while read -r ns name _; do
+        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite {{ resource }} "$name" \
+            "force-sync=$(date +%s)" \
+            "reconcile.fluxcd.io/requestedAt=$(date +%s)" \
+            "reconcile.fluxcd.io/forceAt=$(date +%s)"
     done
 
 [doc('View a secret')]
@@ -111,4 +87,5 @@ view-secret ns secret:
 
 [private]
 render-local-ks ns ks:
-    flux-local build ks --namespace "{{ ns }}" --path "{{ source_directory() }}/flux/cluster" "{{ ks }}"
+    docker run --rm --volume "{{ justfile_directory() }}":/workspace ghcr.io/allenporter/flux-local:latest \
+        build ks --namespace "{{ ns }}" --path "/workspace/kubernetes/flux/cluster" "{{ ks }}"
