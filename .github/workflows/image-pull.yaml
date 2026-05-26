@@ -61,7 +61,7 @@ jobs:
     if: ${{ needs.extract.outputs.images != '[]' }}
     needs: extract
     name: Image Pull - Pull Images
-    runs-on: mr-wriggler-local-runner
+    runs-on: ${{ vars.LOCAL_RUNNER_NAME }}
     strategy:
       matrix:
         image: ${{ fromJSON(needs.extract.outputs.images) }}
