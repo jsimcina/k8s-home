@@ -23,7 +23,7 @@
       automerge: true,
       automergeType: "pr",
       ignoreTests: false,
-      schedule: ["0 * * * *"],
+      schedule: ["* 20-23,6-10 * * *"],
     },
     {
       description: "Auto-merge GitHub Actions",
