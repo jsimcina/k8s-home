@@ -61,7 +61,7 @@ jobs:
     if: ${{ needs.extract.outputs.images != '[]' }}
     needs: extract
     name: Image Pull - Pull Images
-    runs-on: ${{ vars.LOCAL_RUNNER_NAME }}
+    runs-on: ${{ github.event.repository.name }}-runner
     strategy:
       matrix:
         image: ${{ fromJSON(needs.extract.outputs.images) }}

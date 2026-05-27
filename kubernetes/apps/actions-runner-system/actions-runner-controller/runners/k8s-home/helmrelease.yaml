@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name mr-wriggler-local-runner
+  name: &name k8s-home-runner
 spec:
   chartRef:
     kind: OCIRepository
@@ -11,7 +11,7 @@ spec:
   interval: 1h
   values:
     githubConfigUrl: https://github.com/jsimcina/k8s-home
-    githubConfigSecret: mr-wriggler-local-runner-secret
+    githubConfigSecret: k8s-home-runner-secret
     minRunners: 1
     maxRunners: 3
     containerMode:
