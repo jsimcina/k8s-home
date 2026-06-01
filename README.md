@@ -10,9 +10,9 @@ _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gs
 
 <div align="center">
 
-[![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue&label=%20)](https://talos.dev)&nbsp;&nbsp;
-[![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fkubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&color=blue&label=%20)](https://kubernetes.io)&nbsp;&nbsp;
-[![Flux](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fflux_version&style=for-the-badge&logo=flux&logoColor=white&color=blue&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
+[![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fbadges%2Ftalos_version%3Fformat%3Dshields&style=for-the-badge&logo=talos&logoColor=white&color=blue&label=%20)](https://talos.dev)&nbsp;&nbsp;
+[![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fbadges%2Fkubernetes_version%3Fformat%3Dshields&style=for-the-badge&logo=kubernetes&logoColor=white&color=blue&label=%20)](https://kubernetes.io)&nbsp;&nbsp;
+[![Flux](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fbadges%2Fflux_version%3Fformat%3Dshields&style=for-the-badge&logo=flux&logoColor=white&color=blue&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
 [![Renovate](https://img.shields.io/github/actions/workflow/status/jsimcina/k8s-home/renovate.yaml?branch=main&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/jsimcina/k8s-home/actions/workflows/renovate.yaml)
 </div>
 
@@ -26,14 +26,14 @@ _... managed with Flux, Renovate, and GitHub Actions_ <img src="https://fonts.gs
 
 <div align="center">
 
-[![Age-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fcluster_birth_age&style=flat-square&label=Age)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Uptime-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fcluster_uptime_age&style=flat-square&label=Uptime)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Node-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fcluster_node_count&style=flat-square&label=Nodes)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Pod-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fcluster_pod_count&style=flat-square&label=Pods)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fcluster_cpu_usage&style=flat-square&label=CPU)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fcluster_memory_usage&style=flat-square&label=Memory)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Power-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fcluster_power_usage&style=flat-square&label=Power)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fcluster_alert_count&style=flat-square&label=Alerts)](https://github.com/home-operations/kromgo)
+[![Age-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fbadges%2Fcluster_birth_age%3Fformat%3Dshields&style=flat-square&label=Age)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Uptime-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fbadges%2Fcluster_uptime_age%3Fformat%3Dshields&style=flat-square&label=Uptime)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Node-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fbadges%2Fcluster_node_count%3Fformat%3Dshields&style=flat-square&label=Nodes)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Pod-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fbadges%2Fcluster_pod_count%3Fformat%3Dshields&style=flat-square&label=Pods)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fbadges%2Fcluster_cpu_usage%3Fformat%3Dshields&style=flat-square&label=CPU)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fbadges%2Fcluster_memory_usage%3Fformat%3Dshields&style=flat-square&label=Memory)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Power-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fbadges%2Fcluster_power_usage%3Fformat%3Dshields&style=flat-square&label=Power)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.jonandlinz.io%2Fbadges%2Fcluster_alert_count%3Fformat%3Dshields&style=flat-square&label=Alerts)](https://github.com/home-operations/kromgo)
 
 </div>
 
