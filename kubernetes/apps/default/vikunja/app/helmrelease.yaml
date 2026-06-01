@@ -38,7 +38,7 @@ spec:
               VIKUNJA_DEFAULTSETTINGS_DISCOVERABLE_BY_NAME: true
               VIKUNJA_DEFAULTSETTINGS_EMAIL_REMINDERS_ENABLED: true
               discoverable_by_email: true
-              overdue_tasks_reminders_time: '11:00'
+              overdue_tasks_reminders_time: "11:00"
               VIKUNJA_DEFAULTSETTINGS_WEEK_START: 1
 
               # Redis
