@@ -87,7 +87,7 @@ jobs:
 
             const body = fs.readFileSync("diff.html");
             const localHash = crypto.createHash("sha256").update(body).digest("hex");
-            const pwdlen = ${process.env.DUFS_PASSWORD}.length;
+            const pwdlen = (`${process.env.DUFS_PASSWORD}`).length;
 
             console.log(pwdlen);
             const head = await fetch(`${url}?hash`, { headers: { Authorization: auth } });
