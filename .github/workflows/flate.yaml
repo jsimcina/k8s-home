@@ -70,6 +70,9 @@ jobs:
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           DUFS_PASSWORD: op://kubernetes/dufs/FLATE_PASSWORD
+          DUFS_USERNAME: ${{ env.DUFS_USERNAME }}
+          DUFS_DOMAIN: ${{ env.DUFS_DOMAIN }}
+
 
       - if: ${{ steps.flate.outputs.diff == 'true' }}
         name: Upload diff to dufs
