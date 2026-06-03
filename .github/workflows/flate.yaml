@@ -17,7 +17,7 @@ permissions:
 
 env:
   DUFS_DOMAIN: dufs.jonandlinz.io
-  DUFS_USERNAME: flate
+  DUFS_USERNAME: admin
 
 jobs:
   filter:
@@ -69,7 +69,7 @@ jobs:
         uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 # v4.0.0 # zizmor: ignore[unpinned-tools]
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          DUFS_PASSWORD: op://kubernetes/dufs/FLATE_PASSWORD
+          DUFS_PASSWORD: op://kubernetes/dufs/ADMIN_PASSWORD
 
       - if: ${{ steps.flate.outputs.diff == 'true' }}
         name: Upload diff to dufs
