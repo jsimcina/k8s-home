@@ -17,7 +17,7 @@ permissions:
 
 env:
   DUFS_DOMAIN: dufs.jonandlinz.io
-  DUFS_USERNAME: admin
+  DUFS_USERNAME: flate
 
 jobs:
   filter:
@@ -52,12 +52,11 @@ jobs:
           cache: false
           tool_versions: |
             github:home-operations/flate 0.2.7
-            minify v2.24.13
 
       - name: Run flate
         id: flate
         run: |
-          flate diff all -p ./kubernetes/flux/cluster -o html | minify --type=html > diff.html
+          flate diff all -p ./kubernetes/flux/cluster -o html > diff.html
           if [ -s diff.html ]; then
             echo "diff=true" >> "$GITHUB_OUTPUT"
           else
@@ -70,7 +69,7 @@ jobs:
         uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 # v4.0.0 # zizmor: ignore[unpinned-tools]
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          DUFS_PASSWORD: op://kubernetes/dufs/ADMIN_PASSWORD
+          DUFS_PASSWORD: op://kubernetes/dufs/FLATE_PASSWORD
 
       - if: ${{ steps.flate.outputs.diff == 'true' }}
         name: Upload diff to dufs
@@ -82,7 +81,8 @@ jobs:
             const fs = require("fs");
             const crypto = require("crypto");
             const pr = context.issue.number;
-            const url = `https://${process.env.DUFS_DOMAIN}/flate/pr-${pr}.html`;
+            const dir = `https://${process.env.DUFS_DOMAIN}/flate/`;
+            const url = `${dir}${pr}.html`;
             const auth = "Basic " + Buffer.from(`${process.env.DUFS_USERNAME}:${process.env.DUFS_PASSWORD}`).toString("base64");
 
             const body = fs.readFileSync("diff.html");
@@ -93,6 +93,8 @@ jobs:
             if (remoteHash === localHash) {
               return core.info(`Diff unchanged (sha256 ${localHash}) — skipping upload.`);
             }
+
+            await fetch(dir, { method: "MKCOL", headers: { Authorization: auth } });
 
             const res = await fetch(url, { method: "PUT", headers: { Authorization: auth }, body });
             if (!res.ok) return core.setFailed(`PUT ${url} returned HTTP ${res.status}`);
@@ -132,7 +134,7 @@ jobs:
             const shortSha = sha.slice(0, 7);
             const commitUrl = `${context.serverUrl}/${owner}/${repo}/commit/${sha}`;
             const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
-            const diffUrl = `https://${process.env.DUFS_DOMAIN}/flate/pr-${issue_number}.html`;
+            const diffUrl = `https://${process.env.DUFS_DOMAIN}/flate/${issue_number}.html`;
 
             const body = [
               marker,
@@ -167,7 +169,7 @@ jobs:
         uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 # v4.0.0 # zizmor: ignore[unpinned-tools]
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          DUFS_PASSWORD: op://kubernetes/dufs/ADMIN_PASSWORD
+          DUFS_PASSWORD: op://kubernetes/dufs/FLATE_PASSWORD
 
       - name: Delete diff for closed PR
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
@@ -176,7 +178,7 @@ jobs:
         with:
           script: |
             const pr = context.issue.number;
-            const url = `https://${process.env.DUFS_DOMAIN}/flate/pr-${pr}.html`;
+            const url = `https://${process.env.DUFS_DOMAIN}/flate/${pr}.html`;
             const auth = "Basic " + Buffer.from(`${process.env.DUFS_USERNAME}:${process.env.DUFS_PASSWORD}`).toString("base64");
             const res = await fetch(url, { method: "DELETE", headers: { Authorization: auth } });
             if (res.ok) core.info(`Deleted ${url}`);
