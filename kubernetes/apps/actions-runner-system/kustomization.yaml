@@ -10,4 +10,3 @@ components:
 resources:
   - ./namespace.yaml
   - ./actions-runner-controller/ks.yaml
-  - ./dufs/ks.yaml
