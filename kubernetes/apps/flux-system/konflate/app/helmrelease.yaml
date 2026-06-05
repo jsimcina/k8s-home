@@ -28,8 +28,8 @@ spec:
       serviceMonitor:
         enabled: true
     persistence:
-      enabled: false
-      existingClaim: "{{ .Release.Name }}"
+      enabled: true
+      existingClaim: konflate
     resources:
       requests:
         cpu: 400m
