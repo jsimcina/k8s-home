@@ -29,7 +29,7 @@ spec:
         enabled: true
     persistence:
       enabled: true
-      existingClaim: "{{ .Release.Name }}"
+      existingClaim: "konflate"
     resources:
       requests:
         cpu: 400m
