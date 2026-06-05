@@ -12,6 +12,9 @@ spec:
   values:
     config:
       repo: github://jsimcina/k8s-home
+    envFrom:
+      - secretRef:
+          name: "{{ .Release.Name }}-secret"
     httpRoute:
       enabled: true
       annotations:
