@@ -13,7 +13,7 @@ spec:
     config:
       repo: github://jsimcina/k8s-home
     secret:
-      existingSecret: "{{ .Release.Name }}-secret"
+      existingSecret: konflate-secret
     httpRoute:
       enabled: true
       annotations:
