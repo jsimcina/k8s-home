@@ -9,6 +9,9 @@ spec:
     - ../../../../components/volsync
   interval: 1h
   path: ./kubernetes/apps/flux-system/konflate/app
+  postBuild:
+    substitute:
+      APP: konflate
   prune: true
   sourceRef:
     kind: GitRepository
