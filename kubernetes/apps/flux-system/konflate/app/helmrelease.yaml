@@ -10,6 +10,8 @@ spec:
     name: konflate
   interval: 1h
   values:
+    annotations:
+      reloader.stakater.com/auto: "true"
     config:
       repo: github://jsimcina/k8s-home
     envFrom:
