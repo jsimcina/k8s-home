@@ -27,9 +27,9 @@ spec:
     monitoring:
       serviceMonitor:
         enabled: true
-    persistence:
-      enabled: true
-      existingClaim: "konflate"
+    #persistence:
+    #  enabled: true
+    #  existingClaim: "konflate"
     resources:
       requests:
         cpu: 400m
