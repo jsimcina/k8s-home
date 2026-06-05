@@ -5,6 +5,8 @@ kind: Kustomization
 metadata:
   name: konflate
 spec:
+  components:
+    - ../../../../components/volsync
   interval: 1h
   path: ./kubernetes/apps/flux-system/konflate/app
   prune: true
