@@ -28,6 +28,7 @@ spec:
       serviceMonitor:
         enabled: true
     persistence:
+      enabled: true
       existingClaim: "{{ .Release.Name }}"
     resources:
       requests:
