@@ -12,6 +12,9 @@ spec:
   values:
     config:
       repo: github://jsimcina/k8s-home
+      statusChecks: true
+      prComments: true
+      publicUrl: https://{{ .Release.Name }}.jonandlinz.io
     secret:
       existingSecret: konflate-secret
     httpRoute:
@@ -27,9 +30,6 @@ spec:
     monitoring:
       serviceMonitor:
         enabled: true
-    #persistence:
-    #  enabled: true
-    #  existingClaim: "konflate"
     resources:
       requests:
         cpu: 400m
