@@ -15,6 +15,7 @@ spec:
       statusChecks: true
       prComments: true
       publicUrl: https://{{ .Release.Name }}.jonandlinz.io
+      mcp: true
     secret:
       existingSecret: konflate-secret
     httpRoute:
