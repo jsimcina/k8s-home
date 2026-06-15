@@ -7,10 +7,6 @@ metadata:
 spec:
   interval: 1h
   path: ./kubernetes/apps/o11y/gatus-sidecar/app
-  postBuild:
-    substitute:
-      APP: gatus
-      GATUS_SUBDOMAIN: status
   prune: true
   sourceRef:
     kind: GitRepository
