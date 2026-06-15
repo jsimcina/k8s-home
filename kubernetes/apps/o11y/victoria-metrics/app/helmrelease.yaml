@@ -220,6 +220,9 @@ spec:
           resources:
             requests:
               storage: 50Gi
+              memory: 500Mi
+            limits:
+              memory: 2.5Gi
           storageClassName: ceph-block
     additionalVictoriaMetricsMap:
       dockerhub-rules:
