@@ -13,6 +13,7 @@ spec:
     fullnameOverride: blackbox-exporter-vpn
     strategy:
       type: Recreate
+      rollingUpdate: null
     podAnnotations:
       k8s.v1.cni.cncf.io/networks: |-
         [{
