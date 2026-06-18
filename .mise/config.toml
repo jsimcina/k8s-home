@@ -30,6 +30,7 @@ JUST_UNSTABLE = "1"
 "github:EnterpriseDB/kubectl-cnp" = "1.29.1"
 "github:mitsuhiko/minijinja" = "2.21.0"
 "github:rook/kubectl-rook-ceph" = "latest"
+vals = "latest"
 
 [hooks]
 postinstall = "lefthook install"
