@@ -27,6 +27,13 @@ spec:
               UN_WEBSERVER_LISTEN_ADDR: 0.0.0.0:80
               UN_WEBSERVER_LOG_FILE: /logs/webserver.log
               UN_ACTIVITY: true
+              UN_LIDARR_0_URL: http://lidarr.media.svc.cluster.local
+              UN_LIDARR_0_PATHS_0: '/media/torrents/'
+              UN_LIDARR_0_PATHS_1: '/media/usenet/'
+              UN_LIDARR_0_PROTOCOLS: torrent,usenet
+              UN_LIDARR_0_TIMEOUT: 10s
+              UN_LIDARR_0_DELETE_ORIG: true
+              UN_LIDARR_0_DELETE_DELAY: 5m
               UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local
               UN_SONARR_0_PATHS_0: /media/torrents/
               UN_SONARR_0_PROTOCOLS: torrent
