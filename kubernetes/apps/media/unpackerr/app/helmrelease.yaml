@@ -30,7 +30,7 @@ spec:
               UN_LIDARR_0_URL: http://lidarr.media.svc.cluster.local
               UN_LIDARR_0_PATHS_0: '/media/torrents/'
               UN_LIDARR_0_PATHS_1: '/media/usenet/'
-              UN_LIDARR_0_PROTOCOLS: torrent,usenet
+              UN_LIDARR_0_PROTOCOLS: torrent,TorrentDownloadProtocol,usenet,UsenetDownloadProtocol
               UN_LIDARR_0_TIMEOUT: 10s
               UN_LIDARR_0_DELETE_ORIG: true
               UN_LIDARR_0_DELETE_DELAY: 5m
