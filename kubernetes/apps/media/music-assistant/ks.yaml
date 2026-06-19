@@ -26,4 +26,4 @@ spec:
       APP_UID: "1000"
       APP_GID: "1000"
       VOLSYNC_CLAIM: music-assistant
-      VOLSYNC_CAPACITY: 250Mi
+      VOLSYNC_CAPACITY: 5Gi
