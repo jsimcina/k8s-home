@@ -31,6 +31,8 @@ JUST_UNSTABLE = "1"
 "github:mitsuhiko/minijinja" = "2.21.0"
 "github:rook/kubectl-rook-ceph" = "latest"
 vals = "latest"
+node = "latest"
+oxfmt = "latest"
 
 [hooks]
 postinstall = "lefthook install"
