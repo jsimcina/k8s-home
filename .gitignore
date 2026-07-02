@@ -5,6 +5,7 @@
 *.env
 *.iso
 *.key
+*.lock
 .decrypted~*
 .DS_Store
 Thumbs.db

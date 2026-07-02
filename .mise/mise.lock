@@ -111,36 +111,36 @@ url = "https://github.com/cert-manager/cmctl/releases/download/v2.5.0/cmctl_wind
 provenance = "cosign"
 
 [[tools."aqua:cilium/cilium-cli"]]
-version = "0.19.4"
+version = "0.19.5"
 backend = "aqua:cilium/cilium-cli"
 
 [tools."aqua:cilium/cilium-cli"."platforms.linux-arm64"]
-checksum = "sha256:866c86683aa63c943a94ca2af5dc2b0db3483d1c3ed8c72baeeabd13061a7e42"
-url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.4/cilium-linux-arm64.tar.gz"
+checksum = "sha256:5498defafc248160ca44a38be39f5ba090769ef112f9ec34a19e72dfa7e7eb25"
+url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.5/cilium-linux-arm64.tar.gz"
 
 [tools."aqua:cilium/cilium-cli"."platforms.linux-arm64-musl"]
-checksum = "sha256:866c86683aa63c943a94ca2af5dc2b0db3483d1c3ed8c72baeeabd13061a7e42"
-url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.4/cilium-linux-arm64.tar.gz"
+checksum = "sha256:5498defafc248160ca44a38be39f5ba090769ef112f9ec34a19e72dfa7e7eb25"
+url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.5/cilium-linux-arm64.tar.gz"
 
 [tools."aqua:cilium/cilium-cli"."platforms.linux-x64"]
-checksum = "sha256:98ecd554591a592b0ee32f5d73871133bcee06639619f1c032bcba339340dc26"
-url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.4/cilium-linux-amd64.tar.gz"
+checksum = "sha256:67e59489b7ad17dea8eb8cc930435105dff3a4575643ad62567fb2c5ae80d246"
+url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.5/cilium-linux-amd64.tar.gz"
 
 [tools."aqua:cilium/cilium-cli"."platforms.linux-x64-musl"]
-checksum = "sha256:98ecd554591a592b0ee32f5d73871133bcee06639619f1c032bcba339340dc26"
-url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.4/cilium-linux-amd64.tar.gz"
+checksum = "sha256:67e59489b7ad17dea8eb8cc930435105dff3a4575643ad62567fb2c5ae80d246"
+url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.5/cilium-linux-amd64.tar.gz"
 
 [tools."aqua:cilium/cilium-cli"."platforms.macos-arm64"]
-checksum = "sha256:9e58b4b8cb6d926946b2e59eb25fc2fb923965d3e000e00325e0227704fcd318"
-url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.4/cilium-darwin-arm64.tar.gz"
+checksum = "sha256:7a059b65e9eb50d57fb0f3be1e84a9f7872e8eb9237a608e584245d6c36fe0ca"
+url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.5/cilium-darwin-arm64.tar.gz"
 
 [tools."aqua:cilium/cilium-cli"."platforms.macos-x64"]
-checksum = "sha256:8070f03216142069c96a3f42d89a1387a74afd0007fd59e485ca63675b1dd5ce"
-url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.4/cilium-darwin-amd64.tar.gz"
+checksum = "sha256:b3372060f1531d5a4bea3741fe217de3bb6f8cc1c0fdcd270e22dc77ea2a272f"
+url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.5/cilium-darwin-amd64.tar.gz"
 
 [tools."aqua:cilium/cilium-cli"."platforms.windows-x64"]
-checksum = "sha256:52b924f382d2f323f4b374c875cb29d8da754b5914c0b9466b7f265924d40050"
-url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.4/cilium-windows-amd64.zip"
+checksum = "sha256:c488580cd6edfbf76f905ae640f7b2679bacf3648891355ceecb7432b6afef6b"
+url = "https://github.com/cilium/cilium-cli/releases/download/v0.19.5/cilium-windows-amd64.zip"
 
 [[tools."aqua:cli/cli"]]
 version = "2.95.0"
@@ -214,57 +214,57 @@ checksum = "sha256:5253e66f1f493c4e13539749f1aa86fd0c61e3072900fec29a44ba046a6d9
 url = "https://github.com/cloudflare/cloudflared/releases/download/2026.6.1/cloudflared-windows-amd64.exe"
 
 [[tools."aqua:fluxcd/flux2"]]
-version = "2.8.8"
+version = "2.9.0"
 backend = "aqua:fluxcd/flux2"
 
 [tools."aqua:fluxcd/flux2"."platforms.linux-arm64"]
-checksum = "sha256:738604ab040055ace69777988a24def98ada1aff14ae4726e733089dc8cc5e12"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/flux_2.8.8_linux_arm64.tar.gz"
+checksum = "sha256:76b4ed5535c04c32789743d7d2c29d1f7b5b3a4a269ef305c4c9757029ecce2a"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/flux_2.9.0_linux_arm64.tar.gz"
 
 [tools."aqua:fluxcd/flux2"."platforms.linux-arm64".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/provenance.intoto.jsonl"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/provenance.intoto.jsonl"
 
 [tools."aqua:fluxcd/flux2"."platforms.linux-arm64-musl"]
-checksum = "sha256:738604ab040055ace69777988a24def98ada1aff14ae4726e733089dc8cc5e12"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/flux_2.8.8_linux_arm64.tar.gz"
+checksum = "sha256:76b4ed5535c04c32789743d7d2c29d1f7b5b3a4a269ef305c4c9757029ecce2a"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/flux_2.9.0_linux_arm64.tar.gz"
 
 [tools."aqua:fluxcd/flux2"."platforms.linux-arm64-musl".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/provenance.intoto.jsonl"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/provenance.intoto.jsonl"
 
 [tools."aqua:fluxcd/flux2"."platforms.linux-x64"]
-checksum = "sha256:3791d8fbb73b967ada021186f7b46686a2b180ce206d3c279c3f2ad183877a7f"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/flux_2.8.8_linux_amd64.tar.gz"
+checksum = "sha256:7aa9779fc7ec6d030e609dab7dbed8c6fc9e3a7f4670834ad02369268aaf341f"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/flux_2.9.0_linux_amd64.tar.gz"
 
 [tools."aqua:fluxcd/flux2"."platforms.linux-x64".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/provenance.intoto.jsonl"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/provenance.intoto.jsonl"
 
 [tools."aqua:fluxcd/flux2"."platforms.linux-x64-musl"]
-checksum = "sha256:3791d8fbb73b967ada021186f7b46686a2b180ce206d3c279c3f2ad183877a7f"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/flux_2.8.8_linux_amd64.tar.gz"
+checksum = "sha256:7aa9779fc7ec6d030e609dab7dbed8c6fc9e3a7f4670834ad02369268aaf341f"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/flux_2.9.0_linux_amd64.tar.gz"
 
 [tools."aqua:fluxcd/flux2"."platforms.linux-x64-musl".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/provenance.intoto.jsonl"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/provenance.intoto.jsonl"
 
 [tools."aqua:fluxcd/flux2"."platforms.macos-arm64"]
-checksum = "sha256:f54bb4d83cfc9563fd3213381d50fe1102215ef904ecf9c38afa183b02c74eb7"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/flux_2.8.8_darwin_arm64.tar.gz"
+checksum = "sha256:b69f857a632683c38531093743a08be00bf172ea1eae65118f11c560b42f6466"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/flux_2.9.0_darwin_arm64.tar.gz"
 
 [tools."aqua:fluxcd/flux2"."platforms.macos-arm64".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/provenance.intoto.jsonl"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/provenance.intoto.jsonl"
 
 [tools."aqua:fluxcd/flux2"."platforms.macos-x64"]
-checksum = "sha256:dcff834cd7b78acd22efd182b8a3bc08193cb00e734d62969070c2d888b1ded7"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/flux_2.8.8_darwin_amd64.tar.gz"
+checksum = "sha256:f6b22502360a530d440f622a52753d8d152953bbf972dbae23fe25a0ad3447cb"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/flux_2.9.0_darwin_amd64.tar.gz"
 
 [tools."aqua:fluxcd/flux2"."platforms.macos-x64".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/provenance.intoto.jsonl"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/provenance.intoto.jsonl"
 
 [tools."aqua:fluxcd/flux2"."platforms.windows-x64"]
-checksum = "sha256:78045ff9a4e2a6c05265d7a027694fbaca43f08f782da5c9214f852e06189bf8"
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/flux_2.8.8_windows_amd64.zip"
+checksum = "sha256:9d0a60c8398b13b2edce23ff36b3fac0166ad0a829ff9ead0d5ddcf8aac8f8c6"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/flux_2.9.0_windows_amd64.zip"
 
 [tools."aqua:fluxcd/flux2"."platforms.windows-x64".provenance.slsa]
-url = "https://github.com/fluxcd/flux2/releases/download/v2.8.8/provenance.intoto.jsonl"
+url = "https://github.com/fluxcd/flux2/releases/download/v2.9.0/provenance.intoto.jsonl"
 
 [[tools."aqua:helm/helm"]]
 version = "4.2.2"
@@ -466,42 +466,42 @@ checksum = "sha256:e279bc506a452eeafcdf364f91a025455e402a8001169083caf01f4b64a54
 url = "https://github.com/mikefarah/yq/releases/download/v4.53.3/yq_windows_amd64.exe"
 
 [[tools."aqua:siderolabs/talos"]]
-version = "1.13.4"
+version = "1.13.5"
 backend = "aqua:siderolabs/talos"
 
 [tools."aqua:siderolabs/talos"."platforms.linux-arm64"]
-checksum = "sha256:71cb14ab72aee8bd89d3ee08931747a9238a10025a689dc4117d532d4c6c444f"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.4/talosctl-linux-arm64"
+checksum = "sha256:bd053d8264c1b0c091cbaf15e7b414ab1cd14a56ddd5860f2e2ba01e5aee3bc3"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.5/talosctl-linux-arm64"
 provenance = "cosign"
 
 [tools."aqua:siderolabs/talos"."platforms.linux-arm64-musl"]
-checksum = "sha256:71cb14ab72aee8bd89d3ee08931747a9238a10025a689dc4117d532d4c6c444f"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.4/talosctl-linux-arm64"
+checksum = "sha256:bd053d8264c1b0c091cbaf15e7b414ab1cd14a56ddd5860f2e2ba01e5aee3bc3"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.5/talosctl-linux-arm64"
 provenance = "cosign"
 
 [tools."aqua:siderolabs/talos"."platforms.linux-x64"]
-checksum = "sha256:aae1dadd238f9dfbc9790d117a114424b2d59200ee12872d0d9f89e178a69aae"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.4/talosctl-linux-amd64"
+checksum = "sha256:cb12209727c0c4d57d74c0595f34d441ba491421e1d3c8a5142ed91028a20232"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.5/talosctl-linux-amd64"
 provenance = "cosign"
 
 [tools."aqua:siderolabs/talos"."platforms.linux-x64-musl"]
-checksum = "sha256:aae1dadd238f9dfbc9790d117a114424b2d59200ee12872d0d9f89e178a69aae"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.4/talosctl-linux-amd64"
+checksum = "sha256:cb12209727c0c4d57d74c0595f34d441ba491421e1d3c8a5142ed91028a20232"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.5/talosctl-linux-amd64"
 provenance = "cosign"
 
 [tools."aqua:siderolabs/talos"."platforms.macos-arm64"]
-checksum = "sha256:2d86630f623486d247dac8eb0db1e2f9f581c4aebd201a193e4eaf7eb13392fa"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.4/talosctl-darwin-arm64"
+checksum = "sha256:5cfc42f5a51b01ea391c9760a1c5450517f7e85a74d145fd20b6abc4ac1df37e"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.5/talosctl-darwin-arm64"
 provenance = "cosign"
 
 [tools."aqua:siderolabs/talos"."platforms.macos-x64"]
-checksum = "sha256:bdee0433a4ef7668cea884b80b536f018160b0f998429d7440388c62a76e2062"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.4/talosctl-darwin-amd64"
+checksum = "sha256:b5808a8f650c53987d0133704259f3cdf31c081710bda598f9b4cab934abc78c"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.5/talosctl-darwin-amd64"
 provenance = "cosign"
 
 [tools."aqua:siderolabs/talos"."platforms.windows-x64"]
-checksum = "sha256:c3500946ad95b49fce4e8e6222c7a992ac76f6f4e490ce3984fc2176f1821c73"
-url = "https://github.com/siderolabs/talos/releases/download/v1.13.4/talosctl-windows-amd64.exe"
+checksum = "sha256:dd36d21d7157568387fa62e4f092b8a8536bb85f2362ababee493c503e48a0f2"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.5/talosctl-windows-amd64.exe"
 provenance = "cosign"
 
 [[tools."aqua:yannh/kubeconform"]]
@@ -537,43 +537,43 @@ checksum = "sha256:e3f56102bcf4f50b034a567e2482a1c5330799983ddd655952310211aef73
 url = "https://github.com/yannh/kubeconform/releases/download/v0.8.0/kubeconform-windows-amd64.zip"
 
 [[tools."github:EnterpriseDB/kubectl-cnp"]]
-version = "1.29.1"
+version = "1.30.0"
 backend = "github:EnterpriseDB/kubectl-cnp"
 
 [tools."github:EnterpriseDB/kubectl-cnp"."platforms.linux-arm64"]
-checksum = "sha256:465607b46b2852394fe75d9c22593736b352c7a27013a70839a9ba4bdc077077"
-url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.29.1/kubectl-cnp_1.29.1_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/415439105"
+checksum = "sha256:fdaf0fc146a7605c1feadd8eeb81d5933e90cc548b3dc76eb97a82473f212795"
+url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.30.0/kubectl-cnp_1.30.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/462243291"
 
 [tools."github:EnterpriseDB/kubectl-cnp"."platforms.linux-arm64-musl"]
-checksum = "sha256:465607b46b2852394fe75d9c22593736b352c7a27013a70839a9ba4bdc077077"
-url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.29.1/kubectl-cnp_1.29.1_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/415439105"
+checksum = "sha256:fdaf0fc146a7605c1feadd8eeb81d5933e90cc548b3dc76eb97a82473f212795"
+url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.30.0/kubectl-cnp_1.30.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/462243291"
 
 [tools."github:EnterpriseDB/kubectl-cnp"."platforms.linux-x64"]
-checksum = "sha256:a25af45f0499605947ee1f6f156556da05195898070c87f7f3c746cda20d4c34"
-url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.29.1/kubectl-cnp_1.29.1_linux_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/415439035"
+checksum = "sha256:56397e5b80b9be1ee867ae179e2fcb7ae8ba0815a5ccf362929f48afe199501c"
+url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.30.0/kubectl-cnp_1.30.0_linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/462243335"
 
 [tools."github:EnterpriseDB/kubectl-cnp"."platforms.linux-x64-musl"]
-checksum = "sha256:a25af45f0499605947ee1f6f156556da05195898070c87f7f3c746cda20d4c34"
-url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.29.1/kubectl-cnp_1.29.1_linux_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/415439035"
+checksum = "sha256:56397e5b80b9be1ee867ae179e2fcb7ae8ba0815a5ccf362929f48afe199501c"
+url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.30.0/kubectl-cnp_1.30.0_linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/462243335"
 
 [tools."github:EnterpriseDB/kubectl-cnp"."platforms.macos-arm64"]
-checksum = "sha256:6512f86424a0b82cafd27994419015fae91ee4a5caaf275637af61a222a3ad5a"
-url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.29.1/kubectl-cnp_1.29.1_darwin_arm64.tar.gz"
-url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/415439082"
+checksum = "sha256:c1cc192a3f812fe2bda921c9b47393e03daff46bc12a53746269166eec7d2639"
+url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.30.0/kubectl-cnp_1.30.0_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/462243336"
 
 [tools."github:EnterpriseDB/kubectl-cnp"."platforms.macos-x64"]
-checksum = "sha256:c9297c3b4559bf919d1cfb00a7670a52c703139e31bd054ca6bf3e74a0196892"
-url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.29.1/kubectl-cnp_1.29.1_darwin_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/415439060"
+checksum = "sha256:04d8066589a272c56b0255b704b5439c59ea72e7971d51d22d3ba735b0e226af"
+url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.30.0/kubectl-cnp_1.30.0_darwin_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/462243308"
 
 [tools."github:EnterpriseDB/kubectl-cnp"."platforms.windows-x64"]
-checksum = "sha256:9bc2b7172df80b06748a523f1889c24a1e4ba4e88379b5aafe95ee6322e21bb7"
-url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.29.1/kubectl-cnp_1.29.1_windows_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/415439058"
+checksum = "sha256:361de8793798cea18646e988c78530226caf3ba5acf0eb90280ed1956a4675a8"
+url = "https://github.com/EnterpriseDB/kubectl-cnp/releases/download/v1.30.0/kubectl-cnp_1.30.0_windows_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/EnterpriseDB/kubectl-cnp/releases/assets/462243288"
 
 [[tools."github:charmbracelet/gum"]]
 version = "0.17.0"
@@ -744,7 +744,7 @@ checksum = "sha256:5f87d038c6ec442aa46b9126f8ca170acbd2f3b9b9152ca798cf54596a31e
 url = "https://nodejs.org/dist/v26.4.0/node-v26.4.0-win-x64.zip"
 
 [[tools.oxfmt]]
-version = "0.56.0"
+version = "0.57.0"
 backend = "npm:oxfmt"
 
 [[tools."pipx:flux-local"]]
@@ -756,42 +756,42 @@ version = "2.8.2"
 backend = "pipx:makejinja"
 
 [[tools.uv]]
-version = "0.11.25"
+version = "0.11.26"
 backend = "aqua:astral-sh/uv"
 
 [tools.uv."platforms.linux-arm64"]
-checksum = "sha256:3d9c9a95f1868ff20ac880712f3a337d710ea4b65f135184b7a35635d1acbf84"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.25/uv-aarch64-unknown-linux-musl.tar.gz"
+checksum = "sha256:47418cfdb34b1ca42e503da72631ac8c475602e2411ac6c39aa84c2373fe6324"
+url = "https://github.com/astral-sh/uv/releases/download/0.11.26/uv-aarch64-unknown-linux-musl.tar.gz"
 provenance = "github-attestations"
 
 [tools.uv."platforms.linux-arm64-musl"]
-checksum = "sha256:3d9c9a95f1868ff20ac880712f3a337d710ea4b65f135184b7a35635d1acbf84"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.25/uv-aarch64-unknown-linux-musl.tar.gz"
+checksum = "sha256:47418cfdb34b1ca42e503da72631ac8c475602e2411ac6c39aa84c2373fe6324"
+url = "https://github.com/astral-sh/uv/releases/download/0.11.26/uv-aarch64-unknown-linux-musl.tar.gz"
 provenance = "github-attestations"
 
 [tools.uv."platforms.linux-x64"]
-checksum = "sha256:7195cfcc1785d0c559d4682ad9109f26664b8db4d828d42d66078ef454061891"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.25/uv-x86_64-unknown-linux-musl.tar.gz"
+checksum = "sha256:62bf1a53501adf4083224b69b33737450ac516935f5a5e483e9dfaf2665084de"
+url = "https://github.com/astral-sh/uv/releases/download/0.11.26/uv-x86_64-unknown-linux-musl.tar.gz"
 provenance = "github-attestations"
 
 [tools.uv."platforms.linux-x64-musl"]
-checksum = "sha256:7195cfcc1785d0c559d4682ad9109f26664b8db4d828d42d66078ef454061891"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.25/uv-x86_64-unknown-linux-musl.tar.gz"
+checksum = "sha256:62bf1a53501adf4083224b69b33737450ac516935f5a5e483e9dfaf2665084de"
+url = "https://github.com/astral-sh/uv/releases/download/0.11.26/uv-x86_64-unknown-linux-musl.tar.gz"
 provenance = "github-attestations"
 
 [tools.uv."platforms.macos-arm64"]
-checksum = "sha256:5fc334bb25d19806262efd1f6e7d380155c7e817d89bf426df4ba7ae873c9471"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.25/uv-aarch64-apple-darwin.tar.gz"
+checksum = "sha256:8f7fbf1708399b921857bce71e1d60f0d3ccf52a30caebc1c1a2f175dce13ab6"
+url = "https://github.com/astral-sh/uv/releases/download/0.11.26/uv-aarch64-apple-darwin.tar.gz"
 provenance = "github-attestations"
 
 [tools.uv."platforms.macos-x64"]
-checksum = "sha256:65ff85b33212f75d34d7c0f0724aba9a742c74f62559f67dc0d6c543dc2fc52f"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.25/uv-x86_64-apple-darwin.tar.gz"
+checksum = "sha256:922b460202707dd5f4ccacbadbe7f6a546cc46e82a99bf50ca99a7977a78eddd"
+url = "https://github.com/astral-sh/uv/releases/download/0.11.26/uv-x86_64-apple-darwin.tar.gz"
 provenance = "github-attestations"
 
 [tools.uv."platforms.windows-x64"]
-checksum = "sha256:15bfd1423b7eaa7aae949922d4712ebaac2bb44a81af64ab59bbe007090cb0d0"
-url = "https://github.com/astral-sh/uv/releases/download/0.11.25/uv-x86_64-pc-windows-msvc.zip"
+checksum = "sha256:4e1278ede866be6c0bf32d2f466cc6de7a9fb399ecf20c9ce2d186e52424be47"
+url = "https://github.com/astral-sh/uv/releases/download/0.11.26/uv-x86_64-pc-windows-msvc.zip"
 provenance = "github-attestations"
 
 [[tools.vals]]
