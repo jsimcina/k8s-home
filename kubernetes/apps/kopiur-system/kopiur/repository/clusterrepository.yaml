@@ -12,7 +12,7 @@ spec:
       path: /repo
       volume:
         nfs:
-          server: nas.jonandlinz.io
+          server: nas.jonandlinz.com
           path: /mnt/rustpool/Kopiur
   create:
     enabled: true

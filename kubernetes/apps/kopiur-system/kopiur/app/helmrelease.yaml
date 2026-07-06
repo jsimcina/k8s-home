@@ -14,7 +14,7 @@ spec:
       extraVolumes:
         - name: repo
           nfs:
-            server: nas.jonandlinz.io
+            server: nas.jonandlinz.com
             path: /mnt/rustpool/Kopiur
       extraVolumeMounts:
         - name: repo
