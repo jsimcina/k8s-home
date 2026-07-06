@@ -14,8 +14,6 @@ spec:
         nfs:
           server: nas.jonandlinz.com
           path: /mnt/rustpool/Kopiur
-  create:
-    enabled: true
   credentialProjection:
     allowed: true
   encryption:
