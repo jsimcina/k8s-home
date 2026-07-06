@@ -10,6 +10,7 @@ spec:
       namespace: rook-ceph
   components:
     - ../../../../components/volsync
+    - ../../../../components/kopiur
   path: ./kubernetes/apps/media/notifiarr/app
   prune: true
   sourceRef:
