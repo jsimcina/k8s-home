@@ -26,8 +26,8 @@ kind: Kustomization
 metadata:
   name: kopiur-repository
 spec:
-  dependsOn:
-    - name: kopiur
+  #dependsOn:
+  #- name: kopiur
   interval: 1h
   path: ./kubernetes/apps/kopiur-system/kopiur/repository
   prune: true
