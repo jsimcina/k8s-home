@@ -9,7 +9,6 @@ spec:
     - ../../../../components/gpu
     - ../../../../components/gateway-oidc
     - ../../../../components/volsync
-    - ../../../../components/kopiur
   dependsOn:
     - name: intel-gpu-resource-driver
       namespace: kube-system
