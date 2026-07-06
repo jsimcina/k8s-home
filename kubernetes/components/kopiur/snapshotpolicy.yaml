@@ -17,14 +17,14 @@ spec:
   sources:
     - pvc:
         name: ${APP}
-  # verification:
-  #   deep:
-  #     schedule:
-  #       cron: H 5 1 * *
-  #       jitter: 1h
-  #       timezone: America/Chicago
-  #   quick:
-  #     cron: H 3 * * *
-  #     jitter: 1h
-  #     timezone: America/Chicago
+  verification:
+    deep:
+      schedule:
+        cron: H 5 * * 0
+        jitter: 1h
+        timezone: America/Chicago
+    quick:
+      cron: H 5 * * *
+      jitter: 1h
+      timezone: America/Chicago
   volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-ceph-blockpool}
