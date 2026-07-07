@@ -8,7 +8,6 @@ spec:
   components:
     - ../../../../components/gpu
     - ../../../../components/gateway-oidc
-    - ../../../../components/volsync
     - ../../../../components/kopiur/backup
   dependsOn:
     - name: intel-gpu-resource-driver

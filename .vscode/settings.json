@@ -41,7 +41,7 @@
     "openebs-system": "base",
     "rook-ceph": "dump",
     "system-upgrade": "update",
-    "volsync-system": "aws"
+    "kopiur-system": "aws"
   },
   "terminal.integrated.fontSize": 14,
   "vs-kubernetes": {
@@ -51,7 +51,7 @@
   "window.zoomLevel": 0,
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {
-    "kubernetes": "./kubernetes/**/*.yaml",
+    "kubernetes": "./kubernetes/**/*.yaml"
   },
   "[just]": {
     "editor.defaultFormatter": "nefrob.vscode-just-syntax"

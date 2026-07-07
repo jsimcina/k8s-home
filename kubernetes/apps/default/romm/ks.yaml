@@ -7,7 +7,6 @@ metadata:
 spec:
   components:
     - ../../../../components/zeroscaler
-    - ../../../../components/volsync
     - ../../../../components/kopiur/backup
   dependsOn:
     - name: rook-ceph-cluster
@@ -17,7 +16,7 @@ spec:
   postBuild:
     substitute:
       APP: romm
-      VOLSYNC_CAPACITY: 10Gi
+      KOPIUR_CAPACITY: 10Gi
       APP_UID: "1000"
       APP_GID: "1000"
   prune: true
