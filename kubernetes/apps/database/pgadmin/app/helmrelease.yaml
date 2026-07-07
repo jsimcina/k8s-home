@@ -13,9 +13,9 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 5050 # ${APP_UID}
-        runAsGroup: 5050 # ${APP_GID}
-        fsGroup: 5050 # ${APP_GID}
+        runAsUser: 1000 # ${APP_UID}
+        runAsGroup: 1000 # ${APP_GID}
+        fsGroup: 1000 # ${APP_GID}
         fsGroupChangePolicy: OnRootMismatch
     controllers:
       pgadmin:
