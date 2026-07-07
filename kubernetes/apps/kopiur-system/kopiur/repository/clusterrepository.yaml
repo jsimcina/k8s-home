@@ -14,8 +14,6 @@ spec:
         nfs:
           server: nas.jonandlinz.com
           path: /mnt/rustpool/Kopiur
-  credentialProjection:
-    allowed: true
   encryption:
     passwordSecretRef:
       name: kopiur-nas-secret
