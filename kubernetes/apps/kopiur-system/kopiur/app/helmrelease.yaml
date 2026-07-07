@@ -35,8 +35,8 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: OnRootMismatch
-      resources:
-        requests:
-          cpu: 100m
-        limits:
-          memory: 2Gi
+    resources:
+      requests:
+        cpu: 100m
+      limits:
+        memory: 2Gi
