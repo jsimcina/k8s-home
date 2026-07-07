@@ -9,7 +9,7 @@ spec:
     - ../../../../components/gpu
     - ../../../../components/zeroscaler
     - ../../../../components/volsync
-    - ../../../../components/kopiur/backup
+    #- ../../../../components/kopiur/backup
   dependsOn:
     - name: intel-gpu-resource-driver
       namespace: kube-system
