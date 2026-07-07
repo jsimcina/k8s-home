@@ -23,6 +23,11 @@ spec:
                 "ips": ["10.21.5.11/16"],
                 "mac": "00:02:b3:df:ed:1b"
               }]
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
         containers:
           app:
             image:
