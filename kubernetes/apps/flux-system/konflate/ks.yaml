@@ -5,9 +5,6 @@ kind: Kustomization
 metadata:
   name: konflate
 spec:
-  components:
-    - ../../../../components/volsync
-    - ../../../../components/kopiur/backup
   interval: 1h
   path: ./kubernetes/apps/flux-system/konflate/app
   postBuild:
