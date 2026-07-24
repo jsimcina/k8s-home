@@ -30,7 +30,7 @@ uv = "latest"
 "github:EnterpriseDB/kubectl-cnp" = "v1.30.0"
 "github:mitsuhiko/minijinja" = "2.21.0"
 "github:rook/kubectl-rook-ceph" = "latest"
-vals = "0.44.4"
+vals = "0.45.0"
 node = "latest"
 oxfmt = "latest"
 
