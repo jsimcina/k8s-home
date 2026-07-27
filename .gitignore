@@ -1,6 +1,7 @@
 .private/
 .pytest_cache/
 .venv/
+.mise/mise.lock
 *.crt
 *.env
 *.iso
