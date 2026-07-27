@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/maziggy/bambuddy
-              tag: 0.2.4.9@sha256:d68ab4746f18c51a6e22f5cd536533a4ae3c1eb48f4eecccbb68c2be23d0ef52
+              tag: 1.2.5.1@sha256:1a6b150100f536b585015aa1347b1b0062e20280913aae1d9d6703d9149df224
             env:
               PORT: 80
               TZ: America/Chicago
