@@ -38,7 +38,7 @@ oxfmt = "0.61.0"
 shellcheck = "0.11.0"
 talos = "1.13.7"
 yq = "4.53.3"
-zizmor = "1.28.0"
+zizmor = "1.29.0"
 
 [hooks]
 postinstall = "lefthook install"
