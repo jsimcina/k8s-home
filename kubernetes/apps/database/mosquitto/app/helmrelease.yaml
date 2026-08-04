@@ -12,6 +12,17 @@ spec:
   values:
     controllers:
       mosquitto:
+        initContainers:
+          init-config:
+            image:
+              repository: public.ecr.aws/docker/library/eclipse-mosquitto
+              tag: 2.0.22
+            command: ["/bin/sh", "-c"]
+            args:
+              - |
+                cp /tmp/secret/mosquitto_pwd /mosquitto/external_config/;
+                chmod 600 /mosquitto/external_config/mosquitto_pwd;
+                mosquitto_passwd -U /mosquitto/external_config/mosquitto_pwd;
         containers:
           app:
             image:
