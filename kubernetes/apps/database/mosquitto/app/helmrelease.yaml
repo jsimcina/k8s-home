@@ -87,3 +87,7 @@ spec:
               - path: /tmp/secret/mosquitto_pwd
                 subPath: mosquitto_pwd
                 readOnly: true
+      external-config:
+        type: emptyDir
+        globalMounts:
+          - path: /mosquitto/external_config
