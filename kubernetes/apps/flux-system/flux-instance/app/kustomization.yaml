@@ -9,5 +9,5 @@ resources:
   - ./httproute.yaml
   - ./ocirepository.yaml
   #- ./podmonitor.yaml
-  - ./prometheusrule.yaml
+  #- ./prometheusrule.yaml
   - ./receiver.yaml
