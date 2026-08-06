@@ -1,4 +1,3 @@
-
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanadatasource_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
@@ -8,13 +7,13 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   datasource:
     type: prometheus
     name: prometheus
     access: proxy
     isDefault: true
-    url: http://vmsingle-victoria-metrics.o11y.svc.cluster.local:8428
+    url: http://prometheus-operated.o11y.svc.cluster.local:9090
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanadatasource_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
@@ -24,28 +23,11 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   datasource:
     type: alertmanager
     name: alertmanager
     access: proxy
     jsonData:
       implementation: prometheus
-    url: http://vmalertmanager-victoria-metrics.o11y.svc.cluster.local:9093
----
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanadatasource_v1beta1.json
-apiVersion: grafana.integreatly.org/v1beta1
-kind: GrafanaDatasource
-metadata:
-  name: vmetrics-hass
-spec:
-  instanceSelector:
-    matchLabels:
-      grafana.internal/instance: grafana
-  datasource:
-    type: prometheus
-    name: vmetrics-hass
-    access: proxy
-    jsonData:
-      implementation: prometheus
-    url: http://vmsingle-victoria-metrics.o11y.svc.cluster.local:8428
+    url: http://alertmanager-operated.o11y.svc.cluster.local:9093

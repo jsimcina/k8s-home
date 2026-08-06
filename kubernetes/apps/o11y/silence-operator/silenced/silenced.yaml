@@ -50,7 +50,7 @@ spec:
 apiVersion: observability.giantswarm.io/v1alpha2
 kind: Silence
 metadata:
-   name: hpa-maxed-out
+  name: hpa-maxed-out
 spec:
   matchers:
     - name: alertname
@@ -83,30 +83,4 @@ spec:
       value: NodeBondingDegraded
     - name: instance
       value: "^.*.jonandlinz.com.*"
-      matchType: "=~"
----
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
-apiVersion: observability.giantswarm.io/v1alpha2
-kind: Silence
-metadata:
-  name: victoria-metrics-kube-scheduler
-spec:
-  matchers:
-    - name: alertname
-      value: RecordingRulesNoData
-    - name: recording
-      value: cluster_quantile:scheduler_.*
-      matchType: "=~"
----
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
-apiVersion: observability.giantswarm.io/v1alpha2
-kind: Silence
-metadata:
-  name: victoria-metrics-authentik
-spec:
-  matchers:
-    - name: alertname
-      value: RecordingRulesNoData
-    - name: file
-      value: /etc/vmalert/config/vm-victoria-metrics-rulefiles-0/security-authentik.yaml
       matchType: "=~"

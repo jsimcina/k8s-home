@@ -15,14 +15,12 @@ resources:
   - ./grafana-operator/ks.yaml
   - ./headlamp/ks.yaml
   - ./kromgo/ks.yaml
-  - ./kube-state-metrics/ks.yaml
-  - ./node-exporter/ks.yaml
+  - ./kube-prometheus-stack/ks.yaml
   - ./prometheus-adapter/ks.yaml
-  - ./prometheus-operator-crds/ks.yaml
   - ./silence-operator/ks.yaml
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
   - ./tautulli/ks.yaml
   - ./unpoller/ks.yaml
   - ./victoria-logs/ks.yaml
-  - ./victoria-metrics/ks.yaml
+  #- ./victoria-metrics/ks.yaml
