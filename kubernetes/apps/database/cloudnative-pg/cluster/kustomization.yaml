@@ -8,5 +8,5 @@ resources:
   - ./loadbalancer.yaml
   - ./objectstore.yaml
   - ./pooler.yaml
-  - ./prometheusrules.yaml
+  #- ./prometheusrules.yaml
   - ./scheduledbackup.yaml
