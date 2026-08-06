@@ -19,11 +19,11 @@ spec:
       csi:
         readAffinity:
           enabled: false # https://github.com/ceph/ceph-csi/issues/5772
-      dashboard:
-        enabled: true
-        urlPrefix: /
-        ssl: false
-        prometheusEndpoint: http://prometheus-operated.o11y.svc.cluster.local:9090
+      # dashboard:
+      #   enabled: true
+      #   urlPrefix: /
+      #   ssl: false
+      #   prometheusEndpoint: http://prometheus-operated.o11y.svc.cluster.local:9090
       mgr:
         modules:
           - name: pg_autoscaler
