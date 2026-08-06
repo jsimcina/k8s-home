@@ -40,8 +40,8 @@ spec:
         useAllDevices: false
         useAllNodes: true
     monitoring:
-      enabled: false
-      #createPrometheusRules: true
+      enabled: true
+      createPrometheusRules: false
     toolbox:
       enabled: true
     route:
