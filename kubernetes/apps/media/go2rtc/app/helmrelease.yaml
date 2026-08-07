@@ -15,12 +15,17 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
           secret.reloader.stakater.com/reload: "{{ .Release.Name }}-secret"
-        strategy: RollingUpdate
         containers:
           app:
             image:
               repository: ghcr.io/alexxit/go2rtc
               tag: 1.9.14@sha256:675c318b23c06fd862a61d262240c9a63436b4050d177ffc68a32710d9e05bae
+            args:
+              - go2rtc
+              - -config
+              - /state/go2rtc.yaml
+              - -config
+              - /config/go2rtc.yaml
             probes:
               liveness:
                 enabled: true
@@ -45,6 +50,8 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         forceRename: "{{ .Release.Name }}"
@@ -78,9 +85,13 @@ spec:
               - identifier: app
                 port: 80
     persistence:
-      credentials:
+      config-file:
         type: secret
         name: go2rtc-secret
         globalMounts:
           - path: /config/go2rtc.yaml
             subPath: go2rtc.yaml
+      state:
+        type: emptyDir
+        globalMounts:
+          - path: /state
