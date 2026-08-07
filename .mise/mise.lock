@@ -437,25 +437,25 @@ url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellche
 url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056944"
 
 [[tools.talos]]
-version = "1.14.0-beta.1"
+version = "1.13.8"
 backend = "aqua:siderolabs/talos"
 
 [tools.talos."platforms.linux-arm64"]
-checksum = "sha256:9d546ccdc0f2df58234f94bb988d1c8d1a512017819c1a6cc4d60647ad810e2f"
-url = "https://github.com/siderolabs/talos/releases/download/v1.14.0-beta.1/talosctl-linux-arm64"
-url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/496642705"
+checksum = "sha256:255ed9ccd2cfa26c619c5d445c013e4b6bf9e7d5a5aecbd72145db01a531ec60"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-linux-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384610"
 provenance = "cosign"
 
 [tools.talos."platforms.linux-x64"]
-checksum = "sha256:367842b0ea4db95756ced4681808b0a8f4ccc637fff1344c9eb1b5d292bdcd31"
-url = "https://github.com/siderolabs/talos/releases/download/v1.14.0-beta.1/talosctl-linux-amd64"
-url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/496642710"
+checksum = "sha256:406b56f9e4ff03b1557cc941b1f163aec8a6ebb36e28f0bbbe6d083589529261"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-linux-amd64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384584"
 provenance = "cosign"
 
 [tools.talos."platforms.macos-arm64"]
-checksum = "sha256:ded9121c64dad4dd49947282a5d751daf5c6c53c9ba79232398f866c3f41daa2"
-url = "https://github.com/siderolabs/talos/releases/download/v1.14.0-beta.1/talosctl-darwin-arm64"
-url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/496642692"
+checksum = "sha256:ede53ce2c8508fe3a95b80a3039ad8a07940a8d6a611d6a49d0154edfca766b8"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-darwin-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384598"
 provenance = "cosign"
 
 [[tools.yq]]
