@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: dinodb-scrape-task
+  namespace: database
+spec:
+  schedule: "0 * * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: dinodata-scaper
+              image: alpine:latest
+              imagePullPolicy: IfNotPresent
+              # Define your actual script/commands here
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - |
+                  apk add jq curl
+                  cd /mnt/data
+                  ls -las
+                  chmod +x dinodexscrape.sh
+                  sh dinodexscrape.sh
+              volumeMounts:
+                - name: nas-data
+                  mountPath: /mnt/data
+          volumes:
+            - name: nas-data
+              nfs:
+                server: nas.jonandlinz.com
+                path: /mnt/rustpool/k8s_appdata/dinodata
+          restartPolicy: OnFailure

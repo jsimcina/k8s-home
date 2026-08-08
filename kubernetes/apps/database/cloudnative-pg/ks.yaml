@@ -41,7 +41,23 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name:  cloudnative-pg-cluster
+  name: cloudnative-pg-crontasks
+spec:
+  interval: 1h
+  path: ./kubernetes/apps/database/cloudnative-pg/crontasks
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: database
+  wait: true
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cloudnative-pg-cluster
 spec:
   dependsOn:
     - name: cloudnative-pg
