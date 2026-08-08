@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jsimcina/dinodex-to-discord
-              tag: edacd85@sha256:c19064ded89674865d462738b7380a8de56dba951ede66945b275e43fdea4f33
+              tag: e85247e@sha256:b1f18a0d73dd64077c1b49b0ca0be0b661783a0de69c3cf45b7990a3cf317717
             env:
               TZ: America/Chicago
               DINODEX_ITEMS_FILE: "/data/dinodex_items.json"
