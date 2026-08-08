@@ -236,15 +236,35 @@ checksum = "sha256:2d1ddaa7c16e2025f70e76122d8685334d7e6078e72994966f4098fc2e76c
 url = "https://github.com/mitsuhiko/minijinja/releases/download/2.22.0/minijinja-cli-aarch64-unknown-linux-gnu.tar.xz"
 url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/501316166"
 
+[tools."github:mitsuhiko/minijinja"."platforms.linux-arm64-musl"]
+checksum = "sha256:4b2dc7157f824b02bbdfde7f76f02b07114ef7b9b289cd862a978ad3323d9c08"
+url = "https://github.com/mitsuhiko/minijinja/releases/download/2.22.0/minijinja-cli-aarch64-unknown-linux-musl.tar.xz"
+url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/501316168"
+
 [tools."github:mitsuhiko/minijinja"."platforms.linux-x64"]
 checksum = "sha256:4400fe9b6128b9d1ebac483987c6bb5fd14d237f7bcfeb9098748ee80b45c589"
 url = "https://github.com/mitsuhiko/minijinja/releases/download/2.22.0/minijinja-cli-x86_64-unknown-linux-gnu.tar.xz"
 url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/501316225"
 
+[tools."github:mitsuhiko/minijinja"."platforms.linux-x64-musl"]
+checksum = "sha256:f2aee96668d7fb4c2d381458f2dcdd816ed524148945b7a41b2cbef46c32c3a4"
+url = "https://github.com/mitsuhiko/minijinja/releases/download/2.22.0/minijinja-cli-x86_64-unknown-linux-musl.tar.xz"
+url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/501316228"
+
 [tools."github:mitsuhiko/minijinja"."platforms.macos-arm64"]
 checksum = "sha256:b93bd42462ae7702115de07c4ca0126d1f165968c94dbc6e1bf4419c6634fcfa"
 url = "https://github.com/mitsuhiko/minijinja/releases/download/2.22.0/minijinja-cli-aarch64-apple-darwin.tar.xz"
 url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/501316155"
+
+[tools."github:mitsuhiko/minijinja"."platforms.macos-x64"]
+checksum = "sha256:6e1818e7f8f3e1b02974b54a7e958e80b1554257d2555b6f7ecf4075fa7b16da"
+url = "https://github.com/mitsuhiko/minijinja/releases/download/2.22.0/minijinja-cli-x86_64-apple-darwin.tar.xz"
+url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/501316218"
+
+[tools."github:mitsuhiko/minijinja"."platforms.windows-x64"]
+checksum = "sha256:41b7e929931682597f641531f18dc4dfa4c01216caccba90e93abda971e17958"
+url = "https://github.com/mitsuhiko/minijinja/releases/download/2.22.0/minijinja-cli-x86_64-pc-windows-msvc.zip"
+url_api = "https://api.github.com/repos/mitsuhiko/minijinja/releases/assets/501316221"
 
 [[tools.jq]]
 version = "1.8.2"
@@ -385,13 +405,29 @@ backend = "core:node"
 checksum = "sha256:51c59de738843677a3c97bccbdbf9895141cb308bf25a95daeafd1aade09f0d5"
 url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-linux-arm64.tar.gz"
 
+[tools.node."platforms.linux-arm64-musl"]
+checksum = "sha256:a4ad7beedb23618d1febb55b02b4e96b19f90d61e80a3d8bb52d621b8acf3f82"
+url = "https://unofficial-builds.nodejs.org/download/release/v26.6.0/node-v26.6.0-linux-arm64-musl.tar.gz"
+
 [tools.node."platforms.linux-x64"]
 checksum = "sha256:714f352a7539c5ce09af15e440cbaadbe935bb23ba23fcee66b066d00a063822"
 url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-linux-x64.tar.gz"
 
+[tools.node."platforms.linux-x64-musl"]
+checksum = "sha256:60e6a77f6fc69f77925f15c1af78e70320c9a64fe541668c7662906ef5adf3c0"
+url = "https://unofficial-builds.nodejs.org/download/release/v26.6.0/node-v26.6.0-linux-x64-musl.tar.gz"
+
 [tools.node."platforms.macos-arm64"]
 checksum = "sha256:75480cd43b6fcb35d8e772dd18983fbd9f691b2f03b1c94393206098e9944b5e"
 url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-darwin-arm64.tar.gz"
+
+[tools.node."platforms.macos-x64"]
+checksum = "sha256:de075ffc09f33cc4b44ed38e1e4b2ef71f699b986f6d5952329da4973220726d"
+url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-darwin-x64.tar.gz"
+
+[tools.node."platforms.windows-x64"]
+checksum = "sha256:aa81c8552f251ff280134985ccdaf16d336e2961b1e2c3eeb7b7b2221509f723"
+url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-win-x64.zip"
 
 [[tools.oxfmt]]
 version = "0.62.0"
@@ -446,7 +482,19 @@ url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-li
 url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384610"
 provenance = "cosign"
 
+[tools.talos."platforms.linux-arm64-musl"]
+checksum = "sha256:255ed9ccd2cfa26c619c5d445c013e4b6bf9e7d5a5aecbd72145db01a531ec60"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-linux-arm64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384610"
+provenance = "cosign"
+
 [tools.talos."platforms.linux-x64"]
+checksum = "sha256:406b56f9e4ff03b1557cc941b1f163aec8a6ebb36e28f0bbbe6d083589529261"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-linux-amd64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384584"
+provenance = "cosign"
+
+[tools.talos."platforms.linux-x64-musl"]
 checksum = "sha256:406b56f9e4ff03b1557cc941b1f163aec8a6ebb36e28f0bbbe6d083589529261"
 url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-linux-amd64"
 url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384584"
@@ -456,6 +504,18 @@ provenance = "cosign"
 checksum = "sha256:ede53ce2c8508fe3a95b80a3039ad8a07940a8d6a611d6a49d0154edfca766b8"
 url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-darwin-arm64"
 url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384598"
+provenance = "cosign"
+
+[tools.talos."platforms.macos-x64"]
+checksum = "sha256:7f4819ac5b7e338ebb84eda0ad7e727627df3e9be36af4c9817ce3e095f97f65"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-darwin-amd64"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384593"
+provenance = "cosign"
+
+[tools.talos."platforms.windows-x64"]
+checksum = "sha256:73707b3f7a0882f99167dda5348777d61ca0b3529f07a333c53c371139fbbddb"
+url = "https://github.com/siderolabs/talos/releases/download/v1.13.8/talosctl-windows-amd64.exe"
+url_api = "https://api.github.com/repos/siderolabs/talos/releases/assets/501384620"
 provenance = "cosign"
 
 [[tools.yq]]
