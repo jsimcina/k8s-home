@@ -1,0 +1,57 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: dinodex
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: dinodex
+  interval: 1h
+  values:
+    controllers:
+      dinodex:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jsimcina/dinodex-to-discord
+              tag: edacd85@sha256:c19064ded89674865d462738b7380a8de56dba951ede66945b275e43fdea4f33
+            env:
+              TZ: America/Chicago
+              DINODEX_ITEMS_FILE: "/data/dinodex_items.json"
+              DINODEX_MAX_CREATURES: 10
+              DINODEX_SLEEP: "0.3"
+              DINODEX_CREATURE_SLEEP: "1"
+              WEB_WORKERS: 2
+            resources:
+              requests:
+                memory: 256Mi
+              limits:
+                memory: 4Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 80
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+    persistence:
+      data:
+        type: nfs
+        server: nas.jonandlinz.com
+        path: /mnt/rustpool/k8s_appdata/dinodex
+        globalMounts:
+          - path: /data
