@@ -52,6 +52,6 @@ spec:
       data:
         type: nfs
         server: nas.jonandlinz.com
-        path: /mnt/rustpool/k8s_appdata/dinodex
+        path: /mnt/rustpool/k8s_appdata/dinodata
         globalMounts:
           - path: /data
