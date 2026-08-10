@@ -6,12 +6,11 @@ metadata:
   name: cilium
 spec:
   allowCrossNamespaceImport: true
-  folder: Network
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   datasources:
-    - datasourceName: VictoriaMetrics
+    - datasourceName: prometheus
       inputName: DS_PROMETHEUS
   configMapRef:
     name: cilium-dashboard
@@ -24,12 +23,11 @@ metadata:
   name: cilium-operator
 spec:
   allowCrossNamespaceImport: true
-  folder: Network
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   datasources:
-    - datasourceName: VictoriaMetrics
+    - datasourceName: prometheus
       inputName: DS_PROMETHEUS
   configMapRef:
     name: cilium-operator-dashboard

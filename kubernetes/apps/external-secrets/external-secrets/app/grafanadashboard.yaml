@@ -6,12 +6,11 @@ metadata:
   name: external-secrets
 spec:
   allowCrossNamespaceImport: true
-  folder: Kubernetes
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   datasources:
-    - datasourceName: VictoriaMetrics
+    - datasourceName: prometheus
       inputName: DS_PROMETHEUS
   configMapRef:
     name: external-secrets-dashboard

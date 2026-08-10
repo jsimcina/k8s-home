@@ -12,16 +12,15 @@ spec:
   values:
     grafanaDashboard:
       enabled: true
+      mode: GrafanaOperator
+      grafanaOperator:
+        matchLabels:
+          dashboards: grafana
     service:
       registry:
         hostPort: 29999
     serviceMonitor:
       enabled: true
-    resources:
-      requests:
-        memory: 128Mi
-      limits:
-        memory: 256Mi
     spegel:
       containerdSock: /run/containerd/containerd.sock
       containerdRegistryConfigPath: /etc/cri/conf.d/hosts

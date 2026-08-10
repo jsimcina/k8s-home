@@ -6,11 +6,10 @@ metadata:
   name: cloudflare-tunnels
 spec:
   allowCrossNamespaceImport: true
-  folder: Network
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   datasources:
-    - datasourceName: VictoriaMetrics
+    - datasourceName: prometheus
       inputName: DS_PROMETHEUS
   url: https://grafana.com/api/dashboards/17457/revisions/6/download
