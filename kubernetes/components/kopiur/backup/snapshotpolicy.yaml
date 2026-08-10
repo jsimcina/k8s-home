@@ -7,14 +7,6 @@ metadata:
 spec:
   compression:
     compressor: zstd
-  mover:
-    cache:
-      capacity: ${KOPIUR_CAPACITY:=5Gi}
-      mode: Persistent
-      storageClassName: openebs-hostpath
-    securityContext:
-      runAsUser: ${KOPIUR_PUID:=1000}
-      runAsGroup: ${KOPIUR_PGID:=1000}
   repository:
     kind: ClusterRepository
     name: nas-s3
