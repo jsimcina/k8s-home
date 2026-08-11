@@ -35,7 +35,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /api/v2/app/version
+                    path: /
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
