@@ -9,6 +9,8 @@ spec:
     - ../../../../components/zeroscaler
     - ../../../../components/kopiur/backup
   dependsOn:
+    - name: cloudnative-pg-cluster
+      namespace: database
     - name: rook-ceph-cluster
       namespace: rook-ceph
   path: ./kubernetes/apps/default/paperless-ngx/app

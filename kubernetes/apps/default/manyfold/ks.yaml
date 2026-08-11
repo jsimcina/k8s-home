@@ -7,6 +7,9 @@ metadata:
 spec:
   components:
     - ../../../../components/zeroscaler
+  dependsOn:
+    - name: cloudnative-pg-cluster
+      namespace: database
   interval: 1h
   path: "./kubernetes/apps/default/manyfold/app"
   prune: true
