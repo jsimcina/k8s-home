@@ -31,7 +31,7 @@ spec:
               #QBT_BitTorrent__Session__InterfaceName: net1
             probes:
               liveness: &probes
-                enabled: false
+                enabled: true
                 custom: true
                 spec:
                   httpGet:
@@ -43,7 +43,10 @@ spec:
                   failureThreshold: 3
               readiness: *probes
               startup:
-                enabled: false
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
