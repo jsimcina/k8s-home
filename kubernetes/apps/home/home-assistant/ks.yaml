@@ -8,10 +8,16 @@ spec:
   components:
     - ../../../../components/kopiur/backup
   dependsOn:
+    - name: multus-networks
+      namespace: kube-system
     - name: rook-ceph-cluster
       namespace: rook-ceph
-  interval: 10m
+  interval: 1h
   path: "./kubernetes/apps/home/home-assistant/app"
+  postBuild:
+    substitute:
+      APP: home-assistant
+      KOPIUR_CAPACITY: 10Gi
   prune: true
   sourceRef:
     kind: GitRepository
@@ -19,8 +25,28 @@ spec:
     namespace: flux-system
   targetNamespace: home
   wait: false
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: home-assistant-mcp
+spec:
+  components:
+    - ../../../../components/kopiur/backup
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+  interval: 1h
+  path: ./kubernetes/apps/home/home-assistant/mcp
   postBuild:
     substitute:
-      APP: home-assistant
-      VOLSYNC_CLAIM: home-assistant
-      KOPIUR_CAPACITY: 10Gi
+      APP: home-assistant-mcp
+      KOPIUR_CAPACITY: 1Gi
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: home
+  wait: false
