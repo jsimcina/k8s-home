@@ -33,6 +33,10 @@ spec:
             image:
               repository: ghcr.io/esphome/esphome
               tag: 2026.7.4
+            env:
+              TZ: America/Chicago
+              PLATFORMIO_CORE_DIR: /config/platformio
+              PLATFORMIO_GLOBALLIB_DIR: /config/platformio/lib
             probes:
               liveness:
                 enabled: false
