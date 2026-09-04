@@ -32,7 +32,7 @@ spec:
       - --gateway-name=envoy-external
       - --zone-id-filter=$(CF_ZONE_ID)
     triggerLoopOnEvent: true
-    policy: upsert-only
+    policy: sync
     sources:
       - crd
       - gateway-httproute
