@@ -7,8 +7,20 @@ machine:
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     rbac: true
+  # KubeletConfig document is all-or-nothing: any value here conflicts with it
+  # (V1Alpha1ConflictValidate in pkg/machinery/config/types/k8s/kubelet.go).
+  # ExtraMounts has no new-document equivalent yet (hardcoded nil there), so
+  # the whole kubelet block stays old-style until Talos adds one.
   kubelet:
-    # ExtraMounts is not yet implemented for the KubeletConfig document; must stay here.
+    defaultRuntimeSeccompProfileEnabled: true
+    disableManifestsDirectory: true
+    extraConfig:
+      serializeImagePulls: false
+      imageMaximumGCAge: 720h
+      imageGCHighThresholdPercent: 65
+      imageGCLowThresholdPercent: 40
+      shutdownGracePeriod: 90s
+      shutdownGracePeriodCriticalPods: 60s
     extraMounts:
       - destination: /var/openebs/local
         type: bind
@@ -17,6 +29,7 @@ machine:
           - bind
           - rshared
           - rw
+    image: ghcr.io/siderolabs/kubelet:v1.37.0
   token: op://kubernetes/talos/MACHINE_TOKEN
   time:
     disabled: false
@@ -184,18 +197,6 @@ labels:
   servertype: physical
   hwtranscoding: "true"
   servermodel: MS-01
----
-apiVersion: v1alpha1
-kind: KubeletConfig
-config:
-  serializeImagePulls: false
-  imageMaximumGCAge: 720h
-  imageGCHighThresholdPercent: 65
-  imageGCLowThresholdPercent: 40
-  shutdownGracePeriod: 90s
-  shutdownGracePeriodCriticalPods: 60s
-defaultRuntimeSeccompProfileEnabled: true
-image: ghcr.io/siderolabs/kubelet:v1.37.0
 ---
 apiVersion: v1alpha1
 kind: KubeNetworkConfig

@@ -13,8 +13,6 @@ cluster:
   aggregatorCA:
     crt: op://kubernetes/talos/CLUSTER_AGGREGATORCA_CRT
     key: op://kubernetes/talos/CLUSTER_AGGREGATORCA_KEY
-  # No worker nodes exist; pods must be schedulable on control-plane nodes
-  allowSchedulingOnControlPlanes: true
   etcd:
     advertisedSubnets:
       - 10.12.0.0/24
@@ -28,6 +26,15 @@ cluster:
 ---
 apiVersion: v1alpha1
 kind: KubeNodeConfig
+# No `taints:` here is load-bearing, not an oversight: NodeTaintSpecController
+# (internal/app/machined/pkg/controllers/k8s/node_taint_spec.go) only ever
+# creates taints it finds in KubeNodeConfig.Taints - nothing else applies a
+# control-plane NoSchedule taint automatically. This is what used to be
+# `cluster.allowSchedulingOnControlPlanes: true` (now conflicts with this
+# document's mere presence - see the KubeNodeConfigV1Alpha1 conflict checks
+# in pkg/machinery/config/types/k8s/node.go). All three nodes are
+# control-plane with no workers, so adding a taints entry here without
+# adding workers first makes the cluster unschedulable.
 labels:
   node-role.kubernetes.io/control-plane: ""
 ---
