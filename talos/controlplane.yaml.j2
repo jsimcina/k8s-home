@@ -92,7 +92,17 @@ config:
     - providers:
         - secretbox:
             keys:
-              - name: key1
+              # Name must be exactly "key2" - it's hardcoded in Talos's own
+              # legacy encryption-config generator (APIServerEncryptionConfig
+              # in internal/app/machined/pkg/controllers/k8s/internal/
+              # k8stemplates/apiserver.go) and every secret already in etcd
+              # was encrypted under that name. Kubernetes' encryption-at-rest
+              # stores the key name alongside the ciphertext and refuses to
+              # even attempt decryption unless a currently-configured key has
+              # that exact name - a name mismatch here breaks reading every
+              # existing Secret, regardless of whether the key material
+              # itself is correct. Confirmed the hard way on home-node-01.
+              - name: key2
                 secret: op://kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
         - identity: {}
       resources:
