@@ -1,12 +1,10 @@
 .private/
 .pytest_cache/
 .venv/
-.mise/mise.lock
 *.crt
 *.env
 *.iso
 *.key
-*.lock
 .decrypted~*
 .DS_Store
 Thumbs.db
