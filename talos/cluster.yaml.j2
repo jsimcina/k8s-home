@@ -2,7 +2,7 @@
 version: v1alpha1
 machine:
   ca:
-    crt: ref+op://kubernetes/talos/MACHINE_CA_CRT
+    crt: op://kubernetes/talos/MACHINE_CA_CRT
   features:
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
@@ -17,7 +17,7 @@ machine:
           - bind
           - rshared
           - rw
-  token: ref+op://kubernetes/talos/MACHINE_TOKEN
+  token: op://kubernetes/talos/MACHINE_TOKEN
   time:
     disabled: false
     servers:
@@ -25,11 +25,11 @@ machine:
       - 162.159.200.1
 cluster:
   ca:
-    crt: ref+op://kubernetes/talos/CLUSTER_CA_CRT
+    crt: op://kubernetes/talos/CLUSTER_CA_CRT
   clusterName: main
   controlPlane:
     endpoint: https://k8s.jonandlinz.io:6443
-  token: ref+op://kubernetes/talos/CLUSTER_TOKEN
+  token: op://kubernetes/talos/CLUSTER_TOKEN
 ---
 apiVersion: v1alpha1
 kind: BondConfig
@@ -96,8 +96,8 @@ endpoint: https://discovery.talos.dev/
 ---
 apiVersion: v1alpha1
 kind: DiscoveryIdentityConfig
-clusterID: ref+op://kubernetes/talos/CLUSTER_ID
-clusterSecret: ref+op://kubernetes/talos/CLUSTER_SECRET
+clusterID: op://kubernetes/talos/CLUSTER_ID
+clusterSecret: op://kubernetes/talos/CLUSTER_SECRET
 ---
 apiVersion: v1alpha1
 kind: UnattendedInstallConfig
