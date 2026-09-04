@@ -49,13 +49,13 @@ This is a mono repository for my home infrastructure and Kubernetes cluster. I t
 
 My Kubernetes cluster is deployed with [Talos](https://www.talos.dev). This is a semi-hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes while I have a separate server with ZFS for NFS/SMB shares, bulk file storage and backups.
 
-If you're interested in going down this rabbit-holes, start with this template [onedr0p/cluster-template](https://github.com/onedr0p/cluster-template) created by @onedr0p.  This is an absolutely invaluable resource, and you will learn a ton, while raising your blood pressure to untold new heights.  Join the [Home-Operations](https://discord.gg/home-operations), it's an extremely helpful community filled with some of the wrinkliest brains on the internet.
+If you're interested in going down this rabbit-holes, start with this template [onedr0p/cluster-template](https://github.com/onedr0p/cluster-template) created by @onedr0p. This is an absolutely invaluable resource, and you will learn a ton, while raising your blood pressure to untold new heights. Join the [Home-Operations](https://discord.gg/home-operations), it's an extremely helpful community filled with some of the wrinkliest brains on the internet.
 
 ### Core Components
 
 - **Networking & Service Mesh**: [cilium](https://github.com/cilium/cilium) provides eBPF-based networking, while [envoy](https://www.envoyproxy.io/) powers service-to-service communication with L7 proxying and traffic management. [cloudflared](https://github.com/cloudflare/cloudflared) secures ingress traffic via Cloudflare, and [external-dns](https://github.com/kubernetes-sigs/external-dns) keeps DNS records in sync automatically.
 - **Security & Secrets**: [cert-manager](https://github.com/cert-manager/cert-manager) automates SSL/TLS certificate management. For secrets, I use [external-secrets](https://github.com/external-secrets/external-secrets) with [1Password Connect API](https://github.com/1Password/connect) to inject secrets into Kubernetes.
-- **Storage & Data Protection**: [rook](https://github.com/rook/rook) provides distributed storage for persistent volumes, with [volsync](https://github.com/backube/volsync) handling backups and restores. [spegel](https://github.com/spegel-org/spegel) improves reliability by running a stateless, cluster-local OCI image mirror.
+- **Storage & Data Protection**: [rook](https://github.com/rook/rook) provides distributed storage for persistent volumes, with [kopiur](https://github.com/home-operations/kopiur) handling backups and restores. [spegel](https://github.com/spegel-org/spegel) improves reliability by running a stateless, cluster-local OCI image mirror.
 - **Automation & CI/CD**: [actions-runner-controller](https://github.com/actions/actions-runner-controller) runs self-hosted GitHub Actions runners directly in the cluster for continuous integration workflows.
 
 ### GitOps
@@ -101,16 +101,16 @@ While most of my infrastructure and workloads are self-hosted I do rely upon the
 
 Alternative solutions to the first two of these problems would be to host a Kubernetes cluster in the cloud and deploy applications like [HCVault](https://www.vaultproject.io/), [Vaultwarden](https://github.com/dani-garcia/vaultwarden), [ntfy](https://ntfy.sh/), and [Gatus](https://gatus.io/); however, maintaining another cluster and monitoring another group of workloads would be more work and probably be more or equal out to the same costs as described below.
 
-| Service                                         | Use                                                               | Cost           |
-|-------------------------------------------------|-------------------------------------------------------------------|----------------|
-| [1Password](https://1password.com/)             | Secrets with [External Secrets](https://external-secrets.io/)     | Free           |
-| [Cloudflare](https://www.cloudflare.com/)       | Domain and S3                                                     | ~$30/yr        |
-| [GCP](https://cloud.google.com/)                | Voice interactions with Home Assistant over Google Assistant      | Free           |
-| [GitHub](https://github.com/)                   | Hosting this repository and continuous integration/deployments    | Free           |
-| [Migadu](https://migadu.com/)             |     | Email hosting                                                     | ~$20/yr        |
-| [Pushover](https://pushover.net/)               | Kubernetes Alerts and application notifications                   | $5 OTP         |
-| [Healthchecks.io](https://healthchecks.io/)     | Monitoring internet connectivity and external facing applications | Free           |
-|                                                 |                                                                   | Total: ~$5/mo  |
+| Service                                     | Use                                                               | Cost          |
+| ------------------------------------------- | ----------------------------------------------------------------- | ------------- |
+| [1Password](https://1password.com/)         | Secrets with [External Secrets](https://external-secrets.io/)     | Free          |
+| [Cloudflare](https://www.cloudflare.com/)   | Domain and S3                                                     | ~$30/yr       |
+| [GCP](https://cloud.google.com/)            | Voice interactions with Home Assistant over Google Assistant      | Free          |
+| [GitHub](https://github.com/)               | Hosting this repository and continuous integration/deployments    | Free          |
+| [Migadu](https://migadu.com/)               |                                                                   | Email hosting | ~$20/yr |
+| [Pushover](https://pushover.net/)           | Kubernetes Alerts and application notifications                   | $5 OTP        |
+| [Healthchecks.io](https://healthchecks.io/) | Monitoring internet connectivity and external facing applications | Free          |
+|                                             |                                                                   | Total: ~$5/mo |
 
 ---
 
@@ -122,24 +122,24 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="20" height="20"> Hardware
 
-| Device                      | Num | OS Disk Size | Data Disk Size                      | Ram  | OS            | Function                |
-|-----------------------------|-----|--------------|-------------------------------------|------|---------------|-------------------------|
-| Minisforum MS-01 13900H     | 3   | 1TB SSD      | 1.92TB (rook-ceph)                  | 96GB | Talos         | Kubernetes              |
-| Custom Intel i7-9700k       | 1   | 240GB SSD    | 7x14TB Array + 4TB NVME NVR Cache   | 48GB | TrueNAS SCALE | NFS + Backup Server     |
-| PiKVM (RasPi 4)             | 1   | 64GB (SD)    | -                                   | 4GB  | PiKVM         | KVM                     |
-| Matter-Server (RasPi 4)     | 1   | 250GB (SSD)  | -                                   | 4GB  | Raspbian Lite | Matter Server           |
-| TESmart 8 Port KVM Switch   | 1   | -            | -                                   | -    | -             | Network KVM (for PiKVM) |
-| UniFi UDM SE                | 1   | -            | -                                   | -    | -             | Router                  |
-| Brocade ICX6650             | 1   | -            | -                                   | -    | -             | 10/40Gb Core Switch     |
-| USW-PRO-MAX-24              | 1   | -            | -                                   | -    | -             | 1/2.5Gb Switch          |
-| USW-PRO-MAX-24-POE          | 1   | -            | -                                   | -    | -             | 1/2.5Gb POE Switch      |
-| USW-PRO-MAX-16-POE          | 1   | -            | -                                   | -    | -             | 1/2.5Gb POE Outdoor     |
-| Eaton SU2200RTXL2UA         | 1   | -            | -                                   | -    | -             | UPS                     |
-| Eaton BP48V27-2US           | 2   | -            | -                                   | -    | -             | External Battery Packs  |
-| USP-PDU-Pro                 | 1   | -            | -                                   | -    | -             | PDU                     |
+| Device                    | Num | OS Disk Size | Data Disk Size                    | Ram  | OS            | Function                |
+| ------------------------- | --- | ------------ | --------------------------------- | ---- | ------------- | ----------------------- |
+| Minisforum MS-01 13900H   | 3   | 1TB SSD      | 1.92TB (rook-ceph)                | 96GB | Talos         | Kubernetes              |
+| Custom Intel i7-9700k     | 1   | 240GB SSD    | 7x14TB Array + 4TB NVME NVR Cache | 48GB | TrueNAS SCALE | NFS + Backup Server     |
+| PiKVM (RasPi 4)           | 1   | 64GB (SD)    | -                                 | 4GB  | PiKVM         | KVM                     |
+| Matter-Server (RasPi 4)   | 1   | 250GB (SSD)  | -                                 | 4GB  | Raspbian Lite | Matter Server           |
+| TESmart 8 Port KVM Switch | 1   | -            | -                                 | -    | -             | Network KVM (for PiKVM) |
+| UniFi UDM SE              | 1   | -            | -                                 | -    | -             | Router                  |
+| Brocade ICX6650           | 1   | -            | -                                 | -    | -             | 10/40Gb Core Switch     |
+| USW-PRO-MAX-24            | 1   | -            | -                                 | -    | -             | 1/2.5Gb Switch          |
+| USW-PRO-MAX-24-POE        | 1   | -            | -                                 | -    | -             | 1/2.5Gb POE Switch      |
+| USW-PRO-MAX-16-POE        | 1   | -            | -                                 | -    | -             | 1/2.5Gb POE Outdoor     |
+| Eaton SU2200RTXL2UA       | 1   | -            | -                                 | -    | -             | UPS                     |
+| Eaton BP48V27-2US         | 2   | -            | -                                 | -    | -             | External Battery Packs  |
+| USP-PDU-Pro               | 1   | -            | -                                 | -    | -             | PDU                     |
 
 ---
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.gif" alt="🙏" width="20" height="20"> Gratitude and Thanks
 
-Thanks to all the people who donate their time to the [Home Operations](https://discord.gg/home-operations) Discord community. Be sure to check out [kubesearch.dev](https://kubesearch.dev/) for ideas on how to deploy applications or get ideas on what you could deploy.  Extra thanks to [onedr0p](https://github.com/onedr0p/home-ops) from whom I shamelessly lift code, and get inspiration to make potentially horrible mistakes with my cluster.
+Thanks to all the people who donate their time to the [Home Operations](https://discord.gg/home-operations) Discord community. Be sure to check out [kubesearch.dev](https://kubesearch.dev/) for ideas on how to deploy applications or get ideas on what you could deploy. Extra thanks to [onedr0p](https://github.com/onedr0p/home-ops) from whom I shamelessly lift code, and get inspiration to make potentially horrible mistakes with my cluster.
