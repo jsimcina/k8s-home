@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: miroir
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: miroir
+  interval: 1h
+  values:
+    # No dedicated disk on these nodes (unlike onedr0p's lvmthin setup) -
+    # pools live as reflink-backed sparse files on /var, the same
+    # filesystem openebs-hostpath already used for basePath.
+    agent:
+      loopfileBaseDirs:
+        - /var/lib/miroir
