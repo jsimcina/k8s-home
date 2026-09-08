@@ -114,6 +114,7 @@ kubectl delete pvc miroir-smoke-test -n default
     spec:
       cluster:
         name: postgres
+      target: primary
       method: plugin
       pluginConfiguration:
         name: barman-cloud.cloudnative-pg.io
@@ -122,6 +123,12 @@ kubectl delete pvc miroir-smoke-test -n default
     kubectl wait --for=jsonpath='{.status.phase}'=completed \
       backup/postgres-pre-miroir-migration -n database --timeout=10m
     ```
+
+    Without `target: primary`, CNPG can dispatch the backup to a standby
+    instead - hit this during testing: `pg_backup_start` got canceled with
+    `canceling statement due to conflict with recovery` (a hot-standby
+    recovery conflict, not a storage/credentials problem). Forcing `primary`
+    avoids that class of failure entirely.
 
 3. Note the live cluster's current archive name - it's `postgres18-v1` in
    [`cluster.yaml`](../kubernetes/apps/database/cloudnative-pg/cluster/cluster.yaml).
