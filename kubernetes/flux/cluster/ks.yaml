@@ -45,6 +45,20 @@ spec:
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
+            - # Authenticate ghcr.io pulls to avoid GitHub's 60req/hr anonymous
+              # rate limit - see kubernetes/apps/external-secrets/ghcr-credentials
+              patch: |-
+                apiVersion: source.toolkit.fluxcd.io/v1
+                kind: OCIRepository
+                metadata:
+                  name: _
+                spec:
+                  secretRef:
+                    name: ghcr-credentials
+              target:
+                group: source.toolkit.fluxcd.io
+                kind: OCIRepository
+                labelSelector: "!home-operations.com/ghcr-auth-exempt"
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization

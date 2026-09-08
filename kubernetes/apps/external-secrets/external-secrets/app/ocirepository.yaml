@@ -4,6 +4,10 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: external-secrets
+  labels:
+    # Bootstrap-critical: ghcr-credentials can't exist before this app runs,
+    # so it must stay pullable unauthenticated. See ../../ghcr-credentials.
+    home-operations.com/ghcr-auth-exempt: "true"
 spec:
   interval: 15m
   layerSelector:
