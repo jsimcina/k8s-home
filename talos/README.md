@@ -58,6 +58,11 @@ whose hardware diverges from the fleet. No overrides exist today.
   carrying `crt` only) plus `nodes/workers/<node>.yaml.j2`.
 - All three nodes are control-plane, so `allowSchedulingOnControlPlanes: true` is set in
   `controlplane.yaml.j2` — removing it without adding workers first leaves nothing schedulable.
+- `upgrade-node` and `apply-node` are independent: adding a system extension to
+  `schematic.yaml.j2` (e.g. a new kernel module source) only lands on the running image after
+  `upgrade-node`. Actually loading that module still needs its `KernelModuleConfig` pushed via a
+  separate `apply-node` - `talosctl get extensions` reporting the extension installed does not
+  mean the module is loaded; check `talosctl -n <node> read /proc/modules` for that.
 
 ## Common tasks
 
