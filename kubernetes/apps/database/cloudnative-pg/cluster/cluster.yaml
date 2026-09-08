@@ -60,6 +60,8 @@ spec:
   bootstrap:
     recovery:
       source: postgres18-v1
+      recoveryTarget:
+        backupID: "20260908T000000"
   externalClusters:
     - name: postgres18-v1
       plugin:
