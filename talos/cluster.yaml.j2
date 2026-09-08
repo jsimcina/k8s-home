@@ -146,6 +146,20 @@ kind: KernelModuleConfig
 name: loop
 ---
 apiVersion: v1alpha1
+kind: KernelModuleConfig
+# Not used yet - no miroir StorageClass requests replicas > "1" today - but
+# provisioned now (alongside the siderolabs/drbd extension in
+# schematic.yaml.j2) so enabling replication later is a plain config change
+# instead of a second rolling talosctl upgrade.
+name: drbd
+parameters:
+  - usermode_helper=disabled
+---
+apiVersion: v1alpha1
+kind: KernelModuleConfig
+name: drbd_transport_tcp
+---
+apiVersion: v1alpha1
 kind: SysctlConfig
 params:
   fs.inotify.max_user_instances: "8192"
