@@ -75,6 +75,7 @@ spec:
         claimName: miroir-smoke-test
 EOF
 
+kubectl wait --for=condition=Ready pod/miroir-smoke-test -n default --timeout=60s
 kubectl get miroirnodes
 kubectl exec miroir-smoke-test -- cat /data/hello
 ```
