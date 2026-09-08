@@ -139,6 +139,13 @@ kind: KernelModuleConfig
 name: nbd
 ---
 apiVersion: v1alpha1
+kind: KernelModuleConfig
+# loop is required by miroir's loopfile backend (kubernetes/apps/miroir-system) -
+# the agent modprobes it on demand, but Talos gates dynamic loading, so it's
+# declared explicitly rather than relied on implicitly.
+name: loop
+---
+apiVersion: v1alpha1
 kind: SysctlConfig
 params:
   fs.inotify.max_user_instances: "8192"
