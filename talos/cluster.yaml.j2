@@ -21,14 +21,6 @@ machine:
       imageGCLowThresholdPercent: 40
       shutdownGracePeriod: 90s
       shutdownGracePeriodCriticalPods: 60s
-    extraMounts:
-      - destination: /var/openebs/local
-        type: bind
-        source: /var/openebs/local
-        options:
-          - bind
-          - rshared
-          - rw
     image: ghcr.io/siderolabs/kubelet:v1.37.0
   token: op://kubernetes/talos/MACHINE_TOKEN
   time:
