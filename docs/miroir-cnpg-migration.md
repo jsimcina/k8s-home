@@ -133,8 +133,10 @@ kubectl delete pvc miroir-smoke-test -n default
 3. Note the live cluster's current archive name - it's `postgres18-v1` in
    [`cluster.yaml`](../kubernetes/apps/database/cloudnative-pg/cluster/cluster.yaml).
    The rebuilt cluster needs its own, unused archive path (barman-cloud
-   won't let a new system identifier share a `serverName` with the old one),
-   so this runbook bumps it to `postgres18-v2`.
+   won't let a new system identifier share a `serverName` with the old one).
+   This runbook reuses `postgres18` - the original pre-`-v1` archive path -
+   since its old backups/WALs have already been cleared from `cfr2`. If you
+   haven't done that cleanup, use an unused name instead (e.g. `postgres18-v2`).
 
 ## 3. Take the cluster down
 
@@ -178,7 +180,7 @@ unchanged:
        parameters: &barmanParameters
          barmanObjectName: cfr2
 -        serverName: postgres18-v1
-+        serverName: postgres18-v2
++        serverName: postgres18
    bootstrap:
      recovery:
 -      source: postgres18
@@ -235,7 +237,7 @@ kubectl get pooler pgbouncer-rw -n database
 Once you're confident the rebuilt cluster is solid:
 
 1. Confirm `kubectl get backups -n database` shows successful backups
-   landing on the new `postgres18-v2` archive path.
+   landing on the new `postgres18` archive path.
 2. Remove [`kubernetes/apps/openebs-system/`](../kubernetes/apps/openebs-system/)
    entirely - nothing references `openebs-hostpath` anymore.
 
@@ -244,7 +246,7 @@ Once you're confident the rebuilt cluster is solid:
 If the rebuilt cluster comes up unhealthy or recovery fails: the Step 2
 backup and every WAL segment before it are still sitting in `cfr2` under
 `postgres18-v1`, untouched by any of this. Re-run Step 4 with
-`storageClass: openebs-hostpath` instead of `miroir-local` (keep the
-`postgres18-v2` naming bump either way, since `postgres18-v1` is still what
+`storageClass: openebs-hostpath` instead of `miroir-local` (keep the new
+`postgres18` archive name either way, since `postgres18-v1` is still what
 you're recovering _from_) to get back to exactly where you started, on the
 old storage.
