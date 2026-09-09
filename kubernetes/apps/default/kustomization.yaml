@@ -21,5 +21,6 @@ resources:
   - ./manyfold/ks.yaml
   - ./paperless-ngx/ks.yaml
   - ./romm/ks.yaml
+  - ./smtp-relay/ks.yaml
   - ./vikunja/ks.yaml
   - ./webhook/ks.yaml
