@@ -11,16 +11,6 @@ spec:
   interval: 1h
   timeout: 10m
   values:
-    # Pins the current Ceph version via the chart's own dedicated field so
-    # the rook-ceph chart bump doesn't also pull the v19->v20
-    # (Squid->Tentacle) major - that gets its own separate, verified
-    # upgrade later. cephClusterSpec.cephVersion must NOT also be set: the
-    # chart renders it from this field and dumps cephClusterSpec verbatim,
-    # so setting both produces a duplicate cephVersion key in the rendered
-    # CephCluster and fails the Helm upgrade.
-    cephImage:
-      repository: quay.io/ceph/ceph
-      tag: v19.2.6
     cephClusterSpec:
       # Preserves rook v1.19's csi.cephFSKernelMountOptions, removed from
       # the operator chart in v1.20.
