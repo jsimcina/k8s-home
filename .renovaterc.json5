@@ -157,6 +157,17 @@
       matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
       allowedVersions: "<1.20.0",
     },
+    // Disable rules
+    {
+      // op is closed-source with no public GitHub repo; mise resolves it via
+      // Aqua's registry against 1Password's own CDN, not GitHub tags/releases,
+      // so Renovate's mise manager can never look this up - it just throws
+      // "no-result" on every PR. Bump manually instead.
+      description: "Disable lookups for 1password-cli (no public source Renovate can query)",
+      matchManagers: ["mise"],
+      matchDepNames: ["1password-cli"],
+      enabled: false,
+    },
     // Labeling rules
     {
       matchUpdateTypes: ["major"],
