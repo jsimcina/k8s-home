@@ -83,64 +83,37 @@ spec:
         # NOTE: seerr-pushover.sh (the app it replaces) only ever handled
         # TEST_NOTIFICATION - its "*" default case was quoted, so it never
         # matched as a wildcard and every real request notification errored
-        # out silently. These routes actually cover the real event types;
-        # verify the field names against a live payload (Settings > Notifications
-        # > Webhook > Test in Jellyseerr/Overseerr) before relying on them.
-        seerr-pending:
+        # out silently. Jellyseerr/Overseerr's webhook agent has a single
+        # URL + payload template for all event types (unlike Radarr/Sonarr,
+        # which support multiple independent Connect entries), so this has
+        # to be one route with the branching done in the template rather
+        # than split across routes/paths. Verify field names against a live
+        # payload (Settings > Notifications > Webhook > Test) before relying
+        # on this.
+        seerr:
           target: seerr
-          title: Request Pending Approval
-          message: |-
-            <b>{{ .payload.subject }}</b>
-            <small>{{ .payload.message }}</small>
+          title: >-
+            {{ if eq .payload.notification_type "MEDIA_PENDING" }}Request Pending Approval
+            {{- else if eq .payload.notification_type "MEDIA_APPROVED" }}Request Approved
+            {{- else if eq .payload.notification_type "MEDIA_AUTO_APPROVED" }}Request Approved
+            {{- else if eq .payload.notification_type "MEDIA_AVAILABLE" }}Now Available
+            {{- else if eq .payload.notification_type "MEDIA_DECLINED" }}Request Declined
+            {{- else if eq .payload.notification_type "MEDIA_FAILED" }}Request Failed
+            {{- else if eq .payload.notification_type "TEST_NOTIFICATION" }}Test Notification
+            {{- end }}
+          message: >-
+            {{ if eq .payload.notification_type "TEST_NOTIFICATION" }}Howdy this is a test notification
+            {{- else }}<b>{{ .payload.subject }}</b><small>{{ .payload.message }}</small>
+            {{- end }}
           params:
             format: html
-            priority: low
+            priority: >-
+              {{ if or (eq .payload.notification_type "MEDIA_DECLINED") (eq .payload.notification_type "MEDIA_FAILED") }}high
+              {{- else }}low
+              {{- end }}
             url: https://requests.jonandlinz.io
             url_title: Open Requests
-          whenExpr: payload.notification_type == "MEDIA_PENDING"
-        seerr-approved:
-          target: seerr
-          title: Request Approved
-          message: |-
-            <b>{{ .payload.subject }}</b>
-          params:
-            format: html
-            priority: low
-            url: https://requests.jonandlinz.io
-            url_title: Open Requests
-          whenExpr: payload.notification_type == "MEDIA_APPROVED" || payload.notification_type == "MEDIA_AUTO_APPROVED"
-        seerr-available:
-          target: seerr
-          title: Now Available
-          message: |-
-            <b>{{ .payload.subject }}</b>
-          params:
-            format: html
-            priority: low
-            url: https://requests.jonandlinz.io
-            url_title: Open Requests
-          whenExpr: payload.notification_type == "MEDIA_AVAILABLE"
-        seerr-declined:
-          target: seerr
-          title: Request Declined
-          message: |-
-            <b>{{ .payload.subject }}</b>
-          params:
-            format: html
-            priority: high
-            url: https://requests.jonandlinz.io
-            url_title: Open Requests
-          whenExpr: payload.notification_type == "MEDIA_DECLINED" || payload.notification_type == "MEDIA_FAILED"
-        seerr-test:
-          target: seerr
-          title: Test Notification
-          message: Howdy this is a test notification
-          params:
-            format: html
-            priority: low
-            url: https://requests.jonandlinz.io
-            url_title: Open Requests
-          whenExpr: payload.notification_type == "TEST_NOTIFICATION"
+          whenExpr: payload.notification_type in ["MEDIA_PENDING", "MEDIA_APPROVED", "MEDIA_AUTO_APPROVED", "MEDIA_AVAILABLE", "MEDIA_DECLINED", "MEDIA_FAILED", "TEST_NOTIFICATION"]
     monitoring:
       serviceMonitor:
         enabled: true
