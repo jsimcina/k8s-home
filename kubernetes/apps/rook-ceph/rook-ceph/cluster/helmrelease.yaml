@@ -20,7 +20,7 @@ spec:
     # CephCluster and fails the Helm upgrade.
     cephImage:
       repository: quay.io/ceph/ceph
-      tag: v19.2.6
+      tag: v21.1.0
     cephClusterSpec:
       # Preserves rook v1.19's csi.cephFSKernelMountOptions, removed from
       # the operator chart in v1.20.
