@@ -23,6 +23,7 @@ metadata:
 spec:
   dependsOn:
     - name: rook-ceph
+    - name: ceph-csi-drivers
     - name: kopiur
       namespace: kopiur-system
   healthChecks:

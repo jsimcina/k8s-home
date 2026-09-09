@@ -12,11 +12,19 @@ spec:
   timeout: 10m
   values:
     cephClusterSpec:
+      # Preserves rook v1.19's csi.cephFSKernelMountOptions (removed from the
+      # operator chart in v1.20) and pins the current Ceph version so the
+      # rook-ceph chart bump doesn't also pull the v19->v20 (Squid->Tentacle)
+      # major - that gets its own separate, verified upgrade later.
+      cephVersion:
+        image: quay.io/ceph/ceph:v19.2.6
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
       crashCollector:
         disable: false
       csi:
+        cephfs:
+          kernelMountOptions: ms_mode=prefer-crc
         readAffinity:
           enabled: false # https://github.com/ceph/ceph-csi/issues/5772
       dashboard:
