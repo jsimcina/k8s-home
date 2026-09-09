@@ -10,6 +10,8 @@ spec:
     name: headlamp
   interval: 30m
   values:
+    config:
+      watchPlugins: true
     fullnameOverride: headlamp
     initContainers:
       - # Generate kubeconfig file. Can be removed when https://github.com/kubernetes-sigs/headlamp/issues/1826 is resolved
@@ -49,29 +51,6 @@ spec:
             readOnly: true
     clusterRoleBinding:
       create: false
-    podAnnotations:
-      reloader.stakater.com/auto: "true"
-    service:
-      port: 4466
-    serviceAccount:
-      create: false
-      name: headlamp-admin
-    volumes:
-      - name: headlamp-plugins
-        emptyDir: {}
-      - name: kubeconfig
-        emptyDir: {}
-      - name: sa-token
-        secret:
-          defaultMode: 420
-          secretName: headlamp-admin
-    volumeMounts:
-      - mountPath: /build/plugins
-        name: headlamp-plugins
-      - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs/config
-        name: kubeconfig
-        readOnly: true
-        subPath: config
     pluginsManager:
       enabled: true
       configContent: |
@@ -85,3 +64,22 @@ spec:
           - name: ai-assistant
             source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_ai_assistant
             version: 0.4.0-alpha
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
+    service:
+      port: 4466
+    serviceAccount:
+      create: false
+      name: headlamp-admin
+    volumes:
+      - name: kubeconfig
+        emptyDir: {}
+      - name: sa-token
+        secret:
+          defaultMode: 420
+          secretName: headlamp-admin
+    volumeMounts:
+      - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs/config
+        name: kubeconfig
+        readOnly: true
+        subPath: config
