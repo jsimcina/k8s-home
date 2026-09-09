@@ -13,6 +13,7 @@ resources:
   - ./actual/ks.yaml
   - ./bambu-connect/ks.yaml
   - ./bambuddy/ks.yaml
+  - ./chaski/ks.yaml
   - ./changedetection/ks.yaml
   - ./convertx/ks.yaml
   - ./dinodex/ks.yaml
