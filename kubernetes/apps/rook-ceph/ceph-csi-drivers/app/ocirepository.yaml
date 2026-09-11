@@ -12,5 +12,5 @@ spec:
   ref:
     # Must track the ceph-csi-operator subchart version pinned inside
     # whatever rook-ceph version is deployed - 1.0.4 for rook-ceph v1.20.7.
-    tag: "1.0.4"
+    tag: "1.0.5"
   url: oci://ocharted.jonandlinz.io/ceph.github.io/ceph-csi-operator/ceph-csi-drivers
