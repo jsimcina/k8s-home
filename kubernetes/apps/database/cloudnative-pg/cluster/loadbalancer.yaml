@@ -8,7 +8,7 @@ metadata:
     cnpg.io/cluster: postgres
   annotations:
     lbipam.cilium.io/ips: 10.12.0.225
-    external-dns.alpha.kubernetes.io/hostname: cnpgsql.jonandlinz.io
+    external-dns.kubernetes.io/hostname: cnpgsql.jonandlinz.io
 spec:
   type: LoadBalancer
   ports:

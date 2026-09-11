@@ -62,7 +62,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: smtp.jonandlinz.io
+          external-dns.kubernetes.io/hostname: smtp.jonandlinz.io
           lbipam.cilium.io/ips: 10.12.0.110
         externalTrafficPolicy: Local
         ports:
