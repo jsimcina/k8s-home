@@ -24,6 +24,7 @@ resources:
   - ./pinepods/ks.yaml
   - ./plex/ks.yaml
   - ./radarr/ks.yaml
+  - ./recyclarr/ks.yaml
   - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
   - ./unpackerr/ks.yaml
