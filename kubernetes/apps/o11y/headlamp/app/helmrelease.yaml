@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas.bjw-s.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -8,7 +8,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: headlamp
-  interval: 30m
+  interval: 1h
   values:
     config:
       watchPlugins: true
@@ -35,9 +35,7 @@ spec:
         image: docker.io/rancher/shell:v7.0.0
         name: create-kubeconfig
         securityContext:
-          capabilities:
-            drop:
-              - ALL
+          capabilities: { drop: ["ALL"] }
           privileged: false
           readOnlyRootFilesystem: true
           runAsGroup: 1001
