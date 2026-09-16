@@ -34,12 +34,16 @@ spec:
               limits:
                 memory: 500Mi
             securityContext:
-              runAsUser: 0
-              runAsGroup: 0
-              fsGroup: 0
-              fsGroupChangePolicy: "OnRootMismatch"
-              readOnlyRootFilesystem: false
-              runAsNonRoot: false
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
         enabled: true
