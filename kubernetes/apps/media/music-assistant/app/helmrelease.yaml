@@ -51,7 +51,7 @@ spec:
                 cpu: 47m
                 memory: 512Mi
               limits:
-                memory: 1024Mi
+                memory: 2Gi
 
           bgutil-provider:
             image:
