@@ -1,0 +1,103 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: dockerify-android
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: dockerify-android
+  interval: 1h
+  values:
+    controllers:
+      dockerify-android:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/shmayro/dockerify-android
+              tag: latest
+            env:
+              TZ: America/Chicago
+              DNS: one.one.one.one
+              # RAM_SIZE: 4096 # uncomment to override the AVD's default RAM allocation (MB)
+              # SCREEN_RESOLUTION: 720x720
+              # SCREEN_DENSITY: 227
+              ROOT_SETUP: 0 # set to 1 to root the AVD
+              GAPPS_SETUP: 0 # set to 1 to install PICO GAPPS
+              ARM_TRANSLATION: 1 # allows installing ARM64-only apks
+            probes:
+              # Mirrors the image's own Dockerfile HEALTHCHECK: first boot (plus
+              # GAPPS/root setup if enabled) can take a very long time, so the
+              # startup probe absorbs that instead of liveness/readiness.
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - sh
+                      - -c
+                      - adb devices | grep emulator-5554 && test -f /data/.first-boot-done
+                  periodSeconds: 10
+                  timeoutSeconds: 10
+                  failureThreshold: 600
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - sh
+                      - -c
+                      - adb devices | grep emulator-5554 && test -f /data/.first-boot-done
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - sh
+                      - -c
+                      - adb devices | grep emulator-5554 && test -f /data/.first-boot-done
+                  periodSeconds: 10
+                  timeoutSeconds: 10
+                  failureThreshold: 3
+            # Upstream image runs as root and needs raw KVM device access for
+            # hardware-accelerated emulation - it isn't built for a
+            # rootless/read-only pattern like the rest of this repo.
+            securityContext:
+              privileged: true
+            resources:
+              requests:
+                cpu: 500m
+                memory: 2Gi
+              limits:
+                memory: 4Gi
+    service:
+      app:
+        ports:
+          console:
+            port: 5554
+          adb:
+            port: 5555
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /data
+      extras:
+        type: emptyDir
+        globalMounts:
+          - path: /extras
+      kvm:
+        type: hostPath
+        hostPath: /dev/kvm
+        hostPathType: CharDevice
+        globalMounts:
+          - path: /dev/kvm
