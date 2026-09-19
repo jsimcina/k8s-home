@@ -25,9 +25,11 @@ spec:
                 npm start
             env:
               TZ: America/Chicago
+            # adb needs to spawn a local server (writes ~/.android/adbkey and
+            # /tmp/adb.<uid>.log) before it can connect to a remote daemon -
+            # not built for a read-only rootfs.
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
