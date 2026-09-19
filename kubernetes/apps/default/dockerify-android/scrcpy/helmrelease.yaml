@@ -25,11 +25,13 @@ spec:
                 npm start
             env:
               TZ: America/Chicago
-            # adb needs to spawn a local server (writes ~/.android/adbkey and
-            # /tmp/adb.<uid>.log) before it can connect to a remote daemon -
-            # not built for a read-only rootfs.
+            # Image has no USER directive and its app lives under /root -
+            # it's built to run as root, so runAsNonRoot is dropped for this
+            # controller. Root can still read under a read-only rootfs, adb
+            # just needs somewhere writable for its startup log and adbkey.
             securityContext:
               allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -37,13 +39,15 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 512Mi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+      android-home:
+        type: emptyDir
+        globalMounts:
+          - path: /root/.android
     service:
       app:
         ports:
