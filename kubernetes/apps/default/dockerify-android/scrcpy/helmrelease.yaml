@@ -25,6 +25,10 @@ spec:
                 npm start
             env:
               TZ: America/Chicago
+            # Image has no USER directive and its app lives under /root -
+            # it's built to run as root, so runAsNonRoot is dropped for this
+            # controller. Root can still read under a read-only rootfs, adb
+            # just needs somewhere writable for its startup log and adbkey.
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -35,13 +39,15 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 512Mi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+      android-home:
+        type: emptyDir
+        globalMounts:
+          - path: /root/.android
     service:
       app:
         ports:
