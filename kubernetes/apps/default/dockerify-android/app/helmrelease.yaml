@@ -23,8 +23,8 @@ spec:
               TZ: America/Chicago
               DNS: one.one.one.one
               # RAM_SIZE: 4096 # uncomment to override the AVD's default RAM allocation (MB)
-              # SCREEN_RESOLUTION: 720x720
-              # SCREEN_DENSITY: 227
+              SCREEN_RESOLUTION: 1080x1920 # FHD portrait
+              SCREEN_DENSITY: 420 # xxhdpi, matches a real FHD phone
               ROOT_SETUP: 0 # set to 1 to root the AVD
               GAPPS_SETUP: 0 # set to 1 to install PICO GAPPS
               ARM_TRANSLATION: 1 # allows installing ARM64-only apks
@@ -92,7 +92,7 @@ spec:
         globalMounts:
           - path: /data
       extras:
-        type: emptyDir
+        existingClaim: dockerify-android-extras
         globalMounts:
           - path: /extras
       kvm:
