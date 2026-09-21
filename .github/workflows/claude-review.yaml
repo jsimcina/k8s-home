@@ -39,11 +39,6 @@ jobs:
           GITHUB_BOT_APP_PRIVATE_KEY: op://kubernetes/github-bot/GITHUB_BOT_APP_PRIVATE_KEY
           CLAUDE_CODE_OAUTH_TOKEN: op://kubernetes/claude/CLAUDE_CODE_OAUTH_TOKEN
 
-      - name: Debug Token Hash
-        run: |
-          printf '%s' "${{ steps.load-secrets.outputs.CLAUDE_CODE_OAUTH_TOKEN }}" | sha256sum
-          printf '%s' "${{ steps.load-secrets.outputs.CLAUDE_CODE_OAUTH_TOKEN }}" | wc -c
-
       - name: Generate Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: app-token
@@ -64,7 +59,6 @@ jobs:
           claude_code_oauth_token: ${{ steps.load-secrets.outputs.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ steps.app-token.outputs.token }}
           allowed_bots: mr-wriggler[bot]
-          show_full_output: true # TEMP: diagnosing is_error:true, remove once resolved
           prompt: |
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
