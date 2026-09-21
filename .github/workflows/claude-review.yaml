@@ -59,6 +59,7 @@ jobs:
           claude_code_oauth_token: ${{ steps.load-secrets.outputs.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ steps.app-token.outputs.token }}
           allowed_bots: mr-wriggler[bot]
+          show_full_output: true # TEMP: diagnosing is_error:true, remove once resolved
           prompt: |
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
