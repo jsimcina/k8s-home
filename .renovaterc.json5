@@ -165,7 +165,7 @@
       minimumGroupSize: 2,
     },
     {
-      description: "CoreDNS 1.14.3+ prefetch poisons autopath answers, hold until coredns/coredns#8390 is fixed",
+      description: "Hold the CoreDNS chart while the pinned 1.14.7 image soaks (coredns/coredns#8390 fix); remove to move to chart 1.48.1+",
       matchDatasources: ["docker"],
       matchPackageNames: ["ghcr.io/coredns/charts/coredns"],
       enabled: false,
