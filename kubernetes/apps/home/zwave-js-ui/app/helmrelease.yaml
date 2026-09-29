@@ -23,6 +23,8 @@ spec:
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
+              - secretRef:
+                  name: "{{ .Release.Name }}-session-secret"
             probes:
               liveness: &probes
                 enabled: true
