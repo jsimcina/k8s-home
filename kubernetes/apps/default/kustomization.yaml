@@ -17,7 +17,6 @@ resources:
   - ./changedetection/ks.yaml
   - ./convertx/ks.yaml
   - ./dinodex/ks.yaml
-  - ./dockerify-android/ks.yaml
   - ./it-tools/ks.yaml
   - ./manyfold/ks.yaml
   - ./paperless-ngx/ks.yaml
