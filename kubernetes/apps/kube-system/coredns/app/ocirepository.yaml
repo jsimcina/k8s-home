@@ -10,11 +10,10 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    # Held on 1.46.2 (CoreDNS 1.13.1) - 1.47.0+ (CoreDNS 1.14.3+) has a
-    # confirmed, still-open upstream regression where autopath + cache
-    # (prefetch/serve_stale) intermittently returns empty-A for external
-    # names on parallel A/AAAA lookups. Our Corefile hits every trigger
-    # condition. See coredns/coredns#8390 and the renovate hold in
-    # .renovaterc.json5.
+    # Chart held on 1.46.2 while the CoreDNS 1.14.7 image (pinned in
+    # helmrelease.yaml) soaks. 1.14.3-1.14.6 had the autopath + cache
+    # (prefetch/serve_stale) empty-A regression, coredns/coredns#8390, fixed
+    # in 1.14.7. Once 1.14.7 is proven here, drop the image pin and the
+    # renovate hold in .renovaterc.json5 and move to chart 1.48.1+.
     tag: 1.46.2
   url: oci://ghcr.io/coredns/charts/coredns
