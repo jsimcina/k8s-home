@@ -15,7 +15,10 @@ spec:
       enabled: true
       bbr: true
     bpf:
-      datapathMode: netkit
+      # veth, not netkit: with endpointRoutes and socketLB.hostNamespaceOnly,
+      # netkit drops same-node ClusterIP replies into ingress-policed pods
+      # (cilium/cilium#47913), e.g. kritika -> kritika-postgres. onedr0p runs veth.
+      datapathMode: veth
       masquerade: true
       preallocateMaps: true
     bpfClockProbe: true
