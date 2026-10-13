@@ -157,12 +157,6 @@
       minimumGroupSize: 2,
     },
     {
-      description: "Hold the CoreDNS chart while the pinned 1.14.7 image soaks (coredns/coredns#8390 fix); remove to move to chart 1.48.1+",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["ghcr.io/coredns/charts/coredns"],
-      enabled: false,
-    },
-    {
       description: "Keep CloudNativePG on Postgres 18 until the extension images (vchord) move with it",
       matchDatasources: ["docker"],
       matchPackageNames: ["ghcr.io/cloudnative-pg/postgresql"],
