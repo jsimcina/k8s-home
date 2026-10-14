@@ -26,7 +26,12 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2026.10.1
+              # Held on 2026.10.0: the 2026.10.1 image's Python 3.14.8 rejects
+              # pylutron-caseta 0.29.0's server_hostname="" TLS connection
+              # ("check_hostname requires server_hostname"), so Lutron Caseta
+              # can't connect. Upgrade once a release ships the fix:
+              # gurumitts/pylutron-caseta#217 / #218.
+              tag: 2026.10.0
             env:
               TZ: America/Chicago
             envFrom:
