@@ -127,11 +127,8 @@
       minimumGroupSize: 5,
     },
     {
-      // Scheduled tools stay out: a grouped branch takes its schedule from
-      // whichever update sorts first
       description: "Mise Tools Group",
       matchManagers: ["mise"],
-      matchDepNames: ["!node", "!oxfmt"],
       groupName: "mise tools",
       groupSlug: "mise-tools",
     },
@@ -146,8 +143,7 @@
       minimumGroupSize: 2,
     },
     {
-      // After the mise tools catch-all so talos wins its own group; unites the
-      // mise pin, the factory installer image, and the tuppr upgrade version
+      // Unites the factory installer image and the tuppr upgrade version
       description: "Talos Group",
       groupName: "talos",
       matchPackageNames: ["siderolabs/talos"],
@@ -161,24 +157,6 @@
       matchDatasources: ["docker"],
       matchPackageNames: ["ghcr.io/cloudnative-pg/postgresql"],
       allowedVersions: "/^18\\./",
-    },
-    // Scheduling rules
-    {
-      description: "High-cadence mise tools monthly",
-      matchManagers: ["mise"],
-      matchDepNames: ["node", "oxfmt"],
-      schedule: ["before 3am on the first day of the month"],
-    },
-    // Disable rules
-    {
-      // op is closed-source with no public GitHub repo; mise resolves it via
-      // Aqua's registry against 1Password's own CDN, not GitHub tags/releases,
-      // so Renovate's mise manager can never look this up - it just throws
-      // "no-result" on every PR. Bump manually instead.
-      description: "Disable lookups for 1password-cli (no public source Renovate can query)",
-      matchManagers: ["mise"],
-      matchDepNames: ["1password-cli"],
-      enabled: false,
     },
     // Labeling rules
     {
