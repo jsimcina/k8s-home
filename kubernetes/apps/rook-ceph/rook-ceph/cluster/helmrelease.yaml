@@ -12,6 +12,9 @@ spec:
   timeout: 10m
   values:
     cephClusterSpec:
+      cephConfig:
+        mon:
+          mon_cluster_log_level: info
       # Preserves rook v1.19's csi.cephFSKernelMountOptions, removed from
       # the operator chart in v1.20.
       cleanupPolicy:
@@ -78,6 +81,9 @@ spec:
           failureDomain: host
           replicated:
             size: 3
+          parameters:
+            compression_algorithm: zstd
+            compression_mode: passive
         storageClass:
           enabled: true
           name: ceph-block
@@ -86,6 +92,11 @@ spec:
           mountOptions:
             - discard
           parameters:
+            # Left matching the live StorageClass's already-set values:
+            # StorageClass.parameters is immutable once created, so even
+            # removing these inert keys would be rejected by the Helm
+            # upgrade. The CephBlockPool spec.parameters above is what the
+            # operator actually applies to the pool.
             compression_algorithm: zstd
             compression_mode: aggressive
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
@@ -103,6 +114,6 @@ spec:
       enabled: true
       name: csi-ceph-blockpool
       deletionPolicy: Delete
-      isDefault: false
+      isDefault: true
     cephFileSystems: []
     cephObjectStores: []
