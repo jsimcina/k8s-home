@@ -1,5 +1,7 @@
 ---
 # yaml-language-server: $schema=https://kritika.home-operations.com/kritika.schema.json
+ignore:
+  - "kubernetes/apps/o11y/kube-prometheus-stack/**"
 skills:
   scope:
     renovate-review:
