@@ -12,6 +12,9 @@ spec:
   timeout: 10m
   values:
     cephClusterSpec:
+      cephConfig:
+        mon:
+          mon_cluster_log_level: info
       # Preserves rook v1.19's csi.cephFSKernelMountOptions, removed from
       # the operator chart in v1.20.
       cleanupPolicy:
@@ -87,11 +90,13 @@ spec:
             - discard
           parameters:
             compression_algorithm: zstd
-            compression_mode: aggressive
+            compression_mode: passive
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/controller-expand-secret-namespace: "{{ .Release.Namespace }}"
+            csi.storage.k8s.io/controller-publish-secret-name: rook-csi-rbd-provisioner
+            csi.storage.k8s.io/controller-publish-secret-namespace: "{{ .Release.Namespace }}"
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
             csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
             csi.storage.k8s.io/fstype: ext4
@@ -103,6 +108,6 @@ spec:
       enabled: true
       name: csi-ceph-blockpool
       deletionPolicy: Delete
-      isDefault: false
+      isDefault: true
     cephFileSystems: []
     cephObjectStores: []
