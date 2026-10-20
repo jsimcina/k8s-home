@@ -41,8 +41,6 @@ spec:
           - name: autopath
             parameters: "@kubernetes"
           - name: forward
-            parameters: . /etc/resolv.conf
-          - name: forward
             parameters: jonandlinz.com 10.12.0.1
           - name: forward
             parameters: jonandlinz.net 10.12.0.1
@@ -51,12 +49,18 @@ spec:
             # cached upstream, causing TLS hostname mismatches (real GitHub
             # cert, wrong vhost) until the local resolver's cache clears.
             # Bypass it for these specifically; everything else still goes
-            # through the on-site resolver for sinkholing.
+            # through the on-site resolver for sinkholing. Must stay ordered
+            # before the catch-all forward below: the forward plugin chains
+            # multiple instances and each one that matches its zone handles
+            # the query and stops, so a zone-scoped forward listed after the
+            # "." catch-all would never be reached.
             parameters: github.com 1.1.1.1 1.0.0.1
           - name: forward
             parameters: githubusercontent.com 1.1.1.1 1.0.0.1
           - name: forward
             parameters: ghcr.io 1.1.1.1 1.0.0.1
+          - name: forward
+            parameters: . /etc/resolv.conf
           - name: cache
             configBlock: |-
               prefetch 20
