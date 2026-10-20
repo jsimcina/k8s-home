@@ -92,6 +92,13 @@ spec:
           mountOptions:
             - discard
           parameters:
+            # Left matching the live StorageClass's already-set values:
+            # StorageClass.parameters is immutable once created, so even
+            # removing these inert keys would be rejected by the Helm
+            # upgrade. The CephBlockPool spec.parameters above is what the
+            # operator actually applies to the pool.
+            compression_algorithm: zstd
+            compression_mode: aggressive
             csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
             csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
             csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
