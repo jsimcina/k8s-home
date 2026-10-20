@@ -32,6 +32,7 @@ spec:
             env:
               TZ: America/Chicago
               romm__PORT: &port 8080
+              WEB_SERVER_CONCURRENCY: 2
             envFrom: *envFrom
             probes:
               liveness:
@@ -50,7 +51,7 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 256Mi
+                memory: 768Mi
               limits:
                 memory: 1Gi
     defaultPodOptions:
