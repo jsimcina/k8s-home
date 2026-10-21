@@ -1,0 +1,91 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: govee2mqtt
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: govee2mqtt
+  interval: 1h
+  values:
+    controllers:
+      govee2mqtt:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          # Govee's LAN API discovers devices via UDP broadcast/multicast,
+          # which doesn't traverse the pod network cleanly - a real interface
+          # on the IoT VLAN is required, same as home-assistant/scrypted/
+          # music-assistant/esphome/bambuddy. Upstream's docs ask for
+          # network_mode: host for the same reason.
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "kube-system",
+                "ips": ["10.21.1.8/16"],
+                "mac": "00:02:b3:1a:6e:94"
+              }]
+        containers:
+          app:
+            image:
+              repository: ghcr.io/wez/govee2mqtt
+              tag: 2026.03.25-ab9deb66@sha256:a9d9fe330574d16be5a68175f2572615f9e55385695ab40652cc388076a07643
+            env:
+              TZ: America/Chicago
+              GOVEE_MQTT_HOST: mosquitto.database.svc.cluster.local
+              GOVEE_MQTT_PORT: 1883
+              GOVEE_TEMPERATURE_SCALE: F
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: &port 8056
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+    persistence:
+      data:
+        type: emptyDir
+        globalMounts:
+          - path: /data
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
