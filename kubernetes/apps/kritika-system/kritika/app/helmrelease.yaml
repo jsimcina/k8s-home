@@ -93,6 +93,9 @@ spec:
     networkPolicy:
       enabled: true
       type: cilium
+      postgres:
+        podSelector:
+          cnpg.io/cluster: kritika-postgres
     resources:
       requests:
         cpu: 10m
