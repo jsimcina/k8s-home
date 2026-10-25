@@ -75,14 +75,8 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       docs:
         type: nfs
         server: "nas.jonandlinz.com"
         path: /mnt/rustpool/docs
-        globalMounts:
-          - path: /docs

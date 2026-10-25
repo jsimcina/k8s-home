@@ -79,7 +79,7 @@ spec:
         controller: immich
         ports:
           http:
-            port: &port 2283
+            port: 2283
           metrics:
             port: 8081
       machine-learning:
@@ -97,7 +97,6 @@ spec:
         rules:
           - backendRefs:
               - identifier: server
-                port: *port
     persistence:
       media:
         type: nfs

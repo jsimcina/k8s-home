@@ -22,7 +22,7 @@ spec:
             command: ["ha-mcp-web"]
             env:
               FASTMCP_CHECK_FOR_UPDATES: "off"
-              HA_MCP_CONFIG_DIR: &configDir /config
+              HA_MCP_CONFIG_DIR: /config
               HA_MCP_DISABLE_UPDATE_CHECK: true
               HOMEASSISTANT_URL: http://home-assistant.home.svc.cluster.local:8123
               MCP_HEALTHZ: true
@@ -81,12 +81,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - path: *configDir

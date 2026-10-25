@@ -49,7 +49,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: &port 80
+                    port: 80
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
@@ -62,10 +62,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     service:
       app:
         ports:
