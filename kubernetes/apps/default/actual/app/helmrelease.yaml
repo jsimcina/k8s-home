@@ -41,10 +41,6 @@ spec:
                   httpGet:
                     path: /
                     port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
             resources:
               requests:
                 cpu: 12m

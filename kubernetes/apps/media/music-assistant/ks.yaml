@@ -19,7 +19,6 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: media
-  wait: false
   postBuild:
     substitute:
       APP: music-assistant

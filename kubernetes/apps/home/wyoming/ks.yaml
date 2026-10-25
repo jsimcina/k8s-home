@@ -11,7 +11,6 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: home
-  wait: false
   interval: 1h
   postBuild:
     substitute:
@@ -29,7 +28,6 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: home
-  wait: false
   interval: 1h
   postBuild:
     substitute:

@@ -18,7 +18,6 @@ spec:
     namespace: flux-system
   targetNamespace: media
   prune: true
-  wait: false
   interval: 1h
   postBuild:
     substitute:
