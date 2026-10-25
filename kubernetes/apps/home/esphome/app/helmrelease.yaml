@@ -55,7 +55,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 6052
+            port: 6052
 
     route:
       app:
@@ -64,10 +64,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"

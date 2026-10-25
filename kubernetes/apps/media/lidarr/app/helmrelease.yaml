@@ -80,10 +80,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
@@ -97,5 +93,3 @@ spec:
         type: nfs
         server: nas.jonandlinz.com
         path: /mnt/rustpool/media_server
-        globalMounts:
-          - path: /media

@@ -82,7 +82,6 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: 80
     persistence:
       config-file:
         type: secret
@@ -92,5 +91,3 @@ spec:
             subPath: go2rtc.yaml
       state:
         type: emptyDir
-        globalMounts:
-          - path: /state

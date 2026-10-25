@@ -74,7 +74,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 443
+            port: 443
           stream:
             port: 8098
 
@@ -85,10 +85,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
 
     persistence:
       data:
@@ -106,7 +102,5 @@ spec:
         type: nfs
         server: nas.jonandlinz.com
         path: /mnt/rustpool/media_server/media/music
-        globalMounts:
-          - path: /music
       tmp:
         type: emptyDir

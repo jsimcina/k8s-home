@@ -41,9 +41,6 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-                spec:
-                  periodSeconds: 10
-                  failureThreshold: 3
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -73,21 +70,15 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       assets:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /romm/assets
-            readOnly: false
       resources:
         existingClaim: "{{ .Release.Name }}-resources"
         globalMounts:
           - path: /romm/resources
-            readOnly: false
       config:
         type: configMap
         name: "{{ .Release.Name }}-config"
@@ -102,5 +93,3 @@ spec:
           - path: /romm/library
       tmp:
         type: emptyDir
-        globalMounts:
-          - path: /tmp

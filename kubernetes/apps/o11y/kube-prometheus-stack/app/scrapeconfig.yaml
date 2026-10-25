@@ -8,7 +8,6 @@ spec:
   staticConfigs:
     - targets:
         - nas.jonandlinz.com:9002
-  metricsPath: /metrics
   relabelings:
     - action: replace
       targetLabel: job
@@ -25,7 +24,6 @@ spec:
         - nas.jonandlinz.com:9100
         - pikvm.jonandlinz.com:9100
         - matter-server.jonandlinz.com:9100
-  metricsPath: /metrics
   relabelings:
     - action: replace
       targetLabel: job
@@ -41,7 +39,6 @@ spec:
     - targets:
         - nas.jonandlinz.com:9633
         - matter-server.jonandlinz.com:9633
-  metricsPath: /metrics
   relabelings:
     - action: replace
       targetLabel: job

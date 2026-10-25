@@ -118,7 +118,6 @@ spec:
         server: nas.jonandlinz.com
         path: /mnt/rustpool/media_server/media
         globalMounts:
-          - path: /media
-            readOnly: true
+          - readOnly: true
       tmp:
         type: emptyDir

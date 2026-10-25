@@ -99,14 +99,11 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: *port
 
     persistence:
       config:
         enabled: true
         existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - path: /config
       media:
         type: nfs
         server: "nas.jonandlinz.com"

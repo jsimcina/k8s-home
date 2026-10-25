@@ -68,7 +68,7 @@ spec:
       app:
         ports:
           http:
-            port: &port 8056
+            port: 8056
     route:
       app:
         hostnames:
@@ -76,16 +76,8 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       data:
         type: emptyDir
-        globalMounts:
-          - path: /data
       tmp:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
