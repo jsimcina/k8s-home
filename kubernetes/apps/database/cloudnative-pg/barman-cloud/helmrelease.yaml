@@ -16,4 +16,4 @@ spec:
     keepHistory: false
   values:
     certificate:
-      rewnewBefore: 720h # 30 days
+      renewBefore: 720h # 30 days
