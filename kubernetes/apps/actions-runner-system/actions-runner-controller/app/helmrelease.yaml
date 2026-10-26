@@ -11,4 +11,3 @@ spec:
   interval: 1h
   values:
     fullnameOverride: *name
-    replicaCount: 1

@@ -21,7 +21,6 @@ spec:
         - helm-controller
         - notification-controller
       sync:
-        kind: GitRepository
         url: https://github.com/jsimcina/k8s-home
         ref: refs/heads/main
         path: kubernetes/apps

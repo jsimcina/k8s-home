@@ -75,7 +75,6 @@ spec:
                 memory: 128Mi
     drivers:
       rbd:
-        enabled: true
         name: rook-ceph.rbd.csi.ceph.com
         # Chart default is "none", which disables the csi-snapshotter sidecar
         # entirely - must match cephfs below to keep RBD-backed snapshots working.
@@ -83,7 +82,6 @@ spec:
         controllerPlugin:
           replicas: 2
       cephfs:
-        enabled: true
         name: rook-ceph.cephfs.csi.ceph.com
         snapshotPolicy: volumeGroupSnapshot
         controllerPlugin:
