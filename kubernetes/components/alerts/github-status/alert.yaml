@@ -7,7 +7,6 @@ metadata:
 spec:
   providerRef:
     name: github-status
-  eventSeverity: info
   eventSources:
     - kind: Kustomization
       name: "*"

@@ -9,8 +9,7 @@ spec:
     - targets:
         - nas.jonandlinz.com:9002
   relabelings:
-    - action: replace
-      targetLabel: job
+    - targetLabel: job
       replacement: garage
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/scrapeconfig_v1alpha1.json
@@ -25,8 +24,7 @@ spec:
         - pikvm.jonandlinz.com:9100
         - matter-server.jonandlinz.com:9100
   relabelings:
-    - action: replace
-      targetLabel: job
+    - targetLabel: job
       replacement: node-exporter
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/scrapeconfig_v1alpha1.json
@@ -40,8 +38,7 @@ spec:
         - nas.jonandlinz.com:9633
         - matter-server.jonandlinz.com:9633
   relabelings:
-    - action: replace
-      targetLabel: job
+    - targetLabel: job
       replacement: smartctl-exporter
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/scrapeconfig_v1alpha1.json
@@ -55,6 +52,5 @@ spec:
         - pikvm.jonandlinz.com
   metricsPath: /api/export/prometheus/metrics
   relabelings:
-    - action: replace
-      targetLabel: job
+    - targetLabel: job
       replacement: pikvm
