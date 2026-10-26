@@ -74,8 +74,7 @@ This Git repository contains the following directories:
 📁 bootstrap      # Bootstrapping Scripts and resources
 📁 kubernetes
 ├── 📁 apps       # applications
-├── 📁 components # re-useable kustomize components
-└── 📁 flux       # flux system configuration
+└── 📁 components # re-useable kustomize components
 📁 talos          # general talos node configuration
 └── 📁 nodes      # specific talos node configuration
 ```
