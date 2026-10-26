@@ -24,8 +24,7 @@ spec:
     major: 18
     name: postgresql-standard-trixie
   plugins:
-    - enabled: true
-      isWALArchiver: true
+    - isWALArchiver: true
       name: barman-cloud.cloudnative-pg.io
       parameters: &barmanParameters
         barmanObjectName: cfr2
@@ -43,7 +42,6 @@ spec:
           - /usr/share/postgresql/18/
     shared_preload_libraries:
       - "vchord.so"
-  primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
   resources:
     requests:
@@ -63,7 +61,6 @@ spec:
   externalClusters:
     - name: postgres18-v1
       plugin:
-        enabled: true
         isWALArchiver: true
         name: barman-cloud.cloudnative-pg.io
         parameters:
