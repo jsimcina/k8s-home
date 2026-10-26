@@ -31,7 +31,7 @@ spec:
               # ("check_hostname requires server_hostname"), so Lutron Caseta
               # can't connect. Upgrade once a release ships the fix:
               # gurumitts/pylutron-caseta#217 / #218.
-              tag: 2026.10.0
+              tag: 2026.10.4
             env:
               TZ: America/Chicago
             envFrom:
