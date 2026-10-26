@@ -49,7 +49,6 @@ spec:
               UN_RADARR_0_TIMEOUT: 10s
               UN_RADARR_0_DELETE_ORIG: true
               UN_RADARR_0_DELETE_DELAY: 5m
-              UN_WEBHOOK_0_URL: https://notifiarr.com/api/v1/notification/unpackerr/ff4b108c-2866-4028-b045-e35eafb4050e
               UN_WEBHOOK_0_NAME: Notifiarr
               UN_WEBHOOK_0_NICKNAME: Unpackerr
               UN_WEBHOOK_0_SILENT: false
