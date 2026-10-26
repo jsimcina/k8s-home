@@ -9,4 +9,5 @@ components:
 
 resources:
   - ./namespace.yaml
+  - ./talos-backup/ks.yaml
   - ./tuppr/ks.yaml

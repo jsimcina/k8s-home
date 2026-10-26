@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: talos-backup
+spec:
+  groups:
+    - name: talos-backup.rules
+      rules:
+        - alert: TalosBackupStale
+          expr: |-
+            time() - kube_cronjob_status_last_successful_time{namespace="system-upgrade", cronjob="talos-backup"} > 86400
+          for: 15m
+          annotations:
+            summary: >-
+              The etcd backup has not succeeded for over 24 hours (it runs every 6 hours)
+          labels:
+            severity: critical
+        - alert: TalosBackupNeverSucceeded
+          expr: |-
+            absent(kube_cronjob_status_last_successful_time{namespace="system-upgrade", cronjob="talos-backup"})
+          for: 12h
+          annotations:
+            summary: >-
+              The etcd backup CronJob has no successful run on record
+          labels:
+            severity: critical
