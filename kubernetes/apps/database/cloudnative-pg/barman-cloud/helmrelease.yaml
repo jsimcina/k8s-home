@@ -8,12 +8,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: plugin-barman-cloud
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
-  uninstall:
-    keepHistory: false
   values:
     certificate:
       renewBefore: 720h # 30 days
