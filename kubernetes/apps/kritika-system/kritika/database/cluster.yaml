@@ -26,9 +26,7 @@ spec:
       method: any
       number: 1
       dataDurability: preferred
-  primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
-  enableSuperuserAccess: false
   affinity:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname
@@ -52,6 +50,5 @@ spec:
   bootstrap:
     initdb:
       database: kritika
-      owner: kritika
       secret:
         name: kritika-postgres-credentials
