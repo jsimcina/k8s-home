@@ -7,30 +7,7 @@ machine:
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     rbac: true
-  # KubeletConfig document is all-or-nothing: any value here conflicts with it
-  # (V1Alpha1ConflictValidate in pkg/machinery/config/types/k8s/kubelet.go).
-  # ExtraMounts has no new-document equivalent yet (hardcoded nil there), so
-  # the whole kubelet block stays old-style until Talos adds one.
-  kubelet:
-    defaultRuntimeSeccompProfileEnabled: true
-    disableManifestsDirectory: true
-    extraConfig:
-      serializeImagePulls: false
-      maxParallelImagePulls: 3
-      crashLoopBackOff:
-        maxContainerRestartPeriod: 60s
-      imageMaximumGCAge: 720h
-      imageGCHighThresholdPercent: 65
-      imageGCLowThresholdPercent: 40
-      shutdownGracePeriod: 90s
-      shutdownGracePeriodCriticalPods: 60s
-    image: ghcr.io/siderolabs/kubelet:v1.37.1
   token: op://kubernetes/talos/MACHINE_TOKEN
-  time:
-    disabled: false
-    servers:
-      - 10.0.20.3
-      - 162.159.200.1
 cluster:
   ca:
     crt: op://kubernetes/talos/CLUSTER_CA_CRT
@@ -96,6 +73,13 @@ hostDNS:
   enabled: true
   forwardKubeDNSToHost: true # Requires Cilium socketLB features
   resolveMemberNames: true
+---
+apiVersion: v1alpha1
+kind: TimeSyncConfig
+ntp:
+  servers:
+    - 10.0.20.3
+    - 162.159.200.1
 ---
 apiVersion: v1alpha1
 kind: DiscoveryServiceConfig
@@ -218,6 +202,23 @@ labels:
   servertype: physical
   hwtranscoding: "true"
   servermodel: MS-01
+---
+apiVersion: v1alpha1
+kind: KubeletConfig
+# The document always disables the static pod manifests directory, which is what
+# `disableManifestsDirectory: true` set before.
+config:
+  serializeImagePulls: false
+  maxParallelImagePulls: 3
+  crashLoopBackOff:
+    maxContainerRestartPeriod: 60s
+  imageMaximumGCAge: 720h
+  imageGCHighThresholdPercent: 65
+  imageGCLowThresholdPercent: 40
+  shutdownGracePeriod: 90s
+  shutdownGracePeriodCriticalPods: 60s
+defaultRuntimeSeccompProfileEnabled: true
+image: ghcr.io/siderolabs/kubelet:v1.37.1
 ---
 apiVersion: v1alpha1
 kind: KubeNetworkConfig
