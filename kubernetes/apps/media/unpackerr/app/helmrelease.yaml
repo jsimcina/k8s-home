@@ -26,6 +26,9 @@ spec:
               UN_WEBSERVER_METRICS: true
               UN_WEBSERVER_LISTEN_ADDR: 0.0.0.0:80
               UN_WEBSERVER_LOG_FILE: /logs/webserver.log
+              UN_WEBSERVER_ROLES_metrics_PERMISSIONS_0: system:metrics:read
+              UN_WEBSERVER_API_KEYS_0_NAME: prometheus
+              UN_WEBSERVER_API_KEYS_0_ROLES_0: metrics
               UN_ACTIVITY: true
               UN_LIDARR_0_URL: http://lidarr.media.svc.cluster.local
               UN_LIDARR_0_PATHS_0: '/media/torrents/'
@@ -86,6 +89,11 @@ spec:
       app:
         endpoints:
           - port: http
+            authorization:
+              type: Bearer
+              credentials:
+                name: unpackerr-secret
+                key: UN_WEBSERVER_API_KEYS_0_KEY
     persistence:
       logs:
         type: emptyDir
