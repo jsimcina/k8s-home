@@ -28,9 +28,9 @@ spec:
         limits:
           memory: 1Gi
       metrics:
-        prometheus:
-          serviceMonitor:
-            enabled: true
+        enabled: true
+        serviceMonitor:
+          enabled: true
       route:
         main:
           enabled: true
