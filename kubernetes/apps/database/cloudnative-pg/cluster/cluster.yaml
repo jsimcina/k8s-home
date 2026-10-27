@@ -32,6 +32,7 @@ spec:
   postgresql:
     parameters:
       max_connections: "600"
+      wal_compression: lz4
     extensions:
       - name: vchord
         image:

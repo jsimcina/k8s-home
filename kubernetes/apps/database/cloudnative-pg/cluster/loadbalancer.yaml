@@ -9,6 +9,11 @@ metadata:
   annotations:
     lbipam.cilium.io/ips: 10.12.0.225
     external-dns.kubernetes.io/hostname: cnpgsql.jonandlinz.io
+    gatus.home-operations.com/endpoint: |-
+      group: services
+      ui:
+        hide-hostname: true
+        hide-url: true
 spec:
   type: LoadBalancer
   ports:
