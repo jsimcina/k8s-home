@@ -244,8 +244,8 @@ Apply it, then confirm the drill cluster is not set up to archive. This is
 cheap, and it is the one thing that could hurt the live archive:
 
 ```bash
-kubectl get cluster postgres-restore -n database   -o jsonpath='plugins={.spec.plugins} backup={.spec.backup}{"
-"}'
+kubectl get cluster postgres-restore -n database \
+  -o jsonpath='plugins={.spec.plugins} backup={.spec.backup}{"\n"}'
 ```
 
 Both must be empty: `plugins= backup=`. If either is set, delete
