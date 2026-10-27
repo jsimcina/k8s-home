@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./autobrr.yaml
+  - ./bazarr.yaml
+  - ./dashbrr.yaml
+  - ./home-assistant.yaml
+  - ./immich.yaml
+  - ./lidarr.yaml
+  - ./manyfold.yaml
+  - ./paperless-ngx.yaml
+  - ./pinepods.yaml
+  - ./prowlarr.yaml
+  - ./radarr.yaml
+  - ./romm.yaml
+  - ./seerr.yaml
+  - ./sonarr.yaml
+  - ./vikunja.yaml

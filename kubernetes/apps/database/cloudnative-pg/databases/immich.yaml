@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: immich-postgres
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: immich-postgres-credentials
+    template:
+      type: kubernetes.io/basic-auth
+      data:
+        username: immich_db
+        password: "{{ .IMMICH_POSTGRES_PASS }}"
+  dataFrom:
+    - extract:
+        key: immich
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/databaserole_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: immich
+spec:
+  cluster:
+    name: postgres
+  name: immich_db
+  login: true
+  passwordSecret:
+    name: immich-postgres-credentials
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: immich
+spec:
+  cluster:
+    name: postgres
+  name: immich
+  owner: immich_db
