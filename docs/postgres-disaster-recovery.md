@@ -240,15 +240,23 @@ Three things that matter:
 - **Keep the `vchord` extension block.** Without it, databases that use it
   (Immich) restore but fail when queried.
 
-Apply it, then check that the drill cluster is not archiving. This is cheap
-and it is the one thing that could hurt the live archive:
+Apply it, then confirm the drill cluster is not set up to archive. This is
+cheap, and it is the one thing that could hurt the live archive:
 
 ```bash
-kubectl cnpg psql postgres-restore -n database -- -c "SHOW archive_command;"
+kubectl get cluster postgres-restore -n database   -o jsonpath='plugins={.spec.plugins} backup={.spec.backup}{"
+"}'
 ```
 
-The result should not mention `barman-cloud` or `wal-archive`. If it does, delete
+Both must be empty: `plugins= backup=`. If either is set, delete
 `postgres-restore` immediately.
+
+Don't use `SHOW archive_command;` for this. CloudNativePG sets `archive_command`
+to `/controller/manager wal-archive …` on every cluster, so it always mentions
+`wal-archive`. Whether anything is uploaded is decided inside that command: with
+no archiver plugin in `spec.plugins` and no `spec.backup.barmanObjectStore` it
+returns without uploading (`archiver.Run`). That skip is logged at debug level,
+so the default logs won't show it either.
 
 ```bash
 kubectl cnpg status postgres-restore -n database
