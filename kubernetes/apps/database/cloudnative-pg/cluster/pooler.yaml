@@ -7,10 +7,35 @@ spec:
   cluster:
     name: postgres
   instances: 3
+  # Required anti-affinity with as many replicas as nodes leaves no room for a
+  # surge pod, so roll one pod at a time instead.
+  deploymentStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  template:
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  cnpg.io/poolerName: pgbouncer-rw
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: pgbouncer
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              memory: 128Mi
   pgbouncer:
     parameters:
       max_client_conn: "1000"
-      default_pool_size: "100"
+      default_pool_size: "20"
+      max_db_connections: "30"
       server_idle_timeout: "300"
       server_login_retry: "5"
       query_wait_timeout: "5"

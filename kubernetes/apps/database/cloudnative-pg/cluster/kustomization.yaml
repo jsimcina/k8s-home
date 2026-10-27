@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - ./cluster.yaml
   - ./imagecatalogs.yaml
-  - ./loadbalancer.yaml
   - ./objectstore.yaml
   - ./podmonitor.yaml
   - ./pooler.yaml
