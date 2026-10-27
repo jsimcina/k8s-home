@@ -6,6 +6,7 @@ resources:
   - ./autobrr.yaml
   - ./bazarr.yaml
   - ./dashbrr.yaml
+  - ./grafana.yaml
   - ./home-assistant.yaml
   - ./immich.yaml
   - ./lidarr.yaml
