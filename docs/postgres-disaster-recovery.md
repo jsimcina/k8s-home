@@ -223,14 +223,32 @@ spec:
           serverName: postgres18 # the live archive (the current serverName in cluster.yaml)
 ```
 
-Two things that matter:
+Three things that matter:
 
 - **There is no `plugins` section on purpose.** The restore cluster must not
-  archive WAL, or it would write into the real archive.
+  archive WAL, or it would write into the real archive. CloudNativePG chooses
+  the archiver from the cluster's own `spec.plugins` only
+  (`GetEnabledWALArchivePluginName` in `api/v1/cluster_funcs.go` loops over
+  `Spec.Plugins` and never looks at `externalClusters`), so with no `plugins`
+  section there is no WAL archiving.
+- **`isWALArchiver: true` under `externalClusters` is for reading, not writing.**
+  It marks the `origin` plugin entry as the source recovery pulls WAL from (the
+  recovery source plugin comes from `externalClusters` via
+  `GetRecoverySourcePlugin`). It mirrors the entry in `cluster.yaml` that already
+  did a real recovery here, so keep it; don't copy the plugin example from the
+  barman-cloud docs without it unless you test that WAL replay still works.
 - **Keep the `vchord` extension block.** Without it, databases that use it
   (Immich) restore but fail when queried.
 
-Apply it, then:
+Apply it, then check that the drill cluster is not archiving. This is cheap
+and it is the one thing that could hurt the live archive:
+
+```bash
+kubectl cnpg psql postgres-restore -n database -- -c "SHOW archive_command;"
+```
+
+The result should not mention `barman-cloud` or `wal-archive`. If it does, delete
+`postgres-restore` immediately.
 
 ```bash
 kubectl cnpg status postgres-restore -n database
