@@ -143,7 +143,7 @@ kubectl delete pvc miroir-smoke-test -n default
 1. Optional but recommended - stop Flux from fighting you mid-teardown:
 
     ```bash
-    flux suspend kustomization cloudnative-pg-cluster -n flux-system
+    flux suspend kustomization cloudnative-pg-cluster -n database
     ```
 
 2. Delete the `Cluster`. This tears down the instances; CNPG owns the
@@ -205,7 +205,7 @@ Step 3, the live archive.
 Commit, then resume Flux if you suspended it:
 
 ```bash
-flux resume kustomization cloudnative-pg-cluster -n flux-system
+flux resume kustomization cloudnative-pg-cluster -n database
 ```
 
 Watch it come back:

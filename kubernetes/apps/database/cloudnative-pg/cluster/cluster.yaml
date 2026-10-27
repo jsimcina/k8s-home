@@ -73,6 +73,9 @@ spec:
     storageClass: miroir-local
   superuserSecret:
     name: cloudnative-pg-secret
+  # Record of the Miroir migration (restore of the 2026-09-08 backup). It only
+  # applies when this Cluster is created. For disaster recovery follow
+  # docs/postgres-disaster-recovery.md instead of recreating from this block.
   bootstrap:
     recovery:
       source: postgres18-v1
