@@ -1,0 +1,54 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/batch/cronjob_v1.json
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: dinodex-scrape
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 300
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      # Stay under the hourly schedule: with concurrencyPolicy Forbid a hung run
+      # would otherwise block every later one.
+      activeDeadlineSeconds: 3000
+      ttlSecondsAfterFinished: 86400
+      template:
+        spec:
+          automountServiceAccountToken: false
+          restartPolicy: OnFailure
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: scraper
+              image: docker.io/library/alpine:3.24@sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - |
+                  set -eu
+                  apk add --no-cache jq curl
+                  cd /mnt/data
+                  sh dinodexscrape.sh
+              securityContext:
+                allowPrivilegeEscalation: false
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 64Mi
+                limits:
+                  memory: 512Mi
+              volumeMounts:
+                - name: nas-data
+                  mountPath: /mnt/data
+          volumes:
+            - name: nas-data
+              nfs:
+                server: nas.jonandlinz.com
+                path: /mnt/rustpool/k8s_appdata/dinodata
