@@ -47,7 +47,6 @@ spec:
         securityContext:
           fsGroup: 1001
           fsGroupChangePolicy: OnRootMismatch
-        serviceAccountName: *name
         volumes:
           - name: talos
             secret:
