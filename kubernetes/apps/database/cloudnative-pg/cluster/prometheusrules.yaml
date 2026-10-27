@@ -22,11 +22,11 @@ spec:
             severity: warning
         - alert: BackendsWaiting
           annotations:
-            description: Pod {{ $labels.pod }} has been waiting for longer than 5 minutes
-            summary: If a backend is waiting for longer than 5 minutes
+            description: Pod {{ $labels.pod }} has had backends waiting on a lock for over 5 minutes
+            summary: Backends have been waiting for over 5 minutes
           expr: |-
-            cnpg_backends_waiting_total > 300
-          for: 1m
+            cnpg_backends_waiting_total > 0
+          for: 5m
           labels:
             severity: warning
         - alert: PGDatabase
@@ -58,10 +58,10 @@ spec:
             severity: warning
         - alert: DatabaseDeadlockConflicts
           annotations:
-            description: There are over 10 deadlock conflicts in {{ $labels.pod }}
-            summary: Checks the number of database conflicts
+            description: There were over 10 deadlocks in the last hour in database {{ $labels.datname }} on {{ $labels.pod }}
+            summary: Checks the number of deadlocks
           expr: |-
-            cnpg_pg_stat_database_deadlocks > 10
+            increase(cnpg_pg_stat_database_deadlocks[1h]) > 10
           for: 1m
           labels:
             severity: warning

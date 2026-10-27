@@ -61,6 +61,7 @@ metadata:
 spec:
   dependsOn:
     - name: cloudnative-pg
+    - name: cloudnative-pg-barman-cloud
     - name: miroir-config
       namespace: miroir-system
   healthCheckExprs:
