@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: prowlarr-postgres
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: prowlarr-postgres-credentials
+    template:
+      type: kubernetes.io/basic-auth
+      data:
+        username: prowlarr_db
+        password: "{{ .PROWLARR_POSTGRES_PASSWORD }}"
+  dataFrom:
+    - extract:
+        key: prowlarr
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/databaserole_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: prowlarr
+spec:
+  cluster:
+    name: postgres
+  name: prowlarr_db
+  login: true
+  passwordSecret:
+    name: prowlarr-postgres-credentials
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: prowlarr
+spec:
+  cluster:
+    name: postgres
+  name: prowlarr_main
+  owner: prowlarr_db

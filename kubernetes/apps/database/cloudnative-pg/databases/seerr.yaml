@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: seerr-postgres
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: seerr-postgres-credentials
+    template:
+      type: kubernetes.io/basic-auth
+      data:
+        username: seerr_db
+        password: "{{ .SEERR_POSTGRES_PASSWORD }}"
+  dataFrom:
+    - extract:
+        key: seerr
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/databaserole_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: seerr
+spec:
+  cluster:
+    name: postgres
+  name: seerr_db
+  login: true
+  passwordSecret:
+    name: seerr-postgres-credentials
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: seerr
+spec:
+  cluster:
+    name: postgres
+  name: seerr
+  owner: seerr_db

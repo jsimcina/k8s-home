@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: manyfold-postgres
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: manyfold-postgres-credentials
+    template:
+      type: kubernetes.io/basic-auth
+      data:
+        username: manyfold_db
+        password: "{{ .DATABASE_PASSWORD }}"
+  dataFrom:
+    - extract:
+        key: manyfold
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/databaserole_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: manyfold
+spec:
+  cluster:
+    name: postgres
+  name: manyfold_db
+  login: true
+  passwordSecret:
+    name: manyfold-postgres-credentials
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: manyfold
+spec:
+  cluster:
+    name: postgres
+  name: manyfold
+  owner: manyfold_db

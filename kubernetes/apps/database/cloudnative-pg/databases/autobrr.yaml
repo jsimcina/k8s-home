@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: autobrr-postgres
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: autobrr-postgres-credentials
+    template:
+      type: kubernetes.io/basic-auth
+      data:
+        username: autobrr_db
+        password: "{{ .AUTOBRR_POSTGRES_PASS }}"
+  dataFrom:
+    - extract:
+        key: autobrr
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/databaserole_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: autobrr
+spec:
+  cluster:
+    name: postgres
+  name: autobrr_db
+  login: true
+  passwordSecret:
+    name: autobrr-postgres-credentials
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: autobrr
+spec:
+  cluster:
+    name: postgres
+  name: autobrr
+  owner: autobrr_db
