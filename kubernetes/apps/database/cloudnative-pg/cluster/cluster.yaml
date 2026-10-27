@@ -17,6 +17,23 @@ spec:
                 operator: Exists
           topologyKey: "kubernetes.io/hostname"
   enableSuperuserAccess: true
+  managed:
+    services:
+      additional:
+        - selectorType: rw
+          serviceTemplate:
+            metadata:
+              name: postgres-loadbalancer
+              annotations:
+                external-dns.kubernetes.io/hostname: cnpgsql.jonandlinz.io
+                gatus.home-operations.com/endpoint: |-
+                  group: services
+                  ui:
+                    hide-hostname: true
+                    hide-url: true
+                lbipam.cilium.io/ips: 10.12.0.225
+            spec:
+              type: LoadBalancer
   instances: 3
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
@@ -32,6 +49,7 @@ spec:
   postgresql:
     parameters:
       max_connections: "600"
+      shared_buffers: 512MB
       wal_compression: lz4
     extensions:
       - name: vchord
@@ -47,8 +65,9 @@ spec:
   resources:
     requests:
       cpu: 500m
+      memory: 1Gi
     limits:
-      memory: 8Gi
+      memory: 3Gi
   storage:
     size: 25Gi
     storageClass: miroir-local
