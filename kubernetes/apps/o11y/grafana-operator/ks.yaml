@@ -22,6 +22,8 @@ metadata:
   name: grafana-instance
 spec:
   dependsOn:
+    - name: cloudnative-pg-databases
+      namespace: database
     - name: grafana-operator
       namespace: o11y
     - name: rook-ceph-cluster
