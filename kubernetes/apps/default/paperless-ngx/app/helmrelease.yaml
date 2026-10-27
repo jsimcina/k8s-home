@@ -16,14 +16,6 @@ spec:
           reloader.stakater.com/auto: "true"
         labels:
           nfsMount: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-            envFrom: &envFrom
-              - secretRef:
-                  name: paperlessngx-secret
         containers:
           app:
             image:
@@ -52,7 +44,9 @@ spec:
               #OCR Config
               PAPERLESS_OCR_LANGUAGE: eng
               PAPERLESS_OCR_LANGUAGES: eng
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: paperlessngx-secret
             probes:
               liveness:
                 enabled: true

@@ -16,14 +16,6 @@ spec:
           reloader.stakater.com/auto: "true"
         labels:
           nfsMount: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-            envFrom: &envFrom
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
         containers:
           app:
             image:
@@ -33,7 +25,9 @@ spec:
               TZ: America/Chicago
               romm__PORT: &port 8080
               WEB_SERVER_CONCURRENCY: 2
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: false

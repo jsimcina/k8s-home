@@ -21,14 +21,6 @@ spec:
           reloader.stakater.com/auto: "true"
         labels:
           nfsMount: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-            envFrom: &envFrom
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
         containers:
           dashbrr:
             image:
@@ -41,7 +33,9 @@ spec:
               DASHBRR__LISTEN_ADDR: 0.0.0.0:80
               GIN_MODE: debug
               TZ: America/Chicago
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
