@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: authentik-postgres
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: authentik-postgres-credentials
+    template:
+      type: kubernetes.io/basic-auth
+      data:
+        username: authentik_db
+        password: "{{ .AUTHENTIK_POSTGRESQL__PASSWORD }}"
+  dataFrom:
+    - extract:
+        key: authentik
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/databaserole_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: authentik
+spec:
+  cluster:
+    name: postgres
+  name: authentik_db
+  login: true
+  passwordSecret:
+    name: authentik-postgres-credentials
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: authentik
+spec:
+  cluster:
+    name: postgres
+  name: authentik
+  owner: authentik_db
