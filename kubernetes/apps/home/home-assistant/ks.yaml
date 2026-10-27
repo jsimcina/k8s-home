@@ -10,7 +10,7 @@ spec:
   dependsOn:
     - name: multus-networks
       namespace: kube-system
-    - name: cloudnative-pg-cluster
+    - name: cloudnative-pg-databases
       namespace: database
     - name: rook-ceph-cluster
       namespace: rook-ceph

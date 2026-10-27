@@ -12,14 +12,6 @@ spec:
   values:
     controllers:
       home-assistant:
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-            envFrom:
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

@@ -14,14 +14,6 @@ spec:
       vikunja:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-            envFrom: &envFrom
-              - secretRef:
-                  name: vikunja-secret
         containers:
           app:
             image:
@@ -54,7 +46,9 @@ spec:
 
               # postgres
               VIKUNJA_DATABASE_TYPE: postgres
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: vikunja-secret
             probes:
               liveness: &probes
                 enabled: true
