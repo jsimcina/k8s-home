@@ -223,14 +223,40 @@ spec:
           serverName: postgres18 # the live archive (the current serverName in cluster.yaml)
 ```
 
-Two things that matter:
+Three things that matter:
 
 - **There is no `plugins` section on purpose.** The restore cluster must not
-  archive WAL, or it would write into the real archive.
+  archive WAL, or it would write into the real archive. CloudNativePG chooses
+  the archiver from the cluster's own `spec.plugins` only
+  (`GetEnabledWALArchivePluginName` in `api/v1/cluster_funcs.go` loops over
+  `Spec.Plugins` and never looks at `externalClusters`), so with no `plugins`
+  section there is no WAL archiving.
+- **`isWALArchiver: true` under `externalClusters` is for reading, not writing.**
+  It marks the `origin` plugin entry as the source recovery pulls WAL from (the
+  recovery source plugin comes from `externalClusters` via
+  `GetRecoverySourcePlugin`). It mirrors the entry in `cluster.yaml` that already
+  did a real recovery here, so keep it; don't copy the plugin example from the
+  barman-cloud docs without it unless you test that WAL replay still works.
 - **Keep the `vchord` extension block.** Without it, databases that use it
   (Immich) restore but fail when queried.
 
-Apply it, then:
+Apply it, then confirm the drill cluster is not set up to archive. This is
+cheap, and it is the one thing that could hurt the live archive:
+
+```bash
+kubectl get cluster postgres-restore -n database \
+  -o jsonpath='plugins={.spec.plugins} backup={.spec.backup}{"\n"}'
+```
+
+Both must be empty: `plugins= backup=`. If either is set, delete
+`postgres-restore` immediately.
+
+Don't use `SHOW archive_command;` for this. CloudNativePG sets `archive_command`
+to `/controller/manager wal-archive …` on every cluster, so it always mentions
+`wal-archive`. Whether anything is uploaded is decided inside that command: with
+no archiver plugin in `spec.plugins` and no `spec.backup.barmanObjectStore` it
+returns without uploading (`archiver.Run`). That skip is logged at debug level,
+so the default logs won't show it either.
 
 ```bash
 kubectl cnpg status postgres-restore -n database
