@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/external-secrets.io/externalsecret_v1.json
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: dashbrr-postgres
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: dashbrr-postgres-credentials
+    template:
+      type: kubernetes.io/basic-auth
+      data:
+        username: dashbrr_db
+        password: "{{ .DASHBRR_POSTGRES_PASSWORD }}"
+  dataFrom:
+    - extract:
+        key: dashbrr
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/databaserole_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: dashbrr
+spec:
+  cluster:
+    name: postgres
+  name: dashbrr_db
+  login: true
+  passwordSecret:
+    name: dashbrr-postgres-credentials
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: dashbrr
+spec:
+  cluster:
+    name: postgres
+  name: dashbrr
+  owner: dashbrr_db
