@@ -7,6 +7,13 @@ spec:
   cluster:
     name: postgres
   instances: 3
+  # Required anti-affinity with as many replicas as nodes leaves no room for a
+  # surge pod, so roll one pod at a time instead.
+  deploymentStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
   template:
     spec:
       affinity:
