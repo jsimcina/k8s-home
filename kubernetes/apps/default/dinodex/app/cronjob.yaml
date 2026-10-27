@@ -22,22 +22,23 @@ spec:
           automountServiceAccountToken: false
           restartPolicy: OnFailure
           securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
             seccompProfile:
               type: RuntimeDefault
           containers:
             - name: scraper
-              image: docker.io/library/alpine:3.24@sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a
+              # Same image as the app: it already has bash, curl and jq baked in.
+              image: ghcr.io/jsimcina/dinodex-to-discord:e85247e@sha256:b1f18a0d73dd64077c1b49b0ca0be0b661783a0de69c3cf45b7990a3cf317717
               command:
                 - /bin/sh
-                - -c
-              args:
-                - |
-                  set -eu
-                  apk add --no-cache jq curl
-                  cd /mnt/data
-                  sh dinodexscrape.sh
+                - dinodexscrape.sh
+              workingDir: /mnt/data
               securityContext:
                 allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities: { drop: ["ALL"] }
               resources:
                 requests:
                   cpu: 10m
@@ -47,7 +48,12 @@ spec:
               volumeMounts:
                 - name: nas-data
                   mountPath: /mnt/data
+                - name: tmp
+                  mountPath: /tmp
           volumes:
+            - name: tmp
+              emptyDir:
+                sizeLimit: 128Mi
             - name: nas-data
               nfs:
                 server: nas.jonandlinz.com
