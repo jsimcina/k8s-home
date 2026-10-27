@@ -18,9 +18,12 @@ This covers the shared cluster only. Kritika has its own cluster
 | Retention | `30d` |
 | Credentials | `cloudnative-pg-secret`, built by an `ExternalSecret` from the 1Password item `cloudnativepg` (`R2_KEY_ID`, `R2_APP_KEY`, plus the superuser fields) |
 
-RPO is the WAL archive lag, normally a few minutes. RTO is **not measured**:
-restoring about 9 GB of bzip2-compressed backup plus a day of WAL has not been
-timed. Procedure B below doubles as the drill that measures it.
+RPO is the WAL archive lag, normally a few minutes. RTO was measured once, in
+the [2026-10-27 drill](#drill-log): a one-instance restore of about 9 GB with WAL
+replay to a point an hour back was healthy in **at most 7.4 minutes**. A full
+rebuild also brings up two replicas and goes through Flux, so plan on more than
+that (roughly 10 to 15 minutes is an estimate, not a measurement). Repeat the
+drill when the data size changes a lot.
 
 Signals that backups are healthy (all from the rules in
 [`prometheusrules.yaml`](../kubernetes/apps/database/cloudnative-pg/cluster/prometheusrules.yaml)):
@@ -140,11 +143,13 @@ delete-and-recover-in-place, the same shape as the
 7. **Validate**, then start a fresh backup on the new archive:
 
     ```bash
-    kubectl cnpg psql postgres -n database -- -c "\dx"
+    kubectl cnpg psql postgres -n database -- -d immich -c "\dx"
     kubectl cnpg psql postgres -n database -- -c "SELECT datname FROM pg_database WHERE NOT datistemplate;"
     ```
 
-    You should see `vchord` and the application databases. The
+    Extensions are per database, so check `\dx` in `immich`; the default
+    `postgres` database only has `plpgsql`. You should see `vchord` and `vector`
+    there, and every application database in the second query. The
     `cloudnative-pg-databases` Kustomization re-adopts the roles and databases
     and re-applies their passwords from 1Password. Pin the backup to the
     primary: without `target: primary` CNPG can send it to a standby and fail
@@ -258,10 +263,25 @@ no archiver plugin in `spec.plugins` and no `spec.backup.barmanObjectStore` it
 returns without uploading (`archiver.Run`). That skip is logged at debug level,
 so the default logs won't show it either.
 
+Then check the restore. These are the checks the 2026-10-27 drill used:
+
 ```bash
-kubectl cnpg status postgres-restore -n database
-kubectl cnpg psql postgres-restore -n database -- -d <database> -c "SELECT count(*) FROM <table>;"
+kubectl get cluster postgres-restore -n database
 ```
+
+- **Databases are all there:**
+  `kubectl exec -n database postgres-restore-1 -c postgres -- psql -c "SELECT datname FROM pg_database WHERE NOT datistemplate ORDER BY 1;"`
+- **Extensions are per database.** The default `postgres` database only has
+  `plpgsql`, so a bare `\dx` proves nothing. Check Immich's:
+  `kubectl exec -n database postgres-restore-1 -c postgres -- psql -d immich -c "\dx"`
+  should list `vchord` and `vector`.
+- **Data matches, for a table that rarely changes.** Compare a row count on both
+  clusters, e.g. Sonarr's `"Series"` table in `sonarr_main`.
+- **Recovery stopped at the target.** Home Assistant writes constantly, so its
+  newest state row marks where replay ended. Run on both clusters
+  (`-d homeass`): the restored one should end just before your `targetTime`,
+  the live one at about now:
+  `SELECT max(to_timestamp(last_updated_ts)) FROM states;`
 
 To pull data back into production, use `pg_dump` from `postgres-restore` and
 load it into `postgres-rw`. When done:
@@ -270,10 +290,30 @@ load it into `postgres-rw`. When done:
 kubectl delete cluster postgres-restore -n database
 ```
 
-**As a drill:** note the time between applying the manifest and
-`Cluster in healthy state`. That is your measured RTO for the data size at that
-moment. Do it once now and again whenever the data size changes a lot, and
-write the number here.
+**As a drill:** time it. Set the clock and a target an hour back before
+applying the manifest, then read the elapsed time once the cluster is healthy:
+
+```bash
+START=$(date -u +%s)
+T=$(date -u -d '1 hour ago' '+%Y-%m-%d %H:%M:%S+00')   # use as targetTime
+# ... apply the manifest with targetTime "$T" ...
+kubectl get cluster postgres-restore -n database
+echo "restore took $(( $(date -u +%s) - START )) seconds"
+```
+
+That is your measured RTO for the data size at that moment. It is an upper
+bound, since it includes the delay before you run the last command. Repeat the
+drill whenever the data size changes a lot, and add a row below.
+
+## Drill log
+
+| Date | What | Result |
+| --- | --- | --- |
+| 2026-10-27 | Procedure B, one instance, `targetTime` one hour back, from the live `postgres18` archive (about 9 GB) | Healthy in at most **446 s (7.4 min)**. All 19 databases present. `vchord` 1.1.1 and `vector` installed in `immich`. A Sonarr table matched the live row count (35). Home Assistant's newest state row ended at 20:46:14 UTC against 21:56:14 on the live cluster, so recovery stopped within seconds of the target. The spec check showed `plugins= backup=` (no archiver). |
+
+Not covered by that drill: whether `isWALArchiver: true` on the external entry is
+strictly required (it was present), and Procedure A (full rebuild with the
+`serverName` rotation), which is still untested end to end.
 
 ## Known sharp edge
 
