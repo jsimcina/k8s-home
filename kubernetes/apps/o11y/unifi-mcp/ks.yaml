@@ -6,7 +6,7 @@ metadata:
   name: unifi-mcp
 spec:
   interval: 1h
-  path: ./kubernetes/apps/network/unifi-mcp/app
+  path: ./kubernetes/apps/o11y/unifi-mcp/app
   postBuild:
     substitute:
       APP: unifi-mcp
@@ -15,4 +15,4 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: network
+  targetNamespace: o11y

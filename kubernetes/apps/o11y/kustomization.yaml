@@ -21,6 +21,7 @@ resources:
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
   - ./tautulli/ks.yaml
+  - ./unifi-mcp/ks.yaml
   - ./unpoller/ks.yaml
   - ./victoria-logs/ks.yaml
   #- ./victoria-metrics/ks.yaml
