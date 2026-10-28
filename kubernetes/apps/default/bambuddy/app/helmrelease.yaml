@@ -20,19 +20,37 @@ spec:
             env:
               PORT: 80
               TZ: America/Chicago
-            # probes:
-            #   liveness: &probes
-            #     enabled: true
-            #     custom: true
-            #     spec:
-            #       httpGet:
-            #         path: /
-            #         port: 8000
-            #       initialDelaySeconds: 0
-            #       periodSeconds: 10
-            #       timeoutSeconds: 1
-            #       failureThreshold: 3
-            #   readiness: *probes
+            probes:
+              # GET /health returns {"status": "healthy"} on $PORT (upstream's own HEALTHCHECK)
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 80
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 80
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 80
+                  periodSeconds: 5
+                  failureThreshold: 30
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
