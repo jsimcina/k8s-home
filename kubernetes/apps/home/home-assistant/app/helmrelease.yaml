@@ -24,6 +24,38 @@ spec:
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
+            probes:
+              # GET /manifest.json returns 200 without auth (/api/ needs a token)
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /manifest.json
+                    port: 8123
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /manifest.json
+                    port: 8123
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              # Startup is ~1m, but upgrades install Python deps first; allow 10m
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /manifest.json
+                    port: 8123
+                  periodSeconds: 10
+                  failureThreshold: 60
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
