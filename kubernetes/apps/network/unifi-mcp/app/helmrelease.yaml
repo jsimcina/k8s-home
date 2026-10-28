@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: unifi-mcp
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: unifi-mcp
+  interval: 1h
+  values:
+    controllers:
+      unifi-mcp:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/sirkirby/unifi-network-mcp
+              tag: 0.41.0@sha256:29d672057ebbaa643630252925341e577480ccfeac5c2628808f173e34f054a9
+            env:
+              HOME: /tmp
+              TZ: America/Chicago
+              UNIFI_MCP_HTTP_ENABLED: "true"
+              UNIFI_MCP_HOST: 0.0.0.0
+              UNIFI_MCP_PORT: &port 3000
+              # Complete Host-header allowlist; a request for any other host gets 421
+              UNIFI_MCP_ALLOWED_HOSTS: localhost,127.0.0.1,unifi-mcp.jonandlinz.io
+              UNIFI_NETWORK_SITE: default
+              # UniFi OS serves a self-signed certificate on the LAN
+              UNIFI_VERIFY_SSL: "false"
+              # Read-only: deny every create, update and delete. Reads need no permission.
+              UNIFI_POLICY_NETWORK_CREATE: "false"
+              UNIFI_POLICY_NETWORK_UPDATE: "false"
+              UNIFI_POLICY_NETWORK_DELETE: "false"
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            # TCP probes: an HTTP probe would get a 401 from the bearer token, and kubelet's
+            # Host header is rejected by the DNS-rebinding protection
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        annotations:
+          # An unauthenticated request must be refused, so 401 means up and enforcing the token
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["[STATUS] == 401"]
+            path: /mcp
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+    persistence:
+      tmp:
+        type: emptyDir
+        sizeLimit: 128Mi
+        globalMounts:
+          - path: /tmp
