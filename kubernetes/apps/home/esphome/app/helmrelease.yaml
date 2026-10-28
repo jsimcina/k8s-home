@@ -37,6 +37,8 @@ spec:
               TZ: America/Chicago
               PLATFORMIO_CORE_DIR: /config/platformio
               PLATFORMIO_GLOBALLIB_DIR: /config/platformio/lib
+              # uv defaults to $HOME/.cache/uv, which is unwritable for uid 1000 (the ESP-IDF python env install fails)
+              UV_CACHE_DIR: /config/.esphome/uv-cache
             probes:
               liveness:
                 enabled: false
