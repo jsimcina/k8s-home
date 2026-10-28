@@ -30,12 +30,13 @@ spec:
               UNIFI_NETWORK_SITE: default
               # UniFi OS serves a self-signed certificate on the LAN
               UNIFI_VERIFY_SSL: "false"
-              # Read-only: deny every create, update and delete. Reads need no permission.
+              # Writes enabled for config cleanup; every mutation still needs a confirmed preview.
+              # Creates are limited to firewall policies. Reads need no permission.
               UNIFI_POLICY_NETWORK_CREATE: "false"
               UNIFI_POLICY_NETWORK_UPDATE: "true"
-              UNIFI_POLICY_NETWORK_DELETE: "false"
+              UNIFI_POLICY_NETWORK_DELETE: "true"
               UNIFI_POLICY_NETWORK_FIREWALL_POLICIES_CREATE: "true"
-              UNIFI_POLICY_NETWORK_NETWORKS_UPDATE: true
+              UNIFI_POLICY_NETWORK_NETWORKS_UPDATE: "true"
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
