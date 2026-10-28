@@ -38,8 +38,6 @@ spec:
     txtPrefix: k8s.main.%{record_type}-
     domainFilters:
       - jonandlinz.io
-      # Temporary: lets policy sync prune the orphaned records from the old cluster; remove once they are gone
-      - jonandlinz.net
     serviceMonitor:
       enabled: true
     podAnnotations:

@@ -41,8 +41,6 @@ spec:
           - name: forward
             parameters: jonandlinz.com 10.12.0.1
           - name: forward
-            parameters: jonandlinz.net 10.12.0.1
-          - name: forward
             # GitHub's CDN-fronted domains occasionally get a stale record
             # cached upstream, causing TLS hostname mismatches (real GitHub
             # cert, wrong vhost) until the local resolver's cache clears.
