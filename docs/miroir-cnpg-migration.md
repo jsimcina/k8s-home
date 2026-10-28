@@ -1,5 +1,10 @@
 # Migrating CNPG off openebs-hostpath onto Miroir
 
+> **Status: completed in September 2026.** The `postgres` cluster now runs on
+> `miroir-local` and archives to `postgres18`. This page is kept as a record of
+> the migration. To restore the cluster, use
+> [postgres-disaster-recovery.md](postgres-disaster-recovery.md).
+
 This is the runbook for moving the `postgres` CloudNativePG cluster from
 `openebs-hostpath` to Miroir's `miroir-local` StorageClass (loopfile
 backend, no dedicated disk).
