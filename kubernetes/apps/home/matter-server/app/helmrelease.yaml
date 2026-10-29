@@ -25,8 +25,9 @@ spec:
               TZ: America/Chicago
               # Image default is /data; set explicitly since the volume is mounted there
               STORAGE_PATH: /data
-              # Websocket only on the pod network; the IoT VLAN has no business reaching it
-              LISTEN_ADDRESS: eth0
+              # Home Assistant's Matter integration can't be reconfigured and points at
+              # ws://10.21.5.10:5580/ws, the Pi's old IoT address, so the websocket must answer on net1
+              LISTEN_ADDRESS: eth0,net1
             args:
               # Matter mDNS and link-local traffic go out the IoT interface, where the
               # devices and Thread border routers are
@@ -65,7 +66,7 @@ spec:
           [{
             "name":"multus-iot-thread",
             "namespace": "kube-system",
-            "ips": ["10.21.5.12/16"],
+            "ips": ["10.21.5.10/16"],
             "mac": "02:4d:54:15:05:0c"
           }]
       securityContext:
