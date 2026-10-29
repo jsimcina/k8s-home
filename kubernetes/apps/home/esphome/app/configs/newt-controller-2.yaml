@@ -1,0 +1,31 @@
+esphome:
+  name: newt-controller-2
+  friendly_name: Newt Controller 2
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret newt_controller_2_api_key
+
+ota:
+  - platform: esphome
+    password: !secret newt_controller_2_ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Newt-Controller-2"
+    password: !secret newt_controller_2_ap_password
+
+captive_portal:

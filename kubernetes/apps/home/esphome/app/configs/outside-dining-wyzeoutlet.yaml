@@ -1,0 +1,9 @@
+substitutions:
+  display_name: "Outdoor Dining Wyze Outlet"
+  device_name: "outdoor-dining-wyzeoutlet"
+  current_res: "0.001"
+  voltage_div: "770"
+
+<<: !include .base-wifi.yaml
+<<: !include .base-mqtt.yaml
+<<: !include .wyzeoutlet-common.yaml

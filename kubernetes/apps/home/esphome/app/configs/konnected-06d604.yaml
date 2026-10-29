@@ -1,0 +1,16 @@
+substitutions:
+  name: konnected-06d604
+  friendly_name: GDO blaQ 06d604
+packages:
+  konnected.garage-door-gdov2-q: github://konnected-io/konnected-esphome/garage-door-GDOv2-Q.yaml@master
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+api:
+  encryption:
+    key: !secret konnected_06d604_api_key
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password

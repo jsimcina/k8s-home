@@ -1,7 +1,7 @@
 ---
 esphome:
-  name: $${device_name}
-  friendly_name: $${display_name}
+  name: ${device_name}
+  friendly_name: ${display_name}
 
 esp32:
   board: esp32dev
@@ -27,7 +27,7 @@ bluetooth_proxy:
 
 switch:
   - platform: gpio
-    name: $${display_name} Relay1
+    name: ${display_name} Relay1
     pin:
       number: GPIO15
       inverted: false
@@ -38,7 +38,7 @@ switch:
     on_turn_off:
       - light.turn_off: relay1_led
   - platform: gpio
-    name: $${display_name} Relay2
+    name: ${display_name} Relay2
     pin:
       number: GPIO32
       inverted: false
@@ -49,7 +49,7 @@ switch:
     on_turn_off:
       - light.turn_off: relay2_led
   - platform: restart
-    name: $${display_name} Restart
+    name: ${display_name} Restart
 
 output:
   - platform: gpio
@@ -77,7 +77,7 @@ sensor:
   - platform: adc
     internal: true
     pin: GPIO34
-    name: "$${display_name} LUX"
+    name: "${display_name} LUX"
     id: lux_sensor
     update_interval: 10s
     attenuation: 11db
@@ -87,20 +87,20 @@ sensor:
       inverted: true
     cf_pin: GPIO27
     cf1_pin: GPIO26
-    current_resistor: $${current_res}
-    voltage_divider: $${voltage_div}
+    current_resistor: ${current_res}
+    voltage_divider: ${voltage_div}
     change_mode_every: 3
     update_interval: 10s
     current:
-      name: "$${display_name} Amps"
+      name: "${display_name} Amps"
       unit_of_measurement: A
       accuracy_decimals: 2
     voltage:
-      name: "$${display_name} Volts"
+      name: "${display_name} Volts"
       unit_of_measurement: V
       accuracy_decimals: 1
     power:
-      name: "$${display_name} Watts"
+      name: "${display_name} Watts"
       unit_of_measurement: W
       accuracy_decimals: 0
       filters:
@@ -119,7 +119,7 @@ binary_sensor:
       number: GPIO18
       mode: INPUT_PULLDOWN
       inverted: True
-    name: $${display_name} Button1
+    name: ${display_name} Button1
     on_press:
       - switch.toggle: relay1
   - platform: gpio
@@ -128,18 +128,18 @@ binary_sensor:
       number: GPIO17
       mode: INPUT_PULLDOWN
       inverted: True
-    name: $${display_name} Button2
+    name: ${display_name} Button2
     on_press:
       - switch.toggle: relay2
   - platform: template
-    name: $${display_name} daylight
+    name: ${display_name} daylight
     device_class: light
     lambda: |-
-        if (id(lux_sensor).state > 2) {
-          return true;
-        } else {
-          return false;
-        }
+      if (id(lux_sensor).state > 2) {
+        return true;
+      } else {
+        return false;
+      }
 
 status_led:
   pin:

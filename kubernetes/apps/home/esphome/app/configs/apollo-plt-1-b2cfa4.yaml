@@ -1,0 +1,16 @@
+substitutions:
+  name: apollo-plt-1-b2cfa4
+  friendly_name: Apollo PLT-1 Gestroi Enclosure
+packages:
+  ApolloAutomation.PLT-1: github://ApolloAutomation/PLT-1/Integrations/ESPHome/PLT-1_Minimal.yaml
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+api:
+  encryption:
+    key: !secret apollo_plt_1_b2cfa4_api_key
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
