@@ -80,7 +80,7 @@ sensor:
     name: "${display_name} LUX"
     id: lux_sensor
     update_interval: 10s
-    attenuation: 11db
+    attenuation: 12db
   - platform: hlw8012
     sel_pin:
       number: GPIO25
