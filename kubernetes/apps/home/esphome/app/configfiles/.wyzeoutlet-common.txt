@@ -99,6 +99,10 @@ sensor:
         - calibrate_linear:
             - 0.0 -> 0.0
             - 134 -> 58
+        # Publish on a 2 W change, or every 5 minutes otherwise
+        - or:
+            - throttle: 300s
+            - delta: 2.0
 
 binary_sensor:
   - platform: gpio
