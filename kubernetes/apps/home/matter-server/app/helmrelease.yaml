@@ -12,9 +12,7 @@ spec:
   values:
     controllers:
       matter-server:
-        # Held at 0 until cutover: the Pi's server uses the same fabric identity, and two
-        # controllers running it at once fight over every device session
-        replicas: 0
+        replicas: 1
         strategy: Recreate
         containers:
           app:
