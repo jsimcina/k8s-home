@@ -14,6 +14,7 @@ spec:
       esphome:
         annotations:
           secret.reloader.stakater.com/reload: "{{ .Release.Name }}-secrets"
+          configmap.reloader.stakater.com/reload: "{{ .Release.Name }}-basefiles"
         pod:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
