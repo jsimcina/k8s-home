@@ -72,3 +72,22 @@ spec:
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter-lan
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/probe_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: lan-zwave-driver
+spec:
+  # Not zwave_probe: zeroscaler keys on that job and would scale zwave-js-ui to zero
+  jobName: zwave_driver_probe
+  module: http_json
+  prober:
+    url: blackbox-exporter-lan.o11y.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - http://zwave-js-ui.home.svc.cluster.local/health/zwave
+  metricRelabelings:
+    - targetLabel: service
+      replacement: blackbox-exporter-lan
