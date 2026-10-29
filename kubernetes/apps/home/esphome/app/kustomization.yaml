@@ -8,12 +8,17 @@ resources:
   - ./ocirepository.yaml
 
 configMapGenerator:
-  - name: esphome-basefiles
+  # Shared files included by several device configs. The copy-configs init
+  # container copies them into /config on every start; device configs stay
+  # on the volume.
+  - name: esphome-configs
     files:
-      - ./configfiles/.base-wifi.yaml
-      - ./configfiles/.base-mqtt.yaml
-      - ./configfiles/.wyzeoutlet-common.txt
-      - ./configfiles/.ikea-vindriktning-common.yaml
+      - ./configs/.base-mqtt.yaml
+      - ./configs/.base-wifi.yaml
+      - ./configs/.ikea-vindriktning-common.yaml
+      - ./configs/.wyzeoutlet-common.yaml
 generatorOptions:
   disableNameSuffixHash: true
-
+  annotations:
+    # ESPHome uses ${...} substitutions of its own
+    kustomize.toolkit.fluxcd.io/substitute: disabled

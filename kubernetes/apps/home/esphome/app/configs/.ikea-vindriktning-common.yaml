@@ -2,20 +2,17 @@ esphome:
   name: $devicename
   friendly_name: $friendlyname
 
-
 esp8266:
   board: d1_mini
-
 
 # Enable logging
 logger:
   baud_rate: 0
 
-
 # Enable Home Assistant API
 api:
-    encryption:
-        key: $encryptionkey
+  encryption:
+    key: $encryptionkey
 
 ota:
   platform: esphome

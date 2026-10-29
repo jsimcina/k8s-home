@@ -14,7 +14,7 @@ spec:
       esphome:
         annotations:
           secret.reloader.stakater.com/reload: "{{ .Release.Name }}-secrets"
-          configmap.reloader.stakater.com/reload: "{{ .Release.Name }}-basefiles"
+          configmap.reloader.stakater.com/reload: "{{ .Release.Name }}-configs"
         pod:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
@@ -31,7 +31,7 @@ spec:
             fsGroupChangePolicy: "OnRootMismatch"
         containers:
           app:
-            image:
+            image: &image
               repository: ghcr.io/esphome/esphome
               tag: 2026.10.1
             env:
@@ -53,6 +53,13 @@ spec:
                 memory: 512M
               limits:
                 memory: 4096M
+        initContainers:
+          copy-configs:
+            image: *image
+            command: ["/bin/sh", "-c"]
+            args:
+              # The repo is the source of truth for the shared files: overwrite them on the volume
+              - set -e; for f in /repo-configs/* /repo-configs/.[!.]*; do if [ -f "$f" ]; then cp -L "$f" /config/; fi; done
 
     service:
       app:
@@ -74,6 +81,8 @@ spec:
           esphome:
             app:
               - path: /config
+            copy-configs:
+              - path: /config
       secrets:
         type: secret
         name: "{{ .Release.Name }}-secrets"
@@ -84,22 +93,11 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /config/.esphome
-      esphome-basefiles:
-        enabled: true
+      esphome-configs:
         type: configMap
-        name: "{{ .Release.Name }}-basefiles"
+        name: "{{ .Release.Name }}-configs"
         advancedMounts:
           esphome:
-            app:
-              - path: /config/.base-wifi.yaml
-                subPath: .base-wifi.yaml
-                readOnly: true
-              - path: /config/.base-mqtt.yaml
-                subPath: .base-mqtt.yaml
-                readOnly: true
-              - path: /config/.wyzeoutlet-common.txt
-                subPath: .wyzeoutlet-common.txt
-                readOnly: true
-              - path: /config/.ikea-vindriktning-common.yaml
-                subPath: .ikea-vindriktning-common.yaml
+            copy-configs:
+              - path: /repo-configs
                 readOnly: true
