@@ -23,9 +23,9 @@ spec:
               TZ: America/Chicago
               # Image default is /data; set explicitly since the volume is mounted there
               STORAGE_PATH: /data
-              # Home Assistant's Matter integration can't be reconfigured and points at
-              # ws://10.21.5.10:5580/ws, the Pi's old IoT address, so the websocket must answer on net1
-              LISTEN_ADDRESS: eth0,net1
+              # The websocket has no auth; keep it off the IoT VLAN. HA and the route reach it
+              # through the service
+              LISTEN_ADDRESS: eth0
             args:
               # Matter mDNS and link-local traffic go out the IoT interface, where the
               # devices and Thread border routers are
