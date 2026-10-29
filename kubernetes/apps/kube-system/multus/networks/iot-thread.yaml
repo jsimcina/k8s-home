@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/k8s.cni.cncf.io/networkattachmentdefinition_v1.json
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: multus-iot-thread
+spec:
+  # multus-iot plus Thread route learning: border routers on the IoT VLAN announce the
+  # Thread OMR prefix as an RA Route Information Option, which Linux ignores unless
+  # accept_ra_rt_info_max_plen covers the /64
+  config: |-
+    {
+      "cniVersion": "1.1.0",
+      "name": "multus-iot-thread",
+      "plugins": [
+        {
+          "type": "macvlan",
+          "master": "bond0.21",
+          "mode": "bridge",
+          "capabilities": {
+            "ips": true
+          },
+          "ipam": {
+            "type": "static",
+            "routes": [
+              { "dst": "0.0.0.0/0", "gw": "10.21.0.1" }
+            ]
+          }
+        },
+        {
+          "capabilities": { "mac": true },
+          "type": "tuning",
+          "sysctl": {
+            "net.ipv6.conf.net1.accept_ra_rt_info_max_plen": "64"
+          }
+        },
+        {
+          "type": "sbr"
+        }
+      ]
+    }

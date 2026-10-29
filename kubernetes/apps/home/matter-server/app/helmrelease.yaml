@@ -1,0 +1,89 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: matter-server
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: matter-server
+  interval: 1h
+  values:
+    controllers:
+      matter-server:
+        # Held at 0 until cutover: the Pi's server uses the same fabric identity, and two
+        # controllers running it at once fight over every device session
+        replicas: 0
+        strategy: Recreate
+        containers:
+          app:
+            image:
+              repository: ghcr.io/matter-js/matterjs-server
+              tag: 1.5.5@sha256:ee149c7c67eff0e90f131e8f0d628f7b099591ec58473c8cda1209e8ae4df66e
+            env:
+              TZ: America/Chicago
+              # Image default is /data; set explicitly since the volume is mounted there
+              STORAGE_PATH: /data
+              # Websocket only on the pod network; the IoT VLAN has no business reaching it
+              LISTEN_ADDRESS: eth0
+            args:
+              # Matter mDNS and link-local traffic go out the IoT interface, where the
+              # devices and Thread border routers are
+              - --primary-interface
+              - net1
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 5580
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 5580
+                  failureThreshold: 30
+                  periodSeconds: 5
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 20m
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name":"multus-iot-thread",
+            "namespace": "kube-system",
+            "ips": ["10.21.5.12/16"],
+            "mac": "02:4d:54:15:05:0c"
+          }]
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            appProtocol: kubernetes.io/ws
+            port: 5580
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /data
+      tmp:
+        type: emptyDir
