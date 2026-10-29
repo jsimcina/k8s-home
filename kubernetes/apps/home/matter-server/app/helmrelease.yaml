@@ -31,6 +31,9 @@ spec:
               # devices and Thread border routers are
               - --primary-interface
               - net1
+              # Behind envoy the URL has no :5580, so the dashboard would prompt for a
+              # server address instead of using its own origin's /ws
+              - --production-mode
             probes:
               liveness: &probes
                 enabled: true
@@ -79,6 +82,17 @@ spec:
           http:
             appProtocol: kubernetes.io/ws
             port: 5580
+    route:
+      app:
+        annotations:
+          # The route is behind OIDC, so a probe would only see the login redirect;
+          # gatus checks /health on the service directly instead
+          gatus.home-operations.com/enabled: "false"
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"

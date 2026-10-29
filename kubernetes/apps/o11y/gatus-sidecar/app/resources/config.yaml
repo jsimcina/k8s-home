@@ -45,7 +45,7 @@ endpoints:
       hide-url: true
       hide-hostname: true
       hide-port: true
-    url: http://matter-server.jonandlinz.com:5580/health
+    url: http://matter-server.home.svc.cluster.local:5580/health
     interval: 1m
     client:
       insecure: true
