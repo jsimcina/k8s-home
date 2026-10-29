@@ -1,9 +1,0 @@
-substitutions:
-  display_name: "Outdoor Seasonal Wyze Outlet 5"
-  device_name: "outside-seasonal-wyzeoutlet5"
-  current_res: "0.001"
-  voltage_div: "770"
-
-<<: !include .base-wifi.yaml
-<<: !include .base-mqtt.yaml
-<<: !include .wyzeoutlet-common.yaml

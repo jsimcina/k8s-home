@@ -58,7 +58,7 @@ spec:
             image: *image
             command: ["/bin/sh", "-c"]
             args:
-              # The repo is the source of truth: overwrite the device configs on the volume
+              # The repo is the source of truth for the shared files: overwrite them on the volume
               - for f in /repo-configs/* /repo-configs/.[!.]*; do [ -f "$f" ] && cp -L "$f" /config/; done
 
     service:

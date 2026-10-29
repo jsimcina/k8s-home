@@ -8,31 +8,15 @@ resources:
   - ./ocirepository.yaml
 
 configMapGenerator:
-  # Copied into /config by the copy-configs init container on every start
+  # Shared files included by several device configs. The copy-configs init
+  # container copies them into /config on every start; device configs stay
+  # on the volume.
   - name: esphome-configs
     files:
       - ./configs/.base-mqtt.yaml
       - ./configs/.base-wifi.yaml
       - ./configs/.ikea-vindriktning-common.yaml
       - ./configs/.wyzeoutlet-common.yaml
-      - ./configs/apollo-plt-1-b2cfa4.yaml
-      - ./configs/bluetooth-proxy-kitchen.yaml
-      - ./configs/bt-proxy-office.yaml
-      - ./configs/corpse-actuator.yaml
-      - ./configs/energy-monitor.yaml
-      - ./configs/irk-grabber.yaml
-      - ./configs/konnected-06d604.yaml
-      - ./configs/misterfancontroller1.yaml
-      - ./configs/newt-controller-2.yaml
-      - ./configs/newt-monitor-2.yaml
-      - ./configs/newt-monitor.yaml
-      - ./configs/outdoor-seasonal-wyze-outlet-4.yaml
-      - ./configs/outdoor-seasonal-wyze-outlet5.yaml
-      - ./configs/outside-dining-wyzeoutlet.yaml
-      - ./configs/outside-office-wyzeoutlet.yaml
-      - ./configs/outside-seasonal-wyzeoutlet1.yaml
-      - ./configs/outside-seasonal-wyzeoutlet2.yaml
-      - ./configs/outside-seasonal-wyzeoutlet3.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
