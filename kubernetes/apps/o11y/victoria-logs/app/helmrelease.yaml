@@ -22,6 +22,8 @@ spec:
       extraArgs:
         syslog.listenAddr.tcp: ":5514"
         syslog.listenAddr.udp: ":5514"
+        # UniFi gear sends RFC3164 timestamps in local time with no offset
+        syslog.timezone: America/Chicago
       persistentVolume:
         storageClassName: ceph-block
         size: 50Gi
