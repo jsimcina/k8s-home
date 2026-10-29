@@ -59,7 +59,7 @@ spec:
             command: ["/bin/sh", "-c"]
             args:
               # The repo is the source of truth for the shared files: overwrite them on the volume
-              - for f in /repo-configs/* /repo-configs/.[!.]*; do [ -f "$f" ] && cp -L "$f" /config/; done
+              - set -e; for f in /repo-configs/* /repo-configs/.[!.]*; do if [ -f "$f" ]; then cp -L "$f" /config/; fi; done
 
     service:
       app:
