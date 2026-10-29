@@ -97,7 +97,8 @@ spec:
               - path: /config/.base-mqtt.yaml
                 subPath: .base-mqtt.yaml
                 readOnly: true
-              - path: /config/.wyzeoutlet-common.txt
+              # The outlet configs include .wyzeoutlet-common.yaml
+              - path: /config/.wyzeoutlet-common.yaml
                 subPath: .wyzeoutlet-common.txt
                 readOnly: true
               - path: /config/.ikea-vindriktning-common.yaml

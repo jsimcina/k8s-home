@@ -2,8 +2,11 @@
 esphome:
   name: $${device_name}
   friendly_name: $${display_name}
-  platform: ESP32
-  board: esp-wrover-kit
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
 
 logger:
 
@@ -15,6 +18,13 @@ ota:
   platform: esphome
 
 # Device Specific Config
+esp32_ble_tracker:
+  scan_parameters:
+    active: true
+
+bluetooth_proxy:
+  active: true
+
 switch:
   - platform: gpio
     name: $${display_name} Relay1
@@ -57,22 +67,20 @@ light:
     id: relay1_led
     internal: true
     output: relay1_led_gpio
-    restore_mode: RESTORE_DEFAULT_ON
   - platform: binary
     name: "Relay2 LED"
     id: relay2_led
     internal: true
     output: relay2_led_gpio
-    restore_mode: RESTORE_DEFAULT_ON
 
 sensor:
   - platform: adc
+    internal: true
     pin: GPIO34
     name: "$${display_name} LUX"
     id: lux_sensor
-    device_class: illuminance
-    unit_of_measurement: lx
-    attenuation: 12db
+    update_interval: 10s
+    attenuation: 11db
   - platform: hlw8012
     sel_pin:
       number: GPIO25
@@ -82,7 +90,7 @@ sensor:
     current_resistor: $${current_res}
     voltage_divider: $${voltage_div}
     change_mode_every: 3
-    update_interval: 3s
+    update_interval: 10s
     current:
       name: "$${display_name} Amps"
       unit_of_measurement: A
@@ -110,7 +118,7 @@ binary_sensor:
     pin:
       number: GPIO18
       mode: INPUT_PULLDOWN
-      inverted: False
+      inverted: True
     name: $${display_name} Button1
     on_press:
       - switch.toggle: relay1
@@ -119,7 +127,7 @@ binary_sensor:
     pin:
       number: GPIO17
       mode: INPUT_PULLDOWN
-      inverted: False
+      inverted: True
     name: $${display_name} Button2
     on_press:
       - switch.toggle: relay2
@@ -127,12 +135,9 @@ binary_sensor:
     name: $${display_name} daylight
     device_class: light
     lambda: |-
-        // the senor reads 3.1 volts if there is light and 0.5 if there is not light not much inbetween
         if (id(lux_sensor).state > 2) {
-          // there is daylight outside.
           return true;
         } else {
-          // there is no daylight outside (e.g. it is dark).
           return false;
         }
 
