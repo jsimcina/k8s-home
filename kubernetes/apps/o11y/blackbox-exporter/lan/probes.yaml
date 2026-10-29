@@ -79,7 +79,7 @@ kind: Probe
 metadata:
   name: lan-zwave-driver
 spec:
-  # Not zwave_probe: zeroscaler keys on that job and would scale zwave-js-ui to zero
+  # Separate job from zwave_probe, which only pings the controller
   jobName: zwave_driver_probe
   module: http_json
   prober:

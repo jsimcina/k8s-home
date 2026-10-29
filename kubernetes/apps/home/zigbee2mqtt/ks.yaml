@@ -7,7 +7,6 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-    - ../../../../components/zeroscaler
   dependsOn:
     - name: mosquitto
       namespace: database
@@ -18,7 +17,6 @@ spec:
   postBuild:
     substitute:
       APP: zigbee2mqtt
-      ZEROSCALER_JOB_NAME: zigbee_probe
   prune: true
   sourceRef:
     kind: GitRepository
