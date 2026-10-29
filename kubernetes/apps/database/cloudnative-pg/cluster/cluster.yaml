@@ -51,6 +51,10 @@ spec:
       max_connections: "600"
       shared_buffers: 512MB
       wal_compression: lz4
+      # Setting any pg_stat_statements.* parameter makes CNPG preload the
+      # library and create the extension.
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
     extensions:
       - name: vchord
         image:
