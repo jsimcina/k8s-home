@@ -27,3 +27,7 @@ spec:
         - kubernetes.pod_labels.app.kubernetes.io/name
     extraArgs:
       "kubernetesCollector.decolorizeFields": _msg
+      # cloudflared logs full request URLs on client disconnects, including Plex's
+      # ?X-Plex-Token= query string, and vlagent can't redact inside a line. Its
+      # error rates stay visible via the tunnel's Prometheus metrics and kubectl logs.
+      "kubernetesCollector.excludeFilter": 'kubernetes.pod_namespace:=network "kubernetes.pod_labels.app.kubernetes.io/name":=cloudflare-tunnel'
