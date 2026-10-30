@@ -9,5 +9,6 @@ components:
 
 resources:
   - ./namespace.yaml
+  - ./etcd-defrag/ks.yaml
   - ./talos-backup/ks.yaml
   - ./tuppr/ks.yaml
