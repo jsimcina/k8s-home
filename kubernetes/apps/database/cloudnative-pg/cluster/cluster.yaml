@@ -48,6 +48,7 @@ spec:
         serverName: postgres18
   postgresql:
     parameters:
+      checkpoint_timeout: 30min
       max_connections: "600"
       shared_buffers: 512MB
       wal_compression: lz4
