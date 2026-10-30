@@ -1,0 +1,15 @@
+---
+# The cluster was bootstrapped by recovery from postgres18-v1, whose data has no
+# "app" role, but CNPG still treats "app" as the database owner and fails to set
+# its password from postgres-app every reconcile. Nothing logs in as it; this
+# role only exists so that reconcile succeeds.
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/databaserole_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: app
+spec:
+  cluster:
+    name: postgres
+  name: app
+  login: false
