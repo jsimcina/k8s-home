@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: scrypted-nvr-exporter
+spec:
+  groups:
+    - name: scrypted-nvr.rules
+      rules:
+        - alert: ScryptedCameraNotRecording
+          expr: |-
+            time() - scrypted_nvr_last_segment_timestamp_seconds > 600
+          for: 5m
+          annotations:
+            summary: >-
+              {{ $labels.camera }} has not written a recording segment for {{ $value | humanizeDuration }}
+          labels:
+            severity: critical
+        - alert: ScryptedNvrExporterStale
+          expr: |-
+            time() - scrypted_nvr_exporter_last_run_timestamp_seconds > 600
+              or absent(scrypted_nvr_exporter_last_run_timestamp_seconds)
+          for: 10m
+          annotations:
+            summary: >-
+              The Scrypted NVR exporter has stopped reporting, so recording gaps would go unnoticed
+          labels:
+            severity: critical
