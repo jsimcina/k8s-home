@@ -154,6 +154,12 @@
       minimumGroupSize: 2,
     },
     {
+      description: "Hold qBittorrent on 5.2.x: MyAnonamouse rejects announces from 5.3.0 (not on its allowed-client list). Lift once MAM allows 5.3",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/home-operations/qbittorrent"],
+      allowedVersions: "<5.3.0",
+    },
+    {
       description: "Keep CloudNativePG on Postgres 18 until the extension images (vchord) move with it",
       matchDatasources: ["docker"],
       matchPackageNames: ["ghcr.io/cloudnative-pg/postgresql"],
