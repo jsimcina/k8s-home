@@ -7,7 +7,9 @@ metadata:
 spec:
   allowFirstLastIPs: "No"
   blocks:
-    - cidr: "10.12.0.0/24"
+    # .20-.99 is the UniFi DHCP range on the Kubernetes VLAN; keep LB IPs out of it
+    - start: "10.12.0.100"
+      stop: "10.12.0.254"
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumbgpadvertisement_v2.json
 apiVersion: cilium.io/v2
