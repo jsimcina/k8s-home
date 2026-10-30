@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: docker.io/library/busybox
-              tag: "1.37.0"
+              tag: 1.37.0@sha256:a7dbc319b1438115a207e11930dc4bb3e643dcb3ec0bdd694bb36cd8fad289ec
             command: ["/bin/sh", "/config/exporter.sh"]
             probes:
               liveness: &probes
@@ -28,7 +28,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /metrics
+                    path: /metrics.txt
                     port: &port 9100
                   initialDelaySeconds: 30
               readiness: *probes
@@ -58,6 +58,7 @@ spec:
       app:
         endpoints:
           - port: metrics
+            path: /metrics.txt
             interval: 1m
     persistence:
       config:

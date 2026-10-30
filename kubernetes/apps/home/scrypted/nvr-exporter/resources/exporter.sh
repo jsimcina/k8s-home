@@ -24,6 +24,7 @@ latest_segment() {
   done
 }
 
+# The .txt extension makes httpd send text/plain, which Prometheus requires.
 httpd -f -p 9100 -h /www &
 
 while true; do
@@ -45,6 +46,6 @@ while true; do
     echo "# HELP scrypted_nvr_exporter_last_run_timestamp_seconds When the exporter last scanned the NVR share."
     echo "# TYPE scrypted_nvr_exporter_last_run_timestamp_seconds gauge"
     echo "scrypted_nvr_exporter_last_run_timestamp_seconds $now"
-  } > /www/metrics.tmp && mv /www/metrics.tmp /www/metrics
+  } > /www/metrics.txt.tmp && mv /www/metrics.txt.tmp /www/metrics.txt
   sleep 60
 done

@@ -27,3 +27,12 @@ spec:
               The Scrypted NVR exporter has stopped reporting, so recording gaps would go unnoticed
           labels:
             severity: critical
+        - alert: ScryptedNvrNoCameras
+          expr: |-
+            absent(scrypted_nvr_last_segment_timestamp_seconds)
+          for: 10m
+          annotations:
+            summary: >-
+              No camera recordings are visible on the NVR share; it may be unmounted or Scrypted has stopped recording entirely
+          labels:
+            severity: critical
