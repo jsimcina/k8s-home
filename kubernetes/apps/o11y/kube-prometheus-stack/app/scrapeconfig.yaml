@@ -22,7 +22,6 @@ spec:
     - targets:
         - nas.jonandlinz.com:9100
         - pikvm.jonandlinz.com:9100
-        - matter-server.jonandlinz.com:9100
   relabelings:
     - targetLabel: job
       replacement: node-exporter
@@ -36,7 +35,6 @@ spec:
   staticConfigs:
     - targets:
         - nas.jonandlinz.com:9633
-        - matter-server.jonandlinz.com:9633
   relabelings:
     - targetLabel: job
       replacement: smartctl-exporter

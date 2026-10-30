@@ -143,10 +143,11 @@
       minimumGroupSize: 2,
     },
     {
-      // Unites the factory installer image and the tuppr upgrade version
+      // Unites the factory installer image, the tuppr upgrade version and the
+      // talosctl image the etcd-defrag job uses
       description: "Talos Group",
       groupName: "talos",
-      matchPackageNames: ["siderolabs/talos"],
+      matchPackageNames: ["siderolabs/talos", "ghcr.io/siderolabs/talosctl"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },

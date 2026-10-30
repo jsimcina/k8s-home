@@ -1,0 +1,80 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: etcd-defrag
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: etcd-defrag
+  interval: 1h
+  values:
+    controllers:
+      etcd-defrag:
+        type: cronjob
+        cronjob:
+          # Weekly, off the talos-backup hours. Talos never defrags etcd itself, so
+          # compaction leaves free pages behind and etcdDatabaseHighFragmentationRatio
+          # fires once the in-use share drops under half the file.
+          schedule: 30 9 * * 0
+          backoffLimit: 2
+          concurrencyPolicy: Forbid
+          failedJobsHistory: 3
+          ttlSecondsAfterFinished: 86400
+        # One member at a time: a defrag blocks that member while it runs, so the
+        # nodes are chained as init containers rather than passed together to
+        # --nodes, which talosctl fans out in parallel. The image has no shell.
+        initContainers:
+          node-01:
+            image:
+              repository: ghcr.io/siderolabs/talosctl
+              tag: v1.14.5@sha256:0b852e35c1f513ee5eacc22183d6193486012420569fde39fcd5260c51938443
+            args: ["--nodes", "10.12.0.11", "etcd", "defrag"]
+            env: &env
+              TALOSCONFIG: /var/run/secrets/talos.dev/config
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources: &resources
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
+          node-02:
+            image:
+              repository: ghcr.io/siderolabs/talosctl
+              tag: v1.14.5@sha256:0b852e35c1f513ee5eacc22183d6193486012420569fde39fcd5260c51938443
+            args: ["--nodes", "10.12.0.12", "etcd", "defrag"]
+            env: *env
+            securityContext: *securityContext
+            resources: *resources
+        containers:
+          app:
+            image:
+              repository: ghcr.io/siderolabs/talosctl
+              tag: v1.14.5@sha256:0b852e35c1f513ee5eacc22183d6193486012420569fde39fcd5260c51938443
+            args: ["--nodes", "10.12.0.13", "etcd", "defrag"]
+            env: *env
+            securityContext: *securityContext
+            resources: *resources
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
+    persistence:
+      talos-home:
+        type: emptyDir
+        globalMounts:
+          - path: /.talos
+      talos:
+        type: secret
+        name: etcd-defrag
+        globalMounts:
+          - path: /var/run/secrets/talos.dev
+            readOnly: true
