@@ -1,0 +1,55 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: etcd-defrag
+spec:
+  groups:
+    - name: etcd-defrag.rules
+      rules:
+        # The weekly defrag clears the fragmentation alert, so these watch the two
+        # things it would otherwise hide: the real data growing, and the write churn
+        # that causes fragmentation climbing. etcdDatabaseHighFragmentationRatio stays
+        # on; with weekly defrags it only fires again if churn is several times today's.
+        - alert: EtcdDataGrowing
+          expr: |-
+            etcd_mvcc_db_total_size_in_use_in_bytes{job="kube-etcd"}
+              / etcd_mvcc_db_total_size_in_use_in_bytes{job="kube-etcd"} offset 7d > 1.25
+            and etcd_mvcc_db_total_size_in_use_in_bytes{job="kube-etcd"} > 100 * 1024 * 1024
+          for: 6h
+          annotations:
+            summary: >-
+              etcd on {{ $labels.instance }} holds {{ $value | humanizePercentage }} of the
+              data it held a week ago; something is creating objects and not cleaning up
+          labels:
+            severity: warning
+        - alert: EtcdWriteChurnHigh
+          expr: |-
+            sum by (instance) (rate(etcd_mvcc_put_total{job="kube-etcd"}[1d]))
+              > 2 * sum by (instance) (rate(etcd_mvcc_put_total{job="kube-etcd"}[1d] offset 7d))
+          for: 6h
+          annotations:
+            summary: >-
+              etcd writes on {{ $labels.instance }} have more than doubled versus a week ago
+              ({{ $value | humanize }}/s); check apiserver_request_total by resource
+          labels:
+            severity: warning
+        - alert: EtcdDefragStale
+          expr: |-
+            time() - kube_cronjob_status_last_successful_time{namespace="system-upgrade", cronjob="etcd-defrag"} > 8 * 86400
+          for: 1h
+          annotations:
+            summary: >-
+              The weekly etcd defrag has not succeeded for over 8 days
+          labels:
+            severity: warning
+        - alert: EtcdDefragNeverSucceeded
+          expr: |-
+            absent(kube_cronjob_status_last_successful_time{namespace="system-upgrade", cronjob="etcd-defrag"})
+          for: 8d
+          annotations:
+            summary: >-
+              The etcd defrag CronJob has no successful run on record
+          labels:
+            severity: warning
