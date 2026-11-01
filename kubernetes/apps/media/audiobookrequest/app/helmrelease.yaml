@@ -23,6 +23,9 @@ spec:
               ABR_APP__PORT: &port 80
               LOG_LEVEL: info
               TZ: America/Chicago
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
