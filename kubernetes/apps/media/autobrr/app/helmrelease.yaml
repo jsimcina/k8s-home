@@ -57,10 +57,16 @@ spec:
                 cpu: 10m
               limits:
                 memory: 256Mi
-        pod:
-          labels:
-            setGateway: "true"
     defaultPodOptions:
+      # Public traffic (trackers, IRC) leaves through AirVPN, same as prowlarr and qbittorrent
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "multus-vpn",
+            "namespace": "kube-system",
+            "ips": ["10.4.0.15/24"],
+            "mac": "00:02:8a:ea:da:55"
+          }]
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
