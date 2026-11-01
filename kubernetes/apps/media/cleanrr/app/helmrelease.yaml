@@ -21,7 +21,7 @@ spec:
               repository: ghcr.io/zariel/cleanrr
               tag: v0.2.2@sha256:bb922f1113d62f48140c5b84b46a9f2399c5b9e64e8093f48cb4dc4caceeb4bb
             env:
-              CLEANRR_DRY_RUN: true
+              CLEANRR_DRY_RUN: false
               CLEANRR_LISTEN_ADDR: 0.0.0.0:80
               CLEANRR_MINIMUM_AGE: 5m
               CLEANRR_SERVERS__RADARR__URL: http://radarr.media.svc.cluster.local
