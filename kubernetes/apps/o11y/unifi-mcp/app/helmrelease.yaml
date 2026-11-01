@@ -31,13 +31,17 @@ spec:
               # UniFi OS serves a self-signed certificate on the LAN
               UNIFI_VERIFY_SSL: "false"
               # Writes enabled for config cleanup; every mutation still needs a confirmed preview.
-              # Creates are limited to firewall policies and networks. Reads need no permission.
+              # Creates are limited to firewall policies, networks, switch objects (port
+              # profiles, for the core switch migration) and system objects (on-demand
+              # controller backups). Reads need no permission.
               UNIFI_POLICY_NETWORK_CREATE: "false"
               UNIFI_POLICY_NETWORK_UPDATE: "true"
               UNIFI_POLICY_NETWORK_DELETE: "true"
               UNIFI_POLICY_NETWORK_FIREWALL_POLICIES_CREATE: "true"
               UNIFI_POLICY_NETWORK_NETWORKS_CREATE: "true"
               UNIFI_POLICY_NETWORK_NETWORKS_UPDATE: "true"
+              UNIFI_POLICY_NETWORK_SWITCH_CREATE: "true"
+              UNIFI_POLICY_NETWORK_SYSTEM_CREATE: "true"
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
