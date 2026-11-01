@@ -13,6 +13,7 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml
+  - ./cleanrr/ks.yaml
   - ./dashbrr/ks.yaml
   - ./filebrowser/ks.yaml
   - ./go2rtc/ks.yaml
