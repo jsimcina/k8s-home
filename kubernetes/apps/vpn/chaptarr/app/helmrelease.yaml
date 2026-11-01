@@ -29,6 +29,9 @@ spec:
               CHAPTARR__LOG__LEVEL: info
               CHAPTARR__SERVER__PORT: &port 80
               TZ: America/Chicago
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
