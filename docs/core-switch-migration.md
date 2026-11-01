@@ -111,6 +111,13 @@ Port profiles (create these in Phase 0):
 The VLANs match what the ICX carries on each port group today. PoE off and
 802.1X force-authorized on all three.
 
+On Network 11, "custom" tagging is stored as **all networks except an exclude
+list**. A list of tagged networks is silently dropped. So Core Trunk excludes
+OOB-Mgmt, and K8s Node excludes Default, ClientVLAN, ServerVLAN, IPCameraVLAN
+and OOB-Mgmt. The catch: **a network created later is tagged on both profiles
+automatically**. When adding a VLAN, decide whether the nodes should see it, and
+add it to K8s Node's exclude list if not.
+
 Server ports have to be Edge from the start, not just in Part 2. The Agg Pro
 runs RSTP as soon as it is adopted, and a non-edge port facing a device that
 sends no BPDUs (Talos bonds, the NAS) waits through listening and learning,
@@ -127,10 +134,13 @@ Unplug both, then plug both into their new pair.
 
 ## Phase 0: before the switch arrives (no impact)
 
-- [ ] Create the three port profiles in UniFi (see the table above). The unifi
-      MCP can't do this: its policy disables creating switch objects.
-- [ ] Set all three Pro Max switches to STP priority 8192. While the ICX is in
-      place, each is root of its own segment either way.
+- [x] Create the three port profiles in UniFi (see the table above). Done
+      2026-11-01 (the MCP policy was opened up in #3738).
+- [x] Set all three Pro Max switches to STP priority 8192. Done 2026-11-01; no
+      switch rebooted or dropped. They were previously Pro Max 24 PoE 4096 and,
+      presumably, the default 32768 on the other two (not read back first).
+      While the ICX is in place, each switch is root of its own segment either
+      way.
 - [ ] Label all 16 cables at both ends with their ICX port and Agg Pro port.
 - [ ] Choose a rack position right beside the ICX. Two of the cables are 1m DACs,
       and every cable should reach without changes.
@@ -138,9 +148,12 @@ Unplug both, then plug both into their new pair.
       Optional: a matching pair of 10G SR optics to replace the Pro Max 16 PoE's
       SR + LRM mix.
 - [ ] Back up the UniFi configuration (Settings → System → Backups → Download),
-      and again on arrival day before Phase 1. Auto-backup is off, and as of
-      2026-11-01 the newest backup on the console was from January 2025
-      (Network 9.0.108).
+      and again on arrival day before Phase 1. Auto-backup had been off, and the
+      newest stored backup was from January 2025 (Network 9.0.108). It was
+      re-enabled on 2026-11-01 (daily at 03:17 Central, keeping 30). The MCP's
+      `unifi_create_backup` only generates a one-time download link and does not
+      add a stored backup, so for a backup you can come back to, download one
+      from the UI or check the list for the latest auto-backup.
 - [ ] Save the current ICX config as the rollback reference. It is saved
       already; `show running-config` should match.
 
