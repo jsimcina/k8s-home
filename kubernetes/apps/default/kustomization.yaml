@@ -19,6 +19,7 @@ resources:
   - ./dinodex/ks.yaml
   - ./it-tools/ks.yaml
   - ./manyfold/ks.yaml
+  - ./memini/ks.yaml
   - ./paperless-ngx/ks.yaml
   - ./romm/ks.yaml
   - ./smtp-relay/ks.yaml
