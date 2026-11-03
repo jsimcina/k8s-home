@@ -33,7 +33,7 @@ spec:
           app:
             image: &image
               repository: ghcr.io/esphome/esphome
-              tag: 2026.10.1
+              tag: 2026.10.2
             env:
               TZ: America/Chicago
               PLATFORMIO_CORE_DIR: /config/platformio
