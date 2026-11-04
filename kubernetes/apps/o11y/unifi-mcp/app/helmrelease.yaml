@@ -80,11 +80,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          # An unauthenticated request must be refused, so 401 means up and enforcing the token
-          gatus.home-operations.com/endpoint: |-
-            conditions: ["[STATUS] == 401"]
-            path: /mcp
         hostnames:
           - "{{ .Release.Name }}.jonandlinz.io"
         parentRefs:
