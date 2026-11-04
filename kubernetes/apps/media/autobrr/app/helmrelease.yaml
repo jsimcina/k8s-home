@@ -58,15 +58,8 @@ spec:
               limits:
                 memory: 256Mi
     defaultPodOptions:
-      # Public traffic (trackers, IRC) leaves through AirVPN, same as prowlarr and qbittorrent
-      annotations:
-        k8s.v1.cni.cncf.io/networks: |-
-          [{
-            "name": "multus-vpn",
-            "namespace": "kube-system",
-            "ips": ["10.4.0.15/24"],
-            "mac": "00:02:8a:ea:da:55"
-          }]
+      # Not on multus-vpn: the IRC announce servers ban AirVPN exits listed on DroneBL.
+      # Only .torrent grabs use the home IP; qbittorrent still downloads through AirVPN.
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
