@@ -129,7 +129,7 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 | Matter-Server (RasPi 4)   | 1   | 250GB (SSD)  | -                                 | 4GB  | Raspbian Lite | Matter Server           |
 | TESmart 8 Port KVM Switch | 1   | -            | -                                 | -    | -             | Network KVM (for PiKVM) |
 | UniFi UDM SE              | 1   | -            | -                                 | -    | -             | Router                  |
-| Brocade ICX6650           | 1   | -            | -                                 | -    | -             | 10/40Gb Core Switch     |
+| USW-PRO-AGGREGATION       | 1   | -            | -                                 | -    | -             | 10/25Gb Core Switch     |
 | USW-PRO-MAX-24            | 1   | -            | -                                 | -    | -             | 1/2.5Gb Switch          |
 | USW-PRO-MAX-24-POE        | 1   | -            | -                                 | -    | -             | 1/2.5Gb POE Switch      |
 | USW-PRO-MAX-16-POE        | 1   | -            | -                                 | -    | -             | 1/2.5Gb POE Outdoor     |
