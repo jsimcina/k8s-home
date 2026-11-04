@@ -91,6 +91,6 @@ spec:
         type: nfs
         server: "nas.jonandlinz.com"
         path: /mnt/rustpool/media_server/torrents
+        # Read-write at qbittorrent's own path, so qui can hardlink cross-seeds and clean up orphaned files
         globalMounts:
           - path: /media/torrents
-            readOnly: true
