@@ -11,23 +11,17 @@ spec:
   interval: 1h
   values:
     fullnameOverride: *app
-    extraArgs: [ "--config.file=/config/snmp.yaml" ]
+    extraArgs: ["--config.file=/config/snmp.yaml"]
     extraConfigmapMounts:
-    - name: &name custom-snmp
-      mountPath: /config/snmp.yaml
-      subPath: snmp.yaml
-      configMap: *name
-      readOnly: true
-      defaultMode: 420
+      - name: &name custom-snmp
+        mountPath: /config/snmp.yaml
+        subPath: snmp.yaml
+        configMap: *name
+        readOnly: true
+        defaultMode: 420
     serviceMonitor:
       enabled: true
       params:
-        - name: brocade-icx-6650
-          module:
-            - brocade-icx
-          target: 10.0.0.6
-          auth:
-            - public_v2
         - name: tpl-ups
           module:
             - tpl_ups

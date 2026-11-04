@@ -8,6 +8,10 @@ The approach is to run both switches side by side, joined by one temporary
 10G link, and move devices across one at a time. The ICX's config is left alone
 until the end, so every step can be undone by moving the cables back.
 
+**Status (2026-11-04):** Part 1 is done. The Agg Pro is the core, and the ICX
+has been unplugged and powered off. See [Results](#results-2026-11-04) for what
+happened on the day. Part 2 is still to do.
+
 The work is in two parts:
 
 - **Part 1 (Phases 0–5):** move everything off the ICX.
@@ -45,16 +49,16 @@ seconds.
 
 ## Current core (inventory taken 2026-11-01)
 
-| ICX ports | Device                               | LAG                            | VLANs                                         | Cable / optic on the ICX                      |
-| --------- | ------------------------------------ | ------------------------------ | --------------------------------------------- | --------------------------------------------- |
-| 1/1/55–56 | UDM SE (SFP+1/SFP+2, `eth9`/`eth10`) | `udm` id 5                     | untagged 1; tagged 10, 12, 13, 21, 200, 3000  | third-party; 1m DAC                           |
-| 1/1/51–52 | Switch Pro Max 24 PoE (ports 25–26)  | `ProMax24PoE` id 2047          | same trunk                                    | 3m DAC; third-party                           |
-| 1/1/49–50 | Switch Pro Max 24 (ports 25–26)      | `ProMax24` id 2040             | same trunk                                    | 3m DAC; 1m DAC                                |
-| 1/1/53–54 | Switch Pro Max 16 PoE (ports 17–18)  | `ProMax16PoE` id 2041          | same trunk                                    | 10GE SR + 10GE LRM optics (a mismatched pair) |
-| 1/1/1–2   | home-node-01                         | `k8s-node-01` id 1, LACP short | untagged 12 (`dual-mode 12`); tagged 21, 3000 | third-party                                   |
-| 1/1/3–4   | home-node-02                         | `k8s-node-02` id 2, LACP short | as above                                      | third-party                                   |
-| 1/1/5–6   | home-node-03                         | `k8s-node-03` id 3, LACP short | as above                                      | third-party                                   |
-| 1/1/11–12 | NAS (10.12.0.6)                      | `nas` id 4, LACP short         | untagged 12 only                              | third-party                                   |
+| ICX ports | Device                               | LAG                            | VLANs                                         | Cable / optic on the ICX                    |
+| --------- | ------------------------------------ | ------------------------------ | --------------------------------------------- | ------------------------------------------- |
+| 1/1/55–56 | UDM SE (SFP+1/SFP+2, `eth9`/`eth10`) | `udm` id 5                     | untagged 1; tagged 10, 12, 13, 21, 200, 3000  | third-party; 1m DAC                         |
+| 1/1/51–52 | Switch Pro Max 24 PoE (ports 25–26)  | `ProMax24PoE` id 2047          | same trunk                                    | 3m DAC; third-party                         |
+| 1/1/49–50 | Switch Pro Max 24 (ports 25–26)      | `ProMax24` id 2040             | same trunk                                    | 3m DAC; 1m DAC                              |
+| 1/1/53–54 | Switch Pro Max 16 PoE (ports 17–18)  | `ProMax16PoE` id 2041          | same trunk                                    | 10G SR optics (matching 10Gtek since 11-03) |
+| 1/1/1–2   | home-node-01                         | `k8s-node-01` id 1, LACP short | untagged 12 (`dual-mode 12`); tagged 21, 3000 | third-party                                 |
+| 1/1/3–4   | home-node-02                         | `k8s-node-02` id 2, LACP short | as above                                      | third-party                                 |
+| 1/1/5–6   | home-node-03                         | `k8s-node-03` id 3, LACP short | as above                                      | third-party                                 |
+| 1/1/11–12 | NAS (10.12.0.6)                      | `nas` id 4, LACP short         | untagged 12 only                              | third-party                                 |
 
 "Third-party" is what `show media` reports as `UNSUPPORTED`: optics or DACs that
 aren't Brocade-coded. They work on the ICX.
@@ -171,11 +175,13 @@ Unplug both, then plug both into their new pair.
 4. Turn the link into a trunk. On the ICX, over OOB
    (`ssh -o HostName=10.99.0.6 -o HostKeyAlias=10.0.0.6 icx`), preview first,
    matching the UniFi uplinks (1/1/49–56 are `dual-mode` with
-   `no spanning-tree`):
+   `no spanning-tree`). Add the tagged VLANs **before** `dual-mode`: FastIron
+   refuses `dual-mode` on a port that is still untagged-only ("cannot set
+   untagged port to dual mode"), and a port that has been tagged but not yet set
+   to `dual-mode` drops untagged VLAN 1.
 
     ```text
     interface ethernet 1/1/7
-     dual-mode
      no spanning-tree
     vlan 10
      tagged ethernet 1/1/7
@@ -189,6 +195,8 @@ Unplug both, then plug both into their new pair.
      tagged ethernet 1/1/7
     vlan 3000
      tagged ethernet 1/1/7
+    interface ethernet 1/1/7
+     dual-mode
     ```
 
     VLAN 1 stays untagged, so the Agg Pro never loses the controller. Arm
@@ -272,15 +280,44 @@ Z-Wave and Matter are healthy.
 
 ## Phase 5: clean up
 
-- [ ] Unplug the interconnect (Agg Pro 17 ↔ ICX 1/1/7) and power the ICX off.
+- [x] Unplug the interconnect (Agg Pro 17 ↔ ICX 1/1/7) and power the ICX off.
       Leave it racked for about a week as the rollback.
-- [ ] Remove the ICX from snmp-exporter
+- [x] Remove the ICX from snmp-exporter
       ([`helmrelease.yaml`](../kubernetes/apps/o11y/snmp-exporter/app/helmrelease.yaml),
       [`snmp.yaml`](../kubernetes/apps/o11y/snmp-exporter/app/resources/snmp.yaml)),
       and remove any ICX dashboards and alerts.
 - [ ] Before the ICX leaves the house or goes into storage: close the open
       privileged-access gap (`aaa authentication enable default local`) or
       factory-reset it.
+
+## Results (2026-11-04)
+
+Part 1 ran in one sitting, about 45 minutes from power-on to the UDM move.
+
+- Phase 1: the Agg Pro adopted on 6.4.19 and upgraded itself to 7.6.11.17272.
+  The interconnect used a Ubiquiti 1m DAC in ICX 1/1/7. The `reload after`
+  backstop was skipped for the ICX trunk change: if it fired it would reboot
+  the whole core, and the Agg Pro had no other links, so it couldn't make a
+  loop. Applying the aggregates and STP priority made the Agg Pro reboot once,
+  with nothing on it yet. The Agg Pro's management IP is a static 10.0.100.1,
+  inside Default's DHCP pool (to sort out later, with the other switch IPs).
+- Downtime per move, from 0.5 s pings:
+
+    | Move           | Downtime | Notes                                                   |
+    | -------------- | -------- | ------------------------------------------------------- |
+    | home-node-03   | ~1 s     | OSD never marked down                                   |
+    | home-node-02   | ~21 s    | OSD and mon marked down; back within a minute           |
+    | home-node-01   | ~8 s     | etcd leader; its mon took ~4 min to rejoin quorum       |
+    | NAS            | ~6 s     | NFS mounts paused and recovered                         |
+    | Pro Max 24     | ~5 s     |                                                         |
+    | Pro Max 16 PoE | ~3 s     | Agg Pro port 21 optic not seated at first; reseat fixed |
+    | Pro Max 24 PoE | ~9.5 s   | second leg took about a minute to join the aggregate    |
+    | UDM            | ~26 s    | BGP re-established on all three nodes                   |
+
+- With `noout` set, Ceph never moved data, and it was `HEALTH_OK` afterwards.
+- The controller's "uplink" field for the Pro Max switches kept showing the UDM
+  for a while, and the Agg Pro's per-port counters lagged. Each switch's own
+  LACP state was the reliable check.
 
 ## Part 2: spanning tree across the whole network (draft)
 
