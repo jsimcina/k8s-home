@@ -59,7 +59,8 @@ spec:
                 memory: 256Mi
     defaultPodOptions:
       # Not on multus-vpn: the IRC announce servers ban AirVPN exits listed on DroneBL.
-      # Only .torrent grabs use the home IP; qbittorrent still downloads through AirVPN.
+      # All autobrr egress (IRC, .torrent grabs, MAM API) uses the home IP; qbittorrent
+      # still downloads through AirVPN.
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
