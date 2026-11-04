@@ -1,0 +1,67 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: unpoller-rules
+spec:
+  groups:
+    - name: unpoller-transceivers.rules
+      rules:
+        # Server-side bond members are covered by NodeBondingDegraded and
+        # NodeNetworkInterfaceFlapping from node-exporter
+        - alert: UnifiSwitchLagDegraded
+          expr: |-
+            unpoller_device_uplink_speed_mbps{name=~"USW Pro Aggregation|Switch Pro Max.*"} < 20000
+          for: 10m
+          annotations:
+            summary: >-
+              {{ $labels.name }} uplink is running at {{ $value }} Mbps instead of 20000; one LAG member is down
+          labels:
+            severity: warning
+
+        - alert: UnifiSfpPortErrors
+          expr: |-
+            sum by (name, port_num, port_name) (
+              increase(unpoller_device_port_receive_errors_total[30m])
+              + increase(unpoller_device_port_transmit_errors_total[30m])
+            ) > 20
+            and on (name, port_num) unpoller_device_port_sfp_temperature
+          for: 5m
+          annotations:
+            summary: >-
+              {{ $labels.name }} port {{ $labels.port_num }} ({{ $labels.port_name }}) logged {{ $value | humanize }} errors in 30 minutes; the transceiver or cable may be failing
+          labels:
+            severity: warning
+
+        # DACs report 0 dBm, so these only match optics. 10GBASE-SR receivers
+        # stop working around -11 dBm; healthy links here sit near -2 dBm.
+        - alert: UnifiOpticRxPowerLow
+          expr: |-
+            unpoller_device_port_sfp_rx_power < -7
+          for: 15m
+          annotations:
+            summary: >-
+              {{ $labels.name }} port {{ $labels.port_num }} optic {{ $labels.sfp_part }} ({{ $labels.sfp_serial }}) receive power is {{ $value }} dBm
+          labels:
+            severity: warning
+
+        - alert: UnifiOpticTxPowerLow
+          expr: |-
+            unpoller_device_port_sfp_tx_power < -6
+          for: 15m
+          annotations:
+            summary: >-
+              {{ $labels.name }} port {{ $labels.port_num }} optic {{ $labels.sfp_part }} ({{ $labels.sfp_serial }}) transmit power is {{ $value }} dBm
+          labels:
+            severity: warning
+
+        - alert: UnifiOpticHighTemperature
+          expr: |-
+            unpoller_device_port_sfp_temperature > 65
+          for: 15m
+          annotations:
+            summary: >-
+              {{ $labels.name }} port {{ $labels.port_num }} optic {{ $labels.sfp_part }} ({{ $labels.sfp_serial }}) is at {{ $value }}°C
+          labels:
+            severity: warning
