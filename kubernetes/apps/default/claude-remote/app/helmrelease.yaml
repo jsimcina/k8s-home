@@ -1,0 +1,63 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: claude-remote
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: claude-remote
+  interval: 1h
+  values:
+    controllers:
+      claude-remote:
+        strategy: Recreate
+        serviceAccount:
+          name: claude-remote
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/library/debian
+              tag: trixie-20261104-slim@sha256:a72b4433de1cf7d6bae0c4cee74d0547f58601a643b3375f070c51600d63b6b2
+            # Starts as root only to install OS packages, then drops to uid 1000 (see entrypoint.sh)
+            command: ["/bin/bash", "/scripts/entrypoint.sh"]
+            env:
+              TZ: America/Chicago
+              MEMINI_BASE_URL: http://memini.default.svc.cluster.local:8080
+              UNIFI_MCP_URL: http://unifi-mcp.o11y.svc.cluster.local:3000/mcp
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 4Gi
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    persistence:
+      home:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /home/claude
+      scripts:
+        type: configMap
+        name: claude-remote-scripts
+        defaultMode: 0755
+        globalMounts:
+          - path: /scripts
+            readOnly: true
+      secret:
+        type: secret
+        name: "{{ .Release.Name }}-secret"
+        globalMounts:
+          - path: /secrets
+            readOnly: true
+      tmp:
+        type: emptyDir
