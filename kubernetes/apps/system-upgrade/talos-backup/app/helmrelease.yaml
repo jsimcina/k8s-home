@@ -48,6 +48,46 @@ spec:
                 memory: 64Mi
               limits:
                 memory: 1Gi
+      # Off-site copy: once a day to Cloudflare R2, which keeps 30 days
+      # (bucket lifecycle rule on etcd-backup/), same as Garage
+      r2:
+        type: cronjob
+        cronjob:
+          schedule: 30 4 * * *
+          timeZone: America/Chicago
+          backoffLimit: 2
+          concurrencyPolicy: Forbid
+          failedJobsHistory: 3
+          ttlSecondsAfterFinished: 86400
+        containers:
+          app:
+            image:
+              repository: ghcr.io/siderolabs/talos-backup
+              tag: v0.1.0-beta.3-10-gb9fd478@sha256:7fc186ff37a3137f470082cb609bf1dc3bcece13dd9a6421ec09cfdf4f33ae6c
+            command:
+              - /talos-backup
+            workingDir: /tmp
+            env:
+              AWS_REGION: auto
+              BUCKET: kopiurbackups
+              CLUSTER_NAME: main
+              CUSTOM_S3_ENDPOINT: https://531a6d1ed13dfc473dcac1270662c109.r2.cloudflarestorage.com
+              ENABLE_COMPRESSION: "true"
+              S3_PREFIX: etcd-backup
+              USE_PATH_STYLE: "true"
+            envFrom:
+              - secretRef:
+                  name: talos-backup-r2-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64Mi
+              limits:
+                memory: 1Gi
     defaultPodOptions:
       automountServiceAccountToken: false
       securityContext:

@@ -26,3 +26,21 @@ spec:
               The etcd backup CronJob has no successful run on record
           labels:
             severity: critical
+        - alert: TalosBackupR2Stale
+          expr: |-
+            time() - kube_cronjob_status_last_successful_time{namespace="system-upgrade", cronjob="talos-backup-r2"} > 129600
+          for: 15m
+          annotations:
+            summary: >-
+              The off-site etcd backup to R2 has not succeeded for over 36 hours (it runs daily)
+          labels:
+            severity: critical
+        - alert: TalosBackupR2NeverSucceeded
+          expr: |-
+            absent(kube_cronjob_status_last_successful_time{namespace="system-upgrade", cronjob="talos-backup-r2"})
+          for: 36h
+          annotations:
+            summary: >-
+              The off-site etcd backup CronJob has no successful run on record
+          labels:
+            severity: critical
