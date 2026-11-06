@@ -38,8 +38,11 @@ contexts:
 current-context: home
 EOF
 install -m 0600 /secrets/talosconfig "$REPO/talosconfig"
+# Shells from `kubectl exec` (login or not) get the same PATH and tools
 # shellcheck disable=SC2016 # written literally for interactive shells
-grep -q 'mise activate' "$HOME/.bashrc" 2>/dev/null || echo 'eval "$(~/.local/bin/mise activate bash)"' >>"$HOME/.bashrc"
+grep -q 'mise activate' "$HOME/.bashrc" 2>/dev/null || printf '%s\n' \
+  'export PATH="$HOME/.local/bin:$PATH"' 'eval "$(~/.local/bin/mise activate bash)"' >>"$HOME/.bashrc"
+[ -f "$HOME/.bash_profile" ] || echo '. ~/.bashrc' >"$HOME/.bash_profile"
 
 # MCP servers and plugins (re-applied each start so token rotations take effect)
 claude mcp remove --scope user unifi >/dev/null 2>&1 || true
