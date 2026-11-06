@@ -57,6 +57,12 @@ claude plugin marketplace add eleboucher/memini >/dev/null 2>&1 || true
 claude plugin marketplace add sirkirby/unifi-mcp >/dev/null 2>&1 || true
 claude plugin install memini@memini >/dev/null 2>&1 || true
 claude plugin install unifi-network@unifi-plugins >/dev/null 2>&1 || true
+# Same gates as the in-cluster unifi-mcp, at the plugin's coarser granularity; every mutation previews first
+jq -n --arg h "$UNIFI_CONTROLLER_HOST" --arg u "$UNIFI_CONTROLLER_USERNAME" '{
+  host: $h, username: $u, password_file: "/secrets/unifi-password", api_key_file: "/secrets/unifi-api-key",
+  site: "default", verify_ssl: "false", permission_mode: "confirm",
+  policy_create: "false", policy_update: "true", policy_delete: "true"
+}' | claude plugin configure unifi-network@unifi-plugins --values-stdin >/dev/null 2>&1 || true
 
 echo "ready; attach with: kubectl -n default exec -it deploy/claude-remote -- runuser -u claude -- tmux attach -t rc"
 
