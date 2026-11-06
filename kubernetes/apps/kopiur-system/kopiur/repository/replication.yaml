@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kopiur.home-operations.com/repositoryreplication_v1alpha1.json
+# Off-site copy of the nas-s3 repository in Cloudflare R2. A blob-level
+# `kopia repository sync-to`, so the copy keeps the source's encryption.
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: RepositoryReplication
+metadata:
+  name: nas-s3-to-r2
+spec:
+  sourceRef:
+    kind: ClusterRepository
+    name: nas-s3
+  destination:
+    s3:
+      auth:
+        secretRef:
+          name: kopiur-r2-secret
+      bucket: kopiurbackups
+      endpoint: 531a6d1ed13dfc473dcac1270662c109.r2.cloudflarestorage.com
+      region: auto
+  schedule:
+    cron: "H 4 * * *"
+    timezone: America/Chicago
+  sync:
+    # The default copies one blob at a time, which makes the first seed to R2
+    # take far longer than it needs to
+    parallel: 8
+    # Additive (deleteExtra off): blobs pruned on the NAS stay in R2, so a
+    # damaged source repository can't empty the off-site copy
