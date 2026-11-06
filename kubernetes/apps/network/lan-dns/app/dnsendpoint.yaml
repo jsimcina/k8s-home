@@ -10,4 +10,4 @@ spec:
     - dnsName: _dns.resolver.arpa
       recordType: CNAME
       targets:
-        - unifi.jonandlinz.com
+        - ui.jonandlinz.com
