@@ -5,6 +5,7 @@ set -uo pipefail
 export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
 export GITHUB_TOKEN="$GH_TOKEN"
 REPO="$HOME/k8s-home"
+DOCS="$HOME/home-docs" # private network/device docs
 
 # CLIs via mise; mise and claude self-update in place
 [ -x "$HOME/.local/bin/mise" ] || curl -fsSL https://mise.run | sh
@@ -18,6 +19,8 @@ git config --global user.name jsimcina
 git config --global user.email jsimcina@gmail.com
 [ -d "$REPO/.git" ] || git clone -q https://github.com/jsimcina/k8s-home "$REPO"
 git -C "$REPO" pull -q --ff-only || true
+[ -d "$DOCS/.git" ] || git clone -q https://github.com/jsimcina/home-docs "$DOCS"
+git -C "$DOCS" pull -q --ff-only || true
 mise trust -q "$REPO"
 
 # The repo's mise env points KUBECONFIG/TALOSCONFIG at these gitignored files
@@ -66,12 +69,17 @@ jq -n --arg h "$UNIFI_CONTROLLER_HOST" --arg u "$UNIFI_CONTROLLER_USERNAME" '{
 
 echo "ready; attach with: kubectl -n default exec -it deploy/claude-remote -- runuser -u claude -- tmux attach -t rc"
 
-# Keep Remote Control running in tmux (it needs a TTY for first-run prompts).
-# Until `claude auth login` has been done once, just wait.
+# Keep one Remote Control server per repo running in tmux (it needs a TTY for
+# first-run prompts). Until `claude auth login` has been done once, just wait.
+rc() { # tmux session, server name, directory
+  tmux has-session -t "$1" 2>/dev/null && return
+  tmux new-session -d -s "$1" -c "$3" \
+    "claude remote-control --name $2 --spawn worktree; echo 'remote-control exited'; sleep 10"
+}
 while true; do
-  if [ -f "$HOME/.claude/.credentials.json" ] && ! tmux has-session -t rc 2>/dev/null; then
-    tmux new-session -d -s rc -c "$REPO" \
-      "claude remote-control --name k8s-home --spawn worktree; echo 'remote-control exited'; sleep 10"
+  if [ -f "$HOME/.claude/.credentials.json" ]; then
+    rc rc k8s-home "$REPO"
+    [ -d "$DOCS/.git" ] && rc rc-docs home-docs "$DOCS"
   fi
   sleep 30
 done
