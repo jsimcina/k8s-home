@@ -8,7 +8,8 @@ REPO="$HOME/k8s-home"
 
 # CLIs via mise; mise and claude self-update in place
 [ -x "$HOME/.local/bin/mise" ] || curl -fsSL https://mise.run | sh
-mise use -g --quiet kubectl flux2 talos gh helm kustomize yq just sops age
+# node runs plugin hooks and memini's MCP header helper; uv runs the unifi-network plugin
+mise use -g --quiet kubectl flux2 talos gh helm kustomize yq just sops age node@lts uv
 [ -x "$HOME/.local/bin/claude" ] || curl -fsSL https://claude.ai/install.sh | bash
 
 # Git over HTTPS with the PAT
@@ -48,6 +49,10 @@ grep -q 'mise activate' "$HOME/.bashrc" 2>/dev/null || printf '%s\n' \
 claude mcp remove --scope user unifi >/dev/null 2>&1 || true
 claude mcp add --scope user --transport http unifi "$UNIFI_MCP_URL" \
   --header "Authorization: Bearer $UNIFI_MCP_TOKEN" >/dev/null
+# Plugin MCP header helpers don't inherit *_API_KEY env vars, so memini reads its key from this file
+mkdir -p "$HOME/.config/memini"
+(umask 077 && jq -n --arg u "$MEMINI_BASE_URL" --arg k "$MEMINI_API_KEY" --arg t "$(date -u +%FT%TZ)" \
+  '{version: 1, credentials: {($u): {api_key: $k, updated_at: $t}}}' >"$HOME/.config/memini/credentials")
 claude plugin marketplace add eleboucher/memini >/dev/null 2>&1 || true
 claude plugin marketplace add sirkirby/unifi-mcp >/dev/null 2>&1 || true
 claude plugin install memini@memini >/dev/null 2>&1 || true
