@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: home-docs-runner
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: gha-runner-scale-set
+  interval: 1h
+  values:
+    githubConfigUrl: https://github.com/jsimcina/home-docs
+    githubConfigSecret: home-docs-runner-secret
+    # Deploys NAS apps from the private home-docs repo. One runner at a time,
+    # so two deploys never race on the NAS.
+    minRunners: 0
+    maxRunners: 1
+    controllerServiceAccount:
+      name: actions-runner-controller
+      namespace: actions-runner-system
+    template:
+      spec:
+        containers:
+          - name: runner
+            image: ghcr.io/home-operations/actions-runner:2.338.2@sha256:2dd7caa094a425c041539447cb0e6ae63cda10b5242773764683b695b8fa5613
+            command:
+              - /home/runner/run.sh
+            envFrom:
+              # TRUENAS_URL / TRUENAS_API_USER / TRUENAS_API_KEY for the
+              # gha-deploy user, whose only role is APPS_WRITE
+              - secretRef:
+                  name: home-docs-runner-truenas
