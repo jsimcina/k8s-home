@@ -30,6 +30,23 @@ spec:
         compression:
           type: Zstd
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
+# Layered over the shared "envoy" EnvoyProxy for the envoy-internal Gateway only.
+# Cluster (not Local) lets Cilium announce 10.12.0.250 over L2 as well as BGP:
+# with Local, the L2 announcer may have no Envoy pod and drop the traffic. The
+# load balancer runs in DSR mode, so Envoy still sees real client IPs.
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: envoy-internal
+spec:
+  mergeType: StrategicMerge
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyService:
+        externalTrafficPolicy: Cluster
+---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/gatewayclass_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
@@ -97,6 +114,10 @@ spec:
     annotations:
       external-dns.kubernetes.io/hostname: *hostname
       lbipam.cilium.io/ips: 10.12.0.250
+    parametersRef:
+      group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      name: envoy-internal
   listeners:
     - name: http
       protocol: HTTP
