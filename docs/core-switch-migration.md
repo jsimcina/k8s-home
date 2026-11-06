@@ -10,7 +10,13 @@ until the end, so every step can be undone by moving the cables back.
 
 **Status (2026-11-04):** Part 1 is done. The Agg Pro is the core, and the ICX
 has been unplugged and powered off. See [Results](#results-2026-11-04) for what
-happened on the day. Part 2 is still to do.
+happened on the day. Part 2 was finished on 2026-11-05 (see
+[Part 2](#part-2-spanning-tree-across-the-whole-network)).
+
+On 2026-11-06 the old ServerVLAN (VLAN 10) was deleted, and the remaining
+networks were renamed: Kubernetes Cluster → **Servers**, ClientVLAN →
+**Clients**, IPCameraVLAN → **Cameras**, IoT-VLAN → **IoT**. The tables below use
+the new names.
 
 The work is in two parts:
 
@@ -106,21 +112,21 @@ two cables sit stacked top and bottom.
 
 Port profiles (create these in Phase 0):
 
-| Profile    | Native VLAN             | Tagged VLANs                                                                                                              | STP port mode |
-| ---------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| Core Trunk | Default (1)             | ServerVLAN 10, Kubernetes Cluster 12, IPCameraVLAN 13, IoT-VLAN 21, ClientVLAN 200, VPN Network 3000. **Not** OOB-Mgmt 99 | not edge      |
-| K8s Node   | Kubernetes Cluster (12) | IoT-VLAN 21, VPN Network 3000                                                                                             | **Edge**      |
-| NAS        | Kubernetes Cluster (12) | none                                                                                                                      | **Edge**      |
+| Profile    | Native VLAN  | Tagged VLANs                                                                       | STP port mode |
+| ---------- | ------------ | ---------------------------------------------------------------------------------- | ------------- |
+| Core Trunk | Default (1)  | Servers 12, Cameras 13, IoT 21, Clients 200, VPN Network 3000. **Not** OOB-Mgmt 99 | not edge      |
+| K8s Node   | Servers (12) | IoT 21, VPN Network 3000                                                           | **Edge**      |
+| NAS        | Servers (12) | none                                                                               | **Edge**      |
 
 The VLANs match what the ICX carries on each port group today. PoE off and
 802.1X force-authorized on all three.
 
 On Network 11, "custom" tagging is stored as **all networks except an exclude
 list**. A list of tagged networks is silently dropped. So Core Trunk excludes
-OOB-Mgmt, and K8s Node excludes Default, ClientVLAN, ServerVLAN, IPCameraVLAN
-and OOB-Mgmt. The catch: **a network created later is tagged on both profiles
-automatically**. When adding a VLAN, decide whether the nodes should see it, and
-add it to K8s Node's exclude list if not.
+OOB-Mgmt, and K8s Node excludes Default, Clients, Cameras and OOB-Mgmt. The
+catch: **a network created later is tagged on both profiles automatically**.
+When adding a VLAN, decide whether the nodes should see it, and add it to K8s
+Node's exclude list if not.
 
 Server ports have to be Edge from the start, not just in Part 2. The Agg Pro
 runs RSTP as soon as it is adopted, and a non-edge port facing a device that
@@ -319,7 +325,7 @@ Part 1 ran in one sitting, about 45 minutes from power-on to the UDM move.
   for a while, and the Agg Pro's per-port counters lagged. Each switch's own
   LACP state was the reliable check.
 
-## Part 2: spanning tree across the whole network (draft)
+## Part 2: spanning tree across the whole network
 
 With the ICX gone, every switch in the path is UniFi, so RSTP can see the whole
 tree for the first time. Most of the setup was already done in Phase 1 step 7;
@@ -332,9 +338,12 @@ once nothing has needed a rollback.
   check under Settings → Networks → Global Switch Settings.
 - The Pro Max switches have run RSTP since then, but each one has been its own
   root, because the ICX swallowed every BPDU.
-- The controller API reports `stp_role: disabled` on every port no matter what,
-  so don't trust it. The only reliable view is the switch's own CLI: `ssh` to
-  the switch, run `cli`, then `show spanning-tree`.
+- The controller's per-port `port_table` reports `stp_role`, `stp_state` and
+  `stp_edge_port`, so each switch's spanning-tree view can be read without SSH.
+  An earlier version of this note said the API always reports
+  `stp_role: disabled`. That's what it showed while the ICX was the core, but on
+  2026-11-05 it reported real roles. The switch's own CLI (`cli`, then
+  `show spanning-tree`) still works as a cross-check.
 
 ### Steps
 
@@ -350,10 +359,8 @@ once nothing has needed a rollback.
    The switch uplinks (17, 21–28) must not be edge.
 4. **The UDM is not root.** The UDM keeps its default priority (32768) and
    should never win. Confirm it doesn't appear as root anywhere.
-5. **Loop Protection.** Turn on UniFi Loop Protection for access ports on the
-   Pro Max and Flex switches. It covers what RSTP can't: Flex Mini switches,
-   which may not take part in STP (check), and unmanaged switches or hubs
-   people plug in.
+5. **Loop Protection.** Cover what RSTP can't: Flex Mini switches, which
+   don't take part in STP, and unmanaged switches or hubs people plug in.
 6. **Optional loop test,** in a quiet window: patch two free access ports on
    one Pro Max together. RSTP should block one end within seconds, and
    `show spanning-tree` should show it Alternate/Blocking. Unplug the patch
@@ -368,6 +375,25 @@ If RSTP misbehaves (a port that should forward is blocked, or root keeps
 changing), set the site-wide switch STP back to Disabled. That puts every
 switch back in the state it was in before Part 2. The Phase 1 priorities only
 matter while STP is on, so they can stay.
+
+### Results (2026-11-05)
+
+- **Root:** every RSTP switch names the Agg Pro (priority 4096) as root: the
+  three Pro Max switches (8192 each) and the Flex 2.5G switches (32768).
+- **Uplinks:** both members of each Pro Max uplink LAG are root/forwarding, so
+  each pair acts as one link with nothing blocked.
+- **Server ports:** Agg Pro ports 1–8 (the three nodes and the NAS) are edge
+  and forwarding.
+- **UDM:** the Agg Pro ports toward the UDM are designated; the UDM isn't root.
+- **Loop protection:** UniFi exposes no per-port "Loop Protection" on these
+  switches, only BPDU guard and storm control. Storm control is on for the
+  Pro Max 24 PoE ports that feed switches without STP: ports 1, 2, 4 and 6
+  (Flex Minis) and 10 (Jon's Desk USW Flex 01), at broadcast 1000 pps and
+  multicast 2000 pps. Normal peaks are under 5 pps. BPDU guard is off: if a
+  Flex Mini passes BPDUs, RSTP already blocks the loop.
+- Pro Max 24 PoE port 6 (MasterBedroom Flex Mini) reports edge false, which
+  suggests that Flex Mini passes BPDUs through. Harmless.
+- The optional loop test (step 6) hasn't been run.
 
 ## Rollback
 
