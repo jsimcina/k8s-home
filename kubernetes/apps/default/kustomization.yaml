@@ -15,6 +15,7 @@ resources:
   - ./bambuddy/ks.yaml
   - ./chaski/ks.yaml
   - ./changedetection/ks.yaml
+  - ./claude-remote/ks.yaml
   - ./convertx/ks.yaml
   - ./dinodex/ks.yaml
   - ./it-tools/ks.yaml
