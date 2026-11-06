@@ -28,6 +28,27 @@ spec:
         matchExpressions:
           - { key: somekey, operator: NotIn, values: ["never-used-value"] }
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliuml2announcementpolicy_v2alpha1.json
+# Also answer ARP for envoy-internal's address. LB IPs sit inside the Servers
+# subnet, so hosts on it (like the NAS's Tailscale fallback router) look for
+# them on the wire instead of routing via the UDM's BGP routes. bond0 only, so
+# nothing is announced on the Multus VLANs (bond0.21, bond0.3000).
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: envoy-internal
+spec:
+  serviceSelector:
+    matchLabels:
+      gateway.envoyproxy.io/owning-gateway-name: envoy-internal
+      gateway.envoyproxy.io/owning-gateway-namespace: network
+  interfaces:
+    - ^bond0$
+  loadBalancerIPs: true
+  nodeSelector:
+    matchLabels:
+      kubernetes.io/os: linux
+---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumbgppeerconfig_v2.json
 apiVersion: cilium.io/v2
 kind: CiliumBGPPeerConfig

@@ -46,10 +46,17 @@ spec:
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: 10.69.0.0/16
+    k8sClientRateLimit:
+      # L2 announcement leases renew through the API; the default 5/10 is tight
+      qps: 10
+      burst: 20
     k8sServiceHost: 127.0.0.1
     k8sServicePort: 7445
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+    l2announcements:
+      # Only for envoy-internal (see networking.yaml); everything else is BGP-only
+      enabled: true
     loadBalancer:
       algorithm: maglev
       mode: dsr
