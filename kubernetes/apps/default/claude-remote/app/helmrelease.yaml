@@ -27,7 +27,8 @@ spec:
             env:
               TZ: America/Chicago
               MEMINI_BASE_URL: http://memini.default.svc.cluster.local:8080
-              UNIFI_MCP_URL: http://unifi-mcp.o11y.svc.cluster.local:3000/mcp
+              # unifi-mcp only accepts its route hostname (421 otherwise)
+              UNIFI_MCP_URL: https://unifi-mcp.jonandlinz.io/mcp
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -38,6 +39,7 @@ spec:
               limits:
                 memory: 4Gi
     defaultPodOptions:
+      automountServiceAccountToken: true
       securityContext:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
