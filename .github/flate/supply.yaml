@@ -1,0 +1,11 @@
+---
+# Placeholder copies of Secrets that only exist in the live cluster, so
+# flate can render the Kustomizations that substitute from them. The values
+# are dummies: CI only needs the rendered image references.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudflare-tunnel-id-secret
+  namespace: network
+stringData:
+  CLOUDFLARE_TUNNEL_ID: 00000000-0000-0000-0000-000000000000
