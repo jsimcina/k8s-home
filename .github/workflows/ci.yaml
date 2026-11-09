@@ -50,7 +50,7 @@ jobs:
           MISE_GITHUB_TOKEN: ${{ github.token }}
         run: |
           echo 'images<<EOF' >> $GITHUB_OUTPUT
-          mise exec "github:home-operations/flate@${FLATE_VERSION}" -- flate diff images -p ./kubernetes/apps -o json --allow-missing-secrets >> $GITHUB_OUTPUT
+          mise exec "github:home-operations/flate@${FLATE_VERSION}" -- flate diff images -p ./kubernetes/apps -o json --supply ./.github/flate/supply.yaml >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
   image-pull:
