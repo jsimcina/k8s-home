@@ -1,0 +1,94 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: unifi-mcp-2
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: unifi-mcp-2
+  interval: 1h
+  values:
+    controllers:
+      unifi-mcp-2:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/sirkirby/unifi-network-mcp
+              tag: 0.45.0@sha256:5c14d804e23b714850b58c4b45b722aeed9159d0acf47b182a3bfa92d2d17e7c
+            env:
+              HOME: /tmp
+              TZ: America/Chicago
+              UNIFI_MCP_HTTP_ENABLED: "true"
+              UNIFI_MCP_HOST: 0.0.0.0
+              UNIFI_MCP_PORT: &port 3000
+              # Complete Host-header allowlist; a request for any other host gets 421
+              UNIFI_MCP_ALLOWED_HOSTS: localhost,127.0.0.1,unifi-mcp-2.jonandlinz.io
+              UNIFI_NETWORK_SITE: default
+              # A second UniFi console, reached over a site-to-site IPsec VPN (the host is
+              # in the secret). UniFi OS serves a self-signed certificate on its LAN
+              UNIFI_VERIFY_SSL: "false"
+              # Same permission gates as unifi-mcp: writes enabled, and every mutation still
+              # needs a confirmed preview. Creates are limited to firewall policies, networks,
+              # switch objects and system objects (on-demand controller backups). Reads need
+              # no permission.
+              UNIFI_POLICY_NETWORK_CREATE: "false"
+              UNIFI_POLICY_NETWORK_UPDATE: "true"
+              UNIFI_POLICY_NETWORK_DELETE: "true"
+              UNIFI_POLICY_NETWORK_FIREWALL_POLICIES_CREATE: "true"
+              UNIFI_POLICY_NETWORK_NETWORKS_CREATE: "true"
+              UNIFI_POLICY_NETWORK_NETWORKS_UPDATE: "true"
+              UNIFI_POLICY_NETWORK_SWITCH_CREATE: "true"
+              UNIFI_POLICY_NETWORK_SYSTEM_CREATE: "true"
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            # TCP probes: an HTTP probe would get a 401 from the bearer token, and kubelet's
+            # Host header is rejected by the DNS-rebinding protection
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+    persistence:
+      tmp:
+        type: emptyDir
+        sizeLimit: 128Mi
+        globalMounts:
+          - path: /tmp
