@@ -30,6 +30,9 @@ spec:
               PASEO_LISTEN: 0.0.0.0:6767
               # Host-header allowlist; IPs and localhost are always allowed
               PASEO_HOSTNAMES: paseo.jonandlinz.io
+              # Trust X-Forwarded-Proto from envoy (pod CIDR), or the web UI is told to use ws:// on
+              # port 80 and the browser blocks it as mixed content
+              PASEO_TRUSTED_PROXIES: loopback,10.69.0.0/16
               MEMINI_BASE_URL: http://memini.default.svc.cluster.local:8080
               # unifi-mcp and unifi-mcp-2 only accept their route hostnames (421 otherwise)
               UNIFI_MCP_URL: https://unifi-mcp.jonandlinz.io/mcp
