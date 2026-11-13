@@ -10,6 +10,9 @@ apt-get install -y -qq --no-install-recommends \
   openssh-client procps python3 ripgrep tmux unzip vim-tiny xz-utils >/dev/null
 
 chown paseo:paseo /home/paseo
+# The /tmp emptyDir comes up world-writable without the sticky bit, and Claude Code then
+# refuses to create its cross-session messaging socket there
+chmod +t /tmp
 # Tool installs are best effort: the daemon still starts if a download fails
 gosu paseo /scripts/setup.sh || echo "[paseo] setup.sh failed; starting the daemon anyway" >&2
 

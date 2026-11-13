@@ -10,5 +10,8 @@ apt-get install -y -qq --no-install-recommends \
 
 id claude >/dev/null 2>&1 || useradd -u 1000 -U -d /home/claude -s /bin/bash claude
 chown claude:claude /home/claude
+# The /tmp emptyDir comes up world-writable without the sticky bit, and Claude Code then
+# refuses to create its cross-session messaging socket there
+chmod +t /tmp
 
 exec runuser -u claude -- /scripts/start.sh
