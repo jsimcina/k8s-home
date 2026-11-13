@@ -31,10 +31,10 @@ spec:
               # A second UniFi console, reached over a site-to-site IPsec VPN (the host is
               # in the secret). UniFi OS serves a self-signed certificate on its LAN
               UNIFI_VERIFY_SSL: "false"
-              # Same permission gates as unifi-mcp: writes enabled, and every mutation still
-              # needs a confirmed preview. Creates are limited to firewall policies, networks,
-              # switch objects and system objects (on-demand controller backups). Reads need
-              # no permission.
+              # Same permission gates as unifi-mcp, plus WLAN creation: writes enabled, and
+              # every mutation still needs a confirmed preview. Creates are limited to firewall
+              # policies, networks, WLANs, switch objects and system objects (on-demand
+              # controller backups). Reads need no permission.
               UNIFI_POLICY_NETWORK_CREATE: "false"
               UNIFI_POLICY_NETWORK_UPDATE: "true"
               UNIFI_POLICY_NETWORK_DELETE: "true"
@@ -42,6 +42,7 @@ spec:
               UNIFI_POLICY_NETWORK_NETWORKS_CREATE: "true"
               UNIFI_POLICY_NETWORK_NETWORKS_UPDATE: "true"
               UNIFI_POLICY_NETWORK_SWITCH_CREATE: "true"
+              UNIFI_POLICY_NETWORK_WLANS_CREATE: "true"
               UNIFI_POLICY_NETWORK_SYSTEM_CREATE: "true"
             envFrom:
               - secretRef:
