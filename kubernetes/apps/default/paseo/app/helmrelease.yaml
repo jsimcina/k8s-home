@@ -1,0 +1,108 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: paseo
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: paseo
+  interval: 1h
+  values:
+    controllers:
+      paseo:
+        strategy: Recreate
+        serviceAccount:
+          name: paseo
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/getpaseo/paseo
+              tag: 0.15.4@sha256:d9c05730c66a6b64a708303e7cfa6a4009f31f89507bf986fb5b098af25a1c3f
+            # Starts as root to install OS packages, sets up tools and Claude Code as paseo (uid 1000),
+            # then hands off to the image's own entrypoint, which drops to paseo for the daemon
+            command: ["/usr/bin/tini", "--", "/bin/bash", "/scripts/entrypoint.sh"]
+            env:
+              TZ: America/Chicago
+              PASEO_LISTEN: 0.0.0.0:6767
+              # Host-header allowlist; IPs and localhost are always allowed
+              PASEO_HOSTNAMES: paseo.jonandlinz.io
+              MEMINI_BASE_URL: http://memini.default.svc.cluster.local:8080
+              # unifi-mcp and unifi-mcp-2 only accept their route hostnames (421 otherwise)
+              UNIFI_MCP_URL: https://unifi-mcp.jonandlinz.io/mcp
+              UNIFI2_MCP_URL: https://unifi-mcp-2.jonandlinz.io/mcp
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: 6767
+                  initialDelaySeconds: 0
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probe
+              # Package and tool installs run before the daemon listens
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: 6767
+                  periodSeconds: 10
+                  failureThreshold: 60
+            resources:
+              requests:
+                cpu: 200m
+                memory: 1Gi
+              limits:
+                memory: 8Gi
+    defaultPodOptions:
+      automountServiceAccountToken: true
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        ports:
+          http:
+            port: 6767
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.jonandlinz.io"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - port: 6767
+    persistence:
+      home:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /home/paseo
+      scripts:
+        type: configMap
+        name: paseo-scripts
+        defaultMode: 0755
+        globalMounts:
+          - path: /scripts
+            readOnly: true
+      secret:
+        type: secret
+        name: "{{ .Release.Name }}-secret"
+        globalMounts:
+          - path: /secrets
+            readOnly: true
+      tmp:
+        type: emptyDir

@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# Runs as paseo (uid 1000). $HOME is the PVC, so tools, the Claude login and the repos survive restarts.
+set -uo pipefail
+
+export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+export GITHUB_TOKEN="$GH_TOKEN"
+REPO="$HOME/k8s-home"
+DOCS="$HOME/home-docs" # private network/device docs
+
+# CLIs via mise; mise and claude self-update in place
+[ -x "$HOME/.local/bin/mise" ] || curl -fsSL https://mise.run | sh
+# node runs plugin hooks and memini's MCP header helper; uv runs the unifi-network plugin
+mise use -g --quiet kubectl flux2 talos gh helm kustomize yq just sops age node@lts uv
+[ -x "$HOME/.local/bin/claude" ] || curl -fsSL https://claude.ai/install.sh | bash
+
+# Git over HTTPS with the PAT
+gh auth setup-git
+git config --global user.name jsimcina
+git config --global user.email jsimcina@gmail.com
+[ -d "$REPO/.git" ] || git clone -q https://github.com/jsimcina/k8s-home "$REPO"
+git -C "$REPO" pull -q --ff-only || true
+[ -d "$DOCS/.git" ] || git clone -q https://github.com/jsimcina/home-docs "$DOCS"
+git -C "$DOCS" pull -q --ff-only || true
+mise trust -q "$REPO"
+
+# The repo's mise env points KUBECONFIG/TALOSCONFIG at these gitignored files
+cat >"$REPO/kubeconfig" <<KUBECONFIG
+apiVersion: v1
+kind: Config
+clusters:
+  - name: home
+    cluster:
+      server: https://kubernetes.default.svc
+      certificate-authority: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+users:
+  - name: paseo
+    user:
+      tokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+contexts:
+  - name: home
+    context: {cluster: home, user: paseo}
+current-context: home
+KUBECONFIG
+install -m 0600 /secrets/talosconfig "$REPO/talosconfig"
+# Paseo terminals and `kubectl exec` shells get the same PATH and tools
+# shellcheck disable=SC2016 # written literally for interactive shells
+grep -q 'mise activate' "$HOME/.bashrc" 2>/dev/null || printf '%s\n' \
+  'export PATH="$HOME/.local/bin:$PATH"' 'eval "$(~/.local/bin/mise activate bash)"' >>"$HOME/.bashrc"
+[ -f "$HOME/.bash_profile" ] || echo '. ~/.bashrc' >"$HOME/.bash_profile"
+
+# MCP servers and plugins (re-applied each start so token rotations take effect)
+claude mcp remove --scope user unifi >/dev/null 2>&1 || true
+claude mcp add --scope user --transport http unifi "$UNIFI_MCP_URL" \
+  --header "Authorization: Bearer $UNIFI_MCP_TOKEN" >/dev/null
+claude mcp remove --scope user unifi-2 >/dev/null 2>&1 || true
+claude mcp add --scope user --transport http unifi-2 "$UNIFI2_MCP_URL" \
+  --header "Authorization: Bearer $UNIFI2_MCP_TOKEN" >/dev/null
+# Plugin MCP header helpers don't inherit *_API_KEY env vars, so memini reads its key from this file
+mkdir -p "$HOME/.config/memini"
+(umask 077 && jq -n --arg u "$MEMINI_BASE_URL" --arg k "$MEMINI_API_KEY" --arg t "$(date -u +%FT%TZ)" \
+  '{version: 1, credentials: {($u): {api_key: $k, updated_at: $t}}}' >"$HOME/.config/memini/credentials")
+claude plugin marketplace add eleboucher/memini >/dev/null 2>&1 || true
+claude plugin marketplace add sirkirby/unifi-mcp >/dev/null 2>&1 || true
+claude plugin install memini@memini >/dev/null 2>&1 || true
+claude plugin install unifi-network@unifi-plugins >/dev/null 2>&1 || true
+# Same gates as the in-cluster unifi-mcp, at the plugin's coarser granularity; every mutation previews first
+jq -n --arg h "$UNIFI_CONTROLLER_HOST" --arg u "$UNIFI_CONTROLLER_USERNAME" '{
+  host: $h, username: $u, password_file: "/secrets/unifi-password", api_key_file: "/secrets/unifi-api-key",
+  site: "default", verify_ssl: "false", permission_mode: "confirm",
+  policy_create: "false", policy_update: "true", policy_delete: "true"
+}' | claude plugin configure unifi-network@unifi-plugins --values-stdin >/dev/null 2>&1 || true
+
+[ -f "$CLAUDE_CONFIG_DIR/.credentials.json" ] ||
+  echo "[paseo] Claude Code is not logged in; run: kubectl -n default exec -it deploy/paseo -- gosu paseo claude"
