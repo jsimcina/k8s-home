@@ -29,6 +29,7 @@ spec:
               MEMINI_BASE_URL: http://memini.default.svc.cluster.local:8080
               # unifi-mcp only accepts its route hostname (421 otherwise)
               UNIFI_MCP_URL: https://unifi-mcp.jonandlinz.io/mcp
+              UNIFI2_MCP_URL: https://unifi-mcp-2.jonandlinz.io/mcp
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

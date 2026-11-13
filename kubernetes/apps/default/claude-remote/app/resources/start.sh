@@ -52,6 +52,9 @@ grep -q 'mise activate' "$HOME/.bashrc" 2>/dev/null || printf '%s\n' \
 claude mcp remove --scope user unifi >/dev/null 2>&1 || true
 claude mcp add --scope user --transport http unifi "$UNIFI_MCP_URL" \
   --header "Authorization: Bearer $UNIFI_MCP_TOKEN" >/dev/null
+claude mcp remove --scope user unifi-2 >/dev/null 2>&1 || true
+claude mcp add --scope user --transport http unifi-2 "$UNIFI2_MCP_URL" \
+  --header "Authorization: Bearer $UNIFI2_MCP_TOKEN" >/dev/null
 # Plugin MCP header helpers don't inherit *_API_KEY env vars, so memini reads its key from this file
 mkdir -p "$HOME/.config/memini"
 (umask 077 && jq -n --arg u "$MEMINI_BASE_URL" --arg k "$MEMINI_API_KEY" --arg t "$(date -u +%FT%TZ)" \
