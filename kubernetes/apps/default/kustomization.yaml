@@ -22,6 +22,7 @@ resources:
   - ./manyfold/ks.yaml
   - ./memini/ks.yaml
   - ./paperless-ngx/ks.yaml
+  - ./paseo/ks.yaml
   - ./romm/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./vikunja/ks.yaml
