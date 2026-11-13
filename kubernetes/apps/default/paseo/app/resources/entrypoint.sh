@@ -10,8 +10,15 @@ apt-get install -y -qq --no-install-recommends \
   openssh-client procps python3 ripgrep tmux unzip vim-tiny xz-utils >/dev/null
 
 chown paseo:paseo /home/paseo
+# The /tmp emptyDir comes up world-writable without the sticky bit, and Claude Code then
+# refuses to create its cross-session messaging socket there
+chmod +t /tmp
 # Tool installs are best effort: the daemon still starts if a download fails
 gosu paseo /scripts/setup.sh || echo "[paseo] setup.sh failed; starting the daemon anyway" >&2
+
+# `kubectl exec` shells don't get the PATH below, so link claude where the image PATH finds it
+# (the link follows claude's self-updates)
+ln -sf /home/paseo/.local/bin/claude /usr/local/bin/claude
 
 # Agents inherit the daemon's PATH, so put the PVC's claude and mise tools on it
 export PATH="/home/paseo/.local/bin:/home/paseo/.local/share/mise/shims:$PATH"
