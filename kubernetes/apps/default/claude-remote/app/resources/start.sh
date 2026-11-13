@@ -63,6 +63,16 @@ claude plugin marketplace add eleboucher/memini >/dev/null 2>&1 || true
 claude plugin marketplace add sirkirby/unifi-mcp >/dev/null 2>&1 || true
 claude plugin install memini@memini >/dev/null 2>&1 || true
 claude plugin install unifi-network@unifi-plugins >/dev/null 2>&1 || true
+# Pre-approve memini's tools so agents don't prompt for every memory read or write; deleting a
+# memory (memory_forget) still asks
+settings="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/settings.json"
+[ -f "$settings" ] || echo '{}' >"$settings"
+jq '.permissions.allow = ((.permissions.allow // []) + [
+  "mcp__plugin_memini_memini__memory_briefing", "mcp__plugin_memini_memini__memory_recall",
+  "mcp__plugin_memini_memini__memory_get", "mcp__plugin_memini_memini__memory_list",
+  "mcp__plugin_memini_memini__memory_history", "mcp__plugin_memini_memini__memory_remember",
+  "mcp__plugin_memini_memini__memory_update"
+] | unique)' "$settings" >"$settings.tmp" && mv "$settings.tmp" "$settings"
 # Same gates as the in-cluster unifi-mcp, at the plugin's coarser granularity; every mutation previews first
 jq -n --arg h "$UNIFI_CONTROLLER_HOST" --arg u "$UNIFI_CONTROLLER_USERNAME" '{
   host: $h, username: $u, password_file: "/secrets/unifi-password", api_key_file: "/secrets/unifi-api-key",
