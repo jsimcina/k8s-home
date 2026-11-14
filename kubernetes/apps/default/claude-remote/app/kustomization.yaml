@@ -12,6 +12,7 @@ configMapGenerator:
     files:
       - entrypoint.sh=./resources/entrypoint.sh
       - start.sh=./resources/start.sh
+      - unifi-read-hook.sh=./resources/unifi-read-hook.sh
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

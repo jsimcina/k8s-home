@@ -73,6 +73,14 @@ jq '.permissions.allow = ((.permissions.allow // []) + [
   "mcp__plugin_memini_memini__memory_history", "mcp__plugin_memini_memini__memory_remember",
   "mcp__plugin_memini_memini__memory_update"
 ] | unique)' "$settings" >"$settings.tmp" && mv "$settings.tmp" "$settings"
+
+# Auto-approve read-only UniFi MCP calls (list/get/lookup, also through unifi_execute and
+# unifi_batch); mutations still prompt. Replaces any earlier copy of this hook.
+jq '.hooks.PreToolUse = ([(.hooks.PreToolUse // [])[]
+    | select(.hooks | all(.command != "bash /scripts/unifi-read-hook.sh"))] + [{
+  "matcher": "mcp__(unifi|unifi-2|plugin_unifi-network_unifi-network)__.*",
+  "hooks": [{"type": "command", "command": "bash /scripts/unifi-read-hook.sh"}]
+}])' "$settings" >"$settings.tmp" && mv "$settings.tmp" "$settings"
 # Same gates as the in-cluster unifi-mcp, at the plugin's coarser granularity; every mutation previews first
 jq -n --arg h "$UNIFI_CONTROLLER_HOST" --arg u "$UNIFI_CONTROLLER_USERNAME" '{
   host: $h, username: $u, password_file: "/secrets/unifi-password", api_key_file: "/secrets/unifi-api-key",
