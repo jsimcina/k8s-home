@@ -17,4 +17,3 @@ spec:
     resources:
       requests:
         cpu: 100m # unchangable
-      limits: {}
