@@ -8,18 +8,16 @@ metadata:
   name: kritika-postgres
 spec:
   instances: 2
-  # Pinned here rather than through the shared ClusterImageCatalog so a
-  # Postgres bump rolls this cluster independently of production.
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.7-standard-trixie@sha256:37fdeea29a4d3ed14570f719488ba55bd21e8975eaea864be5ce74d25a9a13de
+  # Its own ImageCatalog rather than the shared ClusterImageCatalog, so a
+  # Postgres or vchord bump rolls this cluster independently of production
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ImageCatalog
+    name: kritika-postgres
+    major: 18
   postgresql:
     extensions:
       - name: vchord
-        image:
-          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v1.1.1
-        dynamic_library_path:
-          - /usr/lib/postgresql/18/lib
-        extension_control_path:
-          - /usr/share/postgresql/18/
     shared_preload_libraries:
       - vchord
     synchronous:
