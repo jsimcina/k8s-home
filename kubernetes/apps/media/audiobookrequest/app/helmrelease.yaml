@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: docker.io/markbeep/audiobookrequest
-              tag: 1.11.0@sha256:628080b8bc71d057927ec26109eb3135f5ce6678a541077cb5b8d13fbe9fca43
+              tag: 2.0.1@sha256:5f6d9a794ee8ee939c7780d6fe49d70561d2b8a872fcd1d2f7e96a136a7580d0
             env:
               # OIDC settings live in the app DB; this only locks the login type
               ABR_APP__FORCE_LOGIN_TYPE: oidc
