@@ -169,6 +169,13 @@
       matchPackageNames: ["ghcr.io/cloudnative-pg/postgresql"],
       allowedVersions: "/^18\\./",
     },
+    {
+      description: "kritika's vchord Database version follows ghcr.io/home-operations/vchord, not the cnpg preset's vchord-scratch (the shared cluster, for Immich, still tracks vchord-scratch)",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/tensorchord/vchord-scratch"],
+      matchFileNames: ["kubernetes/apps/kritika-system/**"],
+      enabled: false,
+    },
     // Labeling rules
     {
       matchUpdateTypes: ["major"],
