@@ -21,7 +21,7 @@ spec:
           app:
             image:
               repository: ghcr.io/getpaseo/paseo
-              tag: 0.16.0@sha256:13fa2676fa9706ec7096be080e33722bedf6cbc036f22b91d88b44e85506bdc8
+              tag: 0.16.1@sha256:e18728682ed3edb1c032df1e8423d4ec5ff2415bd73651f2db0abdeabdb4d072
             # Starts as root to install OS packages, sets up tools and Claude Code as paseo (uid 1000),
             # then hands off to the image's own entrypoint, which drops to paseo for the daemon
             command: ["/usr/bin/tini", "--", "/bin/bash", "/scripts/entrypoint.sh"]
