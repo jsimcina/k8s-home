@@ -29,7 +29,7 @@ spec:
           node-01:
             image:
               repository: ghcr.io/siderolabs/talosctl
-              tag: v1.14.5@sha256:0b852e35c1f513ee5eacc22183d6193486012420569fde39fcd5260c51938443
+              tag: v1.14.6@sha256:82c9a9985fc7292a222e680414c65955ac0566db588b84d88f620b05d16b1d5b
             args: ["--nodes", "10.12.0.11", "etcd", "defrag"]
             env: &env
               TALOSCONFIG: /var/run/secrets/talos.dev/config
@@ -46,7 +46,7 @@ spec:
           node-02:
             image:
               repository: ghcr.io/siderolabs/talosctl
-              tag: v1.14.5@sha256:0b852e35c1f513ee5eacc22183d6193486012420569fde39fcd5260c51938443
+              tag: v1.14.6@sha256:82c9a9985fc7292a222e680414c65955ac0566db588b84d88f620b05d16b1d5b
             args: ["--nodes", "10.12.0.12", "etcd", "defrag"]
             env: *env
             securityContext: *securityContext
@@ -55,7 +55,7 @@ spec:
           app:
             image:
               repository: ghcr.io/siderolabs/talosctl
-              tag: v1.14.5@sha256:0b852e35c1f513ee5eacc22183d6193486012420569fde39fcd5260c51938443
+              tag: v1.14.6@sha256:82c9a9985fc7292a222e680414c65955ac0566db588b84d88f620b05d16b1d5b
             args: ["--nodes", "10.12.0.13", "etcd", "defrag"]
             env: *env
             securityContext: *securityContext
