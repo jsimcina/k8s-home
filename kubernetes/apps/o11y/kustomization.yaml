@@ -20,6 +20,7 @@ resources:
   - ./silence-operator/ks.yaml
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
+  - ./talos-logs-relay/ks.yaml
   - ./tautulli/ks.yaml
   - ./unifi-mcp/ks.yaml
   - ./unifi-mcp-2/ks.yaml
