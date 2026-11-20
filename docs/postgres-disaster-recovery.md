@@ -9,14 +9,14 @@ This covers the shared cluster only. Kritika has its own cluster
 
 ## What is protected, and where
 
-| | |
-| --- | --- |
+|              |                                                                                                                                                           |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Object store | Cloudflare R2 bucket `cnpg`, through the `cfr2` `ObjectStore` ([`objectstore.yaml`](../kubernetes/apps/database/cloudnative-pg/cluster/objectstore.yaml)) |
-| Archive name | `serverName: postgres18` in [`cluster.yaml`](../kubernetes/apps/database/cloudnative-pg/cluster/cluster.yaml) (`plugins`) |
-| Base backups | Daily, by the `postgres` `ScheduledBackup` (`@daily`, `method: plugin`) |
-| WAL | Archived continuously by the barman-cloud plugin |
-| Retention | `30d` |
-| Credentials | `cloudnative-pg-secret`, built by an `ExternalSecret` from the 1Password item `cloudnativepg` (`R2_KEY_ID`, `R2_APP_KEY`, plus the superuser fields) |
+| Archive name | `serverName: postgres18` in [`cluster.yaml`](../kubernetes/apps/database/cloudnative-pg/cluster/cluster.yaml) (`plugins`)                                 |
+| Base backups | Daily, by the `postgres` `ScheduledBackup` (`@daily`, `method: plugin`)                                                                                   |
+| WAL          | Archived continuously by the barman-cloud plugin                                                                                                          |
+| Retention    | `30d`                                                                                                                                                     |
+| Credentials  | `cloudnative-pg-secret`, built by an `ExternalSecret` from the 1Password item `cloudnativepg` (`R2_KEY_ID`, `R2_APP_KEY`, plus the superuser fields)      |
 
 RPO is the WAL archive lag, normally a few minutes. RTO was measured once, in
 the [2026-10-27 drill](#drill-log): a one-instance restore of about 9 GB with WAL
@@ -39,13 +39,13 @@ oldest point you can restore to (about 30 days back).
 
 ## Which procedure
 
-| Situation | What to do |
-| --- | --- |
-| One instance or its volume is lost | Nothing. CNPG rebuilds it from the primary. Watch `kubectl cnpg status postgres -n database`. |
-| The primary is lost | Nothing. CNPG fails over. Same check. |
-| All instances or all volumes are lost, or the `Cluster` was deleted | [Procedure A](#procedure-a-full-rebuild) |
-| Bad data: a dropped table, a bad migration | [Procedure B](#procedure-b-point-in-time-recovery-into-a-separate-cluster). Recover into a *new* cluster, never over the live one. |
-| You want to know whether the backups work | Procedure B, as a drill |
+| Situation                                                           | What to do                                                                                                                         |
+| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| One instance or its volume is lost                                  | Nothing. CNPG rebuilds it from the primary. Watch `kubectl cnpg status postgres -n database`.                                      |
+| The primary is lost                                                 | Nothing. CNPG fails over. Same check.                                                                                              |
+| All instances or all volumes are lost, or the `Cluster` was deleted | [Procedure A](#procedure-a-full-rebuild)                                                                                           |
+| Bad data: a dropped table, a bad migration                          | [Procedure B](#procedure-b-point-in-time-recovery-into-a-separate-cluster). Recover into a _new_ cluster, never over the live one. |
+| You want to know whether the backups work                           | Procedure B, as a drill                                                                                                            |
 
 ## Before any restore
 
@@ -188,44 +188,44 @@ it.
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres-restore
-  namespace: database
+    name: postgres-restore
+    namespace: database
 spec:
-  instances: 1
-  imageCatalogRef:
-    apiGroup: postgresql.cnpg.io
-    kind: ClusterImageCatalog
-    major: 18
-    name: postgresql-standard-trixie
-  postgresql:
-    parameters:
-      max_connections: "600" # must be >= the source's, or recovery refuses to start
-    extensions:
-      - name: vchord
-        image:
-          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v1.1.1
-        dynamic_library_path:
-          - /usr/lib/postgresql/18/lib
-        extension_control_path:
-          - /usr/share/postgresql/18/
-    shared_preload_libraries:
-      - vchord.so
-  storage:
-    size: 25Gi
-    storageClass: miroir-local
-  bootstrap:
-    recovery:
-      source: origin
-      recoveryTarget:
-        targetTime: "2026-10-27 12:00:00+00" # just before the damage; omit for latest
-  externalClusters:
-    - name: origin
-      plugin:
-        isWALArchiver: true
-        name: barman-cloud.cloudnative-pg.io
+    instances: 1
+    imageCatalogRef:
+        apiGroup: postgresql.cnpg.io
+        kind: ClusterImageCatalog
+        major: 18
+        name: postgresql-standard-trixie
+    postgresql:
         parameters:
-          barmanObjectName: cfr2
-          serverName: postgres18 # the live archive (the current serverName in cluster.yaml)
+            max_connections: "600" # must be >= the source's, or recovery refuses to start
+        extensions:
+            - name: vchord
+              image:
+                  reference: ghcr.io/tensorchord/vchord-scratch:pg18-v1.1.1
+              dynamic_library_path:
+                  - /usr/lib/postgresql/18/lib
+              extension_control_path:
+                  - /usr/share/postgresql/18/
+        shared_preload_libraries:
+            - vchord.so
+    storage:
+        size: 25Gi
+        storageClass: miroir-local
+    bootstrap:
+        recovery:
+            source: origin
+            recoveryTarget:
+                targetTime: "2026-10-27 12:00:00+00" # just before the damage; omit for latest
+    externalClusters:
+        - name: origin
+          plugin:
+              isWALArchiver: true
+              name: barman-cloud.cloudnative-pg.io
+              parameters:
+                  barmanObjectName: cfr2
+                  serverName: postgres18 # the live archive (the current serverName in cluster.yaml)
 ```
 
 Three things that matter:
@@ -307,8 +307,8 @@ drill whenever the data size changes a lot, and add a row below.
 
 ## Drill log
 
-| Date | What | Result |
-| --- | --- | --- |
+| Date       | What                                                                                                   | Result                                                                                                                                                                                                                                                                                                                                                                       |
+| ---------- | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 2026-10-27 | Procedure B, one instance, `targetTime` one hour back, from the live `postgres18` archive (about 9 GB) | Healthy in at most **446 s (7.4 min)**. All 19 databases present. `vchord` 1.1.1 and `vector` installed in `immich`. A Sonarr table matched the live row count (35). Home Assistant's newest state row ended at 20:46:14 UTC against 21:56:14 on the live cluster, so recovery stopped within seconds of the target. The spec check showed `plugins= backup=` (no archiver). |
 
 Not covered by that drill: whether `isWALArchiver: true` on the external entry is
@@ -319,7 +319,7 @@ strictly required (it was present), and Procedure A (full rebuild with the
 
 The `bootstrap.recovery` block in `cluster.yaml` is a record of the Miroir
 migration (restore of the 2026-09-08 backup from `postgres18-v1`). It only has an
-effect when a `Cluster` is *created*. If the `Cluster` object were deleted and
+effect when a `Cluster` is _created_. If the `Cluster` object were deleted and
 Flux recreated it from the file as it stands, the new cluster would try to
 restore that old backup and archive into a non-empty `postgres18`. The plugin's
 empty-archive check should stop it before it does damage, but this has not been
@@ -327,8 +327,8 @@ tested, so don't rely on it: follow Procedure A step 4 first.
 
 ## What this does not cover
 
-- **etcd:** snapshots every 6 hours, age-encrypted, in Garage under
-  `etcd-backup/` in the `kopiur` bucket (see
+- **etcd:** snapshots every 6 hours, age-encrypted, in the NAS's built-in S3
+  under `etcd-backup/` in the `kopiur` bucket, kept 30 days (see
   [`talos-backup`](../kubernetes/apps/system-upgrade/talos-backup/)). A restore
   drill for those uses `talosctl bootstrap --recover-from` on a throwaway
   cluster.
