@@ -31,7 +31,7 @@ spec:
               AWS_REGION: us-east-1
               BUCKET: kopiur
               CLUSTER_NAME: main
-              CUSTOM_S3_ENDPOINT: http://nas.jonandlinz.com:9000
+              CUSTOM_S3_ENDPOINT: https://nas.jonandlinz.com:9010
               ENABLE_COMPRESSION: "true"
               S3_PREFIX: etcd-backup
               USE_PATH_STYLE: "true"
@@ -49,7 +49,7 @@ spec:
               limits:
                 memory: 1Gi
       # Off-site copy: once a day to Cloudflare R2, which keeps 30 days
-      # (bucket lifecycle rule on etcd-backup/), same as Garage
+      # (bucket lifecycle rule on etcd-backup/), same as the prune job below
       r2:
         type: cronjob
         cronjob:
@@ -88,6 +88,47 @@ spec:
                 memory: 64Mi
               limits:
                 memory: 1Gi
+      # TrueNAS S3 has no lifecycle rules ("lifecycle is not implemented"),
+      # so this deletes etcd snapshots older than 30 days from the NAS bucket
+      prune:
+        type: cronjob
+        cronjob:
+          schedule: 15 5 * * *
+          timeZone: America/Chicago
+          backoffLimit: 2
+          concurrencyPolicy: Forbid
+          failedJobsHistory: 3
+          ttlSecondsAfterFinished: 86400
+        containers:
+          app:
+            image:
+              repository: docker.io/rclone/rclone
+              tag: 1.76.0@sha256:7cbeec24a44f206067597c0368be4de90ae19a64d5113c7d1938bd737a81e466
+            args:
+              - delete
+              - :s3:kopiur/etcd-backup
+              - --min-age=30d
+              - --verbose
+            env:
+              HOME: /tmp
+              RCLONE_CONFIG: /tmp/rclone.conf
+              RCLONE_S3_ENDPOINT: https://nas.jonandlinz.com:9010
+              RCLONE_S3_ENV_AUTH: "true"
+              RCLONE_S3_PROVIDER: Other
+              RCLONE_S3_REGION: us-east-1
+            envFrom:
+              - secretRef:
+                  name: talos-backup-secret
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64Mi
+              limits:
+                memory: 256Mi
     defaultPodOptions:
       automountServiceAccountToken: false
       securityContext:
@@ -103,11 +144,17 @@ spec:
         sizeLimit: 2Gi
       talos-home:
         type: emptyDir
-        globalMounts:
-          - path: /.talos
+        advancedMounts:
+          talos-backup: &talosHome
+            app:
+              - path: /.talos
+          r2: *talosHome
       talos:
         type: secret
         name: talos-backup
-        globalMounts:
-          - path: /var/run/secrets/talos.dev
-            readOnly: true
+        advancedMounts:
+          talos-backup: &talosSecret
+            app:
+              - path: /var/run/secrets/talos.dev
+                readOnly: true
+          r2: *talosSecret

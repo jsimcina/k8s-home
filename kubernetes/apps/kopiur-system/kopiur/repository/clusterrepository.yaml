@@ -14,10 +14,9 @@ spec:
           name: kopiur-repository-secret
           namespace: kopiur-system
       bucket: kopiur
-      endpoint: nas.jonandlinz.com:9000
+      # TrueNAS built-in S3 (Object Interface), HTTPS with the NAS's Let's Encrypt cert
+      endpoint: nas.jonandlinz.com:9010
       region: us-east-1
-      tls:
-        disableTls: true
   encryption:
     passwordSecretRef:
       name: kopiur-repository-secret
