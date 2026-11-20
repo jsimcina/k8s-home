@@ -23,6 +23,11 @@ spec:
       name: kopiur-repository-secret
       namespace: kopiur-system
       key: KOPIA_PASSWORD
+  # Movers run in kopiur-system: backups stage a PVC there from a
+  # VolumeSnapshot in the app namespace (CrossNamespaceVolumeDataSource), so
+  # app namespaces need no repository credentials and run no mover pods.
+  execution:
+    mode: Central
   # The default 24h epoch let 7k+ content-index blobs pile up (kopiur's
   # IndexBlobHealth warns at 1000). Short epochs plus hourly quick maintenance
   # keep compaction ahead of the hourly snapshots.
